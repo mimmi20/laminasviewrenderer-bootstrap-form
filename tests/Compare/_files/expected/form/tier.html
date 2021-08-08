@@ -1,0 +1,1042 @@
+<form method="post" accept-charset="utf-8" action="/calculator/tier/1/input/u0u4gdbkooufei2q7gh23kr46o?subid=A-00-000"
+      class="form input-form js-help has-help has-preloader js-form-validation-base col-12 js-input-form-init"
+      data-show-arrow="left" id="tier-form">
+    <input type="hidden" name="sToken" value="36bdf78c54c9a34eba0ad3103f1e39ab">
+    <input type="hidden" name="chkFilterNachhaltigkeit" value="0">
+    <fieldset>
+        <legend class="headline-calculator"><span>Was möchten Sie versichern?</span></legend>
+
+        <div class="clearfix form-section">
+            <!-- form fields -->
+            <div class="box-formfields form-has-help" data-show-arrow="left">
+                <div class="form-group row pt-3" data-help-show="beamte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Einige Versicherer bieten Beitragsnachlässe für Beamte und Angestellte im öffentlichen Dienst.</p><strong>Hinweis zur Auswahl</strong><p>Wählen Sie auch &quot;öffentlicher Dienst&quot;, wenn Sie Beamter sind oder früher im öffentlichen Dienst beschäftigt waren und sich mittlerweile im Ruhestand befinden.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="beamte">Tarifgruppe</label>
+                    <div class="col-sm">
+                        <select name="beamte" id="beamte" class="form-control form-control-select">
+                            <option value="Normal">Normal</option>
+                            <option value="öffentl. Dienst">öffentlicher Dienst</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="ihr-geburtsdatum"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Die Angabe Ihres Geburtsdatums ist relevant für die Höhe des Beitrags. Einige Versicherungs­gesellschaften bieten Beitragsnachlässe für bestimmte Altersgruppen.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="gebdatum">Geburtsdatum<span
+                        class="text-info-required">*</span></label>
+                    <div class="col-sm date datepicker-group js-datepicker-group">
+                        <input type="text" name="gebdatum" id="gebdatum"
+                               class="form-control form-control-input datepicker js-datepicker" placeholder="TT.MM.JJJJ"
+                               required="required" data-date-format="de"
+                               data-date-format-message="Bitte geben Sie ein korrektes Geburtsdatum an!"
+                               data-min-age="18y"
+                               data-min-age-message="Sie sind leider zu jung, um eine Versicherung abzuschließen."
+                               value="" autocomplete="off"> <img class="input-group-addon ui-datepicker-trigger"
+                                                                 src="/img/geldde/ico_datepicker.svg"
+                                                                 alt="Kalender anzeigen" title="Kalender anzeigen">
+                    </div>
+                </div>
+
+                <div class="form-group row" data-help-show="artdestieres"
+                     data-help-content="<strong>Art des Tieres</strong><p>Sie können im Vergleichsrechner nur Tiere gleicher Art und Verwendung versichern. Bei unterschiedlichen Tierarten müssen Sie bitte getrennte Anträge stellen.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="artdestieres">Art des Tieres</label>
+                    <div class="col-sm">
+                        <select name="artdestieres" id="artdestieres" class="form-control form-control-select">
+                            <option value="Hund" selected="selected">Hund</option>
+                            <option value="Pferd">Pferd</option>
+                            <option value="Esel">Esel</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="anzahldertiere"
+                     data-help-content="<strong>Anzahl der Tiere</strong><p>Wählen Sie hier die Anzahl der Tiere, die Sie versichern möchten. Oftmals gibt es ab dem zweiten Tier einen Rabatt.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="anzahldertiere">Anzahl der Tiere</label>
+                    <div class="col-sm">
+                        <select name="anzahldertiere" id="anzahldertiere" class="form-control form-control-select">
+                            <option value="1" selected="selected">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select></div>
+                </div>
+
+                <div class="collapse-dogs">
+                    <div class="form-group row collapse show" data-help-show="Rasse_Tier1"
+                         data-help-content="<strong>Rasse Hund 1 eingeben</strong><p>Geben Sie hier die Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>"
+                         style="">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier1">Rasse Hund 1 eingeben<span
+                            class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier1" id="Rasse_Tier1"
+                                   class="form-control form-control-input js-pet-autocomplete ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" required="required"
+                                   autocomplete="off"></div>
+                    </div>
+
+                    <div class="form-group row collapse show" style="">
+                        <label class="col-sm col-form-label text-sm-right" for="mischling_hund1">Ist Hund 1 ein
+                            Mischling?</label>
+                        <div class="col-sm">
+                            <select name="mischling_hund1" id="mischling_hund1"
+                                    class="form-control form-control-select">
+                                <option value="nein">nein</option>
+                                <option value="ja">ja</option>
+                            </select></div>
+                    </div>
+
+                    <div class="form-group row collapse" data-help-show="Rasse_Tier1a"
+                         data-help-content="<strong>Mischlingsrasse Hund 1</strong><p>Geben Sie hier die Mischlings-Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Mischlings-Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier1a">Mischlingsrasse Hund
+                            1<span class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier1a" id="Rasse_Tier1a"
+                                   class="form-control form-control-input js-pet-autocomplete js-initial-required ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" autocomplete="off"></div>
+                    </div>
+                    <div class="form-group row collapse" data-help-show="Rasse_Tier2"
+                         data-help-content="<strong>Rasse Hund 2 eingeben</strong><p>Geben Sie hier die Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier2">Rasse Hund 2 eingeben<span
+                            class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier2" id="Rasse_Tier2"
+                                   class="form-control form-control-input js-pet-autocomplete js-initial-required ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" autocomplete="off"></div>
+                    </div>
+
+                    <div class="form-group row collapse">
+                        <label class="col-sm col-form-label text-sm-right" for="mischling_hund2">Ist Hund 2 ein
+                            Mischling?</label>
+                        <div class="col-sm">
+                            <select name="mischling_hund2" id="mischling_hund2"
+                                    class="form-control form-control-select">
+                                <option value="nein">nein</option>
+                                <option value="ja">ja</option>
+                            </select></div>
+                    </div>
+
+                    <div class="form-group row collapse" data-help-show="Rasse_Tier2a"
+                         data-help-content="<strong>Mischlingsrasse Hund 2</strong><p>Geben Sie hier die Mischlings-Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Mischlings-Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier2a">Mischlingsrasse Hund
+                            2<span class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier2a" id="Rasse_Tier2a"
+                                   class="form-control form-control-input js-pet-autocomplete js-initial-required ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" autocomplete="off"></div>
+                    </div>
+                    <div class="form-group row collapse" data-help-show="Rasse_Tier3"
+                         data-help-content="<strong>Rasse Hund 3 eingeben</strong><p>Geben Sie hier die Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier3">Rasse Hund 3 eingeben<span
+                            class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier3" id="Rasse_Tier3"
+                                   class="form-control form-control-input js-pet-autocomplete js-initial-required ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" autocomplete="off"></div>
+                    </div>
+
+                    <div class="form-group row collapse">
+                        <label class="col-sm col-form-label text-sm-right" for="mischling_hund3">Ist Hund 3 ein
+                            Mischling?</label>
+                        <div class="col-sm">
+                            <select name="mischling_hund3" id="mischling_hund3"
+                                    class="form-control form-control-select">
+                                <option value="nein">nein</option>
+                                <option value="ja">ja</option>
+                            </select></div>
+                    </div>
+
+                    <div class="form-group row collapse" data-help-show="Rasse_Tier3a"
+                         data-help-content="<strong>Mischlingsrasse Hund 3</strong><p>Geben Sie hier die Mischlings-Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Mischlings-Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier3a">Mischlingsrasse Hund
+                            3<span class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier3a" id="Rasse_Tier3a"
+                                   class="form-control form-control-input js-pet-autocomplete js-initial-required ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" autocomplete="off"></div>
+                    </div>
+                    <div class="form-group row collapse" data-help-show="Rasse_Tier4"
+                         data-help-content="<strong>Rasse Hund 4 eingeben</strong><p>Geben Sie hier die Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier4">Rasse Hund 4 eingeben<span
+                            class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier4" id="Rasse_Tier4"
+                                   class="form-control form-control-input js-pet-autocomplete js-initial-required ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" autocomplete="off"></div>
+                    </div>
+
+                    <div class="form-group row collapse">
+                        <label class="col-sm col-form-label text-sm-right" for="mischling_hund4">Ist Hund 4 ein
+                            Mischling?</label>
+                        <div class="col-sm">
+                            <select name="mischling_hund4" id="mischling_hund4"
+                                    class="form-control form-control-select">
+                                <option value="nein">nein</option>
+                                <option value="ja">ja</option>
+                            </select></div>
+                    </div>
+
+                    <div class="form-group row collapse" data-help-show="Rasse_Tier4a"
+                         data-help-content="<strong>Mischlingsrasse Hund 4</strong><p>Geben Sie hier die Mischlings-Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Mischlings-Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier4a">Mischlingsrasse Hund
+                            4<span class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier4a" id="Rasse_Tier4a"
+                                   class="form-control form-control-input js-pet-autocomplete js-initial-required ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" autocomplete="off"></div>
+                    </div>
+                    <div class="form-group row collapse" data-help-show="Rasse_Tier5"
+                         data-help-content="<strong>Rasse Hund 5 eingeben</strong><p>Geben Sie hier die Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier5">Rasse Hund 5 eingeben<span
+                            class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier5" id="Rasse_Tier5"
+                                   class="form-control form-control-input js-pet-autocomplete js-initial-required ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" autocomplete="off"></div>
+                    </div>
+
+                    <div class="form-group row collapse">
+                        <label class="col-sm col-form-label text-sm-right" for="mischling_hund5">Ist Hund 5 ein
+                            Mischling?</label>
+                        <div class="col-sm">
+                            <select name="mischling_hund5" id="mischling_hund5"
+                                    class="form-control form-control-select">
+                                <option value="nein">nein</option>
+                                <option value="ja">ja</option>
+                            </select></div>
+                    </div>
+
+                    <div class="form-group row collapse" data-help-show="Rasse_Tier5a"
+                         data-help-content="<strong>Mischlingsrasse Hund 5</strong><p>Geben Sie hier die Mischlings-Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Mischlings-Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier5a">Mischlingsrasse Hund
+                            5<span class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier5a" id="Rasse_Tier5a"
+                                   class="form-control form-control-input js-pet-autocomplete js-initial-required ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" autocomplete="off"></div>
+                    </div>
+                    <div class="form-group row collapse" data-help-show="Rasse_Tier6"
+                         data-help-content="<strong>Rasse Hund 6 eingeben</strong><p>Geben Sie hier die Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier6">Rasse Hund 6 eingeben<span
+                            class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier6" id="Rasse_Tier6"
+                                   class="form-control form-control-input js-pet-autocomplete js-initial-required ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" autocomplete="off"></div>
+                    </div>
+
+                    <div class="form-group row collapse">
+                        <label class="col-sm col-form-label text-sm-right" for="mischling_hund6">Ist Hund 6 ein
+                            Mischling?</label>
+                        <div class="col-sm">
+                            <select name="mischling_hund6" id="mischling_hund6"
+                                    class="form-control form-control-select">
+                                <option value="nein">nein</option>
+                                <option value="ja">ja</option>
+                            </select></div>
+                    </div>
+
+                    <div class="form-group row collapse" data-help-show="Rasse_Tier6a"
+                         data-help-content="<strong>Mischlingsrasse Hund 6</strong><p>Geben Sie hier die Mischlings-Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Mischlings-Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="Rasse_Tier6a">Mischlingsrasse Hund
+                            6<span class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <input type="text" name="Rasse_Tier6a" id="Rasse_Tier6a"
+                                   class="form-control form-control-input js-pet-autocomplete js-initial-required ui-autocomplete-input js-autocomplete-init"
+                                   pattern="[A-Za-z_äâàÄÂÀöÖüÜßÉÊÈéèêç()'\s.-]{2,}" value="" autocomplete="off"></div>
+                    </div>
+                </div>
+
+                <div class="form-group row collapse collapse-horse" data-help-show="rasse_pferd_v"
+                     data-help-content="<strong>Rasse des Pferdes</strong><p>Wählen Sie hier die Rasse des Pferdes</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="rasse_pferd_v">Rasse des Pferdes</label>
+                    <div class="col-sm">
+                        <select name="rasse_pferd_v" id="rasse_pferd_v" class="form-control form-control-select">
+                            <option value="Sonstige">Sonstige</option>
+                            <option value="Abaco-Wildpferd">Abaco-Wildpferd</option>
+                            <option value="Abessinier">Abessinier</option>
+                            <option value="Achetta">Achetta</option>
+                            <option value="Aegidienberger">Aegidienberger</option>
+                            <option value="Ainos-Pony">Ainos-Pony</option>
+                            <option value="Albaner">Albaner</option>
+                            <option value="American Classik Shetlandpony">American Classik Shetlandpony</option>
+                            <option value="American Miniature Horse">American Miniature Horse</option>
+                            <option value="American Paint Pony">American Paint Pony</option>
+                            <option value="American Walking Pony">American Walking Pony</option>
+                            <option value="American Welara Pony">American Welara Pony</option>
+                            <option value="Andino">Andino</option>
+                            <option value="Arenberg-Nordkirchner Pony">Arenberg-Nordkirchner Pony</option>
+                            <option value="Arravani">Arravani</option>
+                            <option value="Assateague-Pony">Assateague-Pony</option>
+                            <option value="Asturcon-Australian Pony">Asturcon-Australian Pony</option>
+                            <option value="Aveligneser (Italienischer Hafinger)">Aveligneser (Italienischer Hafinger)
+                            </option>
+                            <option value="Baise">Baise</option>
+                            <option value="Balearen Pony">Balearen Pony</option>
+                            <option value="Bali Pony">Bali Pony</option>
+                            <option value="Banker-Pony">Banker-Pony</option>
+                            <option value="Bardigiano">Bardigiano</option>
+                            <option value="Baschkire Basuto-Pony">Baschkire Basuto-Pony</option>
+                            <option value="Batak Pony (Deli Pony)">Batak Pony (Deli Pony)</option>
+                            <option value="Belgisches Reitpony">Belgisches Reitpony</option>
+                            <option value="Bergmann Pony">Bergmann Pony</option>
+                            <option value="Bhutia">Bhutia</option>
+                            <option value="Bosniake">Bosniake</option>
+                            <option value="Bosnisches Gebirgspferd">Bosnisches Gebirgspferd</option>
+                            <option value="British Riding Pony">British Riding Pony</option>
+                            <option value="British Spotted Pony">British Spotted Pony</option>
+                            <option value="Burenpferd">Burenpferd</option>
+                            <option value="Carmague">Carmague</option>
+                            <option value="Cavallino di Monterufoli">Cavallino di Monterufoli</option>
+                            <option value="Cayuse Pony">Cayuse Pony</option>
+                            <option value="Cheju Pony">Cheju Pony</option>
+                            <option value="Chickasaw Pony">Chickasaw Pony</option>
+                            <option value="China Pony">China Pony</option>
+                            <option value="Chincoteague">Chincoteague</option>
+                            <option value="Connemara-Pony">Connemara-Pony</option>
+                            <option value="Criollo">Criollo</option>
+                            <option value="Dales-Pony">Dales-Pony</option>
+                            <option value="Dartmoor-Pony">Dartmoor-Pony</option>
+                            <option value="Deutsches Classic-Pony">Deutsches Classic-Pony</option>
+                            <option value="Deutsches Part-Bred Shetland Pony">Deutsches Part-Bred Shetland Pony</option>
+                            <option value="Deutsches Reitpony">Deutsches Reitpony</option>
+                            <option value="Dülmener (Wildpferd/Grubenpony)">Dülmener (Wildpferd/Grubenpony)</option>
+                            <option value="Edelblut (Arabo-Haflinger)">Edelblut (Arabo-Haflinger)</option>
+                            <option value="Exmoor-Pony">Exmoor-Pony</option>
+                            <option value="Falabella">Falabella</option>
+                            <option value="Färöerpony">Färöerpony</option>
+                            <option value="Fell Pony">Fell Pony</option>
+                            <option value="Fjord">Fjord</option>
+                            <option value="Flores Pony">Flores Pony</option>
+                            <option value="Galiceno Pony">Galiceno Pony</option>
+                            <option value="Garrano Gotland-Pony">Garrano Gotland-Pony</option>
+                            <option value="Haflinger">Haflinger</option>
+                            <option value="Highland-Pony">Highland-Pony</option>
+                            <option value="Hokkaido">Hokkaido</option>
+                            <option value="Holländisches Reitpony">Holländisches Reitpony</option>
+                            <option value="Huzule">Huzule</option>
+                            <option value="Isländer">Isländer</option>
+                            <option value="Java">Java</option>
+                            <option value="Kasak">Kasak</option>
+                            <option value="Kaspisches Kleinpferd">Kaspisches Kleinpferd</option>
+                            <option value="Knabstrupper">Knabstrupper</option>
+                            <option value="Konik">Konik</option>
+                            <option value="Kurdisches Halbblut">Kurdisches Halbblut</option>
+                            <option value="Landais Pony">Landais Pony</option>
+                            <option value="Lehmkuhlener Pony">Lehmkuhlener Pony</option>
+                            <option value="Lewitzer">Lewitzer</option>
+                            <option value="Liebenthaler Pferd">Liebenthaler Pferd</option>
+                            <option value="Mérens">Mérens</option>
+                            <option value="Minishetlandpony">Minishetlandpony</option>
+                            <option value="Misaki">Misaki</option>
+                            <option value="Mongolen Pony">Mongolen Pony</option>
+                            <option value="Mongolisches Wildpferd">Mongolisches Wildpferd</option>
+                            <option value="Mpar">Mpar</option>
+                            <option value="Mustang">Mustang</option>
+                            <option value="Nanfan">Nanfan</option>
+                            <option value="Neufundland Pony">Neufundland Pony</option>
+                            <option value="New-Forest-Pony">New-Forest-Pony</option>
+                            <option value="Niederländisches Reitpony">Niederländisches Reitpony</option>
+                            <option value="Nigerianisches Pony">Nigerianisches Pony</option>
+                            <option value="Norwegisches Fjordpferd">Norwegisches Fjordpferd</option>
+                            <option value="Panjepferd">Panjepferd</option>
+                            <option value="Paso Fino">Paso Fino</option>
+                            <option value="Paso Peruano">Paso Peruano</option>
+                            <option value="Pindos Pony">Pindos Pony</option>
+                            <option value="Polo-Pony">Polo-Pony</option>
+                            <option value="Pony of the Americas">Pony of the Americas</option>
+                            <option value="Pottok-Pony">Pottok-Pony</option>
+                            <option value="Przewalski-Pony">Przewalski-Pony</option>
+                            <option value="Quba">Quba</option>
+                            <option value="Riwoque">Riwoque</option>
+                            <option value="Sable Island Pony">Sable Island Pony</option>
+                            <option value="Sandelholz-Pony">Sandelholz-Pony</option>
+                            <option value="Sardisches Pony">Sardisches Pony</option>
+                            <option value="Schweike">Schweike</option>
+                            <option value="Shetlandpony">Shetlandpony</option>
+                            <option value="Skyros Pony">Skyros Pony</option>
+                            <option value="Sorraia">Sorraia</option>
+                            <option value="Spiti">Spiti</option>
+                            <option value="Sumba">Sumba</option>
+                            <option value="Taishu">Taishu</option>
+                            <option value="Tarpan">Tarpan</option>
+                            <option value="Tibet">Tibet</option>
+                            <option value="Tigerscheckpony">Tigerscheckpony</option>
+                            <option value="Timor">Timor</option>
+                            <option value="Tinker">Tinker</option>
+                            <option value="Tokara Pony">Tokara Pony</option>
+                            <option value="Wjatka-Pony">Wjatka-Pony</option>
+                            <option value="Welsh Cob">Welsh Cob</option>
+                            <option value="Welsh Mountain">Welsh Mountain</option>
+                            <option value="Welsh Partbred">Welsh Partbred</option>
+                            <option value="Welsh Riding Pony">Welsh Riding Pony</option>
+                            <option value="Welsh-Pony">Welsh-Pony</option>
+                            <option value="Yonaguni Pony">Yonaguni Pony</option>
+                            <option value="Zemaitukas Pony">Zemaitukas Pony</option>
+                        </select></div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend class="headline-calculator"><span>Rabattrelevante Angaben</span></legend>
+
+        <div class="clearfix form-section">
+            <!-- form fields -->
+            <div class="box-formfields form-has-help pt-3" data-show-arrow="left">
+
+                <div class="form-group row" data-help-show="selbst"
+                     data-help-content="<strong>Selbstbeteiligung</strong><p>Eine evtl. vereinbarte Selbstbeteiligung führt zu Beitragsnachlässen und muss durch Sie nach jedem Schadensfall in vereinbarter Höhe selbst getragen werden.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="selbst">Selbstbeteiligung</label>
+                    <div class="col-sm">
+                        <select name="selbst" id="selbst" class="form-control form-control-select">
+                            <option value="nein">0 €</option>
+                            <option value="150">150 €</option>
+                            <option value="200">200 €</option>
+                            <option value="250">250 €</option>
+                            <option value="300">300 €</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="laufzeit"
+                     data-help-content="<strong>Laufzeit</strong><p>Sollten Sie eine Vertragslaufzeit von 3 Jahren wählen, können Sie bei einigen Versicherern mit einem Rabatt in Höhe von 10% rechnen.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="laufzeit">Laufzeit</label>
+                    <div class="col-sm">
+                        <select name="laufzeit" id="laufzeit" class="form-control form-control-select">
+                            <option value="1">1 Jahr</option>
+                            <option value="3" selected="selected">bis zu 3 Jahre</option>
+                            <option value="5">bis zu 5 Jahre</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="vorvers5"
+                     data-help-content="<strong>Bestand in den letzten 5 Jahren eine Vorversicherung?</strong><p>Haben Sie eine Vorversicherung, die bislang schadenfrei verlief, können Sie von verschiedenen Versicherern einen Rabatt erhalten.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="vorvers5">Bestand in den letzten 5 Jahren
+                        eine Vorversicherung?<span class="text-info-required">*</span></label>
+                    <div class="col-sm">
+                        <select name="vorvers5" id="vorvers5" class="form-control form-control-select"
+                                required="required">
+                            <option value="">-- Bitte wählen --</option>
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="schaeden5"
+                     data-help-content="<strong>Schäden in den letzten 5 Jahren</strong><p>Bei Schadenfreiheit gibt es bei einigen Tarifen einen Nachlass.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="schaeden5">Schäden in den letzten 5
+                        Jahren<span class="text-info-required">*</span></label>
+                    <div class="col-sm">
+                        <select name="schaeden5" id="schaeden5" class="form-control form-control-select"
+                                required="required">
+                            <option value="">-- Bitte wählen --</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select></div>
+                </div>
+
+                <div class="collapse-damage">
+                    <div class="form-group row collapse" data-help-show="schaden1jahr"
+                         data-help-content="<strong>In welchem Jahr war der 1. Schaden?</strong><p>Geben Sie hier das Jahr für den Schaden an.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="schaden1jahr">In welchem Jahr war der 1.
+                            Schaden?<span class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <select name="schaden1jahr" id="schaden1jahr" class="form-control form-control-select">
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
+                            </select></div>
+                    </div>
+                    <div class="form-group row collapse" data-help-show="schaden2jahr"
+                         data-help-content="<strong>In welchem Jahr war der 2. Schaden?</strong><p>Geben Sie hier das Jahr für den Schaden an.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="schaden2jahr">In welchem Jahr war der 2.
+                            Schaden?<span class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <select name="schaden2jahr" id="schaden2jahr" class="form-control form-control-select">
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
+                            </select></div>
+                    </div>
+                    <div class="form-group row collapse" data-help-show="schaden3jahr"
+                         data-help-content="<strong>In welchem Jahr war der 3. Schaden?</strong><p>Geben Sie hier das Jahr für den Schaden an.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="schaden3jahr">In welchem Jahr war der 3.
+                            Schaden?<span class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <select name="schaden3jahr" id="schaden3jahr" class="form-control form-control-select">
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
+                            </select></div>
+                    </div>
+                    <div class="form-group row collapse" data-help-show="schaden4jahr"
+                         data-help-content="<strong>In welchem Jahr war der 4. Schaden?</strong><p>Geben Sie hier das Jahr für den Schaden an.</p>">
+                        <label class="col-sm col-form-label text-sm-right" for="schaden4jahr">In welchem Jahr war der 4.
+                            Schaden?<span class="text-info-required">*</span></label>
+                        <div class="col-sm">
+                            <select name="schaden4jahr" id="schaden4jahr" class="form-control form-control-select">
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
+                            </select></div>
+                    </div>
+                </div>
+
+                <div class="form-group row collapse show" data-help-show="chipnr"
+                     data-help-content="<strong>Chip-Nr. vorhanden?</strong><p>Bei Angabe einer Chipnummer bei Hunden erhalten Sie bei einigen Gesellschaften einen Rabatt.</p>"
+                     style="">
+                    <label class="col-sm col-form-label text-sm-right" for="chipnr">Chip-Nr. vorhanden?</label>
+                    <div class="col-sm">
+                        <select name="chipnr" id="chipnr" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="lebensnr"
+                     data-help-content="<strong>Lebens-Nr. vorhanden?</strong><p>Bei Angabe einer Lebensnummer bei Pferden erhalten Sie bei einigen Gesellschaften einen Rabatt.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="lebensnr">Lebens-Nr. vorhanden?</label>
+                    <div class="col-sm">
+                        <select name="lebensnr" id="lebensnr" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="kombirabatte"
+                     data-help-content="<strong>Kombirabatte mit berechnen?</strong><p>Welche Verträge haben Sie schon oder haben vor, sie zu versichern? Je mehr Verträge Sie bei einer Gesellschaft haben, umso günstiger wird der Preis.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="kombirabatte">Kombirabatte mit
+                        berechnen?</label>
+                    <div class="col-sm">
+                        <select name="kombirabatte" id="kombirabatte"
+                                class="form-control form-control-select toggle-trigger" data-toggle-modus="show"
+                                data-toggle-value="ja">
+                            <option value="nein" selected="selected">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="collapse toggle-box-kombirabatte discount">
+        <legend class="headline-calculator"><span>Kombirabatte für folgende Sparten-Kombinationen berücksichtigen</span>
+        </legend>
+
+        <div class="clearfix form-section">
+            <!-- form fields -->
+            <div class="box-formfields form-has-help" data-show-arrow="left">
+                <p class="text-center pt-2 text-info-discount">Kombirabatte - Je mehr Verträge bei einer Gesellschaft,
+                    um so günstigere Preise.
+                    Welche Verträge haben Sie schon oder haben vor, sie zu versichern?</p>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrPHV">Privathaftpflicht</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrPHV">
+                            <input type="checkbox" name="KrPHV" id="KrPHV" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrTIE">Tierhalterhaftpflicht</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone check-active" for="KrTIE">
+                            <input type="checkbox" name="KrTIE" id="KrTIE" class="form-check-input" value="1"
+                                   checked="checked"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrHUG">Haus-Grundbesitzer Haftpflicht</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrHUG">
+                            <input type="checkbox" name="KrHUG" id="KrHUG" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrOEL">Gewässerschaden/Öltank</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrOEL">
+                            <input type="checkbox" name="KrOEL" id="KrOEL" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrWG">Wohngebäude</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrWG">
+                            <input type="checkbox" name="KrWG" id="KrWG" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrWGGLS">Wohngebäude-Glas</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrWGGLS">
+                            <input type="checkbox" name="KrWGGLS" id="KrWGGLS" class="form-check-input" value="1">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrHR">Hausrat</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrHR">
+                            <input type="checkbox" name="KrHR" id="KrHR" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrHRGLS">Hausrat-Glas</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrHRGLS">
+                            <input type="checkbox" name="KrHRGLS" id="KrHRGLS" class="form-check-input" value="1">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrUNF">Unfall</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrUNF">
+                            <input type="checkbox" name="KrUNF" id="KrUNF" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrRS">Rechtsschutz</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrRS">
+                            <input type="checkbox" name="KrRS" id="KrRS" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <!-- Zusatzfragen -->
+    <div class="more-questions">
+        <label class="form-radio js-gtm-event" for="zusatzfragen_nein" data-event-type="click"
+               data-event-category="versicherung" data-event-action="no additional questions"
+               data-event-label="tier"><input type="radio" name="zusatzfragen" id="zusatzfragen_nein"
+                                              class="form-check-input form-radio-input" required="required"
+                                              value="nein">Ich verzichte auf die Beantwortung weiterer Fragen und wähle
+            aus dem Vergleich einen Tarif, der meinen Bedarf erfüllt.</label><label class="form-radio js-gtm-event"
+                                                                                    for="zusatzfragen_ja"
+                                                                                    data-event-type="click"
+                                                                                    data-event-category="versicherung"
+                                                                                    data-event-action="additional questions requested"
+                                                                                    data-event-label="tier"><input
+        type="radio" name="zusatzfragen" id="zusatzfragen_ja" class="form-check-input form-radio-input"
+        required="required" value="ja">Ich möchte weitere Angaben zum gewünschten Versicherungsschutz machen. Es werden
+        dann nur Tarife angezeigt, welche die Vorgaben erfüllen.</label></div>
+
+    <fieldset class="collapse collapse-questions">
+        <legend class="headline-calculator"><span>Optionale Detailfragen</span></legend>
+        <div class="clearfix form-section">
+            <!-- form fields -->
+            <div class="box-formfields form-has-help" data-show-on="mouseup" data-show-help="last"
+                 data-show-help-on-load="0" data-show-arrow="left">
+                <div class="form-group row pt-3" data-help-show="uver_v"
+                     data-help-content="<strong>Wählen Sie eine Vorgabe für Ihre Berechnung</strong><p>Die Vorgabe des Arbeitskreis Vermittlerrichlinie (AK-Empfehlung) bietet Ihnen einen empfohlenen Mindestschutz. Heute erfüllen alle wichtigen Tarife diese Vorgaben. Zu Ihrer Sicherheit sollten Sie diese Mindestvorgaben wählen.</p>">
+                    <label class="col-sm text-sm-right check-label">Wählen Sie eine Vorgabe für Ihre Berechnung</label>
+                    <div class="col-sm">
+                        <div class="mx-auto mt-sm-2 text-center text-sm-left">
+                            <a href="#" class="js-standard js-gtm-event" data-event-type="click"
+                               data-event-category="versicherung" data-event-label="tier"
+                               data-event-action="choose standard options">Standard</a> |
+                            <a href="#" class="recommendation js-recommendation js-gtm-event"
+                               title="Mindeststandards des Arbeitskreises EU-Vermittlerrichtlinie"
+                               data-help-show="recommendation"
+                               data-help-content="<p>Diese Voreinstellung erfüllt die vom Arbeitskreis EU-Vermittlerrichtlinie entwickelten Mindeststandards.</p>"
+                               data-event-type="click" data-event-category="versicherung" data-event-label="tier"
+                               data-event-action="choose AK recommentations">AK Empfehlung</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="collapse collapse-questions">
+        <legend class="headline-calculator headline-calculator-small collapse show collapse-donkey"><span>Beitragsrelevante Angaben</span>
+        </legend>
+
+        <div class="clearfix form-section collapse show collapse-donkey">
+            <!-- form fields -->
+            <div class="box-formfields form-has-help pt-3" data-show-arrow="left">
+
+                <div class="form-group row collapse" data-help-show="pferd_stockmass_v"
+                     data-help-content="<strong>Stockmaß des Pferdes bis 148 cm?</strong><p>Das Stockmaß besteht aus einem langen Stab mit Meßskala und einem beweglichen Arm der im 90 ° Winkel am Stab befestigt ist. Zum Messen wird der Stab auf Höhe des Widerrists neben das Pferd gestellt und der Arm so weit nach unten geschoben, bis er auf dem Widerrist aufliegt. Der ermittelte Wert ist das Stockmaß.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="pferd_stockmass_v">Stockmaß des Pferdes bis
+                        148 cm?</label>
+                    <div class="col-sm">
+                        <select name="pferd_stockmass_v" id="pferd_stockmass_v"
+                                class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="pferd_reiten_v"
+                     data-help-content="<strong>Wird das Pferd geritten? (Reitrisiko mitversichern)</strong><p>Pferde die geritten werden, haben ein größeres Risiko einen Schaden zu verursachen. Möchten Sie das Risiko mit versichern, wählen Sie dies hier.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="pferd_reiten_v">Wird das Pferd geritten?
+                        (Reitrisiko mitversichern)</label>
+                    <div class="col-sm">
+                        <select name="pferd_reiten_v" id="pferd_reiten_v" class="form-control form-control-select">
+                            <option value="ja">ja</option>
+                            <option value="nein">nein</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="reitpass_v"
+                     data-help-content="<strong>Hat der Halter einen Reitpass?</strong><p>Reitpass Dieser kann mit einer Prüfung über den Landessportverbänden erlangt werden und bescheinigt Reitern, dass sie ein Pferd sicher im Gelände führen können und die theoretischen Kenntnisse bestehen. Ein Nachweis ist dem Antrag beizufügen. Reit- und Kutschabzeichen werden diesem gleichgestellt?</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="reitpass_v">Hat der Halter einen
+                        Reitpass?</label>
+                    <div class="col-sm">
+                        <select name="reitpass_v" id="reitpass_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="pferd_reitbeteiligung_v"
+                     data-help-content="<strong>Gibt es eine Reitbeteiligung?</strong><p>Für den, der sich kein eigenes Pferd leisten will oder kann, ist eine Reitbeteiligung eine gute Sache. Hier kann man sich um ein bestimmtes Pferd kümmern, es täglich sehen, pflegen und Freundschaft schließen. Für die Pferdebesitzer ergeben sich auch Vorteile. Er muss sich nicht mehr ständig um das Pferd kümmern, Aufgaben können geteilt werden und evtl. wird der Besitzer auch noch finanziell ein wenig entlastet. Was genau ein Reitbeteiligungsabkommen beeinhaltet ist von Fall zu Fall verschieden. Möglich ist alles, von der kompletten Überlassung des Pferdes bis hin zur ausschließlichen Hilfe im Stall.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="pferd_reitbeteiligung_v">Gibt es eine
+                        Reitbeteiligung?</label>
+                    <div class="col-sm">
+                        <select name="pferd_reitbeteiligung_v" id="pferd_reitbeteiligung_v"
+                                class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="fremd_v"
+                     data-help-content="<strong>Fremdreiterrisiko?</strong><p>Wenn ein berechtigter Reiter mit Ihrem Pferd einen Schaden an Dritten verursacht. (unentgeltliche Nutzung).</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="fremd_v">Fremdreiterrisiko?</label>
+                    <div class="col-sm">
+                        <select name="fremd_v" id="fremd_v" class="form-control form-control-select">
+                            <option value="ja">ja (AK Empfehlung)</option>
+                            <option value="nein" selected="selected">nein</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="sport_v"
+                     data-help-content="<strong>Nehmen die Tiere an Wettkämpfen/Turnieren teil?</strong><p>In diesen Fällen muß geprüft werden, welche Veranstaltungen mitversichert sind.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="sport_v">Nehmen die Tiere an
+                        Wettkämpfen/Turnieren teil?</label>
+                    <div class="col-sm">
+                        <select name="sport_v" id="sport_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="pferderennen_v"
+                     data-help-content="<strong>Nimmt das Pferd an Pferderennen teil?</strong><p>Über diesen Zusatzbaustein gelten reitsportliche Veranstaltungen und dazugehörige Trainingseinheiten mitversichert, auch wenn es auf die Erzielung einer Höchstgeschwindigkeit ankommt.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="pferderennen_v">Nimmt das Pferd an
+                        Pferderennen teil?</label>
+                    <div class="col-sm">
+                        <select name="pferderennen_v" id="pferderennen_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="verein_v"
+                     data-help-content="<strong>Sind Sie Mitglied im Reitverein?</strong><p>Bei Mitgliedschaften in Reitvereinen kann es einen Extra Nachlass geben.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="verein_v">Sind Sie Mitglied im
+                        Reitverein?</label>
+                    <div class="col-sm">
+                        <select name="verein_v" id="verein_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="kutsch_v"
+                     data-help-content="<strong>Verwendung für Kutschfahrten?</strong><p>Kutschfahrten sind nur in einigen Tarifen mitversichert.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="kutsch_v">Verwendung für
+                        Kutschfahrten?</label>
+                    <div class="col-sm">
+                        <select name="kutsch_v" id="kutsch_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse show" data-help-show="tier_nebenberuf_v"
+                     data-help-content="<strong>Nebenberufliche Tätigkeit bis 17.500 EUR?</strong><p>Über diesen Zusatzbaustein besteht Versicherungsschutz auf für eine gewerbliche Nutzung der versicherten Tiere, sofern der Jahresumsatz den Betrag von 17.500 Euro nicht übersteigt.</p>"
+                     style="">
+                    <label class="col-sm col-form-label text-sm-right" for="tier_nebenberuf_v">Nebenberufliche Tätigkeit
+                        bis 17.500 EUR?</label>
+                    <div class="col-sm">
+                        <select name="tier_nebenberuf_v" id="tier_nebenberuf_v"
+                                class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse show" data-help-show="hund_schule_v"
+                     data-help-content="<strong>Nachweis für den Besuch einer Hundeschule?</strong><p>Ein Nachlass kann gewährt werden, sofern mit dem Antrag der Nachweis über den Besuch einer Hundeschule mit dem zu versichernden Hund erbracht wird</p>"
+                     style="">
+                    <label class="col-sm col-form-label text-sm-right" for="hund_schule_v">Nachweis für den Besuch einer
+                        Hundeschule?</label>
+                    <div class="col-sm">
+                        <select name="hund_schule_v" id="hund_schule_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="collapse collapse-questions">
+        <legend class="headline-calculator headline-calculator-small"><span>Leistungsrelevante Angaben</span></legend>
+
+        <div class="clearfix form-section">
+            <!-- form fields -->
+            <div class="box-formfields form-has-help pt-3" data-show-arrow="left">
+
+                <div class="form-group row" data-help-show="vs_v"
+                     data-help-content="<strong>Mindest-Versicherungssumme Personen/Sachschäden</strong><p>Die Versicherungssumme beschreibt den maximalen Betrag, den eine Versicherung im Schadenfall erstattet.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="vs_v">Mindest-Versicherungssumme
+                        Personen/Sachschäden</label>
+                    <div class="col-sm">
+                        <select name="vs_v" id="vs_v" class="form-control form-control-select">
+                            <option value="1000000">mind. 1 Mill EUR</option>
+                            <option value="3000000">mind. 3 Mill EUR (AK Empfehlung)</option>
+                            <option value="5000000">mind. 5 Mill EUR</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="vsmp_v"
+                     data-help-content="<strong>Mindest-Versicherungssumme Mietsachschäden für Pferd</strong><p>Die Versicherungssumme beschreibt den maximalen Betrag, den eine Versicherung im Schadenfall erstattet.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="vsmp_v">Mindest-Versicherungssumme
+                        Mietsachschäden für Pferd</label>
+                    <div class="col-sm">
+                        <select name="vsmp_v" id="vsmp_v" class="form-control form-control-select">
+                            <option value="0">keine (EU-Pferd)</option>
+                            <option value="1 - ja">mitversichert laut Tarif</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse show" data-help-show="vsm_v"
+                     data-help-content="<strong>Mindest-Versicherungssumme Mietsachschäden für Hund</strong><p>Schäden an festen gemieteten Sachen (Tür einer Mietwohnung) sind mit diesem Einschluß versichert.</p>"
+                     style="">
+                    <label class="col-sm col-form-label text-sm-right" for="vsm_v">Mindest-Versicherungssumme
+                        Mietsachschäden für Hund</label>
+                    <div class="col-sm">
+                        <select name="vsm_v" id="vsm_v" class="form-control form-control-select">
+                            <option value="0">keine</option>
+                            <option value="50000">mind. 50.000 EUR</option>
+                            <option value="300000">mind. 300.000 EUR (AK Empfehlung)</option>
+                            <option value="500000">mind. 500.000 EUR</option>
+                            <option value="1000000">mind. 1 Mill. EUR</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="vsmbep_v"
+                     data-help-content="<strong>Mindest-Versicherungssumme Mietsachschäden für Pferd bei beweglichen Objekten</strong><p>Die Versicherungssumme beschreibt den maximalen Betrag, den eine Versicherung im Schadenfall erstattet.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="vsmbep_v">Mindest-Versicherungssumme
+                        Mietsachschäden für Pferd bei beweglichen Objekten</label>
+                    <div class="col-sm">
+                        <select name="vsmbep_v" id="vsmbep_v" class="form-control form-control-select">
+                            <option value="0">keine (EU-Pferd)</option>
+                            <option value="1 - ja">mitversichert laut Tarif</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse show" data-help-show="vsmbeh_v"
+                     data-help-content="<strong>Mindest-Versicherungssumme Mietsachschäden für Hund bei beweglichen Objekten</strong><p>Schäden an beweglichen gemieteten Sachen (z.B. Sofa einer Ferienwohnungen) sind mit diesem Einschluß versichert.</p>"
+                     style="">
+                    <label class="col-sm col-form-label text-sm-right" for="vsmbeh_v">Mindest-Versicherungssumme
+                        Mietsachschäden für Hund bei beweglichen Objekten</label>
+                    <div class="col-sm">
+                        <select name="vsmbeh_v" id="vsmbeh_v" class="form-control form-control-select">
+                            <option value="0">keine (EU-Hund)</option>
+                            <option value="1 - ja">mitversichert laut Tarif</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="vsv_v"
+                     data-help-content="<strong>Mindest-Versicherungssumme für Vermögensschäden</strong><p>Die Versicherungssumme beschreibt den maximalen Betrag, den eine Versicherung im Schadenfall erstattet.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="vsv_v">Mindest-Versicherungssumme für
+                        Vermögensschäden</label>
+                    <div class="col-sm">
+                        <select name="vsv_v" id="vsv_v" class="form-control form-control-select">
+                            <option value="0">keine</option>
+                            <option value="50000">mind. 50.000 EUR (AK Empfehlung)</option>
+                            <option value="100000">mind. 100.000 EUR</option>
+                            <option value="1000000">mind. 1 Mill EUR</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse show" data-help-show="vors_v"
+                     data-help-content="<strong>Vorsorgeversicherung für neugeborene Jungtiere?</strong><p>Mitversicherung neugeborener Jungtiere ab Geburt an bis zu einem bestimmten Zeitpunkt.</p>"
+                     style="">
+                    <label class="col-sm col-form-label text-sm-right" for="vors_v">Vorsorgeversicherung für neugeborene
+                        Jungtiere?</label>
+                    <div class="col-sm">
+                        <select name="vors_v" id="vors_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja (AK Empfehlung)</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="schul_v"
+                     data-help-content="<strong>Stellen Sie Ihr Pferd Schulungszwecken zur Verfügung?</strong><p>Gewerbsmäßige Tätigkeiten müssen mit einer gewerblichen Versicherung versichert werden.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="schul_v">Stellen Sie Ihr Pferd
+                        Schulungszwecken zur Verfügung?</label>
+                    <div class="col-sm">
+                        <select name="schul_v" id="schul_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja, unentgeltlich">ja, unentgeltlich</option>
+                            <option value="ja, auch gegen Entgelt">ja, auch gegen Entgelt</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse" data-help-show="flur_v"
+                     data-help-content="<strong>Flurschäden?</strong><p>Ihr Pferd bricht aus und beschädigt Nachbars Garten.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="flur_v">Flurschäden?</label>
+                    <div class="col-sm">
+                        <select name="flur_v" id="flur_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja (AK Empfehlung)</option>
+                        </select></div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <input type="hidden" name="zahlweise" id="zahlweise" class="form-control form-control-select" value="1"><input
+    type="hidden" name="chkFilterNachhaltigkeit" value="0"><input type="hidden" id="dogbreedUri"
+                                                                  value="/load-dogbreeds/1/">
+
+
+    <div class="form-group mb-0 button-row">
+        <div class="row ml-0 mr-0 legal-questions">
+            <label class="form-check col-sm col-form-label" for="mrmoErstinfo">
+                <input type="hidden" name="chkErstinfo" value="0"><input type="checkbox" name="chkErstinfo"
+                                                                         id="mrmoErstinfo" class="form-check-input"
+                                                                         required="required" value="1"> Ich bestätige,
+                die Erstinformation für Versicherungsmakler gemäß § 15 VersVermV heruntergeladen und gelesen zu
+                haben.<span class="text-info-required">*</span><br>
+                <a title="Erstinformation" href="https://www.geld.de/module/geld/data/erstinformation-jdc.pdf"
+                   download="https://www.geld.de/module/geld/data/erstinformation-jdc.pdf" target="_blank">Erstinformation
+                    herunterladen</a>
+            </label>
+        </div>
+
+        <div>
+            <div class="row align-items-center">
+                <div class="col-sm-8">
+                    <div class="consulting-waiver-wrapper">
+
+                        <div class="col-sm-8 align-self-end consulting-waiver">
+                            <div class="consulting-waiver-inner icon icon-phone">
+                                <div class="row ml-4">
+                                    <div class="col-10">
+                                        <div class="consulting-waiver-text">Ich wünsche eine Beratung</div>
+                                        <div>
+    <span class="consulting-waiver-hotline"><span title="Hotline" class=" telephone">0800 - 2420 2828</span>
+</span>
+                                            <span class="consulting-waiver-business-hours">
+<span class="description">Mo - Fr:  8.00 - 18.00 Uhr</span>
+</span></div>
+
+
+                                    </div>
+                                    <div class="col-2 pl-0 pr-0 align-self-center">
+                                        <label class="m-0 icon icon-question consulting-waiver-info js-gtm-event"
+                                               for="sxr-layer-consulting-waiver-1" data-event-type="click"
+                                               data-event-category="versicherung" data-event-label="tier"
+                                               data-event-action="consulting requested"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="checkbox" id="sxr-layer-consulting-waiver-1" class="d-none">
+                        <div class="layer-consulting-waiver">
+                            <div class="layer-consulting-waiver-container-row">
+                                <div class="layer-consulting-waiver-container-col">
+                                    <div class="layer-consulting-waiver-inner-col">
+                                        <label class="layer-consulting-waiver-close"
+                                               for="sxr-layer-consulting-waiver-1">x</label>
+                                        <div class="layer-consulting-waiver-col">
+                                            <div class="layer-consulting-waiver-headline">Sie möchten eine Beratung?
+                                            </div>
+                                            <div
+                                                class="d-none d-sm-block icon icon-phone layer-consulting-waiver-icon"></div>
+                                            <div>
+    <span class="consulting-waiver-hotline"><span title="Hotline" class=" telephone">0800 - 2420 2828</span>
+</span>
+                                                <span class="consulting-waiver-business-hours">
+<span class="description">Mo - Fr:  8.00 - 18.00 Uhr</span>
+</span></div>
+
+
+                                        </div>
+                                        <div class="mt-4 layer-consulting-waiver-col">
+                                            <div class="layer-consulting-waiver-headline">Schneller zum Vertrag?</div>
+                                            <div class="layer-consulting-waiver-description">
+                                                <p>So kommen Sie direkt zu Ihrer Versicherung</p>
+                                                <ol class="pl-3">
+                                                    <li>Klicken Sie auf "Berechnen".</li>
+                                                    <li>Machen Sie die nötigen Angaben.</li>
+                                                    <li>Bestätigen Sie vor dem Abschluss, dass Sie keine Beratung
+                                                        benötigen.
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-sm-4 pt-2"><input type="submit" name="btn_berechnen"
+                                                  class="btn btn-default js-gtm-event" data-event-type="click"
+                                                  data-event-category="versicherung" data-event-action="calculate"
+                                                  data-event-label="tier" value="Berechnen"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2 text-info-required">* Pflichtfeld</div>
+
+</form>
