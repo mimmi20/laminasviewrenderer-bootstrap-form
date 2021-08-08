@@ -54,14 +54,14 @@ interface FormSelectInterface extends FormIndentInterface
      * @param array<int|string, array<string, string>|string> $options
      * @param array<int|string, string>                       $selectedOptions Option values that should be marked as selected
      */
-    public function renderOptions(array $options, array $selectedOptions = [], int $level = 0): string;
+    public function renderOptions(array $options, array $selectedOptions, int $level): string;
 
     /**
      * @param int|string                   $key
      * @param array<string, string>|string $optionSpec
      * @param array<int|string, string>    $selectedOptions
      */
-    public function renderOption($key, $optionSpec, array $selectedOptions = [], int $level = 0): string;
+    public function renderOption($key, $optionSpec, array $selectedOptions, int $level): string;
 
     /**
      * Render an optgroup
@@ -73,5 +73,5 @@ interface FormSelectInterface extends FormIndentInterface
      * @param array<string, int|string> $optgroup
      * @param array<int|string, string> $selectedOptions
      */
-    public function renderOptgroup(array $optgroup, array $selectedOptions = [], int $level = 0): string;
+    public function renderOptgroup(array $optgroup, array $selectedOptions, int $level): string;
 }

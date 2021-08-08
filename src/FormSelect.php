@@ -225,7 +225,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @param array<int|string, string>                       $selectedOptions Option values that should be marked as selected
      * @phpstan-param array<int|string, array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string> $options
      */
-    public function renderOptions(array $options, array $selectedOptions = [], int $level = 0): string
+    public function renderOptions(array $options, array $selectedOptions, int $level): string
     {
         $optionStrings = [];
 
@@ -242,7 +242,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @param array<int|string, string>    $selectedOptions
      * @phpstan-param array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string $optionSpec
      */
-    public function renderOption($key, $optionSpec, array $selectedOptions = [], int $level = 0): string
+    public function renderOption($key, $optionSpec, array $selectedOptions, int $level): string
     {
         $value    = '';
         $label    = '';
@@ -335,7 +335,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @param array<string, array<mixed>|bool|int|string> $optgroup
      * @param array<int|string, string>                   $selectedOptions
      */
-    public function renderOptgroup(array $optgroup, array $selectedOptions = [], int $level = 0): string
+    public function renderOptgroup(array $optgroup, array $selectedOptions, int $level): string
     {
         $options = [];
         if (array_key_exists('options', $optgroup)) {
