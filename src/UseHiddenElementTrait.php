@@ -30,7 +30,7 @@ trait UseHiddenElementTrait
      */
     public function setUseHiddenElement(bool $useHiddenElement): self
     {
-        $this->useHiddenElement = (bool) $useHiddenElement;
+        $this->useHiddenElement = $useHiddenElement;
 
         return $this;
     }
