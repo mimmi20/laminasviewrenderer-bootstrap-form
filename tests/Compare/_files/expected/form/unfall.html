@@ -1,0 +1,1809 @@
+<form method="post" accept-charset="utf-8"
+      action="/calculator/unfall/1/input/2sd515abmh4pi3b81bekub79f1?subid=A-00-000"
+      class="form input-form js-help has-help has-preloader js-form-validation-base col-12 js-input-form-init"
+      data-show-arrow="left" id="unfall-form">
+    <input type="hidden" name="sToken" value="36bdf78c54c9a34eba0ad3103f1e39ab">
+    <input type="hidden" name="chkFilterNachhaltigkeit" value="0">
+    <fieldset>
+        <legend class="headline-calculator"><span>Was möchten Sie versichern?</span></legend>
+
+        <div class="clearfix form-section">
+            <!-- form fields -->
+            <div class="box-formfields form-has-help">
+                <div class="form-group row pt-sm-3">
+                    <label class="col-sm col-form-label text-sm-right" for="anz">Wieviele Personen möchten Sie
+                        versichern?</label>
+                    <div class="col-sm js-anz">
+                        <select name="anz" id="anz" class="form-control form-control-select">
+                            <option value="1">1 Person</option>
+                            <option value="2">2 Personen</option>
+                            <option value="3">3 Personen</option>
+                            <option value="4">4 Personen</option>
+                            <option value="5">5 Personen</option>
+                            <option value="6">6 Personen</option>
+                            <option value="7">7 Personen</option>
+                            <option value="8">8 Personen</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="plz"
+                     data-help-content="<strong>PLZ des Antragsstellers</strong><p>Die Postleitzahl Ihrer Wohnung wird für die Risikobeurteilung / Beitragsberechnung für einzelne Versicherer benötigt.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="plz">PLZ des Antragsstellers<span
+                        class="text-info-required">*</span></label>
+                    <div class="col-sm">
+                        <input type="text" name="plz" id="plz"
+                               class="form-control form-control-input form-control-short js-special-zip-message"
+                               required="required" pattern="^\d{5}$" minlength="5" maxlength="5" value=""></div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm col-form-label text-sm-right" for="versbeginn">Versicherungsbeginn</label>
+                    <div class="col-sm js-versbeginn">
+                        <select name="versbeginn" id="versbeginn"
+                                class="form-control form-control-select toggle-trigger" data-toggle-modus="show"
+                                data-toggle-value="datum">
+                            <option value="sofort">schnellstmöglich</option>
+                            <option value="datum">Datum angeben</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row collapse toggle-box-versbeginn">
+                    <label class="col-sm col-form-label text-sm-right" for="versbeginn_datum">Beginn am<span
+                        class="text-info-required">*</span></label>
+                    <div class="col-sm date datepicker-group js-datepicker-group">
+                        <input type="text" name="versbeginn_datum" id="versbeginn_datum"
+                               class="form-control form-control-input datepicker js-datepicker js-initial-required"
+                               value="" autocomplete="off"> <img class="input-group-addon ui-datepicker-trigger"
+                                                                 src="/img/geldde/ico_datepicker.svg"
+                                                                 alt="Kalender anzeigen" title="Kalender anzeigen">
+                    </div>
+                </div>
+
+                <div class="form-group row" data-help-show="beamte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Einige Versicherer bieten Beitragsnachlässe für Beamte und Angestellte im öffentlichen Dienst.</p><strong>Hinweis zur Auswahl</strong><p>Wählen Sie auch &quot;öffentlicher Dienst&quot;, wenn Sie Beamter sind oder früher im öffentlichen Dienst beschäftigt waren und sich mittlerweile im Ruhestand befinden.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="beamte">Tarif</label>
+                    <div class="col-sm">
+                        <select name="beamte" id="beamte" class="form-control form-control-select">
+                            <option value="Normal">Normal</option>
+                            <option value="öffentl. Dienst">öffentlicher Dienst</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="laufzeit"
+                     data-help-content="<p>Laufzeiten von 3 Jahren führen bei einigen Versicherungen zu Beitragsnachlässen von bis zu 10%.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="laufzeit">Laufzeit</label>
+                    <div class="col-sm">
+                        <select name="laufzeit" id="laufzeit" class="form-control form-control-select">
+                            <option value="1">1 Jahr</option>
+                            <option value="3" selected="selected">3 Jahre</option>
+                            <option value="5">5 Jahre</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="kombirabatte"
+                     data-help-content="<strong>Kombirabatte mit berechnen?</strong><p>Welche Verträge haben Sie schon oder haben vor, sie zu versichern? Je mehr Verträge Sie bei einer Gesellschaft haben, umso günstiger wird der Preis.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="kombirabatte">Kombirabatte mit
+                        berechnen?</label>
+                    <div class="col-sm">
+                        <select name="kombirabatte" id="kombirabatte"
+                                class="form-control form-control-select toggle-trigger" data-toggle-modus="show"
+                                data-toggle-value="ja">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="collapse toggle-box-kombirabatte discount">
+        <legend class="headline-calculator"><span>Kombirabatte für folgende Sparten-Kombinationen berücksichtigen</span>
+        </legend>
+
+        <div class="clearfix form-section">
+            <!-- form fields -->
+            <div class="box-formfields form-has-help">
+                <p class="text-center pt-2 text-info-discount">Kombirabatte - Je mehr Verträge bei einer Gesellschaft,
+                    um so günstigere Preise.
+                    Welche Verträge haben Sie schon oder haben vor, sie zu versichern?</p>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrPHV">Privathaftpflicht</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrPHV">
+                            <input type="checkbox" name="KrPHV" id="KrPHV" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrTIE">Tierhalterhaftpflicht</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrTIE">
+                            <input type="checkbox" name="KrTIE" id="KrTIE" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrHUG">Haus-Grundbesitzer Haftpflicht</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrHUG">
+                            <input type="checkbox" name="KrHUG" id="KrHUG" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrOEL">Gewässerschaden/Öltank</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrOEL">
+                            <input type="checkbox" name="KrOEL" id="KrOEL" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrWG">Wohngebäude</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrWG">
+                            <input type="checkbox" name="KrWG" id="KrWG" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrWGGLS">Wohngebäude-Glas</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrWGGLS">
+                            <input type="checkbox" name="KrWGGLS" id="KrWGGLS" class="form-check-input" value="1">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrHR">Hausrat</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrHR">
+                            <input type="checkbox" name="KrHR" id="KrHR" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrHRGLS">Hausrat-Glas</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrHRGLS">
+                            <input type="checkbox" name="KrHRGLS" id="KrHRGLS" class="form-check-input" value="1">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrUNF">Unfall</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone check-active" for="KrUNF">
+                            <input type="checkbox" name="KrUNF" id="KrUNF" class="form-check-input" value="1"
+                                   checked="checked"> </label>
+                    </div>
+                </div>
+
+                <div class="row" data-help-show="check-kombirabatte"
+                     data-help-content="<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>">
+                    <label class="col-sm text-sm-right check-label" for="KrRS">Rechtsschutz</label>
+                    <div class="col-sm">
+                        <label class="form-check form-check-alone" for="KrRS">
+                            <input type="checkbox" name="KrRS" id="KrRS" class="form-check-input" value="1"> </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="nav nav-pills justify-content-center" id="sxr-insured-persons" role="tablist">
+        <a class="nav-item nav-link mt-0 rounded-0 js-link-person js-person-1 active" id="sxr-person-1"
+           data-toggle="tab" href="#sxr-person-data-1" role="tab" aria-controls="sxr-person-data-1"
+           aria-selected="false" style="">Person 1</a>
+        <a class="nav-item nav-link mt-0 rounded-0 js-link-person js-person-2" id="sxr-person-2" data-toggle="tab"
+           href="#sxr-person-data-2" role="tab" aria-controls="sxr-person-data-2" aria-selected="false"
+           style="display: none;">Person 2</a>
+        <a class="nav-item nav-link mt-0 rounded-0 js-link-person js-person-3" id="sxr-person-3" data-toggle="tab"
+           href="#sxr-person-data-3" role="tab" aria-controls="sxr-person-data-3" aria-selected="false"
+           style="display: none;">Person 3</a>
+        <a class="nav-item nav-link mt-0 rounded-0 js-link-person js-person-4" id="sxr-person-4" data-toggle="tab"
+           href="#sxr-person-data-4" role="tab" aria-controls="sxr-person-data-4" aria-selected="false"
+           style="display: none;">Person 4</a>
+        <a class="nav-item nav-link mt-0 rounded-0 js-link-person js-person-5" id="sxr-person-5" data-toggle="tab"
+           href="#sxr-person-data-5" role="tab" aria-controls="sxr-person-data-5" aria-selected="false"
+           style="display: none;">Person 5</a>
+        <a class="nav-item nav-link mt-0 rounded-0 js-link-person js-person-6" id="sxr-person-6" data-toggle="tab"
+           href="#sxr-person-data-6" role="tab" aria-controls="sxr-person-data-6" aria-selected="false"
+           style="display: none;">Person 6</a>
+        <a class="nav-item nav-link mt-0 rounded-0 js-link-person js-person-7" id="sxr-person-7" data-toggle="tab"
+           href="#sxr-person-data-7" role="tab" aria-controls="sxr-person-data-7" aria-selected="false"
+           style="display: none;">Person 7</a>
+        <a class="nav-item nav-link mt-0 rounded-0 js-link-person js-person-8" id="sxr-person-8" data-toggle="tab"
+           href="#sxr-person-data-8" role="tab" aria-controls="sxr-person-data-8" aria-selected="false"
+           style="display: none;">Person 8</a>
+    </div>
+    <div class="tab-content multiple-tab-form" id="sxr-insured-person-content">
+        <div
+            class="tab-pane fade box-formfields form-has-help js-person-data js-person-data-1 show active js-enabled-tab"
+            id="sxr-person-data-1" role="tabpanel" aria-labelledby="sxr-person-1">
+            <div class="form-group row pt-3 pt-sm-4 show active">
+                <label class="col-sm col-form-label text-sm-right" for="name1">Vorname</label>
+                <div class="col-sm">
+                    <input type="text" name="name1" id="name1" data-pers="1" class="form-control form-control-input"
+                           value=""></div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="gebdatum1">Geburtsdatum<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm date datepicker-group js-datepicker-group">
+                    <input type="text" name="gebdatum1" id="gebdatum1" data-pers="1"
+                           class="form-control form-control-input datepicker js-datepicker" placeholder="TT.MM.JJJJ"
+                           required="required" data-date-format="de"
+                           data-date-format-message="Bitte geben Sie ein korrektes Geburtsdatum an!" value=""
+                           autocomplete="off"> <img class="input-group-addon ui-datepicker-trigger"
+                                                    src="/img/geldde/ico_datepicker.svg"
+                                                    alt="Kalender anzeigen" title="Kalender anzeigen">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="geschlecht1">Geschlecht</label>
+                <div class="col-sm">
+                    <select name="geschlecht1" id="geschlecht1" data-pers="1" class="form-control form-control-select">
+                        <option value="M">männlich</option>
+                        <option value="W">weiblich</option>
+                    </select></div>
+            </div>
+
+
+            <div class="form-group row" data-help-show="beruf_master1"
+                 data-help-content="<strong>Beruf</strong><p>Geben Sie Ihre Berufsbezeichnung oder nur einen Teilbegriff ein und wählen Sie den passenden Eintrag aus der Liste.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="beruf_master1">Beruf<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="text" name="beruf_master1_id" id="beruf_master1_id" data-pers="1"
+                           class="form-control form-control-input" required="required" autocomplete="off" value="">
+                    <input type="text" name="beruf_master1" id="beruf_master1" data-pers="1"
+                           class="form-control form-control-input js-job-autocomplete ui-autocomplete-input js-autocomplete-init"
+                           value="" autocomplete="off"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="grund1"
+                 data-help-content="<strong>Grundinvalidität</strong><p>Bei einem Unfall erhalten Sie eine einmalige Invaliditätsleistung in Form einer Kapitalsumme. Sie berechnet sich zum einen nach dem Grad der Invalidität, zum anderen nach der Höhe der vereinbarten Versicherungssumme. Die Leistung ist an keinen Verwendungszweck gebunden.</p><p>Die Summe der Grundinvalidität sollte bei etwa dem 2-3 fachen des Jahresbruttoverdienstes liegen.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="grund1">Grundinvalidität<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="number" name="grund1" id="grund1" data-pers="1" class="form-control form-control-input"
+                           required="required" min="25000" value="50000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="prog1"
+                 data-help-content="<strong>Progression</strong><p>Bei Vereinbarung einer Progression erhalten sie bei schwerwiegenderen Beeinträchtigungen mehr Geld als Ihnen nach dem festgestellten Invaliditätsgrad zustehen würde. Wegen des erhöhten Kapitalbedarfs bei höheren Invaliditätsgraden wird mehr gezahlt, als dem festgestellten Invaliditätsgrad entspricht. Etwa bei einer Invalidität von 80% nicht nur 80% der vereinbarten Invaliditätsleistung, sondern – je nach Vereinbarung – bis 350%. Empfehlen würden wir hier 225% oder 350%.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="prog1">Progression</label>
+                <div class="col-sm">
+                    <select name="prog1" id="prog1" data-pers="1" class="form-control form-control-select">
+                        <option value="100">100 %</option>
+                        <option value="225">225 %</option>
+                        <option value="300">300 %</option>
+                        <option value="350" selected="selected">350 %</option>
+                        <option value="500">500 %</option>
+                        <option value="600">600 %</option>
+                        <option value="1000">1000 %</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="voll1"
+                 data-help-content="<strong>Vollinvalidität</strong><p>Die max. Leistung bei 100% Invalidität.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="voll1">Vollinvalidität</label>
+                <div class="col-sm">
+                    <input type="text" name="voll1" id="voll1" data-pers="1" class="form-control form-control-input"
+                           value="175000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="tod1"
+                 data-help-content="<strong>Todesfall</strong><p>Führt der Unfall innerhalb eines Jahres zum Tode, haben die Hinterbliebenen Anspruch auf die versicherte Todesfallsumme. Sie ist meist niedriger als die vereinbarte Invaliditätssumme.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="tod1">Todesfall</label>
+                <div class="col-sm">
+                    <input type="text" name="tod1" id="tod1" data-pers="1" class="form-control form-control-input"
+                           value="5000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="ueber1"
+                 data-help-content="<strong>Übergangsleistung</strong><p>Ärzte können den die Höhe der Leistung entscheidenden Invaliditätsgrad oft erst nach der Heilung feststellen. Diese Zeitspanne kann eine Übergangsleistung überbrücken. Sie wird gezahlt, wenn die körperliche oder geistige Leistungsfähigkeit des Verletzten für mehr als sechs Monate seit dem Unfall zu mindestens 50% beeinträchtigt ist – auch wenn die Verletzungen später vollständig ausheilen. So kann etwa die Rehabilitation finanziell gesichert werden. Einige Unternehmen zahlen einen Teil der Übergangsleistung auch schon früher aus.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="ueber1">Übergangsleistung</label>
+                <div class="col-sm">
+                    <input type="text" name="ueber1" id="ueber1" data-pers="1" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="kh1"
+                 data-help-content="<strong>Krankenhaustage- und Genesungsgeld</strong><p>Liegt man nach einem Unfall im Krankenhaus wird für jeden Tag das vereinbarte Krankenhaustagegeld gezahlt. Zusätzlich erhält man Genesungsgeld für die Tage im Krankenhaus. Das Genesungsgeld wird jedoch ab dem 10. Tag nur noch abgestuft gezahlt.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="kh1">Krankenhaustage- und Genesungsgeld</label>
+                <div class="col-sm">
+                    <input type="text" name="kh1" id="kh1" data-pers="1" class="form-control form-control-input"
+                           value="20"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="utg1"
+                 data-help-content="<strong>Unfall-Krankentagegeld</strong><p>Vor allem für Selbstständige ist ein Unfall meist mit Verdienstausfall verbunden. Deshalb vereinbaren sie in aller Regel ein Tagegeld. Sie erhalten täglich diese Summe nach einem Unfall, unabhängig ob Sie im Krankenhaus liegen oder zu Hause krank geschrieben sind.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utg1">Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <select name="utg1" id="utg1" data-pers="1" class="form-control form-control-select toggle-trigger"
+                            data-toggle-modus="hide" data-toggle-value="nein">
+                        <option value="nein">nein</option>
+                        <option value="8">ab 8. Tag</option>
+                        <option value="15">ab 15. Tag</option>
+                        <option value="29">ab 29. Tag</option>
+                        <option value="43">ab 43. Tag</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row collapse toggle-box-utg1" data-help-show="utgeur1" data-help-content="<strong>Höhe Unfall-Krankentagegeld</strong>
+                 <p>Geben Sie hier die Höhe des Unfall-Krankentagegeldes ein.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utgeur1">Höhe Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <input type="text" name="utgeur1" id="utgeur1" data-pers="1" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="rente1" data-help-content="<strong>Unfall-Rente</strong>
+                 <p>Nach einem Unfall wird die vereinbarte Rente lebenslang gezahlt, allerdings erst ab einem Invaliditätsgrad von 50 Prozent. Unserer Meinung ist diese Leistung sehr teuer zu versichern. Sie sollten statt dessen eine höhere Grundsumme versichern, da gibt es auch schon ab 1% Invalidität mehr Leistung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="rente1">Unfall-Rente</label>
+                <div class="col-sm">
+                    <input type="text" name="rente1" id="rente1" data-pers="1" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="assistance1" data-help-content="<strong>Assistance Leistungen</strong>
+                 <p>Damit werden unter anderem, aber nicht abschließend, folgende Assistance-Leistungen mitversichert: Mahlzeitendienst, Wohnungsreinigung, Fahrdienst zu Ärzten/Behörden, 24-Stunden-Pflegenotruf, Tag- und Nachtwache für 48 Stunden, Vermittlung einer Tierbetreuung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="assistance1">Assistance Leistungen</label>
+                <div class="col-sm">
+                    <select name="assistance1" id="assistance1" data-pers="1" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="knochen1" data-help-content="<strong>Knochenbruch</strong>
+                 <p>Es gibt nur wenig Anbieter, die nach einem Unfall bestimmte Knochenbrüche mit einer Einmalzahlung abfinden. Sie finden diese Leistungen im Berechnungsergebnis im Leistungsvergleich und noch näher beschrieben im Bedingungswerk des Anbieters.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="knochen1">Knochenbruch</label>
+                <div class="col-sm">
+                    <select name="knochen1" id="knochen1" data-pers="1" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+        </div>
+        <div class="tab-pane fade box-formfields form-has-help js-person-data js-person-data-2" id="sxr-person-data-2"
+             role="tabpanel" aria-labelledby="sxr-person-2">
+            <div class="form-group row pt-3 pt-sm-4 show active">
+                <label class="col-sm col-form-label text-sm-right" for="name2">Vorname</label>
+                <div class="col-sm">
+                    <input type="text" name="name2" id="name2" data-pers="2" class="form-control form-control-input"
+                           value=""></div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="gebdatum2">Geburtsdatum<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm date datepicker-group js-datepicker-group">
+                    <input type="text" name="gebdatum2" id="gebdatum2" data-pers="2"
+                           class="form-control form-control-input datepicker js-datepicker js-initial-required"
+                           placeholder="TT.MM.JJJJ" data-date-format="de"
+                           data-date-format-message="Bitte geben Sie ein korrektes Geburtsdatum an!" value=""
+                           autocomplete="off"> <img class="input-group-addon ui-datepicker-trigger"
+                                                    src="/img/geldde/ico_datepicker.svg"
+                                                    alt="Kalender anzeigen" title="Kalender anzeigen">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="geschlecht2">Geschlecht</label>
+                <div class="col-sm">
+                    <select name="geschlecht2" id="geschlecht2" data-pers="2" class="form-control form-control-select">
+                        <option value="M">männlich</option>
+                        <option value="W">weiblich</option>
+                    </select></div>
+            </div>
+
+
+            <div class="form-group row" data-help-show="beruf_master2"
+                 data-help-content="<strong>Beruf</strong><p>Geben Sie Ihre Berufsbezeichnung oder nur einen Teilbegriff ein und wählen Sie den passenden Eintrag aus der Liste.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="beruf_master2">Beruf<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="text" name="beruf_master2_id" id="beruf_master2_id" data-pers="2"
+                           class="form-control form-control-input js-initial-required" autocomplete="off" value="">
+                    <input type="text" name="beruf_master2" id="beruf_master2" data-pers="2"
+                           class="form-control form-control-input js-job-autocomplete ui-autocomplete-input js-autocomplete-init"
+                           value="" autocomplete="off"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="grund2"
+                 data-help-content="<strong>Grundinvalidität</strong><p>Bei einem Unfall erhalten Sie eine einmalige Invaliditätsleistung in Form einer Kapitalsumme. Sie berechnet sich zum einen nach dem Grad der Invalidität, zum anderen nach der Höhe der vereinbarten Versicherungssumme. Die Leistung ist an keinen Verwendungszweck gebunden.</p><p>Die Summe der Grundinvalidität sollte bei etwa dem 2-3 fachen des Jahresbruttoverdienstes liegen.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="grund2">Grundinvalidität<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="number" name="grund2" id="grund2" data-pers="2"
+                           class="form-control form-control-input js-initial-required" min="25000" value="50000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="prog2"
+                 data-help-content="<strong>Progression</strong><p>Bei Vereinbarung einer Progression erhalten sie bei schwerwiegenderen Beeinträchtigungen mehr Geld als Ihnen nach dem festgestellten Invaliditätsgrad zustehen würde. Wegen des erhöhten Kapitalbedarfs bei höheren Invaliditätsgraden wird mehr gezahlt, als dem festgestellten Invaliditätsgrad entspricht. Etwa bei einer Invalidität von 80% nicht nur 80% der vereinbarten Invaliditätsleistung, sondern – je nach Vereinbarung – bis 350%. Empfehlen würden wir hier 225% oder 350%.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="prog2">Progression</label>
+                <div class="col-sm">
+                    <select name="prog2" id="prog2" data-pers="2" class="form-control form-control-select">
+                        <option value="100">100 %</option>
+                        <option value="225">225 %</option>
+                        <option value="300">300 %</option>
+                        <option value="350" selected="selected">350 %</option>
+                        <option value="500">500 %</option>
+                        <option value="600">600 %</option>
+                        <option value="1000">1000 %</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="voll2"
+                 data-help-content="<strong>Vollinvalidität</strong><p>Die max. Leistung bei 100% Invalidität.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="voll2">Vollinvalidität</label>
+                <div class="col-sm">
+                    <input type="text" name="voll2" id="voll2" data-pers="2" class="form-control form-control-input"
+                           value="175000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="tod2"
+                 data-help-content="<strong>Todesfall</strong><p>Führt der Unfall innerhalb eines Jahres zum Tode, haben die Hinterbliebenen Anspruch auf die versicherte Todesfallsumme. Sie ist meist niedriger als die vereinbarte Invaliditätssumme.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="tod2">Todesfall</label>
+                <div class="col-sm">
+                    <input type="text" name="tod2" id="tod2" data-pers="2" class="form-control form-control-input"
+                           value="5000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="ueber2"
+                 data-help-content="<strong>Übergangsleistung</strong><p>Ärzte können den die Höhe der Leistung entscheidenden Invaliditätsgrad oft erst nach der Heilung feststellen. Diese Zeitspanne kann eine Übergangsleistung überbrücken. Sie wird gezahlt, wenn die körperliche oder geistige Leistungsfähigkeit des Verletzten für mehr als sechs Monate seit dem Unfall zu mindestens 50% beeinträchtigt ist – auch wenn die Verletzungen später vollständig ausheilen. So kann etwa die Rehabilitation finanziell gesichert werden. Einige Unternehmen zahlen einen Teil der Übergangsleistung auch schon früher aus.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="ueber2">Übergangsleistung</label>
+                <div class="col-sm">
+                    <input type="text" name="ueber2" id="ueber2" data-pers="2" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="kh2"
+                 data-help-content="<strong>Krankenhaustage- und Genesungsgeld</strong><p>Liegt man nach einem Unfall im Krankenhaus wird für jeden Tag das vereinbarte Krankenhaustagegeld gezahlt. Zusätzlich erhält man Genesungsgeld für die Tage im Krankenhaus. Das Genesungsgeld wird jedoch ab dem 10. Tag nur noch abgestuft gezahlt.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="kh2">Krankenhaustage- und Genesungsgeld</label>
+                <div class="col-sm">
+                    <input type="text" name="kh2" id="kh2" data-pers="2" class="form-control form-control-input"
+                           value="20"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="utg2"
+                 data-help-content="<strong>Unfall-Krankentagegeld</strong><p>Vor allem für Selbstständige ist ein Unfall meist mit Verdienstausfall verbunden. Deshalb vereinbaren sie in aller Regel ein Tagegeld. Sie erhalten täglich diese Summe nach einem Unfall, unabhängig ob Sie im Krankenhaus liegen oder zu Hause krank geschrieben sind.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utg2">Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <select name="utg2" id="utg2" data-pers="2" class="form-control form-control-select toggle-trigger"
+                            data-toggle-modus="hide" data-toggle-value="nein">
+                        <option value="nein">nein</option>
+                        <option value="8">ab 8. Tag</option>
+                        <option value="15">ab 15. Tag</option>
+                        <option value="29">ab 29. Tag</option>
+                        <option value="43">ab 43. Tag</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row collapse toggle-box-utg2" data-help-show="utgeur2" data-help-content="<strong>Höhe Unfall-Krankentagegeld</strong>
+                 <p>Geben Sie hier die Höhe des Unfall-Krankentagegeldes ein.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utgeur2">Höhe Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <input type="text" name="utgeur2" id="utgeur2" data-pers="2" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="rente2" data-help-content="<strong>Unfall-Rente</strong>
+                 <p>Nach einem Unfall wird die vereinbarte Rente lebenslang gezahlt, allerdings erst ab einem Invaliditätsgrad von 50 Prozent. Unserer Meinung ist diese Leistung sehr teuer zu versichern. Sie sollten statt dessen eine höhere Grundsumme versichern, da gibt es auch schon ab 1% Invalidität mehr Leistung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="rente2">Unfall-Rente</label>
+                <div class="col-sm">
+                    <input type="text" name="rente2" id="rente2" data-pers="2" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="assistance2" data-help-content="<strong>Assistance Leistungen</strong>
+                 <p>Damit werden unter anderem, aber nicht abschließend, folgende Assistance-Leistungen mitversichert: Mahlzeitendienst, Wohnungsreinigung, Fahrdienst zu Ärzten/Behörden, 24-Stunden-Pflegenotruf, Tag- und Nachtwache für 48 Stunden, Vermittlung einer Tierbetreuung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="assistance2">Assistance Leistungen</label>
+                <div class="col-sm">
+                    <select name="assistance2" id="assistance2" data-pers="2" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="knochen2" data-help-content="<strong>Knochenbruch</strong>
+                 <p>Es gibt nur wenig Anbieter, die nach einem Unfall bestimmte Knochenbrüche mit einer Einmalzahlung abfinden. Sie finden diese Leistungen im Berechnungsergebnis im Leistungsvergleich und noch näher beschrieben im Bedingungswerk des Anbieters.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="knochen2">Knochenbruch</label>
+                <div class="col-sm">
+                    <select name="knochen2" id="knochen2" data-pers="2" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+        </div>
+        <div class="tab-pane fade box-formfields form-has-help js-person-data js-person-data-3" id="sxr-person-data-3"
+             role="tabpanel" aria-labelledby="sxr-person-3">
+            <div class="form-group row pt-3 pt-sm-4 show active">
+                <label class="col-sm col-form-label text-sm-right" for="name3">Vorname</label>
+                <div class="col-sm">
+                    <input type="text" name="name3" id="name3" data-pers="3" class="form-control form-control-input"
+                           value=""></div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="gebdatum3">Geburtsdatum<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm date datepicker-group js-datepicker-group">
+                    <input type="text" name="gebdatum3" id="gebdatum3" data-pers="3"
+                           class="form-control form-control-input datepicker js-datepicker js-initial-required"
+                           placeholder="TT.MM.JJJJ" data-date-format="de"
+                           data-date-format-message="Bitte geben Sie ein korrektes Geburtsdatum an!" value=""
+                           autocomplete="off"> <img class="input-group-addon ui-datepicker-trigger"
+                                                    src="/img/geldde/ico_datepicker.svg"
+                                                    alt="Kalender anzeigen" title="Kalender anzeigen">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="geschlecht3">Geschlecht</label>
+                <div class="col-sm">
+                    <select name="geschlecht3" id="geschlecht3" data-pers="3" class="form-control form-control-select">
+                        <option value="M">männlich</option>
+                        <option value="W">weiblich</option>
+                    </select></div>
+            </div>
+
+
+            <div class="form-group row" data-help-show="beruf_master3"
+                 data-help-content="<strong>Beruf</strong><p>Geben Sie Ihre Berufsbezeichnung oder nur einen Teilbegriff ein und wählen Sie den passenden Eintrag aus der Liste.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="beruf_master3">Beruf<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="text" name="beruf_master3_id" id="beruf_master3_id" data-pers="3"
+                           class="form-control form-control-input js-initial-required" autocomplete="off" value="">
+                    <input type="text" name="beruf_master3" id="beruf_master3" data-pers="3"
+                           class="form-control form-control-input js-job-autocomplete ui-autocomplete-input js-autocomplete-init"
+                           value="" autocomplete="off"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="grund3"
+                 data-help-content="<strong>Grundinvalidität</strong><p>Bei einem Unfall erhalten Sie eine einmalige Invaliditätsleistung in Form einer Kapitalsumme. Sie berechnet sich zum einen nach dem Grad der Invalidität, zum anderen nach der Höhe der vereinbarten Versicherungssumme. Die Leistung ist an keinen Verwendungszweck gebunden.</p><p>Die Summe der Grundinvalidität sollte bei etwa dem 2-3 fachen des Jahresbruttoverdienstes liegen.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="grund3">Grundinvalidität<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="number" name="grund3" id="grund3" data-pers="3"
+                           class="form-control form-control-input js-initial-required" min="25000" value="50000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="prog3"
+                 data-help-content="<strong>Progression</strong><p>Bei Vereinbarung einer Progression erhalten sie bei schwerwiegenderen Beeinträchtigungen mehr Geld als Ihnen nach dem festgestellten Invaliditätsgrad zustehen würde. Wegen des erhöhten Kapitalbedarfs bei höheren Invaliditätsgraden wird mehr gezahlt, als dem festgestellten Invaliditätsgrad entspricht. Etwa bei einer Invalidität von 80% nicht nur 80% der vereinbarten Invaliditätsleistung, sondern – je nach Vereinbarung – bis 350%. Empfehlen würden wir hier 225% oder 350%.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="prog3">Progression</label>
+                <div class="col-sm">
+                    <select name="prog3" id="prog3" data-pers="3" class="form-control form-control-select">
+                        <option value="100">100 %</option>
+                        <option value="225">225 %</option>
+                        <option value="300">300 %</option>
+                        <option value="350" selected="selected">350 %</option>
+                        <option value="500">500 %</option>
+                        <option value="600">600 %</option>
+                        <option value="1000">1000 %</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="voll3"
+                 data-help-content="<strong>Vollinvalidität</strong><p>Die max. Leistung bei 100% Invalidität.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="voll3">Vollinvalidität</label>
+                <div class="col-sm">
+                    <input type="text" name="voll3" id="voll3" data-pers="3" class="form-control form-control-input"
+                           value="175000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="tod3"
+                 data-help-content="<strong>Todesfall</strong><p>Führt der Unfall innerhalb eines Jahres zum Tode, haben die Hinterbliebenen Anspruch auf die versicherte Todesfallsumme. Sie ist meist niedriger als die vereinbarte Invaliditätssumme.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="tod3">Todesfall</label>
+                <div class="col-sm">
+                    <input type="text" name="tod3" id="tod3" data-pers="3" class="form-control form-control-input"
+                           value="5000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="ueber3"
+                 data-help-content="<strong>Übergangsleistung</strong><p>Ärzte können den die Höhe der Leistung entscheidenden Invaliditätsgrad oft erst nach der Heilung feststellen. Diese Zeitspanne kann eine Übergangsleistung überbrücken. Sie wird gezahlt, wenn die körperliche oder geistige Leistungsfähigkeit des Verletzten für mehr als sechs Monate seit dem Unfall zu mindestens 50% beeinträchtigt ist – auch wenn die Verletzungen später vollständig ausheilen. So kann etwa die Rehabilitation finanziell gesichert werden. Einige Unternehmen zahlen einen Teil der Übergangsleistung auch schon früher aus.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="ueber3">Übergangsleistung</label>
+                <div class="col-sm">
+                    <input type="text" name="ueber3" id="ueber3" data-pers="3" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="kh3"
+                 data-help-content="<strong>Krankenhaustage- und Genesungsgeld</strong><p>Liegt man nach einem Unfall im Krankenhaus wird für jeden Tag das vereinbarte Krankenhaustagegeld gezahlt. Zusätzlich erhält man Genesungsgeld für die Tage im Krankenhaus. Das Genesungsgeld wird jedoch ab dem 10. Tag nur noch abgestuft gezahlt.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="kh3">Krankenhaustage- und Genesungsgeld</label>
+                <div class="col-sm">
+                    <input type="text" name="kh3" id="kh3" data-pers="3" class="form-control form-control-input"
+                           value="20"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="utg3"
+                 data-help-content="<strong>Unfall-Krankentagegeld</strong><p>Vor allem für Selbstständige ist ein Unfall meist mit Verdienstausfall verbunden. Deshalb vereinbaren sie in aller Regel ein Tagegeld. Sie erhalten täglich diese Summe nach einem Unfall, unabhängig ob Sie im Krankenhaus liegen oder zu Hause krank geschrieben sind.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utg3">Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <select name="utg3" id="utg3" data-pers="3" class="form-control form-control-select toggle-trigger"
+                            data-toggle-modus="hide" data-toggle-value="nein">
+                        <option value="nein">nein</option>
+                        <option value="8">ab 8. Tag</option>
+                        <option value="15">ab 15. Tag</option>
+                        <option value="29">ab 29. Tag</option>
+                        <option value="43">ab 43. Tag</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row collapse toggle-box-utg3" data-help-show="utgeur3" data-help-content="<strong>Höhe Unfall-Krankentagegeld</strong>
+                 <p>Geben Sie hier die Höhe des Unfall-Krankentagegeldes ein.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utgeur3">Höhe Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <input type="text" name="utgeur3" id="utgeur3" data-pers="3" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="rente3" data-help-content="<strong>Unfall-Rente</strong>
+                 <p>Nach einem Unfall wird die vereinbarte Rente lebenslang gezahlt, allerdings erst ab einem Invaliditätsgrad von 50 Prozent. Unserer Meinung ist diese Leistung sehr teuer zu versichern. Sie sollten statt dessen eine höhere Grundsumme versichern, da gibt es auch schon ab 1% Invalidität mehr Leistung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="rente3">Unfall-Rente</label>
+                <div class="col-sm">
+                    <input type="text" name="rente3" id="rente3" data-pers="3" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="assistance3" data-help-content="<strong>Assistance Leistungen</strong>
+                 <p>Damit werden unter anderem, aber nicht abschließend, folgende Assistance-Leistungen mitversichert: Mahlzeitendienst, Wohnungsreinigung, Fahrdienst zu Ärzten/Behörden, 24-Stunden-Pflegenotruf, Tag- und Nachtwache für 48 Stunden, Vermittlung einer Tierbetreuung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="assistance3">Assistance Leistungen</label>
+                <div class="col-sm">
+                    <select name="assistance3" id="assistance3" data-pers="3" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="knochen3" data-help-content="<strong>Knochenbruch</strong>
+                 <p>Es gibt nur wenig Anbieter, die nach einem Unfall bestimmte Knochenbrüche mit einer Einmalzahlung abfinden. Sie finden diese Leistungen im Berechnungsergebnis im Leistungsvergleich und noch näher beschrieben im Bedingungswerk des Anbieters.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="knochen3">Knochenbruch</label>
+                <div class="col-sm">
+                    <select name="knochen3" id="knochen3" data-pers="3" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+        </div>
+        <div class="tab-pane fade box-formfields form-has-help js-person-data js-person-data-4" id="sxr-person-data-4"
+             role="tabpanel" aria-labelledby="sxr-person-4">
+            <div class="form-group row pt-3 pt-sm-4 show active">
+                <label class="col-sm col-form-label text-sm-right" for="name4">Vorname</label>
+                <div class="col-sm">
+                    <input type="text" name="name4" id="name4" data-pers="4" class="form-control form-control-input"
+                           value=""></div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="gebdatum4">Geburtsdatum<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm date datepicker-group js-datepicker-group">
+                    <input type="text" name="gebdatum4" id="gebdatum4" data-pers="4"
+                           class="form-control form-control-input datepicker js-datepicker js-initial-required"
+                           placeholder="TT.MM.JJJJ" data-date-format="de"
+                           data-date-format-message="Bitte geben Sie ein korrektes Geburtsdatum an!" value=""
+                           autocomplete="off"> <img class="input-group-addon ui-datepicker-trigger"
+                                                    src="/img/geldde/ico_datepicker.svg"
+                                                    alt="Kalender anzeigen" title="Kalender anzeigen">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="geschlecht4">Geschlecht</label>
+                <div class="col-sm">
+                    <select name="geschlecht4" id="geschlecht4" data-pers="4" class="form-control form-control-select">
+                        <option value="M">männlich</option>
+                        <option value="W">weiblich</option>
+                    </select></div>
+            </div>
+
+
+            <div class="form-group row" data-help-show="beruf_master4"
+                 data-help-content="<strong>Beruf</strong><p>Geben Sie Ihre Berufsbezeichnung oder nur einen Teilbegriff ein und wählen Sie den passenden Eintrag aus der Liste.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="beruf_master4">Beruf<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="text" name="beruf_master4_id" id="beruf_master4_id" data-pers="4"
+                           class="form-control form-control-input js-initial-required" autocomplete="off" value="">
+                    <input type="text" name="beruf_master4" id="beruf_master4" data-pers="4"
+                           class="form-control form-control-input js-job-autocomplete ui-autocomplete-input js-autocomplete-init"
+                           value="" autocomplete="off"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="grund4"
+                 data-help-content="<strong>Grundinvalidität</strong><p>Bei einem Unfall erhalten Sie eine einmalige Invaliditätsleistung in Form einer Kapitalsumme. Sie berechnet sich zum einen nach dem Grad der Invalidität, zum anderen nach der Höhe der vereinbarten Versicherungssumme. Die Leistung ist an keinen Verwendungszweck gebunden.</p><p>Die Summe der Grundinvalidität sollte bei etwa dem 2-3 fachen des Jahresbruttoverdienstes liegen.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="grund4">Grundinvalidität<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="number" name="grund4" id="grund4" data-pers="4"
+                           class="form-control form-control-input js-initial-required" min="25000" value="50000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="prog4"
+                 data-help-content="<strong>Progression</strong><p>Bei Vereinbarung einer Progression erhalten sie bei schwerwiegenderen Beeinträchtigungen mehr Geld als Ihnen nach dem festgestellten Invaliditätsgrad zustehen würde. Wegen des erhöhten Kapitalbedarfs bei höheren Invaliditätsgraden wird mehr gezahlt, als dem festgestellten Invaliditätsgrad entspricht. Etwa bei einer Invalidität von 80% nicht nur 80% der vereinbarten Invaliditätsleistung, sondern – je nach Vereinbarung – bis 350%. Empfehlen würden wir hier 225% oder 350%.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="prog4">Progression</label>
+                <div class="col-sm">
+                    <select name="prog4" id="prog4" data-pers="4" class="form-control form-control-select">
+                        <option value="100">100 %</option>
+                        <option value="225">225 %</option>
+                        <option value="300">300 %</option>
+                        <option value="350" selected="selected">350 %</option>
+                        <option value="500">500 %</option>
+                        <option value="600">600 %</option>
+                        <option value="1000">1000 %</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="voll4"
+                 data-help-content="<strong>Vollinvalidität</strong><p>Die max. Leistung bei 100% Invalidität.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="voll4">Vollinvalidität</label>
+                <div class="col-sm">
+                    <input type="text" name="voll4" id="voll4" data-pers="4" class="form-control form-control-input"
+                           value="175000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="tod4"
+                 data-help-content="<strong>Todesfall</strong><p>Führt der Unfall innerhalb eines Jahres zum Tode, haben die Hinterbliebenen Anspruch auf die versicherte Todesfallsumme. Sie ist meist niedriger als die vereinbarte Invaliditätssumme.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="tod4">Todesfall</label>
+                <div class="col-sm">
+                    <input type="text" name="tod4" id="tod4" data-pers="4" class="form-control form-control-input"
+                           value="5000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="ueber4"
+                 data-help-content="<strong>Übergangsleistung</strong><p>Ärzte können den die Höhe der Leistung entscheidenden Invaliditätsgrad oft erst nach der Heilung feststellen. Diese Zeitspanne kann eine Übergangsleistung überbrücken. Sie wird gezahlt, wenn die körperliche oder geistige Leistungsfähigkeit des Verletzten für mehr als sechs Monate seit dem Unfall zu mindestens 50% beeinträchtigt ist – auch wenn die Verletzungen später vollständig ausheilen. So kann etwa die Rehabilitation finanziell gesichert werden. Einige Unternehmen zahlen einen Teil der Übergangsleistung auch schon früher aus.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="ueber4">Übergangsleistung</label>
+                <div class="col-sm">
+                    <input type="text" name="ueber4" id="ueber4" data-pers="4" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="kh4"
+                 data-help-content="<strong>Krankenhaustage- und Genesungsgeld</strong><p>Liegt man nach einem Unfall im Krankenhaus wird für jeden Tag das vereinbarte Krankenhaustagegeld gezahlt. Zusätzlich erhält man Genesungsgeld für die Tage im Krankenhaus. Das Genesungsgeld wird jedoch ab dem 10. Tag nur noch abgestuft gezahlt.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="kh4">Krankenhaustage- und Genesungsgeld</label>
+                <div class="col-sm">
+                    <input type="text" name="kh4" id="kh4" data-pers="4" class="form-control form-control-input"
+                           value="20"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="utg4"
+                 data-help-content="<strong>Unfall-Krankentagegeld</strong><p>Vor allem für Selbstständige ist ein Unfall meist mit Verdienstausfall verbunden. Deshalb vereinbaren sie in aller Regel ein Tagegeld. Sie erhalten täglich diese Summe nach einem Unfall, unabhängig ob Sie im Krankenhaus liegen oder zu Hause krank geschrieben sind.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utg4">Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <select name="utg4" id="utg4" data-pers="4" class="form-control form-control-select toggle-trigger"
+                            data-toggle-modus="hide" data-toggle-value="nein">
+                        <option value="nein">nein</option>
+                        <option value="8">ab 8. Tag</option>
+                        <option value="15">ab 15. Tag</option>
+                        <option value="29">ab 29. Tag</option>
+                        <option value="43">ab 43. Tag</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row collapse toggle-box-utg4" data-help-show="utgeur4" data-help-content="<strong>Höhe Unfall-Krankentagegeld</strong>
+                 <p>Geben Sie hier die Höhe des Unfall-Krankentagegeldes ein.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utgeur4">Höhe Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <input type="text" name="utgeur4" id="utgeur4" data-pers="4" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="rente4" data-help-content="<strong>Unfall-Rente</strong>
+                 <p>Nach einem Unfall wird die vereinbarte Rente lebenslang gezahlt, allerdings erst ab einem Invaliditätsgrad von 50 Prozent. Unserer Meinung ist diese Leistung sehr teuer zu versichern. Sie sollten statt dessen eine höhere Grundsumme versichern, da gibt es auch schon ab 1% Invalidität mehr Leistung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="rente4">Unfall-Rente</label>
+                <div class="col-sm">
+                    <input type="text" name="rente4" id="rente4" data-pers="4" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="assistance4" data-help-content="<strong>Assistance Leistungen</strong>
+                 <p>Damit werden unter anderem, aber nicht abschließend, folgende Assistance-Leistungen mitversichert: Mahlzeitendienst, Wohnungsreinigung, Fahrdienst zu Ärzten/Behörden, 24-Stunden-Pflegenotruf, Tag- und Nachtwache für 48 Stunden, Vermittlung einer Tierbetreuung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="assistance4">Assistance Leistungen</label>
+                <div class="col-sm">
+                    <select name="assistance4" id="assistance4" data-pers="4" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="knochen4" data-help-content="<strong>Knochenbruch</strong>
+                 <p>Es gibt nur wenig Anbieter, die nach einem Unfall bestimmte Knochenbrüche mit einer Einmalzahlung abfinden. Sie finden diese Leistungen im Berechnungsergebnis im Leistungsvergleich und noch näher beschrieben im Bedingungswerk des Anbieters.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="knochen4">Knochenbruch</label>
+                <div class="col-sm">
+                    <select name="knochen4" id="knochen4" data-pers="4" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+        </div>
+        <div class="tab-pane fade box-formfields form-has-help js-person-data js-person-data-5" id="sxr-person-data-5"
+             role="tabpanel" aria-labelledby="sxr-person-5">
+            <div class="form-group row pt-3 pt-sm-4 show active">
+                <label class="col-sm col-form-label text-sm-right" for="name5">Vorname</label>
+                <div class="col-sm">
+                    <input type="text" name="name5" id="name5" data-pers="5" class="form-control form-control-input"
+                           value=""></div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="gebdatum5">Geburtsdatum<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm date datepicker-group js-datepicker-group">
+                    <input type="text" name="gebdatum5" id="gebdatum5" data-pers="5"
+                           class="form-control form-control-input datepicker js-datepicker js-initial-required"
+                           placeholder="TT.MM.JJJJ" data-date-format="de"
+                           data-date-format-message="Bitte geben Sie ein korrektes Geburtsdatum an!" value=""
+                           autocomplete="off"> <img class="input-group-addon ui-datepicker-trigger"
+                                                    src="/img/geldde/ico_datepicker.svg"
+                                                    alt="Kalender anzeigen" title="Kalender anzeigen">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="geschlecht5">Geschlecht</label>
+                <div class="col-sm">
+                    <select name="geschlecht5" id="geschlecht5" data-pers="5" class="form-control form-control-select">
+                        <option value="M">männlich</option>
+                        <option value="W">weiblich</option>
+                    </select></div>
+            </div>
+
+
+            <div class="form-group row" data-help-show="beruf_master5"
+                 data-help-content="<strong>Beruf</strong><p>Geben Sie Ihre Berufsbezeichnung oder nur einen Teilbegriff ein und wählen Sie den passenden Eintrag aus der Liste.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="beruf_master5">Beruf<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="text" name="beruf_master5_id" id="beruf_master5_id" data-pers="5"
+                           class="form-control form-control-input js-initial-required" autocomplete="off" value="">
+                    <input type="text" name="beruf_master5" id="beruf_master5" data-pers="5"
+                           class="form-control form-control-input js-job-autocomplete ui-autocomplete-input js-autocomplete-init"
+                           value="" autocomplete="off"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="grund5"
+                 data-help-content="<strong>Grundinvalidität</strong><p>Bei einem Unfall erhalten Sie eine einmalige Invaliditätsleistung in Form einer Kapitalsumme. Sie berechnet sich zum einen nach dem Grad der Invalidität, zum anderen nach der Höhe der vereinbarten Versicherungssumme. Die Leistung ist an keinen Verwendungszweck gebunden.</p><p>Die Summe der Grundinvalidität sollte bei etwa dem 2-3 fachen des Jahresbruttoverdienstes liegen.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="grund5">Grundinvalidität<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="number" name="grund5" id="grund5" data-pers="5"
+                           class="form-control form-control-input js-initial-required" min="25000" value="50000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="prog5"
+                 data-help-content="<strong>Progression</strong><p>Bei Vereinbarung einer Progression erhalten sie bei schwerwiegenderen Beeinträchtigungen mehr Geld als Ihnen nach dem festgestellten Invaliditätsgrad zustehen würde. Wegen des erhöhten Kapitalbedarfs bei höheren Invaliditätsgraden wird mehr gezahlt, als dem festgestellten Invaliditätsgrad entspricht. Etwa bei einer Invalidität von 80% nicht nur 80% der vereinbarten Invaliditätsleistung, sondern – je nach Vereinbarung – bis 350%. Empfehlen würden wir hier 225% oder 350%.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="prog5">Progression</label>
+                <div class="col-sm">
+                    <select name="prog5" id="prog5" data-pers="5" class="form-control form-control-select">
+                        <option value="100">100 %</option>
+                        <option value="225">225 %</option>
+                        <option value="300">300 %</option>
+                        <option value="350" selected="selected">350 %</option>
+                        <option value="500">500 %</option>
+                        <option value="600">600 %</option>
+                        <option value="1000">1000 %</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="voll5"
+                 data-help-content="<strong>Vollinvalidität</strong><p>Die max. Leistung bei 100% Invalidität.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="voll5">Vollinvalidität</label>
+                <div class="col-sm">
+                    <input type="text" name="voll5" id="voll5" data-pers="5" class="form-control form-control-input"
+                           value="175000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="tod5"
+                 data-help-content="<strong>Todesfall</strong><p>Führt der Unfall innerhalb eines Jahres zum Tode, haben die Hinterbliebenen Anspruch auf die versicherte Todesfallsumme. Sie ist meist niedriger als die vereinbarte Invaliditätssumme.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="tod5">Todesfall</label>
+                <div class="col-sm">
+                    <input type="text" name="tod5" id="tod5" data-pers="5" class="form-control form-control-input"
+                           value="5000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="ueber5"
+                 data-help-content="<strong>Übergangsleistung</strong><p>Ärzte können den die Höhe der Leistung entscheidenden Invaliditätsgrad oft erst nach der Heilung feststellen. Diese Zeitspanne kann eine Übergangsleistung überbrücken. Sie wird gezahlt, wenn die körperliche oder geistige Leistungsfähigkeit des Verletzten für mehr als sechs Monate seit dem Unfall zu mindestens 50% beeinträchtigt ist – auch wenn die Verletzungen später vollständig ausheilen. So kann etwa die Rehabilitation finanziell gesichert werden. Einige Unternehmen zahlen einen Teil der Übergangsleistung auch schon früher aus.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="ueber5">Übergangsleistung</label>
+                <div class="col-sm">
+                    <input type="text" name="ueber5" id="ueber5" data-pers="5" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="kh5"
+                 data-help-content="<strong>Krankenhaustage- und Genesungsgeld</strong><p>Liegt man nach einem Unfall im Krankenhaus wird für jeden Tag das vereinbarte Krankenhaustagegeld gezahlt. Zusätzlich erhält man Genesungsgeld für die Tage im Krankenhaus. Das Genesungsgeld wird jedoch ab dem 10. Tag nur noch abgestuft gezahlt.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="kh5">Krankenhaustage- und Genesungsgeld</label>
+                <div class="col-sm">
+                    <input type="text" name="kh5" id="kh5" data-pers="5" class="form-control form-control-input"
+                           value="20"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="utg5"
+                 data-help-content="<strong>Unfall-Krankentagegeld</strong><p>Vor allem für Selbstständige ist ein Unfall meist mit Verdienstausfall verbunden. Deshalb vereinbaren sie in aller Regel ein Tagegeld. Sie erhalten täglich diese Summe nach einem Unfall, unabhängig ob Sie im Krankenhaus liegen oder zu Hause krank geschrieben sind.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utg5">Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <select name="utg5" id="utg5" data-pers="5" class="form-control form-control-select toggle-trigger"
+                            data-toggle-modus="hide" data-toggle-value="nein">
+                        <option value="nein">nein</option>
+                        <option value="8">ab 8. Tag</option>
+                        <option value="15">ab 15. Tag</option>
+                        <option value="29">ab 29. Tag</option>
+                        <option value="43">ab 43. Tag</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row collapse toggle-box-utg5" data-help-show="utgeur5" data-help-content="<strong>Höhe Unfall-Krankentagegeld</strong>
+                 <p>Geben Sie hier die Höhe des Unfall-Krankentagegeldes ein.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utgeur5">Höhe Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <input type="text" name="utgeur5" id="utgeur5" data-pers="5" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="rente5" data-help-content="<strong>Unfall-Rente</strong>
+                 <p>Nach einem Unfall wird die vereinbarte Rente lebenslang gezahlt, allerdings erst ab einem Invaliditätsgrad von 50 Prozent. Unserer Meinung ist diese Leistung sehr teuer zu versichern. Sie sollten statt dessen eine höhere Grundsumme versichern, da gibt es auch schon ab 1% Invalidität mehr Leistung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="rente5">Unfall-Rente</label>
+                <div class="col-sm">
+                    <input type="text" name="rente5" id="rente5" data-pers="5" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="assistance5" data-help-content="<strong>Assistance Leistungen</strong>
+                 <p>Damit werden unter anderem, aber nicht abschließend, folgende Assistance-Leistungen mitversichert: Mahlzeitendienst, Wohnungsreinigung, Fahrdienst zu Ärzten/Behörden, 24-Stunden-Pflegenotruf, Tag- und Nachtwache für 48 Stunden, Vermittlung einer Tierbetreuung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="assistance5">Assistance Leistungen</label>
+                <div class="col-sm">
+                    <select name="assistance5" id="assistance5" data-pers="5" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="knochen5" data-help-content="<strong>Knochenbruch</strong>
+                 <p>Es gibt nur wenig Anbieter, die nach einem Unfall bestimmte Knochenbrüche mit einer Einmalzahlung abfinden. Sie finden diese Leistungen im Berechnungsergebnis im Leistungsvergleich und noch näher beschrieben im Bedingungswerk des Anbieters.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="knochen5">Knochenbruch</label>
+                <div class="col-sm">
+                    <select name="knochen5" id="knochen5" data-pers="5" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+        </div>
+        <div class="tab-pane fade box-formfields form-has-help js-person-data js-person-data-6" id="sxr-person-data-6"
+             role="tabpanel" aria-labelledby="sxr-person-6">
+            <div class="form-group row pt-3 pt-sm-4 show active">
+                <label class="col-sm col-form-label text-sm-right" for="name6">Vorname</label>
+                <div class="col-sm">
+                    <input type="text" name="name6" id="name6" data-pers="6" class="form-control form-control-input"
+                           value=""></div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="gebdatum6">Geburtsdatum<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm date datepicker-group js-datepicker-group">
+                    <input type="text" name="gebdatum6" id="gebdatum6" data-pers="6"
+                           class="form-control form-control-input datepicker js-datepicker js-initial-required"
+                           placeholder="TT.MM.JJJJ" data-date-format="de"
+                           data-date-format-message="Bitte geben Sie ein korrektes Geburtsdatum an!" value=""
+                           autocomplete="off"> <img class="input-group-addon ui-datepicker-trigger"
+                                                    src="/img/geldde/ico_datepicker.svg"
+                                                    alt="Kalender anzeigen" title="Kalender anzeigen">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="geschlecht6">Geschlecht</label>
+                <div class="col-sm">
+                    <select name="geschlecht6" id="geschlecht6" data-pers="6" class="form-control form-control-select">
+                        <option value="M">männlich</option>
+                        <option value="W">weiblich</option>
+                    </select></div>
+            </div>
+
+
+            <div class="form-group row" data-help-show="beruf_master6"
+                 data-help-content="<strong>Beruf</strong><p>Geben Sie Ihre Berufsbezeichnung oder nur einen Teilbegriff ein und wählen Sie den passenden Eintrag aus der Liste.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="beruf_master6">Beruf<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="text" name="beruf_master6_id" id="beruf_master6_id" data-pers="6"
+                           class="form-control form-control-input js-initial-required" autocomplete="off" value="">
+                    <input type="text" name="beruf_master6" id="beruf_master6" data-pers="6"
+                           class="form-control form-control-input js-job-autocomplete ui-autocomplete-input js-autocomplete-init"
+                           value="" autocomplete="off"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="grund6"
+                 data-help-content="<strong>Grundinvalidität</strong><p>Bei einem Unfall erhalten Sie eine einmalige Invaliditätsleistung in Form einer Kapitalsumme. Sie berechnet sich zum einen nach dem Grad der Invalidität, zum anderen nach der Höhe der vereinbarten Versicherungssumme. Die Leistung ist an keinen Verwendungszweck gebunden.</p><p>Die Summe der Grundinvalidität sollte bei etwa dem 2-3 fachen des Jahresbruttoverdienstes liegen.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="grund6">Grundinvalidität<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="number" name="grund6" id="grund6" data-pers="6"
+                           class="form-control form-control-input js-initial-required" min="25000" value="50000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="prog6"
+                 data-help-content="<strong>Progression</strong><p>Bei Vereinbarung einer Progression erhalten sie bei schwerwiegenderen Beeinträchtigungen mehr Geld als Ihnen nach dem festgestellten Invaliditätsgrad zustehen würde. Wegen des erhöhten Kapitalbedarfs bei höheren Invaliditätsgraden wird mehr gezahlt, als dem festgestellten Invaliditätsgrad entspricht. Etwa bei einer Invalidität von 80% nicht nur 80% der vereinbarten Invaliditätsleistung, sondern – je nach Vereinbarung – bis 350%. Empfehlen würden wir hier 225% oder 350%.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="prog6">Progression</label>
+                <div class="col-sm">
+                    <select name="prog6" id="prog6" data-pers="6" class="form-control form-control-select">
+                        <option value="100">100 %</option>
+                        <option value="225">225 %</option>
+                        <option value="300">300 %</option>
+                        <option value="350" selected="selected">350 %</option>
+                        <option value="500">500 %</option>
+                        <option value="600">600 %</option>
+                        <option value="1000">1000 %</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="voll6"
+                 data-help-content="<strong>Vollinvalidität</strong><p>Die max. Leistung bei 100% Invalidität.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="voll6">Vollinvalidität</label>
+                <div class="col-sm">
+                    <input type="text" name="voll6" id="voll6" data-pers="6" class="form-control form-control-input"
+                           value="175000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="tod6"
+                 data-help-content="<strong>Todesfall</strong><p>Führt der Unfall innerhalb eines Jahres zum Tode, haben die Hinterbliebenen Anspruch auf die versicherte Todesfallsumme. Sie ist meist niedriger als die vereinbarte Invaliditätssumme.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="tod6">Todesfall</label>
+                <div class="col-sm">
+                    <input type="text" name="tod6" id="tod6" data-pers="6" class="form-control form-control-input"
+                           value="5000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="ueber6"
+                 data-help-content="<strong>Übergangsleistung</strong><p>Ärzte können den die Höhe der Leistung entscheidenden Invaliditätsgrad oft erst nach der Heilung feststellen. Diese Zeitspanne kann eine Übergangsleistung überbrücken. Sie wird gezahlt, wenn die körperliche oder geistige Leistungsfähigkeit des Verletzten für mehr als sechs Monate seit dem Unfall zu mindestens 50% beeinträchtigt ist – auch wenn die Verletzungen später vollständig ausheilen. So kann etwa die Rehabilitation finanziell gesichert werden. Einige Unternehmen zahlen einen Teil der Übergangsleistung auch schon früher aus.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="ueber6">Übergangsleistung</label>
+                <div class="col-sm">
+                    <input type="text" name="ueber6" id="ueber6" data-pers="6" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="kh6"
+                 data-help-content="<strong>Krankenhaustage- und Genesungsgeld</strong><p>Liegt man nach einem Unfall im Krankenhaus wird für jeden Tag das vereinbarte Krankenhaustagegeld gezahlt. Zusätzlich erhält man Genesungsgeld für die Tage im Krankenhaus. Das Genesungsgeld wird jedoch ab dem 10. Tag nur noch abgestuft gezahlt.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="kh6">Krankenhaustage- und Genesungsgeld</label>
+                <div class="col-sm">
+                    <input type="text" name="kh6" id="kh6" data-pers="6" class="form-control form-control-input"
+                           value="20"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="utg6"
+                 data-help-content="<strong>Unfall-Krankentagegeld</strong><p>Vor allem für Selbstständige ist ein Unfall meist mit Verdienstausfall verbunden. Deshalb vereinbaren sie in aller Regel ein Tagegeld. Sie erhalten täglich diese Summe nach einem Unfall, unabhängig ob Sie im Krankenhaus liegen oder zu Hause krank geschrieben sind.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utg6">Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <select name="utg6" id="utg6" data-pers="6" class="form-control form-control-select toggle-trigger"
+                            data-toggle-modus="hide" data-toggle-value="nein">
+                        <option value="nein">nein</option>
+                        <option value="8">ab 8. Tag</option>
+                        <option value="15">ab 15. Tag</option>
+                        <option value="29">ab 29. Tag</option>
+                        <option value="43">ab 43. Tag</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row collapse toggle-box-utg6" data-help-show="utgeur6" data-help-content="<strong>Höhe Unfall-Krankentagegeld</strong>
+                 <p>Geben Sie hier die Höhe des Unfall-Krankentagegeldes ein.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utgeur6">Höhe Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <input type="text" name="utgeur6" id="utgeur6" data-pers="6" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="rente6" data-help-content="<strong>Unfall-Rente</strong>
+                 <p>Nach einem Unfall wird die vereinbarte Rente lebenslang gezahlt, allerdings erst ab einem Invaliditätsgrad von 50 Prozent. Unserer Meinung ist diese Leistung sehr teuer zu versichern. Sie sollten statt dessen eine höhere Grundsumme versichern, da gibt es auch schon ab 1% Invalidität mehr Leistung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="rente6">Unfall-Rente</label>
+                <div class="col-sm">
+                    <input type="text" name="rente6" id="rente6" data-pers="6" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="assistance6" data-help-content="<strong>Assistance Leistungen</strong>
+                 <p>Damit werden unter anderem, aber nicht abschließend, folgende Assistance-Leistungen mitversichert: Mahlzeitendienst, Wohnungsreinigung, Fahrdienst zu Ärzten/Behörden, 24-Stunden-Pflegenotruf, Tag- und Nachtwache für 48 Stunden, Vermittlung einer Tierbetreuung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="assistance6">Assistance Leistungen</label>
+                <div class="col-sm">
+                    <select name="assistance6" id="assistance6" data-pers="6" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="knochen6" data-help-content="<strong>Knochenbruch</strong>
+                 <p>Es gibt nur wenig Anbieter, die nach einem Unfall bestimmte Knochenbrüche mit einer Einmalzahlung abfinden. Sie finden diese Leistungen im Berechnungsergebnis im Leistungsvergleich und noch näher beschrieben im Bedingungswerk des Anbieters.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="knochen6">Knochenbruch</label>
+                <div class="col-sm">
+                    <select name="knochen6" id="knochen6" data-pers="6" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+        </div>
+        <div class="tab-pane fade box-formfields form-has-help js-person-data js-person-data-7" id="sxr-person-data-7"
+             role="tabpanel" aria-labelledby="sxr-person-7">
+            <div class="form-group row pt-3 pt-sm-4 show active">
+                <label class="col-sm col-form-label text-sm-right" for="name7">Vorname</label>
+                <div class="col-sm">
+                    <input type="text" name="name7" id="name7" data-pers="7" class="form-control form-control-input"
+                           value=""></div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="gebdatum7">Geburtsdatum<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm date datepicker-group js-datepicker-group">
+                    <input type="text" name="gebdatum7" id="gebdatum7" data-pers="7"
+                           class="form-control form-control-input datepicker js-datepicker js-initial-required"
+                           placeholder="TT.MM.JJJJ" data-date-format="de"
+                           data-date-format-message="Bitte geben Sie ein korrektes Geburtsdatum an!" value=""
+                           autocomplete="off"> <img class="input-group-addon ui-datepicker-trigger"
+                                                    src="/img/geldde/ico_datepicker.svg"
+                                                    alt="Kalender anzeigen" title="Kalender anzeigen">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="geschlecht7">Geschlecht</label>
+                <div class="col-sm">
+                    <select name="geschlecht7" id="geschlecht7" data-pers="7" class="form-control form-control-select">
+                        <option value="M">männlich</option>
+                        <option value="W">weiblich</option>
+                    </select></div>
+            </div>
+
+
+            <div class="form-group row" data-help-show="beruf_master7"
+                 data-help-content="<strong>Beruf</strong><p>Geben Sie Ihre Berufsbezeichnung oder nur einen Teilbegriff ein und wählen Sie den passenden Eintrag aus der Liste.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="beruf_master7">Beruf<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="text" name="beruf_master7_id" id="beruf_master7_id" data-pers="7"
+                           class="form-control form-control-input js-initial-required" autocomplete="off" value="">
+                    <input type="text" name="beruf_master7" id="beruf_master7" data-pers="7"
+                           class="form-control form-control-input js-job-autocomplete ui-autocomplete-input js-autocomplete-init"
+                           value="" autocomplete="off"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="grund7"
+                 data-help-content="<strong>Grundinvalidität</strong><p>Bei einem Unfall erhalten Sie eine einmalige Invaliditätsleistung in Form einer Kapitalsumme. Sie berechnet sich zum einen nach dem Grad der Invalidität, zum anderen nach der Höhe der vereinbarten Versicherungssumme. Die Leistung ist an keinen Verwendungszweck gebunden.</p><p>Die Summe der Grundinvalidität sollte bei etwa dem 2-3 fachen des Jahresbruttoverdienstes liegen.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="grund7">Grundinvalidität<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="number" name="grund7" id="grund7" data-pers="7"
+                           class="form-control form-control-input js-initial-required" min="25000" value="50000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="prog7"
+                 data-help-content="<strong>Progression</strong><p>Bei Vereinbarung einer Progression erhalten sie bei schwerwiegenderen Beeinträchtigungen mehr Geld als Ihnen nach dem festgestellten Invaliditätsgrad zustehen würde. Wegen des erhöhten Kapitalbedarfs bei höheren Invaliditätsgraden wird mehr gezahlt, als dem festgestellten Invaliditätsgrad entspricht. Etwa bei einer Invalidität von 80% nicht nur 80% der vereinbarten Invaliditätsleistung, sondern – je nach Vereinbarung – bis 350%. Empfehlen würden wir hier 225% oder 350%.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="prog7">Progression</label>
+                <div class="col-sm">
+                    <select name="prog7" id="prog7" data-pers="7" class="form-control form-control-select">
+                        <option value="100">100 %</option>
+                        <option value="225">225 %</option>
+                        <option value="300">300 %</option>
+                        <option value="350" selected="selected">350 %</option>
+                        <option value="500">500 %</option>
+                        <option value="600">600 %</option>
+                        <option value="1000">1000 %</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="voll7"
+                 data-help-content="<strong>Vollinvalidität</strong><p>Die max. Leistung bei 100% Invalidität.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="voll7">Vollinvalidität</label>
+                <div class="col-sm">
+                    <input type="text" name="voll7" id="voll7" data-pers="7" class="form-control form-control-input"
+                           value="175000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="tod7"
+                 data-help-content="<strong>Todesfall</strong><p>Führt der Unfall innerhalb eines Jahres zum Tode, haben die Hinterbliebenen Anspruch auf die versicherte Todesfallsumme. Sie ist meist niedriger als die vereinbarte Invaliditätssumme.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="tod7">Todesfall</label>
+                <div class="col-sm">
+                    <input type="text" name="tod7" id="tod7" data-pers="7" class="form-control form-control-input"
+                           value="5000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="ueber7"
+                 data-help-content="<strong>Übergangsleistung</strong><p>Ärzte können den die Höhe der Leistung entscheidenden Invaliditätsgrad oft erst nach der Heilung feststellen. Diese Zeitspanne kann eine Übergangsleistung überbrücken. Sie wird gezahlt, wenn die körperliche oder geistige Leistungsfähigkeit des Verletzten für mehr als sechs Monate seit dem Unfall zu mindestens 50% beeinträchtigt ist – auch wenn die Verletzungen später vollständig ausheilen. So kann etwa die Rehabilitation finanziell gesichert werden. Einige Unternehmen zahlen einen Teil der Übergangsleistung auch schon früher aus.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="ueber7">Übergangsleistung</label>
+                <div class="col-sm">
+                    <input type="text" name="ueber7" id="ueber7" data-pers="7" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="kh7"
+                 data-help-content="<strong>Krankenhaustage- und Genesungsgeld</strong><p>Liegt man nach einem Unfall im Krankenhaus wird für jeden Tag das vereinbarte Krankenhaustagegeld gezahlt. Zusätzlich erhält man Genesungsgeld für die Tage im Krankenhaus. Das Genesungsgeld wird jedoch ab dem 10. Tag nur noch abgestuft gezahlt.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="kh7">Krankenhaustage- und Genesungsgeld</label>
+                <div class="col-sm">
+                    <input type="text" name="kh7" id="kh7" data-pers="7" class="form-control form-control-input"
+                           value="20"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="utg7"
+                 data-help-content="<strong>Unfall-Krankentagegeld</strong><p>Vor allem für Selbstständige ist ein Unfall meist mit Verdienstausfall verbunden. Deshalb vereinbaren sie in aller Regel ein Tagegeld. Sie erhalten täglich diese Summe nach einem Unfall, unabhängig ob Sie im Krankenhaus liegen oder zu Hause krank geschrieben sind.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utg7">Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <select name="utg7" id="utg7" data-pers="7" class="form-control form-control-select toggle-trigger"
+                            data-toggle-modus="hide" data-toggle-value="nein">
+                        <option value="nein">nein</option>
+                        <option value="8">ab 8. Tag</option>
+                        <option value="15">ab 15. Tag</option>
+                        <option value="29">ab 29. Tag</option>
+                        <option value="43">ab 43. Tag</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row collapse toggle-box-utg7" data-help-show="utgeur7" data-help-content="<strong>Höhe Unfall-Krankentagegeld</strong>
+                 <p>Geben Sie hier die Höhe des Unfall-Krankentagegeldes ein.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utgeur7">Höhe Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <input type="text" name="utgeur7" id="utgeur7" data-pers="7" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="rente7" data-help-content="<strong>Unfall-Rente</strong>
+                 <p>Nach einem Unfall wird die vereinbarte Rente lebenslang gezahlt, allerdings erst ab einem Invaliditätsgrad von 50 Prozent. Unserer Meinung ist diese Leistung sehr teuer zu versichern. Sie sollten statt dessen eine höhere Grundsumme versichern, da gibt es auch schon ab 1% Invalidität mehr Leistung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="rente7">Unfall-Rente</label>
+                <div class="col-sm">
+                    <input type="text" name="rente7" id="rente7" data-pers="7" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="assistance7" data-help-content="<strong>Assistance Leistungen</strong>
+                 <p>Damit werden unter anderem, aber nicht abschließend, folgende Assistance-Leistungen mitversichert: Mahlzeitendienst, Wohnungsreinigung, Fahrdienst zu Ärzten/Behörden, 24-Stunden-Pflegenotruf, Tag- und Nachtwache für 48 Stunden, Vermittlung einer Tierbetreuung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="assistance7">Assistance Leistungen</label>
+                <div class="col-sm">
+                    <select name="assistance7" id="assistance7" data-pers="7" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="knochen7" data-help-content="<strong>Knochenbruch</strong>
+                 <p>Es gibt nur wenig Anbieter, die nach einem Unfall bestimmte Knochenbrüche mit einer Einmalzahlung abfinden. Sie finden diese Leistungen im Berechnungsergebnis im Leistungsvergleich und noch näher beschrieben im Bedingungswerk des Anbieters.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="knochen7">Knochenbruch</label>
+                <div class="col-sm">
+                    <select name="knochen7" id="knochen7" data-pers="7" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+        </div>
+        <div class="tab-pane fade box-formfields form-has-help js-person-data js-person-data-8" id="sxr-person-data-8"
+             role="tabpanel" aria-labelledby="sxr-person-8">
+            <div class="form-group row pt-3 pt-sm-4 show active">
+                <label class="col-sm col-form-label text-sm-right" for="name8">Vorname</label>
+                <div class="col-sm">
+                    <input type="text" name="name8" id="name8" data-pers="8" class="form-control form-control-input"
+                           value=""></div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="gebdatum8">Geburtsdatum<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm date datepicker-group js-datepicker-group">
+                    <input type="text" name="gebdatum8" id="gebdatum8" data-pers="8"
+                           class="form-control form-control-input datepicker js-datepicker js-initial-required"
+                           placeholder="TT.MM.JJJJ" data-date-format="de"
+                           data-date-format-message="Bitte geben Sie ein korrektes Geburtsdatum an!" value=""
+                           autocomplete="off"> <img class="input-group-addon ui-datepicker-trigger"
+                                                    src="/img/geldde/ico_datepicker.svg"
+                                                    alt="Kalender anzeigen" title="Kalender anzeigen">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm col-form-label text-sm-right" for="geschlecht8">Geschlecht</label>
+                <div class="col-sm">
+                    <select name="geschlecht8" id="geschlecht8" data-pers="8" class="form-control form-control-select">
+                        <option value="M">männlich</option>
+                        <option value="W">weiblich</option>
+                    </select></div>
+            </div>
+
+
+            <div class="form-group row" data-help-show="beruf_master8"
+                 data-help-content="<strong>Beruf</strong><p>Geben Sie Ihre Berufsbezeichnung oder nur einen Teilbegriff ein und wählen Sie den passenden Eintrag aus der Liste.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="beruf_master8">Beruf<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="text" name="beruf_master8_id" id="beruf_master8_id" data-pers="8"
+                           class="form-control form-control-input js-initial-required" autocomplete="off" value="">
+                    <input type="text" name="beruf_master8" id="beruf_master8" data-pers="8"
+                           class="form-control form-control-input js-job-autocomplete ui-autocomplete-input js-autocomplete-init"
+                           value="" autocomplete="off"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="grund8"
+                 data-help-content="<strong>Grundinvalidität</strong><p>Bei einem Unfall erhalten Sie eine einmalige Invaliditätsleistung in Form einer Kapitalsumme. Sie berechnet sich zum einen nach dem Grad der Invalidität, zum anderen nach der Höhe der vereinbarten Versicherungssumme. Die Leistung ist an keinen Verwendungszweck gebunden.</p><p>Die Summe der Grundinvalidität sollte bei etwa dem 2-3 fachen des Jahresbruttoverdienstes liegen.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="grund8">Grundinvalidität<span
+                    class="text-info-required">*</span></label>
+                <div class="col-sm">
+                    <input type="number" name="grund8" id="grund8" data-pers="8"
+                           class="form-control form-control-input js-initial-required" min="25000" value="50000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="prog8"
+                 data-help-content="<strong>Progression</strong><p>Bei Vereinbarung einer Progression erhalten sie bei schwerwiegenderen Beeinträchtigungen mehr Geld als Ihnen nach dem festgestellten Invaliditätsgrad zustehen würde. Wegen des erhöhten Kapitalbedarfs bei höheren Invaliditätsgraden wird mehr gezahlt, als dem festgestellten Invaliditätsgrad entspricht. Etwa bei einer Invalidität von 80% nicht nur 80% der vereinbarten Invaliditätsleistung, sondern – je nach Vereinbarung – bis 350%. Empfehlen würden wir hier 225% oder 350%.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="prog8">Progression</label>
+                <div class="col-sm">
+                    <select name="prog8" id="prog8" data-pers="8" class="form-control form-control-select">
+                        <option value="100">100 %</option>
+                        <option value="225">225 %</option>
+                        <option value="300">300 %</option>
+                        <option value="350" selected="selected">350 %</option>
+                        <option value="500">500 %</option>
+                        <option value="600">600 %</option>
+                        <option value="1000">1000 %</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="voll8"
+                 data-help-content="<strong>Vollinvalidität</strong><p>Die max. Leistung bei 100% Invalidität.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="voll8">Vollinvalidität</label>
+                <div class="col-sm">
+                    <input type="text" name="voll8" id="voll8" data-pers="8" class="form-control form-control-input"
+                           value="175000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="tod8"
+                 data-help-content="<strong>Todesfall</strong><p>Führt der Unfall innerhalb eines Jahres zum Tode, haben die Hinterbliebenen Anspruch auf die versicherte Todesfallsumme. Sie ist meist niedriger als die vereinbarte Invaliditätssumme.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="tod8">Todesfall</label>
+                <div class="col-sm">
+                    <input type="text" name="tod8" id="tod8" data-pers="8" class="form-control form-control-input"
+                           value="5000"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="ueber8"
+                 data-help-content="<strong>Übergangsleistung</strong><p>Ärzte können den die Höhe der Leistung entscheidenden Invaliditätsgrad oft erst nach der Heilung feststellen. Diese Zeitspanne kann eine Übergangsleistung überbrücken. Sie wird gezahlt, wenn die körperliche oder geistige Leistungsfähigkeit des Verletzten für mehr als sechs Monate seit dem Unfall zu mindestens 50% beeinträchtigt ist – auch wenn die Verletzungen später vollständig ausheilen. So kann etwa die Rehabilitation finanziell gesichert werden. Einige Unternehmen zahlen einen Teil der Übergangsleistung auch schon früher aus.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="ueber8">Übergangsleistung</label>
+                <div class="col-sm">
+                    <input type="text" name="ueber8" id="ueber8" data-pers="8" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="kh8"
+                 data-help-content="<strong>Krankenhaustage- und Genesungsgeld</strong><p>Liegt man nach einem Unfall im Krankenhaus wird für jeden Tag das vereinbarte Krankenhaustagegeld gezahlt. Zusätzlich erhält man Genesungsgeld für die Tage im Krankenhaus. Das Genesungsgeld wird jedoch ab dem 10. Tag nur noch abgestuft gezahlt.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="kh8">Krankenhaustage- und Genesungsgeld</label>
+                <div class="col-sm">
+                    <input type="text" name="kh8" id="kh8" data-pers="8" class="form-control form-control-input"
+                           value="20"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="utg8"
+                 data-help-content="<strong>Unfall-Krankentagegeld</strong><p>Vor allem für Selbstständige ist ein Unfall meist mit Verdienstausfall verbunden. Deshalb vereinbaren sie in aller Regel ein Tagegeld. Sie erhalten täglich diese Summe nach einem Unfall, unabhängig ob Sie im Krankenhaus liegen oder zu Hause krank geschrieben sind.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utg8">Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <select name="utg8" id="utg8" data-pers="8" class="form-control form-control-select toggle-trigger"
+                            data-toggle-modus="hide" data-toggle-value="nein">
+                        <option value="nein">nein</option>
+                        <option value="8">ab 8. Tag</option>
+                        <option value="15">ab 15. Tag</option>
+                        <option value="29">ab 29. Tag</option>
+                        <option value="43">ab 43. Tag</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row collapse toggle-box-utg8" data-help-show="utgeur8" data-help-content="<strong>Höhe Unfall-Krankentagegeld</strong>
+                 <p>Geben Sie hier die Höhe des Unfall-Krankentagegeldes ein.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="utgeur8">Höhe Unfall-Krankentagegeld</label>
+                <div class="col-sm">
+                    <input type="text" name="utgeur8" id="utgeur8" data-pers="8" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="rente8" data-help-content="<strong>Unfall-Rente</strong>
+                 <p>Nach einem Unfall wird die vereinbarte Rente lebenslang gezahlt, allerdings erst ab einem Invaliditätsgrad von 50 Prozent. Unserer Meinung ist diese Leistung sehr teuer zu versichern. Sie sollten statt dessen eine höhere Grundsumme versichern, da gibt es auch schon ab 1% Invalidität mehr Leistung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="rente8">Unfall-Rente</label>
+                <div class="col-sm">
+                    <input type="text" name="rente8" id="rente8" data-pers="8" class="form-control form-control-input"
+                           value="0"></div>
+            </div>
+
+            <div class="form-group row" data-help-show="assistance8" data-help-content="<strong>Assistance Leistungen</strong>
+                 <p>Damit werden unter anderem, aber nicht abschließend, folgende Assistance-Leistungen mitversichert: Mahlzeitendienst, Wohnungsreinigung, Fahrdienst zu Ärzten/Behörden, 24-Stunden-Pflegenotruf, Tag- und Nachtwache für 48 Stunden, Vermittlung einer Tierbetreuung.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="assistance8">Assistance Leistungen</label>
+                <div class="col-sm">
+                    <select name="assistance8" id="assistance8" data-pers="8" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+
+            <div class="form-group row" data-help-show="knochen8" data-help-content="<strong>Knochenbruch</strong>
+                 <p>Es gibt nur wenig Anbieter, die nach einem Unfall bestimmte Knochenbrüche mit einer Einmalzahlung abfinden. Sie finden diese Leistungen im Berechnungsergebnis im Leistungsvergleich und noch näher beschrieben im Bedingungswerk des Anbieters.</p>">
+                <label class="col-sm col-form-label text-sm-right" for="knochen8">Knochenbruch</label>
+                <div class="col-sm">
+                    <select name="knochen8" id="knochen8" data-pers="8" class="form-control form-control-select">
+                        <option value="nein">nein</option>
+                        <option value="ja">ja</option>
+                    </select></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zusatzfragen -->
+    <div class="more-questions">
+        <label class="form-radio js-gtm-event" for="zusatzfragen_nein" data-event-type="click"
+               data-event-category="versicherung" data-event-action="no additional questions" data-event-label="unfall"><input
+            type="radio" name="zusatzfragen" id="zusatzfragen_nein" class="form-check-input form-radio-input"
+            required="required" value="nein">Ich verzichte auf die Beantwortung weiterer Fragen und wähle aus dem
+            Vergleich einen Tarif, der meinen Bedarf erfüllt.</label><label class="form-radio js-gtm-event"
+                                                                            for="zusatzfragen_ja"
+                                                                            data-event-type="click"
+                                                                            data-event-category="versicherung"
+                                                                            data-event-action="additional questions requested"
+                                                                            data-event-label="unfall"><input
+        type="radio" name="zusatzfragen" id="zusatzfragen_ja" class="form-check-input form-radio-input"
+        required="required" value="ja">Ich möchte weitere Angaben zum gewünschten Versicherungsschutz machen. Es werden
+        dann nur Tarife angezeigt, welche die Vorgaben erfüllen.</label></div>
+
+    <fieldset class="collapse collapse-questions">
+        <legend class="headline-calculator"><span>Optionale Detailfragen</span></legend>
+        <div class="clearfix form-section">
+            <!-- form fields -->
+            <div class="box-formfields form-has-help">
+                <div class="form-group row form-group pt-3" data-help-show="eigen_v"
+                     data-help-content="<strong>Wählen Sie eine Vorgabe für Ihre Berechnung</strong><p>Die Vorgabe des Arbeitskreis Vermittlerrichlinie (AK-Empfehlung) bietet Ihnen einen empfohlenen Mindestschutz. Heute erfüllen alle wichtigen Tarife diese Vorgaben. Zu Ihrer Sicherheit sollten Sie diese Mindestvorgaben wählen.</p>">
+                    <label class="col-sm text-sm-right check-label">Wählen Sie eine Vorgabe für Ihre Berechnung</label>
+                    <div class="col-sm">
+                        <div class="mx-auto mt-sm-2 text-center text-sm-left">
+                            <a href="#" class="js-standard js-gtm-event" data-event-type="click"
+                               data-event-category="versicherung" data-event-label="unfall"
+                               data-event-action="choose standard options">Standard</a> |
+                            <a href="#" class="recommendation js-recommendation js-gtm-event"
+                               title="Mindeststandards des Arbeitskreises EU-Vermittlerrichtlinie"
+                               data-help-show="recommendation"
+                               data-help-content="<p>Diese Voreinstellung erfüllt die vom Arbeitskreis EU-Vermittlerrichtlinie entwickelten Mindeststandards.</p>"
+                               data-event-type="click" data-event-category="versicherung" data-event-label="unfall"
+                               data-event-action="choose AK recommentations">AK Empfehlung</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row" data-help-show="eigen_v"
+                     data-help-content="<strong>Bleibende Schäden durch Eigenbewegungen mitversichern?</strong><p>Unfälle, die durch Reflexbewegung oder typische Bewegung des Körpers entstehen. ACHTUNG: Ohne diesen Einschluss liegt nur dann ein Unfall vor, wenn jemand durch ein plötzlich von außen auf den Körper wirkendes Ereignis unfreiwillig eine dauerhafte Gesundheits­schädigung erleidet.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="eigen_v">Bleibende Schäden durch
+                        Eigenbewegungen mitversichern?</label>
+                    <div class="col-sm">
+                        <select name="eigen_v" id="eigen_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="kraft_v"
+                     data-help-content="<strong>Bleibende Schäden durch erhöhte Kraftanstrengung mitversichern?</strong><p>Entsteht durch schweres Heben z.B. ein Leistenbruch wäre dies mitversichert.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="kraft_v">Bleibende Schäden durch erhöhte
+                        Kraftanstrengung mitversichern?</label>
+                    <div class="col-sm">
+                        <select name="kraft_v" id="kraft_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="alk_v"
+                     data-help-content="<strong>Mitversichern von Bewusstseinsstörungen durch Trunkenheit?</strong><p>Unfälle durch Trunkenheit sind mitversichert bis zur angegebenen Promillegrenze. (Es wird auch bei Verkehrsunfällen geleistet)</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="alk_v">Mitversichern von
+                        Bewusstseinsstörungen durch Trunkenheit?</label>
+                    <div class="col-sm">
+                        <select name="alk_v" id="alk_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja (EU)">ja (AK Empfehlung)</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="gift_v"
+                     data-help-content="<strong>Mitversichern von Vergiftungen durch Gase und Dämpfe?</strong><p>Bei Invalidität durch Rauchvergiftungen wird auch geleistet.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="gift_v">Mitversichern von Vergiftungen durch
+                        Gase und Dämpfe?</label>
+                    <div class="col-sm">
+                        <select name="gift_v" id="gift_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja (EU)">ja (AK Empfehlung)</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="kgif_v"
+                     data-help-content="<strong>Mitversichern von Vergiftungen bei Kindern bis zu 14 Jahre?</strong><p>In der Kinderunfall-Versicherung bei Kindern bis zu 14 Jahre ist zusätzlich die Vergiftung in Folge Einnahme fester oder flüssiger Stoffe durch den Schlund mitversichert.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="kgif_v">Mitversichern von Vergiftungen bei
+                        Kindern bis zu 14 Jahre?</label>
+                    <div class="col-sm">
+                        <select name="kgif_v" id="kgif_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja (EU)">ja (AK Empfehlung)</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="room_v"
+                     data-help-content="<strong>Kosten für Übernachtung Erziehungsberechtigter im Krankenhaus bei Kinderunfall (Rooming-In)?</strong><p>Ist ein Kind nach einem Unfall im Krankenhaus, wird für ein Elternteil ein Zuschuss für dessen Übernachtung gezahlt.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="room_v">Kosten für Übernachtung
+                        Erziehungsberechtigter im Krankenhaus bei Kinderunfall (Rooming-In)?</label>
+                    <div class="col-sm">
+                        <select name="room_v" id="room_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="nahr_v"
+                     data-help-content="<strong>Mitversichern von Nahrungsmittel­vergiftungen?</strong><p>Sie erhalten auch die entsprechenden Leistungen, wenn Sie aufgrund einer Nahrungsmittel­vergiftung im Krankenhaus liegen (KH-Tagegeld, oder gar eine Invaliditätsleistung).</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="nahr_v">Mitversichern von
+                        Nahrungsmittelvergiftungen?</label>
+                    <div class="col-sm">
+                        <select name="nahr_v" id="nahr_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="stral_v"
+                     data-help-content="<strong>Mitversichern von Schäden durch Röntgen-, Laser- und künstlich erzeugte ultraviolette Strahlen (außer bei beruflichen Umgang)?</strong><p>z.B. bei einem defekten Röntgengerät.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="stral_v">Mitversichern von Schäden durch
+                        Röntgen-, Laser- und künstlich erzeugte ultraviolette Strahlen (außer bei beruflichen
+                        Umgang)?</label>
+                    <div class="col-sm">
+                        <select name="stral_v" id="stral_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja (EU)">ja (AK Empfehlung)</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="tauch_v"
+                     data-help-content="<strong>Mitversichern von tauchtypischen Gesundheits­schäden?</strong><p>Wenn beim Tauchen eine Gesundheits­schädigung entsteht, wird geleistet.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="tauch_v">Mitversichern von tauchtypischen
+                        Gesundheitsschäden?</label>
+                    <div class="col-sm">
+                        <select name="tauch_v" id="tauch_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja (EU)">ja (AK Empfehlung)</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="sofo_v"
+                     data-help-content="<strong>Sofortleistung bei schweren Unfällen (Vorschusszahlung)?</strong><p>Bei besonders schweren Unfällen (z.B. Querschnittslähmung), wird i.d.R. der Betrag der Übergangsleistungen sofort bezahlt, die endgültige Entschädigung frühestens nach 12 Monaten.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="sofo_v">Sofortleistung bei schweren Unfällen
+                        (Vorschusszahlung)?</label>
+                    <div class="col-sm">
+                        <select name="sofo_v" id="sofo_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja (EU)">ja (AK Empfehlung)</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="zahn_v"
+                     data-help-content="<strong>Kostenerstattung von Zahnersatz infolge Unfall?</strong><p>Zahnersatz nach einem Unfall wird bei diesem Einschluss gezahlt.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="zahn_v">Kostenerstattung von Zahnersatz
+                        infolge Unfall?</label>
+                    <div class="col-sm">
+                        <select name="zahn_v" id="zahn_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="insekt_v"
+                     data-help-content="<strong>Mitversichern von Insektenstichen?</strong><p>Versicherungsschutz besteht auch bei Infektionskrankheiten infolge von Insektenstichen z.B. Borreliose (Zeckenbiss).</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="insekt_v">Mitversichern von
+                        Insektenstichen?</label>
+                    <div class="col-sm">
+                        <select name="insekt_v" id="insekt_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="mitw_v"
+                     data-help-content="<strong>Keine Anrechnung der Mitwirkung von Krankheiten/Gebrechen bei Unfällen?</strong><p>Haben bestehende Krankheiten beim Unfall mitgewirkt, mindert sich die Leistung nur dann, wenn der Mitwirkungsanteil der Krankheit mehr als die angegebenen Prozente beträgt.<br/>Bsp: Wenn Sie auf dem rechten Auge schlecht sehen und von rechts angefahren werden, liegt der Mitwirkungsanteil des Auges am Unfall sehr hoch. Somit wird nur ein Teil der Leistung gezahlt.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="mitw_v">Keine Anrechnung der Mitwirkung von
+                        Krankheiten/Gebrechen bei Unfällen?</label>
+                    <div class="col-sm">
+                        <select name="mitw_v" id="mitw_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="40">keine Anrechnung ab 40%</option>
+                            <option value="70">keine Anrechnung ab 70%</option>
+                            <option value="100">generell keine Anrechnung</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="frist_v"
+                     data-help-content="<strong>Wünschen Sie eine erweiterte Meldefrist bei Invalidität?</strong><p>Die Invalidität muss normalerweise nach 12-15 Monate feststehen, einige Gesellschaften lassen Ihnen dazu mehr Zeit.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="frist_v">Wünschen Sie eine erweiterte
+                        Meldefrist bei Invalidität?</label>
+                    <div class="col-sm">
+                        <select name="frist_v" id="frist_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="kap_v"
+                     data-help-content="<strong>Leistung als einmalige Kapitalzahlung auch nach dem 65. Lebensjahr?</strong><p>Passiert der Unfall nach dem vollendeten 65. Lebensjahr, wird in der Regel die Invaliditätsleistung als Rente ausgezahlt und nicht mehr als Einmalzahlung.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="kap_v">Leistung als einmalige Kapitalzahlung
+                        auch nach dem 65. Lebensjahr?</label>
+                    <div class="col-sm">
+                        <select name="kap_v" id="kap_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="haus_v"
+                     data-help-content="<strong>Kosten einer Haushaltshilfe?</strong><p>Durch eine Invalidität benötigen Sie eine Haushalthilfe. Bis zu einer bestimmten Summe werden die Kosten erstattet.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="haus_v">Kosten einer Haushaltshilfe?</label>
+                    <div class="col-sm">
+                        <select name="haus_v" id="haus_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="schul_v"
+                     data-help-content="<strong>Mitversichern von Umschulungs­maßnahmen und behinderungs­bedingten Kosten?</strong><p>Ist aufgrund eines Unfalls ein Berufswechsel notwendig, werden die Kosten für eine Umschulung erstattet.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="schul_v">Mitversichern von
+                        Umschulungsmaßnahmen und behinderungsbedingten Kosten?</label>
+                    <div class="col-sm">
+                        <select name="schul_v" id="schul_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja">ja</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="berg_v"
+                     data-help-content="<strong>Bergungskosten inkl. Rückholkosten</strong><p>Ersatz der Kosten für Such-, Rettungs- oder Bergungseinsätze, Transport ins Krankenhaus, Kosten für Rücktransport zum Heimatort, Überführung bei Todesfall im Ausland</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="berg_v">Bergungskosten inkl.
+                        Rückholkosten</label>
+                    <div class="col-sm">
+                        <select name="berg_v" id="berg_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja (EU)">ja (AK Empfehlung)</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="rett_v"
+                     data-help-content="<strong>Mitversichern von Körperschäden anlässlich der Rettung von Menschen und Sachen?</strong><p>Wenn Sie z.B. bei einem Verkehrsunfall versuchen, Menschen oder Sachen zu retten und dabei zu Schaden kommen.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="rett_v">Mitversichern von Körperschäden
+                        anlässlich der Rettung von Menschen und Sachen?</label>
+                    <div class="col-sm">
+                        <select name="rett_v" id="rett_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja (EU)">ja (AK Empfehlung)</option>
+                        </select></div>
+                </div>
+
+                <div class="form-group row" data-help-show="leiupd_v"
+                     data-help-content="<strong>Sollen künftige Leistungsverbesserungen automatisch eingeschlossen werden ohne Beantragung?</strong><p>Leistungen in Versicherungsverträgen entwickeln sich ständig weiter. So sind vor Jahren abgeschlossene Verträge leistungsmäßig schlechter. Mit dieser sinnvollen Klausel bleiben Sie automatisch auf dem aktuellsten Stand.</p>">
+                    <label class="col-sm col-form-label text-sm-right" for="leiupd_v">Sollen künftige
+                        Leistungsverbesserungen automatisch eingeschlossen werden ohne Beantragung?</label>
+                    <div class="col-sm">
+                        <select name="leiupd_v" id="leiupd_v" class="form-control form-control-select">
+                            <option value="nein">nein</option>
+                            <option value="ja (EU)">ja (AK Empfehlung)</option>
+                        </select></div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <input type="hidden" name="zahlweise" id="zahlweise" value="1"><input type="hidden" name="chkFilterNachhaltigkeit"
+                                                                          value="0"><input type="hidden"
+                                                                                           id="professionUri"
+                                                                                           value="/load-professions/1/">
+
+
+    <div class="form-group mb-0 button-row">
+        <div class="row ml-0 mr-0 legal-questions">
+            <label class="form-check col-sm col-form-label" for="mrmoErstinfo">
+                <input type="hidden" name="chkErstinfo" value="0"><input type="checkbox" name="chkErstinfo"
+                                                                         id="mrmoErstinfo" class="form-check-input"
+                                                                         required="required" value="1"> Ich bestätige,
+                die Erstinformation für Versicherungsmakler gemäß § 15 VersVermV heruntergeladen und gelesen zu
+                haben.<span class="text-info-required">*</span><br>
+                <a title="Erstinformation" href="https://www.geld.de/module/geld/data/erstinformation-jdc.pdf"
+                   download="https://www.geld.de/module/geld/data/erstinformation-jdc.pdf" target="_blank">Erstinformation
+                    herunterladen</a>
+            </label>
+        </div>
+
+        <div>
+            <div class="row align-items-center">
+                <div class="col-sm-8">
+                    <div class="consulting-waiver-wrapper">
+
+                        <div class="col-sm-8 align-self-end consulting-waiver">
+                            <div class="consulting-waiver-inner icon icon-phone">
+                                <div class="row ml-4">
+                                    <div class="col-10">
+                                        <div class="consulting-waiver-text">Ich wünsche eine Beratung</div>
+                                        <div>
+    <span class="consulting-waiver-hotline"><span title="Hotline" class=" telephone">0800 - 2420 2828</span>
+</span>
+                                            <span class="consulting-waiver-business-hours">
+<span class="description">Mo - Fr:  8.00 - 18.00 Uhr</span>
+</span></div>
+
+
+                                    </div>
+                                    <div class="col-2 pl-0 pr-0 align-self-center">
+                                        <label class="m-0 icon icon-question consulting-waiver-info js-gtm-event"
+                                               for="sxr-layer-consulting-waiver-1" data-event-type="click"
+                                               data-event-category="versicherung" data-event-label="unfall"
+                                               data-event-action="consulting requested"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="checkbox" id="sxr-layer-consulting-waiver-1" class="d-none">
+                        <div class="layer-consulting-waiver">
+                            <div class="layer-consulting-waiver-container-row">
+                                <div class="layer-consulting-waiver-container-col">
+                                    <div class="layer-consulting-waiver-inner-col">
+                                        <label class="layer-consulting-waiver-close"
+                                               for="sxr-layer-consulting-waiver-1">x</label>
+                                        <div class="layer-consulting-waiver-col">
+                                            <div class="layer-consulting-waiver-headline">Sie möchten eine Beratung?
+                                            </div>
+                                            <div
+                                                class="d-none d-sm-block icon icon-phone layer-consulting-waiver-icon"></div>
+                                            <div>
+    <span class="consulting-waiver-hotline"><span title="Hotline" class=" telephone">0800 - 2420 2828</span>
+</span>
+                                                <span class="consulting-waiver-business-hours">
+<span class="description">Mo - Fr:  8.00 - 18.00 Uhr</span>
+</span></div>
+
+
+                                        </div>
+                                        <div class="mt-4 layer-consulting-waiver-col">
+                                            <div class="layer-consulting-waiver-headline">Schneller zum Vertrag?</div>
+                                            <div class="layer-consulting-waiver-description">
+                                                <p>So kommen Sie direkt zu Ihrer Versicherung</p>
+                                                <ol class="pl-3">
+                                                    <li>Klicken Sie auf "Berechnen".</li>
+                                                    <li>Machen Sie die nötigen Angaben.</li>
+                                                    <li>Bestätigen Sie vor dem Abschluss, dass Sie keine Beratung
+                                                        benötigen.
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-sm-4 pt-2"><input type="submit" name="btn_berechnen"
+                                                  class="btn btn-default js-gtm-event" data-event-type="click"
+                                                  data-event-category="versicherung" data-event-action="calculate"
+                                                  data-event-label="unfall" value="Berechnen"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-2 text-info-required">* Pflichtfeld</div>
+
+</form>

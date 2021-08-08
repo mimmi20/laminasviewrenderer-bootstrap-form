@@ -14,7 +14,17 @@ parameters:
     reportUnusedCatchesOfUncheckedExceptions: true
     uncheckedExceptions: []
   checkMissingIterableValueType: false
+  treatPhpDocTypesAsCertain: false
   excludes_analyse:
     - */tests/*/data/*
-#  ignoreErrors:
-#    - '~MockObject~'
+  ignoreErrors:
+    - '~is not subtype of Throwable~'
+    - '~PHPDoc tag @throws with type .* is not compatible with parent~'
+    - '~Call to an undefined method Laminas\\InputFilter\\InputFilterInterface\|Laminas\\InputFilter\\InputInterface::isRequired\(\)~'
+    - '~Parameter #1 \$attributesOrElement of method .* expects .*, int given~'
+    - '~Fetching class constant class of deprecated class~'
+    - '~Instantiation of deprecated class~'
+    - '~Laminas\\Form\\Exception\\DomainException is never thrown in the corresponding try block~'
+    - '~Cannot call method .* on class-string\|object~'
+    - '~Parameter #1 \$className of method PHPUnit\\Framework\\TestCase::getMockBuilder\(\) expects class-string<mixed>, string given~'
+    - '~Unable to resolve the template type T in call to method PHPUnit\\Framework\\TestCase::getMockBuilder\(\)~'

@@ -30,7 +30,7 @@
         <ini name="assert.exception" value="On"/>
     </php>
 
-    <testsuite name="Template Test Suite">
+    <testsuite name="laminasviewrenderer-bootstrap-form Test Suite">
         <directory>tests/</directory>
     </testsuite>
 
