@@ -19,7 +19,7 @@
     "laminas/laminas-form": "^3.0.1",
     "laminas/laminas-json": "^3.2.0",
     "laminas/laminas-view": "^2.12.0",
-    "mimmi20/laminasviewrenderer-helper-htmlelement": "^1.0.1"
+    "mimmi20/laminasviewrenderer-helper-htmlelement": "^1.0.2"
   },
   "require-dev": {
     "laminas/laminas-dependency-plugin": "^2.1.2",
@@ -30,15 +30,13 @@
     "mimmi20/laminas-form-element-group": "^2.0.0",
     "mimmi20/laminas-form-element-links": "^1.0.3",
     "mimmi20/laminas-form-element-paragraph": "^1.0.3",
-    "pepakriz/phpstan-exception-rules": "^0.11.7",
     "phpstan/extension-installer": "^1.1.0",
     "phpstan/phpstan": "^0.12.94",
     "phpstan/phpstan-deprecation-rules": "^0.12.6",
-    "phpstan/phpstan-phpunit": "^0.12.21",
+    "phpstan/phpstan-phpunit": "^0.12.22",
     "phpunit/phpunit": "^9.5.8"
   },
   "suggest": {
-    "ext-intl": "required to use the Translator",
     "laminas/laminas-i18n": "Required to use the Translator",
     "laminas/laminas-servicemanager": "Required to use the navigation factories",
     "mimmi20/laminas-form-element-group": "Required to render fieldsets just for styling",
