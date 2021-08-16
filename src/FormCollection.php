@@ -24,7 +24,6 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\EscapeHtml;
-use Laminas\View\Helper\EscapeHtmlAttr;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 
 use function array_key_exists;
@@ -45,7 +44,6 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
 
     private FormRowInterface $formRow;
     private EscapeHtml $escapeHtml;
-    private EscapeHtmlAttr $escapeHtmlAttr;
     private HtmlElementInterface $htmlElement;
     private ?Translate $translate;
 
@@ -53,26 +51,6 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
      * If set to true, collections are automatically wrapped around a fieldset
      */
     private bool $shouldWrap = true;
-
-    /**
-     * This is the default wrapper that the collection is wrapped into
-     */
-    private string $wrapper = '<fieldset%4$s>%2$s%1$s%3$s</fieldset>';
-
-    /**
-     * This is the default label-wrapper
-     */
-    private string $labelWrapper = '<legend>%s</legend>';
-
-    /**
-     * Where shall the template-data be inserted into
-     */
-    private string $templateWrapper = '<template>%s</template>';
-
-    /**
-     * The name of the default view helper that is used to render sub elements.
-     */
-    private string $defaultElementHelper = 'formrow';
 
     public function __construct(FormRowInterface $formRow, EscapeHtml $escapeHtml, HtmlElementInterface $htmlElement, ?Translate $translator = null)
     {

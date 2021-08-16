@@ -13,7 +13,6 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\AbstractHelper;
@@ -76,8 +75,6 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
      * either is not the case, they will not.
      *
      * @param array<string, string> $attributes
-     *
-     * @throws Exception\DomainException
      */
     public function render(ElementInterface $element, array $attributes = []): string
     {

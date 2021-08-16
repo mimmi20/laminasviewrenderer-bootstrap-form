@@ -21,8 +21,6 @@ use Laminas\Form\Exception\DomainException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
-use Laminas\View\Exception\InvalidArgumentException;
-use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Renderer\RendererInterface;
 use Mimmi20\LaminasView\BootstrapForm\Form;
@@ -32,6 +30,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormRow;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 use const PHP_EOL;
 
@@ -40,8 +39,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws RuntimeException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -113,8 +110,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -200,8 +195,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -298,8 +291,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -399,8 +390,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -501,8 +490,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -588,8 +575,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -686,8 +671,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -787,8 +770,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -889,8 +870,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -984,8 +963,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -1090,8 +1067,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -1199,8 +1174,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -1309,8 +1282,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -1409,8 +1380,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -1509,8 +1478,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -1612,8 +1579,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -1716,8 +1681,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -1825,8 +1788,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -1933,8 +1894,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -2043,8 +2002,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -2153,8 +2110,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -2267,8 +2222,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -2404,8 +2357,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -2544,8 +2495,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -2685,8 +2634,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -2821,8 +2768,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -2961,8 +2906,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
@@ -3104,8 +3047,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
