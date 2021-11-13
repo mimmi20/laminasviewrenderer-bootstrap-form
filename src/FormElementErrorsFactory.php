@@ -46,12 +46,16 @@ final class FormElementErrorsFactory
 
         if ($plugin->has(Translate::class)) {
             $translator = $plugin->get(Translate::class);
+
+            assert($translator instanceof Translate);
         }
 
-        return new FormElementErrors(
-            $container->get(HtmlElementInterface::class),
-            $plugin->get(EscapeHtml::class),
-            $translator
-        );
+        $htmlElement = $container->get(HtmlElementInterface::class);
+        $escapeHtml  = $plugin->get(EscapeHtml::class);
+
+        assert($htmlElement instanceof HtmlElementInterface);
+        assert($escapeHtml instanceof EscapeHtml);
+
+        return new FormElementErrors($htmlElement, $escapeHtml, $translator);
     }
 }

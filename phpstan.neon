@@ -13,8 +13,8 @@ parameters:
   checkGenericClassInNonGenericObjectType: false
   checkMissingIterableValueType: false
   treatPhpDocTypesAsCertain: false
-  implicitThrows: false
   exceptions:
+    implicitThrows: false
     checkedExceptionRegexes:
       - '#Exception#'
       - '#Throwable#'
@@ -22,11 +22,11 @@ parameters:
       missingCheckedExceptionInThrows: true
       tooWideThrowType: true
   ignoreErrors:
-    - '~is not subtype of Throwable~'
+#    - '~is not subtype of Throwable~'
     - '~Call to an undefined method Laminas\\InputFilter\\InputFilterInterface\|Laminas\\InputFilter\\InputInterface::isRequired\(\)~'
     - '~Parameter #1 \$attributesOrElement of method .* expects .*, int given~'
     - '~Fetching class constant class of deprecated class~'
     - '~Instantiation of deprecated class~'
-    - '~Cannot call method .* on class-string\|object~'
+#    - '~Cannot call method .* on class-string\|object~'
     - '~Parameter #1 \$className of method PHPUnit\\Framework\\TestCase::getMockBuilder\(\) expects class-string<mixed>, string given~'
     - '~Unable to resolve the template type T in call to method PHPUnit\\Framework\\TestCase::getMockBuilder\(\)~'

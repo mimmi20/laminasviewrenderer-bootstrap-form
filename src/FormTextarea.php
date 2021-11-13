@@ -21,8 +21,10 @@ use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use function array_key_exists;
 use function array_merge;
 use function array_unique;
+use function assert;
 use function explode;
 use function implode;
+use function is_string;
 use function sprintf;
 use function trim;
 
@@ -112,7 +114,13 @@ final class FormTextarea extends AbstractHelper
 
         $attributes['class'] = trim(implode(' ', array_unique($classes)));
 
-        $content = ($this->escapeHtml)((string) $element->getValue());
+        $value = $element->getValue();
+
+        assert(is_string($value));
+
+        $content = ($this->escapeHtml)($value);
+
+        assert(is_string($content));
 
         $markup = $this->htmlElement->toHtml('textarea', $attributes, $content);
         $indent = $this->getIndent();

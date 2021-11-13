@@ -42,10 +42,14 @@ final class FormTelFactory
             )
         );
 
-        return new FormTel(
-            $plugin->get(EscapeHtml::class),
-            $plugin->get(EscapeHtmlAttr::class),
-            $plugin->get(Doctype::class)
-        );
+        $escapeHtml     = $plugin->get(EscapeHtml::class);
+        $escapeHtmlAttr = $plugin->get(EscapeHtmlAttr::class);
+        $docType        = $plugin->get(Doctype::class);
+
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($escapeHtmlAttr instanceof EscapeHtmlAttr);
+        assert($docType instanceof Doctype);
+
+        return new FormTel($escapeHtml, $escapeHtmlAttr, $docType);
     }
 }

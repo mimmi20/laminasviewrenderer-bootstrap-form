@@ -20,10 +20,12 @@ use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 
+use function assert;
 use function get_class;
 use function gettype;
 use function is_array;
 use function is_object;
+use function is_string;
 use function mb_strtolower;
 use function sprintf;
 
@@ -208,6 +210,8 @@ final class FormButton extends FormInput
         if (empty($type)) {
             return 'submit';
         }
+
+        assert(is_string($type));
 
         $type = mb_strtolower($type);
         if (!isset($this->validTypes[$type])) {

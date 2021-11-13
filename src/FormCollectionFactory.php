@@ -46,13 +46,18 @@ final class FormCollectionFactory
 
         if ($plugin->has(Translate::class)) {
             $translator = $plugin->get(Translate::class);
+
+            assert($translator instanceof Translate);
         }
 
-        return new FormCollection(
-            $plugin->get(FormRowInterface::class),
-            $plugin->get(EscapeHtml::class),
-            $container->get(HtmlElementInterface::class),
-            $translator
-        );
+        $row         = $plugin->get(FormRowInterface::class);
+        $escapeHtml  = $plugin->get(EscapeHtml::class);
+        $htmlElement = $container->get(HtmlElementInterface::class);
+
+        assert($row instanceof FormRowInterface);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($htmlElement instanceof HtmlElementInterface);
+
+        return new FormCollection($row, $escapeHtml, $htmlElement, $translator);
     }
 }

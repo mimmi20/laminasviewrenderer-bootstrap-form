@@ -22,8 +22,10 @@ use Mimmi20\Form\Element\Links\LinksInterface as LinksElement;
 use function array_key_exists;
 use function array_merge;
 use function array_unique;
+use function assert;
 use function explode;
 use function implode;
+use function is_string;
 use function sprintf;
 use function trim;
 
@@ -126,6 +128,8 @@ final class FormLinks extends AbstractHelper implements FormIndentInterface, For
                 }
 
                 $label = ($this->escapeHtml)($label);
+
+                assert(is_string($label));
             }
 
             $renderedLinks[] = sprintf(

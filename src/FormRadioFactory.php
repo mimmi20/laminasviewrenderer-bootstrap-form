@@ -48,16 +48,24 @@ final class FormRadioFactory
 
         if ($plugin->has(Translate::class)) {
             $translator = $plugin->get(Translate::class);
+
+            assert($translator instanceof Translate);
         }
 
-        return new FormRadio(
-            $plugin->get(EscapeHtml::class),
-            $plugin->get(EscapeHtmlAttr::class),
-            $plugin->get(Doctype::class),
-            $plugin->get(FormLabelInterface::class),
-            $container->get(HtmlElementInterface::class),
-            $plugin->get(FormHiddenInterface::class),
-            $translator
-        );
+        $escapeHtml     = $plugin->get(EscapeHtml::class);
+        $escapeHtmlAttr = $plugin->get(EscapeHtmlAttr::class);
+        $docType        = $plugin->get(Doctype::class);
+        $label          = $plugin->get(FormLabelInterface::class);
+        $htmlElement    = $container->get(HtmlElementInterface::class);
+        $hidden         = $plugin->get(FormHiddenInterface::class);
+
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($escapeHtmlAttr instanceof EscapeHtmlAttr);
+        assert($docType instanceof Doctype);
+        assert($label instanceof FormLabelInterface);
+        assert($htmlElement instanceof HtmlElementInterface);
+        assert($hidden instanceof FormHiddenInterface);
+
+        return new FormRadio($escapeHtml, $escapeHtmlAttr, $docType, $label, $htmlElement, $hidden, $translator);
     }
 }

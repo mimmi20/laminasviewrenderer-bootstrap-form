@@ -47,13 +47,18 @@ final class FormButtonFactory
 
         if ($plugin->has(Translate::class)) {
             $translator = $plugin->get(Translate::class);
+
+            assert($translator instanceof Translate);
         }
 
-        return new FormButton(
-            $plugin->get(EscapeHtml::class),
-            $plugin->get(EscapeHtmlAttr::class),
-            $plugin->get(Doctype::class),
-            $translator
-        );
+        $escapeHtml     = $plugin->get(EscapeHtml::class);
+        $escapeHtmlAttr = $plugin->get(EscapeHtmlAttr::class);
+        $docType        = $plugin->get(Doctype::class);
+
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($escapeHtmlAttr instanceof EscapeHtmlAttr);
+        assert($docType instanceof Doctype);
+
+        return new FormButton($escapeHtml, $escapeHtmlAttr, $docType, $translator);
     }
 }

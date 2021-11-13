@@ -132,7 +132,9 @@ abstract class AbstractFormMultiCheckbox extends FormInput
 
         $attributes['name'] = $name;
         $attributes['type'] = $this->getInputType();
-        $selectedOptions    = (array) $element->getValue();
+
+        /** @phpstan-var array<int|string, string> $selectedOptions */
+        $selectedOptions = (array) $element->getValue();
 
         $rendered = $this->renderOptions($element, $options, $selectedOptions, $attributes);
 

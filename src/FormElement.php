@@ -22,6 +22,8 @@ use Laminas\View\HelperPluginManager;
 use Mimmi20\Form\Element\Links\Links;
 use Mimmi20\Form\Element\Paragraph\Paragraph;
 
+use function assert;
+use function is_object;
 use function method_exists;
 
 final class FormElement extends AbstractHelper implements FormElementInterface
@@ -185,6 +187,8 @@ final class FormElement extends AbstractHelper implements FormElementInterface
     private function renderHelper(string $name, ElementInterface $element): string
     {
         $helper = $this->helperPluginManager->get($name);
+
+        assert(is_object($helper));
 
         if ($helper instanceof FormIndentInterface || method_exists($helper, 'setIndent')) {
             $helper->setIndent($this->getIndent());

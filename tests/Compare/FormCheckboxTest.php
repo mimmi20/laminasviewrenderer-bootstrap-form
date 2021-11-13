@@ -26,6 +26,7 @@ use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
+use function assert;
 use function trim;
 
 final class FormCheckboxTest extends AbstractTest
@@ -43,15 +44,25 @@ final class FormCheckboxTest extends AbstractTest
 
         $expected = $this->getExpected('form/checkbox.html');
 
-        $helper = new FormCheckbox(
-            $this->serviceManager->get(HelperPluginManager::class)->get(EscapeHtml::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(EscapeHtmlAttr::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(Doctype::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormLabelInterface::class),
-            $this->serviceManager->get(HtmlElementInterface::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormHiddenInterface::class),
-            null
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $escapeHtml     = $plugin->get(EscapeHtml::class);
+        $escapeHtmlAttr = $plugin->get(EscapeHtmlAttr::class);
+        $docType        = $plugin->get(Doctype::class);
+        $label          = $plugin->get(FormLabelInterface::class);
+        $htmlElement    = $this->serviceManager->get(HtmlElementInterface::class);
+        $hidden         = $plugin->get(FormHiddenInterface::class);
+
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($escapeHtmlAttr instanceof EscapeHtmlAttr);
+        assert($docType instanceof Doctype);
+        assert($label instanceof FormLabelInterface);
+        assert($htmlElement instanceof HtmlElementInterface);
+        assert($hidden instanceof FormHiddenInterface);
+
+        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $docType, $label, $htmlElement, $hidden, null);
 
         self::assertSame($expected, trim($helper->render($form->get('gridCheck1'))));
     }

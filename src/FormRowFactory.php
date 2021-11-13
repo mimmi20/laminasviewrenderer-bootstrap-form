@@ -47,15 +47,22 @@ final class FormRowFactory
 
         if ($plugin->has(Translate::class)) {
             $translator = $plugin->get(Translate::class);
+
+            assert($translator instanceof Translate);
         }
 
-        return new FormRow(
-            $plugin->get(FormElementInterface::class),
-            $plugin->get(FormElementErrorsInterface::class),
-            $container->get(HtmlElementInterface::class),
-            $plugin->get(EscapeHtml::class),
-            $container->get(RendererInterface::class),
-            $translator
-        );
+        $formElement      = $plugin->get(FormElementInterface::class);
+        $formElementError = $plugin->get(FormElementErrorsInterface::class);
+        $htmlElement      = $container->get(HtmlElementInterface::class);
+        $escapeHtml       = $plugin->get(EscapeHtml::class);
+        $renderer         = $container->get(RendererInterface::class);
+
+        assert($formElement instanceof FormElementInterface);
+        assert($formElementError instanceof FormElementErrorsInterface);
+        assert($htmlElement instanceof HtmlElementInterface);
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($renderer instanceof RendererInterface);
+
+        return new FormRow($formElement, $formElementError, $htmlElement, $escapeHtml, $renderer, $translator);
     }
 }

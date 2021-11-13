@@ -22,6 +22,7 @@ use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
+use function assert;
 use function trim;
 
 final class FormSelectTest extends AbstractTest
@@ -39,11 +40,17 @@ final class FormSelectTest extends AbstractTest
 
         $expected = $this->getExpected('form/select.html');
 
-        $helper = new FormSelect(
-            $this->serviceManager->get(HelperPluginManager::class)->get(EscapeHtml::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormHiddenInterface::class),
-            null
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $escapeHtml = $plugin->get(EscapeHtml::class);
+        $hidden     = $plugin->get(FormHiddenInterface::class);
+
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($hidden instanceof FormHiddenInterface);
+
+        $helper = new FormSelect($escapeHtml, $hidden, null);
 
         self::assertSame($expected, trim($helper->render($form->get('inputState'))));
     }

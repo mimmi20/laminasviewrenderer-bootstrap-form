@@ -25,6 +25,7 @@ use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
+use function assert;
 use function trim;
 
 final class FormTest extends AbstractTest
@@ -46,10 +47,17 @@ final class FormTest extends AbstractTest
 
         $expected = $this->getExpected('form/vertical.html');
 
-        $helper = new Form(
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormCollectionInterface::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormRowInterface::class)
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $row        = $plugin->get(FormRowInterface::class);
+        $collection = $plugin->get(FormCollectionInterface::class);
+
+        assert($row instanceof FormRowInterface);
+        assert($collection instanceof FormCollectionInterface);
+
+        $helper = new Form($collection, $row);
 
         self::assertSame($expected, trim($helper->render($form)));
     }
@@ -71,10 +79,17 @@ final class FormTest extends AbstractTest
 
         $expected = $this->getExpected('form/vertical.floating.html');
 
-        $helper = new Form(
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormCollectionInterface::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormRowInterface::class)
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $row        = $plugin->get(FormRowInterface::class);
+        $collection = $plugin->get(FormCollectionInterface::class);
+
+        assert($row instanceof FormRowInterface);
+        assert($collection instanceof FormCollectionInterface);
+
+        $helper = new Form($collection, $row);
 
         self::assertSame($expected, trim($helper->render($form)));
     }
@@ -96,10 +111,17 @@ final class FormTest extends AbstractTest
 
         $expected = $this->getExpected('form/horizonal.html');
 
-        $helper = new Form(
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormCollectionInterface::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormRowInterface::class)
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $row        = $plugin->get(FormRowInterface::class);
+        $collection = $plugin->get(FormCollectionInterface::class);
+
+        assert($row instanceof FormRowInterface);
+        assert($collection instanceof FormCollectionInterface);
+
+        $helper = new Form($collection, $row);
 
         self::assertSame($expected, trim($helper->render($form)));
     }
@@ -121,10 +143,17 @@ final class FormTest extends AbstractTest
 
         $expected = $this->getExpected('form/horizontal.collection.html');
 
-        $helper = new Form(
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormCollectionInterface::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormRowInterface::class)
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $row        = $plugin->get(FormRowInterface::class);
+        $collection = $plugin->get(FormCollectionInterface::class);
+
+        assert($row instanceof FormRowInterface);
+        assert($collection instanceof FormCollectionInterface);
+
+        $helper = new Form($collection, $row);
 
         self::assertSame($expected, trim($helper->render($form)));
     }
@@ -146,10 +175,17 @@ final class FormTest extends AbstractTest
 
         $expected = $this->getExpected('form/horizontal.element-group.html');
 
-        $helper = new Form(
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormCollectionInterface::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormRowInterface::class)
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $row        = $plugin->get(FormRowInterface::class);
+        $collection = $plugin->get(FormCollectionInterface::class);
+
+        assert($row instanceof FormRowInterface);
+        assert($collection instanceof FormCollectionInterface);
+
+        $helper = new Form($collection, $row);
 
         self::assertSame($expected, trim($helper->render($form)));
     }
@@ -171,10 +207,17 @@ final class FormTest extends AbstractTest
 
         $expected = $this->getExpected('form/inline.html');
 
-        $helper = new Form(
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormCollectionInterface::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormRowInterface::class)
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $row        = $plugin->get(FormRowInterface::class);
+        $collection = $plugin->get(FormCollectionInterface::class);
+
+        assert($row instanceof FormRowInterface);
+        assert($collection instanceof FormCollectionInterface);
+
+        $helper = new Form($collection, $row);
 
         self::assertSame($expected, trim($helper->render($form)));
     }
@@ -196,10 +239,17 @@ final class FormTest extends AbstractTest
 
         $expected = $this->getExpected('form/hr.html');
 
-        $helper = new Form(
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormCollectionInterface::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormRowInterface::class)
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $row        = $plugin->get(FormRowInterface::class);
+        $collection = $plugin->get(FormCollectionInterface::class);
+
+        assert($row instanceof FormRowInterface);
+        assert($collection instanceof FormCollectionInterface);
+
+        $helper = new Form($collection, $row);
 
         self::assertSame($expected, trim($helper->render($form)));
     }
@@ -221,10 +271,17 @@ final class FormTest extends AbstractTest
 
         $expected = $this->getExpected('form/phv.html');
 
-        $helper = new Form(
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormCollectionInterface::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormRowInterface::class)
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $row        = $plugin->get(FormRowInterface::class);
+        $collection = $plugin->get(FormCollectionInterface::class);
+
+        assert($row instanceof FormRowInterface);
+        assert($collection instanceof FormCollectionInterface);
+
+        $helper = new Form($collection, $row);
 
         self::assertSame($expected, trim($helper->render($form)));
     }

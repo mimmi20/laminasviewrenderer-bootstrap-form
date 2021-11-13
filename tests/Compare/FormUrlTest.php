@@ -23,6 +23,7 @@ use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
+use function assert;
 use function trim;
 
 final class FormUrlTest extends AbstractTest
@@ -39,11 +40,19 @@ final class FormUrlTest extends AbstractTest
 
         $expected = $this->getExpected('form/url.html');
 
-        $helper = new FormUrl(
-            $this->serviceManager->get(HelperPluginManager::class)->get(EscapeHtml::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(EscapeHtmlAttr::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(Doctype::class)
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $escapeHtml     = $plugin->get(EscapeHtml::class);
+        $escapeHtmlAttr = $plugin->get(EscapeHtmlAttr::class);
+        $docType        = $plugin->get(Doctype::class);
+
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($escapeHtmlAttr instanceof EscapeHtmlAttr);
+        assert($docType instanceof Doctype);
+
+        $helper = new FormUrl($escapeHtml, $escapeHtmlAttr, $docType);
 
         self::assertSame($expected, trim($helper->render($form->get('inputUrl'))));
     }

@@ -45,12 +45,16 @@ final class FormSelectFactory
 
         if ($plugin->has(Translate::class)) {
             $translator = $plugin->get(Translate::class);
+
+            assert($translator instanceof Translate);
         }
 
-        return new FormSelect(
-            $plugin->get(EscapeHtml::class),
-            $plugin->get(FormHiddenInterface::class),
-            $translator
-        );
+        $escapeHtml = $plugin->get(EscapeHtml::class);
+        $hidden     = $plugin->get(FormHiddenInterface::class);
+
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($hidden instanceof FormHiddenInterface);
+
+        return new FormSelect($escapeHtml, $hidden, $translator);
     }
 }

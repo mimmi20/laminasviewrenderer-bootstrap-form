@@ -22,8 +22,10 @@ use Mimmi20\Form\Element\Paragraph\ParagraphInterface as ParagraphElement;
 use function array_key_exists;
 use function array_merge;
 use function array_unique;
+use function assert;
 use function explode;
 use function implode;
+use function is_string;
 use function sprintf;
 use function trim;
 
@@ -96,6 +98,8 @@ final class FormParagraph extends AbstractHelper implements FormIndentInterface,
             }
 
             $text = ($this->escapeHtml)($text);
+
+            assert(is_string($text));
         }
 
         $renderedElement = sprintf(

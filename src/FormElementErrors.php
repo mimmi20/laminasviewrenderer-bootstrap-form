@@ -22,7 +22,9 @@ use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 
 use function array_merge;
 use function array_walk_recursive;
+use function assert;
 use function implode;
+use function is_string;
 
 use const PHP_EOL;
 
@@ -98,6 +100,8 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
             if (!$element instanceof LabelAwareInterface || !$element->getLabelOption('disable_html_escape')) {
                 $message = ($this->escapeHtml)($message);
             }
+
+            assert(is_string($message));
 
             $markups[] = $indent . $this->getWhitespace(8) . $this->htmlElement->toHtml('li', [], $message);
         }
