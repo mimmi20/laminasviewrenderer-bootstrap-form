@@ -23,6 +23,7 @@ use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
+use function assert;
 use function trim;
 
 final class FormButtonTest extends AbstractTest
@@ -40,12 +41,19 @@ final class FormButtonTest extends AbstractTest
 
         $expected = $this->getExpected('form/button.html');
 
-        $helper = new FormButton(
-            $this->serviceManager->get(HelperPluginManager::class)->get(EscapeHtml::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(EscapeHtmlAttr::class),
-            $this->serviceManager->get(HelperPluginManager::class)->get(Doctype::class),
-            null
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $escapeHtml     = $plugin->get(EscapeHtml::class);
+        $escapeHtmlAttr = $plugin->get(EscapeHtmlAttr::class);
+        $docType        = $plugin->get(Doctype::class);
+
+        assert($escapeHtml instanceof EscapeHtml);
+        assert($escapeHtmlAttr instanceof EscapeHtmlAttr);
+        assert($docType instanceof Doctype);
+
+        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $docType, null);
 
         self::assertSame($expected, trim($helper->render($form->get('button'))));
     }

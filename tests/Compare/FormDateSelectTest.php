@@ -21,6 +21,7 @@ use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
+use function assert;
 use function trim;
 
 final class FormDateSelectTest extends AbstractTest
@@ -38,9 +39,15 @@ final class FormDateSelectTest extends AbstractTest
 
         $expected = $this->getExpected('form/date-select.html');
 
-        $helper = new FormDateSelect(
-            $this->serviceManager->get(HelperPluginManager::class)->get(FormSelectInterface::class)
-        );
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $select = $plugin->get(FormSelectInterface::class);
+
+        assert($select instanceof FormSelectInterface);
+
+        $helper = new FormDateSelect($select);
 
         self::assertSame($expected, trim($helper->render($form->get('inputDate4'))));
     }

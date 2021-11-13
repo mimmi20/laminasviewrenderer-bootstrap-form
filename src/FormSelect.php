@@ -295,6 +295,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
 
             if (!isset($optionSpec['disable_html_escape'])) {
                 $label = ($this->escaper)($label);
+
+                assert(is_string($label));
             }
         }
 
@@ -340,6 +342,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         $options = [];
         if (array_key_exists('options', $optgroup)) {
             if (is_array($optgroup['options'])) {
+                /** @phpstan-var array<int|string, array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string> $options */
                 $options = $optgroup['options'];
             }
 
@@ -374,7 +377,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @param mixed               $value
      * @param array<string, bool> $attributes
      *
-     * @return array<int|string, mixed>
+     * @return array<int|string, string>
      *
      * @throws Exception\DomainException
      */
@@ -384,8 +387,12 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
             return [];
         }
 
-        if (!is_array($value)) {
+        if (is_string($value)) {
             return [$value];
+        }
+
+        if (!is_array($value)) {
+            return [];
         }
 
         if (!array_key_exists('multiple', $attributes) || !$attributes['multiple']) {

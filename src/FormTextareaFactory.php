@@ -41,9 +41,12 @@ final class FormTextareaFactory
             )
         );
 
-        return new FormTextarea(
-            $container->get(HtmlElementInterface::class),
-            $plugin->get(EscapeHtml::class)
-        );
+        $htmlElement = $container->get(HtmlElementInterface::class);
+        $escapeHtml  = $plugin->get(EscapeHtml::class);
+
+        assert($htmlElement instanceof HtmlElementInterface);
+        assert($escapeHtml instanceof EscapeHtml);
+
+        return new FormTextarea($htmlElement, $escapeHtml);
     }
 }

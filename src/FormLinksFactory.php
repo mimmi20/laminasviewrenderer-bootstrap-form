@@ -45,11 +45,14 @@ final class FormLinksFactory
 
         if ($plugin->has(Translate::class)) {
             $translator = $plugin->get(Translate::class);
+
+            assert($translator instanceof Translate);
         }
 
-        return new FormLinks(
-            $plugin->get(EscapeHtml::class),
-            $translator
-        );
+        $escapeHtml = $plugin->get(EscapeHtml::class);
+
+        assert($escapeHtml instanceof EscapeHtml);
+
+        return new FormLinks($escapeHtml, $translator);
     }
 }

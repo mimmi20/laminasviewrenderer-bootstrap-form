@@ -21,6 +21,8 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
 
+use function assert;
+use function is_string;
 use function method_exists;
 use function trim;
 
@@ -70,6 +72,8 @@ final class Form extends BaseForm
         $formLayout   = $form->getOption('layout');
         $class        = $form->getAttribute('class') ?? '';
         $requiredMark = $form->getOption('form-required-mark');
+
+        assert(is_string($class));
 
         if (null === $formLayout && $form->getOption('floating-labels')) {
             $formLayout = self::LAYOUT_VERTICAL;

@@ -45,11 +45,14 @@ final class FormParagraphFactory
 
         if ($plugin->has(Translate::class)) {
             $translator = $plugin->get(Translate::class);
+
+            assert($translator instanceof Translate);
         }
 
-        return new FormParagraph(
-            $plugin->get(EscapeHtml::class),
-            $translator
-        );
+        $escapeHtml = $plugin->get(EscapeHtml::class);
+
+        assert($escapeHtml instanceof EscapeHtml);
+
+        return new FormParagraph($escapeHtml, $translator);
     }
 }

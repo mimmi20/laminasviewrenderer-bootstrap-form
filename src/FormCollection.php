@@ -33,6 +33,7 @@ use function assert;
 use function explode;
 use function implode;
 use function is_array;
+use function is_string;
 use function sprintf;
 use function trim;
 
@@ -168,10 +169,14 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
                     $label,
                     $this->getTranslatorTextDomain()
                 );
+
+                assert(is_string($label));
             }
 
             if (!$element instanceof LabelAwareInterface || !$element->getLabelOption('disable_html_escape')) {
                 $label = ($this->escapeHtml)($label);
+
+                assert(is_string($label));
             }
 
             if (
@@ -232,6 +237,8 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
         }
 
         $templateAttrbutes = $collection->getOption('template_attributes') ?? [];
+
+        assert(is_array($templateAttrbutes));
 
         return $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml('template', $templateAttrbutes, $templateMarkup . $indent) . PHP_EOL;
     }

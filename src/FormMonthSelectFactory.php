@@ -41,8 +41,10 @@ final class FormMonthSelectFactory
             )
         );
 
-        return new FormMonthSelect(
-            $plugin->get(FormSelectInterface::class)
-        );
+        $select = $plugin->get(FormSelectInterface::class);
+
+        assert($select instanceof FormSelectInterface);
+
+        return new FormMonthSelect($select);
     }
 }

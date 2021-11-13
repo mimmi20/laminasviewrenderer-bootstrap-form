@@ -39,9 +39,12 @@ final class FormFactory
             )
         );
 
-        return new Form(
-            $plugin->get(FormCollectionInterface::class),
-            $plugin->get(FormRowInterface::class)
-        );
+        $collection = $plugin->get(FormCollectionInterface::class);
+        $row        = $plugin->get(FormRowInterface::class);
+
+        assert($collection instanceof FormCollectionInterface);
+        assert($row instanceof FormRowInterface);
+
+        return new Form($collection, $row);
     }
 }

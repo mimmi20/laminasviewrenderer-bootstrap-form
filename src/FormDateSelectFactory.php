@@ -41,8 +41,10 @@ final class FormDateSelectFactory
             )
         );
 
-        return new FormDateSelect(
-            $plugin->get(FormSelectInterface::class)
-        );
+        $select = $plugin->get(FormSelectInterface::class);
+
+        assert($select instanceof FormSelectInterface);
+
+        return new FormDateSelect($select);
     }
 }

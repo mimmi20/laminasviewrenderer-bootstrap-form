@@ -45,11 +45,14 @@ final class FormLabelFactory
 
         if ($plugin->has(Translate::class)) {
             $translator = $plugin->get(Translate::class);
+
+            assert($translator instanceof Translate);
         }
 
-        return new FormLabel(
-            $plugin->get(EscapeHtml::class),
-            $translator
-        );
+        $escapeHtml = $plugin->get(EscapeHtml::class);
+
+        assert($escapeHtml instanceof EscapeHtml);
+
+        return new FormLabel($escapeHtml, $translator);
     }
 }
