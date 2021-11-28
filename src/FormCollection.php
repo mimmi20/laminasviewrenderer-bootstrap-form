@@ -219,7 +219,7 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
     {
         $elementOrFieldset = $collection->getTemplateElement();
 
-        if (null === $elementOrFieldset) {
+        if (!$elementOrFieldset instanceof ElementInterface) {
             return '';
         }
 

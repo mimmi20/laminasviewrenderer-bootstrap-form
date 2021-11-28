@@ -734,7 +734,6 @@ final class FormLabelTest extends TestCase
     {
         $for                   = 'test-type';
         $class                 = 'xyz';
-        $labelContent          = 'test';
         $label                 = 'test-label';
         $textDomain            = 'text-domain';
         $tranlatedLabel        = 'test-label-translated';

@@ -150,7 +150,7 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
     {
         $messagesToPrint = [];
 
-        if (null === $this->translate) {
+        if (!$this->translate instanceof Translate) {
             $messageCallback = static function ($message) use (&$messagesToPrint): void {
                 if ('' === $message) {
                     return;

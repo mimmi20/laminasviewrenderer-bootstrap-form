@@ -1766,7 +1766,6 @@ final class FormCollectionTest extends TestCase
 
         $expectedButton   = $indent . '    <button></button>';
         $expectedText     = $indent . '    <text></text>';
-        $expectedTemplate = $indent . '    ';
         $renderedTemplate = '<template>template-content</template>';
 
         $expected = PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent . '    ' . $renderedTemplate . PHP_EOL;
@@ -1943,7 +1942,6 @@ final class FormCollectionTest extends TestCase
 
         $expectedButton   = $indent . '    <button></button>';
         $expectedText     = $indent . '    <text></text>';
-        $expectedTemplate = $indent . '    ';
         $renderedTemplate = '<template>template-content</template>';
 
         $expected = PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent . '    ' . $renderedTemplate . PHP_EOL;
@@ -2118,7 +2116,6 @@ final class FormCollectionTest extends TestCase
 
         $expectedButton   = $indent . '    <button></button>';
         $expectedText     = $indent . '    <text></text>';
-        $expectedTemplate = $indent . '    ';
         $renderedTemplate = '<template>template-content</template>';
 
         $expected = PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent . '    ' . $renderedTemplate . PHP_EOL;
