@@ -189,10 +189,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         $this->formElement->setIndent($indent . $this->getWhitespace(4));
-        $markup  = $this->formElement->render($element);
-        $markup .= $errorContent . $helpContent;
+        $markup = $this->formElement->render($element);
 
-        return $markup;
+        return $markup . $errorContent . $helpContent;
     }
 
     /**
