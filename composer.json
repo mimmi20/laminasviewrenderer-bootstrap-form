@@ -1,9 +1,8 @@
 {
   "name": "mimmi20/laminasviewrenderer-bootstrap-form",
-  "type": "library",
   "description": "Provides a View Renderer for Laminas Forms to use with Bootstrap",
-  "homepage": "https://github.com/mimmi20/laminasviewrenderer-bootstrap-form",
   "license": "MIT",
+  "type": "library",
   "authors": [
     {
       "name": "Thomas Müller",
@@ -11,19 +10,25 @@
       "role": "Developer"
     }
   ],
+  "homepage": "https://github.com/mimmi20/laminasviewrenderer-bootstrap-form",
+  "support": {
+    "issues": "https://github.com/mimmi20/laminasviewrenderer-bootstrap-form/issues",
+    "source": "https://github.com/mimmi20/laminasviewrenderer-bootstrap-form"
+  },
   "require": {
     "php": "^7.4.3 || ^8.0.0",
     "ext-intl": "*",
     "ext-mbstring": "*",
     "laminas/laminas-escaper": "^2.9.0",
-    "laminas/laminas-form": "^3.0.1",
+    "laminas/laminas-form": "^3.1.0",
     "laminas/laminas-json": "^3.3.0",
     "laminas/laminas-view": "^2.14.2",
     "mimmi20/laminasviewrenderer-helper-htmlelement": "^1.0.3"
   },
   "require-dev": {
+    "ergebnis/composer-normalize": "^2.18",
     "laminas/laminas-dependency-plugin": "^2.2.0",
-    "laminas/laminas-i18n": "^2.12.0",
+    "laminas/laminas-i18n": "^2.13.0",
     "laminas/laminas-modulemanager": "^2.11.0",
     "laminas/laminas-servicemanager": "^3.10.0",
     "mimmi20/coding-standard": "^2.5.1",
@@ -35,7 +40,7 @@
     "phpstan/phpstan-deprecation-rules": "^1.0.0",
     "phpstan/phpstan-phpunit": "^1.0.0",
     "phpunit/phpunit": "^9.5.10",
-    "rector/rector": "^0.12.5"
+    "rector/rector": "^0.12.7"
   },
   "suggest": {
     "laminas/laminas-i18n": "Required to use the Translator",
@@ -43,16 +48,6 @@
     "mimmi20/laminas-form-element-group": "Required to render fieldsets just for styling",
     "mimmi20/laminas-form-element-links": "Required to render links inside a form",
     "mimmi20/laminas-form-element-paragraph": "Required to render paragraphs inside a form"
-  },
-  "config": {
-    "preferred-install": "dist",
-    "sort-packages": true
-  },
-  "extra": {
-    "laminas": {
-      "component": "Mimmi20\\LaminasView\\BootstrapForm",
-      "config-provider": "Mimmi20\\LaminasView\\BootstrapForm\\ConfigProvider"
-    }
   },
   "autoload": {
     "psr-4": {
@@ -64,8 +59,14 @@
       "Mimmi20Test\\LaminasView\\BootstrapForm\\": "tests/"
     }
   },
-  "support": {
-    "issues": "https://github.com/mimmi20/laminasviewrenderer-bootstrap-form/issues",
-    "source": "https://github.com/mimmi20/laminasviewrenderer-bootstrap-form"
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "extra": {
+    "laminas": {
+      "component": "Mimmi20\\LaminasView\\BootstrapForm",
+      "config-provider": "Mimmi20\\LaminasView\\BootstrapForm\\ConfigProvider"
+    }
   }
 }
