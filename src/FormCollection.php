@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -43,22 +43,21 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
 {
     use FormTrait;
 
-    private FormRowInterface $formRow;
-    private EscapeHtml $escapeHtml;
-    private HtmlElementInterface $htmlElement;
-    private ?Translate $translate;
+    private Translate | null $translate;
 
     /**
      * If set to true, collections are automatically wrapped around a fieldset
      */
     private bool $shouldWrap = true;
 
-    public function __construct(FormRowInterface $formRow, EscapeHtml $escapeHtml, HtmlElementInterface $htmlElement, ?Translate $translator = null)
-    {
-        $this->formRow     = $formRow;
-        $this->escapeHtml  = $escapeHtml;
-        $this->htmlElement = $htmlElement;
-        $this->translate   = $translator;
+    /** @throws void */
+    public function __construct(
+        private readonly FormRowInterface $formRow,
+        private readonly EscapeHtml $escapeHtml,
+        private readonly HtmlElementInterface $htmlElement,
+        Translate | null $translator = null,
+    ) {
+        $this->translate = $translator;
     }
 
     /**
@@ -75,8 +74,10 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
      * @throws InvalidArgumentException
      * @throws Exception\InvalidArgumentException
      */
-    public function __invoke(?ElementInterface $element = null, bool $wrap = true)
-    {
+    public function __invoke(
+        ElementInterface | null $element = null,
+        bool $wrap = true,
+    ) {
         if (!$element) {
             return $this;
         }
@@ -103,8 +104,8 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
                 sprintf(
                     '%s requires that the element is of type %s',
                     __METHOD__,
-                    FieldsetInterface::class
-                )
+                    FieldsetInterface::class,
+                ),
             );
         }
 
@@ -121,6 +122,8 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
         $floating = $element->getOption('floating');
 
         foreach ($element->getIterator() as $elementOrFieldset) {
+            assert($elementOrFieldset instanceof ElementInterface);
+
             if (null !== $form && !$elementOrFieldset->getOption('form')) {
                 $elementOrFieldset->setOption('form', $form);
             }
@@ -167,7 +170,7 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
             if (null !== $this->translate) {
                 $label = ($this->translate)(
                     $label,
-                    $this->getTranslatorTextDomain()
+                    $this->getTranslatorTextDomain(),
                 );
 
                 assert(is_string($label));
@@ -245,6 +248,8 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
 
     /**
      * If set to true, collections are automatically wrapped around a fieldset
+     *
+     * @throws void
      */
     public function setShouldWrap(bool $wrap): self
     {
@@ -255,6 +260,8 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
 
     /**
      * Get wrapped
+     *
+     * @throws void
      */
     public function shouldWrap(): bool
     {

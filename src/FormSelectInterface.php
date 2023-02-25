@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -27,7 +27,7 @@ interface FormSelectInterface extends FormIndentInterface
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
      */
-    public function __invoke(?ElementInterface $element = null);
+    public function __invoke(ElementInterface | null $element = null);
 
     /**
      * Render a form <select> element from the provided $element
@@ -54,14 +54,23 @@ interface FormSelectInterface extends FormIndentInterface
      * @param array<int|string, array<string, string>|string> $options
      * @param array<int|string, string>                       $selectedOptions Option values that should be marked as selected
      */
-    public function renderOptions(array $options, array $selectedOptions, int $level): string;
+    public function renderOptions(
+        array $options,
+        array $selectedOptions,
+        int $level,
+    ): string;
 
     /**
      * @param int|string                   $key
      * @param array<string, string>|string $optionSpec
      * @param array<int|string, string>    $selectedOptions
      */
-    public function renderOption($key, $optionSpec, array $selectedOptions, int $level): string;
+    public function renderOption(
+        $key,
+        $optionSpec,
+        array $selectedOptions,
+        int $level,
+    ): string;
 
     /**
      * Render an optgroup
@@ -73,5 +82,9 @@ interface FormSelectInterface extends FormIndentInterface
      * @param array<string, int|string> $optgroup
      * @param array<int|string, string> $selectedOptions
      */
-    public function renderOptgroup(array $optgroup, array $selectedOptions, int $level): string;
+    public function renderOptgroup(
+        array $optgroup,
+        array $selectedOptions,
+        int $level,
+    ): string;
 }

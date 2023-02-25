@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -55,15 +55,11 @@ final class FormTextarea extends AbstractHelper
         'wrap' => true,
     ];
 
-    private HtmlElementInterface $htmlElement;
-    private EscapeHtml $escapeHtml;
-
+    /** @throws void */
     public function __construct(
-        HtmlElementInterface $htmlElement,
-        EscapeHtml $escapeHtml
+        private readonly HtmlElementInterface $htmlElement,
+        private readonly EscapeHtml $escapeHtml,
     ) {
-        $this->htmlElement = $htmlElement;
-        $this->escapeHtml  = $escapeHtml;
     }
 
     /**
@@ -75,7 +71,7 @@ final class FormTextarea extends AbstractHelper
      *
      * @throws Exception\DomainException
      */
-    public function __invoke(?ElementInterface $element = null)
+    public function __invoke(ElementInterface | null $element = null)
     {
         if (!$element) {
             return $this;
@@ -97,8 +93,8 @@ final class FormTextarea extends AbstractHelper
             throw new Exception\DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
-                    __METHOD__
-                )
+                    __METHOD__,
+                ),
             );
         }
 

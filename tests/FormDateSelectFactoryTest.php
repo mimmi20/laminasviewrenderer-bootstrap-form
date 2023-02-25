@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -20,7 +20,6 @@ use Mimmi20\LaminasView\BootstrapForm\FormDateSelectFactory;
 use Mimmi20\LaminasView\BootstrapForm\FormSelectInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 use function assert;
 
@@ -28,15 +27,13 @@ final class FormDateSelectFactoryTest extends TestCase
 {
     private FormDateSelectFactory $factory;
 
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormDateSelectFactory();
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvocation(): void
     {
         $selectHelper = $this->createMock(FormSelectInterface::class);
@@ -65,9 +62,7 @@ final class FormDateSelectFactoryTest extends TestCase
         self::assertInstanceOf(FormDateSelect::class, $helper);
     }
 
-    /**
-     * @throws Exception
-     */
+    /** @throws Exception */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

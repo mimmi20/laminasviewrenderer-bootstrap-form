@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -22,7 +22,7 @@ use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementFactory;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
+use Psr\Container\ContainerInterface;
 
 use function file_get_contents;
 use function sprintf;
@@ -33,7 +33,7 @@ use const PHP_EOL;
 /**
  * Base class for navigation view helper tests
  */
-abstract class AbstractTest extends TestCase
+abstract class AbstractTestCase extends TestCase
 {
     protected ServiceManager $serviceManager;
 
@@ -41,11 +41,6 @@ abstract class AbstractTest extends TestCase
      * Path to files needed for test
      */
     protected string $files;
-
-    /**
-     * Class name for view helper to test
-     */
-    protected string $helperName;
 
     /**
      * Prepares the environment before running a test
@@ -66,19 +61,18 @@ abstract class AbstractTest extends TestCase
 
         $config = (new ConfigProvider())();
 
-        $sm->setFactory(
-            'config',
-            static fn (): array => $config
-        );
+        $sm->setService('config', $config);
 
         $sm->setFactory(
             HelperPluginManager::class,
-            static fn (): HelperPluginManager => new HelperPluginManager($sm, $config['view_helpers'])
+            /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
+            static fn (ContainerInterface $container, string $requestedName, array | null $options = null): HelperPluginManager => new HelperPluginManager($sm, $config['view_helpers']),
         );
 
         $sm->setFactory(
             RendererInterface::class,
-            static fn (): PhpRenderer => new PhpRenderer()
+            /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
+            static fn (ContainerInterface $container, string $requestedName, array | null $options = null): PhpRenderer => new PhpRenderer(),
         );
 
         $sm->setAllowOverride(false);
@@ -88,7 +82,6 @@ abstract class AbstractTest extends TestCase
      * Returns the contens of the expected $file
      *
      * @throws Exception
-     * @throws InvalidArgumentException
      */
     protected function getExpected(string $file): string
     {

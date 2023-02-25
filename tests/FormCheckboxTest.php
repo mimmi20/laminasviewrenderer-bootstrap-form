@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,6 +16,7 @@ use Laminas\Form\Element\Checkbox;
 use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
@@ -29,7 +30,6 @@ use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 use function sprintf;
 
@@ -39,7 +39,7 @@ final class FormCheckboxTest extends TestCase
 {
     /**
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function testSetWrongLabelPosition(): void
     {
@@ -85,15 +85,15 @@ final class FormCheckboxTest extends TestCase
 
         $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
 
-        $this->expectException(\Laminas\Form\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf(
                 '%s expects either %s::LABEL_APPEND or %s::LABEL_PREPEND; received "%s"',
                 'Mimmi20\LaminasView\BootstrapForm\LabelPositionTrait::setLabelPosition',
                 BaseFormRow::class,
                 BaseFormRow::class,
-                $labelPosition
-            )
+                $labelPosition,
+            ),
         );
         $this->expectExceptionCode(0);
 
@@ -102,7 +102,6 @@ final class FormCheckboxTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      * @throws InvalidArgumentException
      */
     public function testSetGetLabelPosition(): void
@@ -156,7 +155,7 @@ final class FormCheckboxTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderWithWrongElement(): void
@@ -207,13 +206,13 @@ final class FormCheckboxTest extends TestCase
         $element->expects(self::never())
             ->method('getName');
 
-        $this->expectException(\Laminas\Form\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf(
                 '%s requires that the element is of type %s',
                 'Mimmi20\LaminasView\BootstrapForm\FormCheckbox::render',
-                Checkbox::class
-            )
+                Checkbox::class,
+            ),
         );
         $this->expectExceptionCode(0);
 
@@ -222,7 +221,7 @@ final class FormCheckboxTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderWithoutName(): void
@@ -278,8 +277,8 @@ final class FormCheckboxTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 '%s requires that the element has an assigned name; none discovered',
-                'Mimmi20\LaminasView\BootstrapForm\FormCheckbox::render'
-            )
+                'Mimmi20\LaminasView\BootstrapForm\FormCheckbox::render',
+            ),
         );
         $this->expectExceptionCode(0);
 
@@ -287,9 +286,8 @@ final class FormCheckboxTest extends TestCase
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderInlineForm(): void
@@ -329,11 +327,11 @@ final class FormCheckboxTest extends TestCase
             ->with(
                 'div',
                 ['class' => ['form-check', 'form-check-inline']],
-                PHP_EOL .
-                '<label for="chck-id">' . PHP_EOL .
-                '    <input class="form-check-input&#x20;xyz" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL .
-                '    <span>escaped-label</span>' . PHP_EOL .
-                '</label>' . PHP_EOL
+                PHP_EOL
+                . '<label for="chck-id">' . PHP_EOL
+                . '    <input class="form-check-input&#x20;xyz" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL
+                . '    <span>escaped-label</span>' . PHP_EOL
+                . '</label>' . PHP_EOL,
             )
             ->willReturn($expected);
 
@@ -344,7 +342,7 @@ final class FormCheckboxTest extends TestCase
             ->method('openTag')
             ->with(['class' => 'form-check-label abc', 'for' => $id])
             ->willReturn(
-                sprintf('<label for="%s">', $id)
+                sprintf('<label for="%s">', $id),
             );
         $formLabel->expects(self::once())
             ->method('closeTag')
@@ -398,9 +396,8 @@ final class FormCheckboxTest extends TestCase
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderVerticalFormWithTranslator(): void
@@ -442,11 +439,11 @@ final class FormCheckboxTest extends TestCase
             ->with(
                 'div',
                 ['class' => ['form-check']],
-                PHP_EOL .
-                '<label for="chck-id">' . PHP_EOL .
-                '    <span>test-label-translated-escaped</span>' . PHP_EOL .
-                '    <input class="form-check-input&#x20;xyz" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL .
-                '</label>' . PHP_EOL
+                PHP_EOL
+                . '<label for="chck-id">' . PHP_EOL
+                . '    <span>test-label-translated-escaped</span>' . PHP_EOL
+                . '    <input class="form-check-input&#x20;xyz" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL
+                . '</label>' . PHP_EOL,
             )
             ->willReturn($expected);
 
@@ -457,7 +454,7 @@ final class FormCheckboxTest extends TestCase
             ->method('openTag')
             ->with(['class' => 'form-check-label abc', 'for' => $id])
             ->willReturn(
-                sprintf('<label for="%s">', $id)
+                sprintf('<label for="%s">', $id),
             );
         $formLabel->expects(self::once())
             ->method('closeTag')
@@ -522,9 +519,8 @@ final class FormCheckboxTest extends TestCase
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderVerticalFormWithId(): void
@@ -568,9 +564,9 @@ final class FormCheckboxTest extends TestCase
             ->with(
                 'div',
                 ['class' => ['form-check']],
-                PHP_EOL .
-                '    <label for="chck-id">test-label-translated-escaped</label>' . PHP_EOL .
-                '    <input class="form-check-input&#x20;xyz" id="chck-id" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL
+                PHP_EOL
+                . '    <label for="chck-id">test-label-translated-escaped</label>' . PHP_EOL
+                . '    <input class="form-check-input&#x20;xyz" id="chck-id" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL,
             )
             ->willReturn($expected);
 
@@ -581,7 +577,7 @@ final class FormCheckboxTest extends TestCase
             ->method('openTag')
             ->with(['class' => 'form-check-label abc', 'for' => $id])
             ->willReturn(
-                sprintf('<label for="%s">', $id)
+                sprintf('<label for="%s">', $id),
             );
         $formLabel->expects(self::once())
             ->method('closeTag')
@@ -631,8 +627,12 @@ final class FormCheckboxTest extends TestCase
             ->willReturn(true);
         $element->expects(self::exactly(3))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls($disableEscape, $wrap, $wrap);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', $disableEscape],
+                    ['always_wrap', $wrap],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -646,9 +646,8 @@ final class FormCheckboxTest extends TestCase
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderVerticalFormWithHiddenField1(): void
@@ -693,10 +692,10 @@ final class FormCheckboxTest extends TestCase
             ->with(
                 'div',
                 ['class' => ['form-check']],
-                PHP_EOL .
-                sprintf('    <input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL .
-                '    <label for="chck-id">test-label-translated-escaped</label>' . PHP_EOL .
-                '    <input class="form-check-input&#x20;xyz" id="chck-id" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL
+                PHP_EOL
+                . sprintf('    <input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL
+                . '    <label for="chck-id">test-label-translated-escaped</label>' . PHP_EOL
+                . '    <input class="form-check-input&#x20;xyz" id="chck-id" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL,
             )
             ->willReturn($expected);
 
@@ -707,7 +706,7 @@ final class FormCheckboxTest extends TestCase
             ->method('openTag')
             ->with(['class' => 'form-check-label abc', 'for' => $id])
             ->willReturn(
-                sprintf('<label for="%s">', $id)
+                sprintf('<label for="%s">', $id),
             );
         $formLabel->expects(self::once())
             ->method('closeTag')
@@ -759,8 +758,12 @@ final class FormCheckboxTest extends TestCase
             ->willReturn(true);
         $element->expects(self::exactly(3))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls($disableEscape, $wrap, $wrap);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', $disableEscape],
+                    ['always_wrap', $wrap],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -777,9 +780,8 @@ final class FormCheckboxTest extends TestCase
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderVerticalFormWithHiddenField2(): void
@@ -824,12 +826,12 @@ final class FormCheckboxTest extends TestCase
             ->with(
                 'div',
                 ['class' => ['form-check']],
-                PHP_EOL .
-                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL .
-                '<label for="chck-id">' . PHP_EOL .
-                '    <span>test-label-translated-escaped</span>' . PHP_EOL .
-                '    <input class="form-check-input&#x20;xyz" id="chck-id" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL .
-                '</label>' . PHP_EOL
+                PHP_EOL
+                . sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL
+                . '<label for="chck-id">' . PHP_EOL
+                . '    <span>test-label-translated-escaped</span>' . PHP_EOL
+                . '    <input class="form-check-input&#x20;xyz" id="chck-id" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL
+                . '</label>' . PHP_EOL,
             )
             ->willReturn($expected);
 
@@ -840,7 +842,7 @@ final class FormCheckboxTest extends TestCase
             ->method('openTag')
             ->with(['class' => 'form-check-label abc', 'for' => $id])
             ->willReturn(
-                sprintf('<label for="%s">', $id)
+                sprintf('<label for="%s">', $id),
             );
         $formLabel->expects(self::once())
             ->method('closeTag')
@@ -892,8 +894,12 @@ final class FormCheckboxTest extends TestCase
             ->willReturn(true);
         $element->expects(self::exactly(3))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls($disableEscape, $wrap, $wrap);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', $disableEscape],
+                    ['always_wrap', $wrap],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -909,10 +915,7 @@ final class FormCheckboxTest extends TestCase
         self::assertSame($expected, $helper->render($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -959,10 +962,7 @@ final class FormCheckboxTest extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)

@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -37,7 +37,6 @@ use function array_merge;
 use function array_unique;
 use function assert;
 use function explode;
-use function get_class;
 use function gettype;
 use function implode;
 use function is_array;
@@ -52,27 +51,18 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 {
     use FormTrait;
 
-    private FormElementInterface $formElement;
-    private FormElementErrorsInterface $formElementErrors;
-    private EscapeHtml $escapeHtml;
-    private RendererInterface $renderer;
-    private HtmlElementInterface $htmlElement;
-    private ?Translate $translate;
+    private Translate | null $translate;
 
+    /** @throws void */
     public function __construct(
-        FormElementInterface $formElement,
-        FormElementErrorsInterface $formElementErrors,
-        HtmlElementInterface $htmlElement,
-        EscapeHtml $escapeHtml,
-        RendererInterface $renderer,
-        ?Translate $translator = null
+        private FormElementInterface $formElement,
+        private FormElementErrorsInterface $formElementErrors,
+        private HtmlElementInterface $htmlElement,
+        private EscapeHtml $escapeHtml,
+        private RendererInterface $renderer,
+        Translate | null $translator = null,
     ) {
-        $this->formElement       = $formElement;
-        $this->formElementErrors = $formElementErrors;
-        $this->htmlElement       = $htmlElement;
-        $this->escapeHtml        = $escapeHtml;
-        $this->renderer          = $renderer;
-        $this->translate         = $translator;
+        $this->translate = $translator;
     }
 
     /**
@@ -87,16 +77,18 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function render(ElementInterface $element, $labelPosition = null): string
-    {
+    public function render(
+        ElementInterface $element,
+        $labelPosition = null,
+    ): string {
         $form = $element->getOption('form');
         assert(
             $form instanceof FormInterface || null === $form,
             sprintf(
                 '$form should be an Instance of %s or null, but was %s',
                 FormInterface::class,
-                is_object($form) ? get_class($form) : gettype($form)
-            )
+                is_object($form) ? $form::class : gettype($form),
+            ),
         );
 
         if (null !== $form && !$element->hasAttribute('required')) {
@@ -201,7 +193,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      */
     private function renderHorizontalRow(
         ElementInterface $element,
-        string $label
+        string $label,
     ): string {
         $labelClasses       = [];
         $rowAttributes      = $this->mergeAttributes($element, 'row_attributes', ['row']);
@@ -325,7 +317,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     private function renderVerticalRow(
         ElementInterface $element,
         string $label,
-        ?string $labelPosition = null
+        string | null $labelPosition = null,
     ): string {
         $colAttributes   = $this->mergeAttributes($element, 'col_attributes', []);
         $labelAttributes = $this->mergeAttributes($element, 'label_attributes', ['form-label']);
@@ -443,10 +435,12 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         switch ($labelPosition) {
             case BaseFormRow::LABEL_PREPEND:
                 $rendered = $legend . PHP_EOL . $elementString;
+
                 break;
             case BaseFormRow::LABEL_APPEND:
             default:
                 $rendered = $elementString . PHP_EOL . $legend;
+
                 break;
         }
 
@@ -459,11 +453,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         return $baseIndent . $this->htmlElement->toHtml('div', $colAttributes, PHP_EOL . $rendered . PHP_EOL . $baseIndent);
     }
 
-    /**
-     * @throws Exception\DomainException
-     */
-    private function renderFormErrors(ElementInterface $element, string $indent): string
-    {
+    /** @throws Exception\DomainException */
+    private function renderFormErrors(
+        ElementInterface $element,
+        string $indent,
+    ): string {
         $this->formElementErrors->setIndent($indent);
         $elementErrors = $this->formElementErrors->render($element);
 
@@ -478,8 +472,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         return $elementErrors;
     }
 
-    private function renderFormHelp(ElementInterface $element, string $indent): string
-    {
+    /** @throws void */
+    private function renderFormHelp(
+        ElementInterface $element,
+        string $indent,
+    ): string {
         $helpContent = $element->getOption('help_content');
         $attributes  = $this->mergeAttributes($element, 'help_attributes', []);
 
@@ -502,9 +499,14 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      * @param array<int, string> $classes
      *
      * @return array<string, string>
+     *
+     * @throws void
      */
-    private function mergeAttributes(ElementInterface $element, string $optionName, array $classes = []): array
-    {
+    private function mergeAttributes(
+        ElementInterface $element,
+        string $optionName,
+        array $classes = [],
+    ): array {
         $attributes = $element->getOption($optionName) ?? [];
         assert(is_array($attributes));
 
@@ -520,8 +522,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             sprintf(
                 '$form should be an Instance of %s or null, but was %s',
                 FormInterface::class,
-                is_object($form) ? get_class($form) : gettype($form)
-            )
+                is_object($form) ? $form::class : gettype($form),
+            ),
         );
 
         if (null !== $form) {

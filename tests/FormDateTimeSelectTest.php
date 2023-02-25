@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -60,8 +60,8 @@ final class FormDateTimeSelectTest extends TestCase
             sprintf(
                 '%s requires that the element is of type %s',
                 'Mimmi20\LaminasView\BootstrapForm\FormDateTimeSelect::render',
-                DateTimeSelectElement::class
-            )
+                DateTimeSelectElement::class,
+            ),
         );
         $this->expectExceptionCode(0);
 
@@ -118,8 +118,8 @@ final class FormDateTimeSelectTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 '%s requires that the element has an assigned name; none discovered',
-                'Mimmi20\LaminasView\BootstrapForm\FormDateTimeSelect::render'
-            )
+                'Mimmi20\LaminasView\BootstrapForm\FormDateTimeSelect::render',
+            ),
         );
         $this->expectExceptionCode(0);
 
@@ -176,8 +176,8 @@ final class FormDateTimeSelectTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 '%s requires that the element has an assigned name; none discovered',
-                'Mimmi20\LaminasView\BootstrapForm\FormDateTimeSelect::render'
-            )
+                'Mimmi20\LaminasView\BootstrapForm\FormDateTimeSelect::render',
+            ),
         );
         $this->expectExceptionCode(0);
 
@@ -191,7 +191,6 @@ final class FormDateTimeSelectTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testInvokeWithoutName2(): void
     {
@@ -219,7 +218,7 @@ final class FormDateTimeSelectTest extends TestCase
         try {
             $helper($element, IntlDateFormatter::FULL, IntlDateFormatter::FULL, $locale);
             self::fail('expecting throwing an exception');
-        } catch (DomainException $e) {
+        } catch (DomainException) {
             self::assertSame(IntlDateFormatter::LONG, $helper->getDateType());
             self::assertSame($locale, $helper->getLocale());
         }
@@ -229,15 +228,14 @@ final class FormDateTimeSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRender1(): void
     {
         $name                    = 'test-name';
         $renderDelimiters        = true;
         $shouldCreateEmptyOption = true;
-        $minYear                 = date('Y') - 2;
-        $maxYear                 = date('Y') + 2;
+        $minYear                 = (int) date('Y') - 2;
+        $maxYear                 = (int) date('Y') + 2;
         $renderedDay             = '<select name="day"></select>';
         $renderedMonth           = '<select name="month"></select>';
         $renderedYear            = '<select name="year"></select>';
@@ -285,7 +283,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '29' => ['value' => '29', 'label' => '29'],
                     '30' => ['value' => '30', 'label' => '30'],
                     '31' => ['value' => '31', 'label' => '31'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $dayElement->expects(self::once())
@@ -348,7 +346,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '12',
                         'label' => 'Dezember',
                     ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $monthElement->expects(self::once())
@@ -363,6 +361,14 @@ final class FormDateTimeSelectTest extends TestCase
             ->method('setValueOptions')
             ->with(
                 [
+                    2025 => [
+                        'value' => '2025',
+                        'label' => '2025',
+                    ],
+                    2024 => [
+                        'value' => '2024',
+                        'label' => '2024',
+                    ],
                     2023 => [
                         'value' => '2023',
                         'label' => '2023',
@@ -375,15 +381,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '2021',
                         'label' => '2021',
                     ],
-                    2020 => [
-                        'value' => '2020',
-                        'label' => '2020',
-                    ],
-                    2019 => [
-                        'value' => '2019',
-                        'label' => '2019',
-                    ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $yearElement->expects(self::once())
@@ -422,7 +420,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '21' => ['value' => '21', 'label' => '21'],
                     '22' => ['value' => '22', 'label' => '22'],
                     '23' => ['value' => '23', 'label' => '23'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $hourElement->expects(self::once())
@@ -497,7 +495,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '57' => ['value' => '57', 'label' => '57'],
                     '58' => ['value' => '58', 'label' => '58'],
                     '59' => ['value' => '59', 'label' => '59'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $minuteElement->expects(self::once())
@@ -513,8 +511,15 @@ final class FormDateTimeSelectTest extends TestCase
             ->with($indent);
         $selectHelper->expects(self::exactly(5))
             ->method('render')
-            ->withConsecutive([$dayElement], [$monthElement], [$yearElement], [$hourElement], [$minuteElement])
-            ->willReturnOnConsecutiveCalls($renderedDay, $renderedMonth, $renderedYear, $renderedHour, $renderedMinute);
+            ->willReturnMap(
+                [
+                    [$dayElement, $renderedDay],
+                    [$monthElement, $renderedMonth],
+                    [$yearElement, $renderedYear],
+                    [$hourElement, $renderedHour],
+                    [$minuteElement, $renderedMinute],
+                ],
+            );
 
         $helper = new FormDateTimeSelect($selectHelper);
 
@@ -564,15 +569,14 @@ final class FormDateTimeSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRender2(): void
     {
         $name                    = 'test-name';
         $renderDelimiters        = false;
         $shouldCreateEmptyOption = true;
-        $minYear                 = date('Y') - 2;
-        $maxYear                 = date('Y') + 2;
+        $minYear                 = (int) date('Y') - 2;
+        $maxYear                 = (int) date('Y') + 2;
         $renderedDay             = '<select name="day"></select>';
         $renderedMonth           = '<select name="month"></select>';
         $renderedYear            = '<select name="year"></select>';
@@ -620,7 +624,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '29' => ['value' => '29', 'label' => '29'],
                     '30' => ['value' => '30', 'label' => '30'],
                     '31' => ['value' => '31', 'label' => '31'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $dayElement->expects(self::once())
@@ -683,7 +687,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '12',
                         'label' => 'Dezember',
                     ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $monthElement->expects(self::once())
@@ -698,6 +702,14 @@ final class FormDateTimeSelectTest extends TestCase
             ->method('setValueOptions')
             ->with(
                 [
+                    2025 => [
+                        'value' => '2025',
+                        'label' => '2025',
+                    ],
+                    2024 => [
+                        'value' => '2024',
+                        'label' => '2024',
+                    ],
                     2023 => [
                         'value' => '2023',
                         'label' => '2023',
@@ -710,15 +722,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '2021',
                         'label' => '2021',
                     ],
-                    2020 => [
-                        'value' => '2020',
-                        'label' => '2020',
-                    ],
-                    2019 => [
-                        'value' => '2019',
-                        'label' => '2019',
-                    ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $yearElement->expects(self::once())
@@ -757,7 +761,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '21' => ['value' => '21', 'label' => '21'],
                     '22' => ['value' => '22', 'label' => '22'],
                     '23' => ['value' => '23', 'label' => '23'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $hourElement->expects(self::once())
@@ -832,7 +836,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '57' => ['value' => '57', 'label' => '57'],
                     '58' => ['value' => '58', 'label' => '58'],
                     '59' => ['value' => '59', 'label' => '59'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $minuteElement->expects(self::once())
@@ -848,8 +852,15 @@ final class FormDateTimeSelectTest extends TestCase
             ->with($indent);
         $selectHelper->expects(self::exactly(5))
             ->method('render')
-            ->withConsecutive([$dayElement], [$monthElement], [$yearElement], [$hourElement], [$minuteElement])
-            ->willReturnOnConsecutiveCalls($renderedDay, $renderedMonth, $renderedYear, $renderedHour, $renderedMinute);
+            ->willReturnMap(
+                [
+                    [$dayElement, $renderedDay],
+                    [$monthElement, $renderedMonth],
+                    [$yearElement, $renderedYear],
+                    [$hourElement, $renderedHour],
+                    [$minuteElement, $renderedMinute],
+                ],
+            );
 
         $helper = new FormDateTimeSelect($selectHelper);
 
@@ -899,15 +910,14 @@ final class FormDateTimeSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRender3(): void
     {
         $name                    = 'test-name';
         $renderDelimiters        = true;
         $shouldCreateEmptyOption = false;
-        $minYear                 = date('Y') - 2;
-        $maxYear                 = date('Y') + 2;
+        $minYear                 = (int) date('Y') - 2;
+        $maxYear                 = (int) date('Y') + 2;
         $renderedDay             = '<select name="day"></select>';
         $renderedMonth           = '<select name="month"></select>';
         $renderedYear            = '<select name="year"></select>';
@@ -955,7 +965,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '29' => ['value' => '29', 'label' => '29'],
                     '30' => ['value' => '30', 'label' => '30'],
                     '31' => ['value' => '31', 'label' => '31'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $dayElement->expects(self::never())
@@ -1016,7 +1026,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '12',
                         'label' => 'Dezember',
                     ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $monthElement->expects(self::never())
@@ -1029,6 +1039,14 @@ final class FormDateTimeSelectTest extends TestCase
             ->method('setValueOptions')
             ->with(
                 [
+                    2025 => [
+                        'value' => '2025',
+                        'label' => '2025',
+                    ],
+                    2024 => [
+                        'value' => '2024',
+                        'label' => '2024',
+                    ],
                     2023 => [
                         'value' => '2023',
                         'label' => '2023',
@@ -1041,15 +1059,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '2021',
                         'label' => '2021',
                     ],
-                    2020 => [
-                        'value' => '2020',
-                        'label' => '2020',
-                    ],
-                    2019 => [
-                        'value' => '2019',
-                        'label' => '2019',
-                    ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $yearElement->expects(self::never())
@@ -1086,7 +1096,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '21' => ['value' => '21', 'label' => '21'],
                     '22' => ['value' => '22', 'label' => '22'],
                     '23' => ['value' => '23', 'label' => '23'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $hourElement->expects(self::never())
@@ -1159,7 +1169,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '57' => ['value' => '57', 'label' => '57'],
                     '58' => ['value' => '58', 'label' => '58'],
                     '59' => ['value' => '59', 'label' => '59'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $minuteElement->expects(self::never())
@@ -1173,8 +1183,15 @@ final class FormDateTimeSelectTest extends TestCase
             ->with($indent);
         $selectHelper->expects(self::exactly(5))
             ->method('render')
-            ->withConsecutive([$dayElement], [$monthElement], [$yearElement], [$hourElement], [$minuteElement])
-            ->willReturnOnConsecutiveCalls($renderedDay, $renderedMonth, $renderedYear, $renderedHour, $renderedMinute);
+            ->willReturnMap(
+                [
+                    [$dayElement, $renderedDay],
+                    [$monthElement, $renderedMonth],
+                    [$yearElement, $renderedYear],
+                    [$hourElement, $renderedHour],
+                    [$minuteElement, $renderedMinute],
+                ],
+            );
 
         $helper = new FormDateTimeSelect($selectHelper);
 
@@ -1224,15 +1241,14 @@ final class FormDateTimeSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRender4(): void
     {
         $name                    = 'test-name';
         $renderDelimiters        = false;
         $shouldCreateEmptyOption = false;
-        $minYear                 = date('Y') - 2;
-        $maxYear                 = date('Y') + 2;
+        $minYear                 = (int) date('Y') - 2;
+        $maxYear                 = (int) date('Y') + 2;
         $renderedDay             = '<select name="day"></select>';
         $renderedMonth           = '<select name="month"></select>';
         $renderedYear            = '<select name="year"></select>';
@@ -1280,7 +1296,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '29' => ['value' => '29', 'label' => '29'],
                     '30' => ['value' => '30', 'label' => '30'],
                     '31' => ['value' => '31', 'label' => '31'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $dayElement->expects(self::never())
@@ -1341,7 +1357,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '12',
                         'label' => 'Dezember',
                     ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $monthElement->expects(self::never())
@@ -1354,6 +1370,14 @@ final class FormDateTimeSelectTest extends TestCase
             ->method('setValueOptions')
             ->with(
                 [
+                    2025 => [
+                        'value' => '2025',
+                        'label' => '2025',
+                    ],
+                    2024 => [
+                        'value' => '2024',
+                        'label' => '2024',
+                    ],
                     2023 => [
                         'value' => '2023',
                         'label' => '2023',
@@ -1366,15 +1390,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '2021',
                         'label' => '2021',
                     ],
-                    2020 => [
-                        'value' => '2020',
-                        'label' => '2020',
-                    ],
-                    2019 => [
-                        'value' => '2019',
-                        'label' => '2019',
-                    ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $yearElement->expects(self::never())
@@ -1411,7 +1427,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '21' => ['value' => '21', 'label' => '21'],
                     '22' => ['value' => '22', 'label' => '22'],
                     '23' => ['value' => '23', 'label' => '23'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $hourElement->expects(self::never())
@@ -1484,7 +1500,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '57' => ['value' => '57', 'label' => '57'],
                     '58' => ['value' => '58', 'label' => '58'],
                     '59' => ['value' => '59', 'label' => '59'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $minuteElement->expects(self::never())
@@ -1498,8 +1514,15 @@ final class FormDateTimeSelectTest extends TestCase
             ->with($indent);
         $selectHelper->expects(self::exactly(5))
             ->method('render')
-            ->withConsecutive([$dayElement], [$monthElement], [$yearElement], [$hourElement], [$minuteElement])
-            ->willReturnOnConsecutiveCalls($renderedDay, $renderedMonth, $renderedYear, $renderedHour, $renderedMinute);
+            ->willReturnMap(
+                [
+                    [$dayElement, $renderedDay],
+                    [$monthElement, $renderedMonth],
+                    [$yearElement, $renderedYear],
+                    [$hourElement, $renderedHour],
+                    [$minuteElement, $renderedMinute],
+                ],
+            );
 
         $helper = new FormDateTimeSelect($selectHelper);
 
@@ -1549,15 +1572,14 @@ final class FormDateTimeSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRender5(): void
     {
         $name                    = 'test-name';
         $renderDelimiters        = false;
         $shouldCreateEmptyOption = false;
-        $minYear                 = date('Y') - 2;
-        $maxYear                 = date('Y') + 2;
+        $minYear                 = (int) date('Y') - 2;
+        $maxYear                 = (int) date('Y') + 2;
         $indent                  = '    ';
         $renderedDay             = $indent . '<select name="day"></select>';
         $renderedMonth           = $indent . '<select name="month"></select>';
@@ -1605,7 +1627,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '29' => ['value' => '29', 'label' => '29'],
                     '30' => ['value' => '30', 'label' => '30'],
                     '31' => ['value' => '31', 'label' => '31'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $dayElement->expects(self::never())
@@ -1666,7 +1688,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '12',
                         'label' => 'Dezember',
                     ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $monthElement->expects(self::never())
@@ -1679,6 +1701,14 @@ final class FormDateTimeSelectTest extends TestCase
             ->method('setValueOptions')
             ->with(
                 [
+                    2025 => [
+                        'value' => '2025',
+                        'label' => '2025',
+                    ],
+                    2024 => [
+                        'value' => '2024',
+                        'label' => '2024',
+                    ],
                     2023 => [
                         'value' => '2023',
                         'label' => '2023',
@@ -1691,15 +1721,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '2021',
                         'label' => '2021',
                     ],
-                    2020 => [
-                        'value' => '2020',
-                        'label' => '2020',
-                    ],
-                    2019 => [
-                        'value' => '2019',
-                        'label' => '2019',
-                    ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $yearElement->expects(self::never())
@@ -1736,7 +1758,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '21' => ['value' => '21', 'label' => '21'],
                     '22' => ['value' => '22', 'label' => '22'],
                     '23' => ['value' => '23', 'label' => '23'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $hourElement->expects(self::never())
@@ -1809,7 +1831,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '57' => ['value' => '57', 'label' => '57'],
                     '58' => ['value' => '58', 'label' => '58'],
                     '59' => ['value' => '59', 'label' => '59'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $minuteElement->expects(self::never())
@@ -1823,8 +1845,15 @@ final class FormDateTimeSelectTest extends TestCase
             ->with($indent);
         $selectHelper->expects(self::exactly(5))
             ->method('render')
-            ->withConsecutive([$dayElement], [$monthElement], [$yearElement], [$hourElement], [$minuteElement])
-            ->willReturnOnConsecutiveCalls($renderedDay, $renderedMonth, $renderedYear, $renderedHour, $renderedMinute);
+            ->willReturnMap(
+                [
+                    [$dayElement, $renderedDay],
+                    [$monthElement, $renderedMonth],
+                    [$yearElement, $renderedYear],
+                    [$hourElement, $renderedHour],
+                    [$minuteElement, $renderedMinute],
+                ],
+            );
 
         $helper = new FormDateTimeSelect($selectHelper);
 
@@ -1876,15 +1905,14 @@ final class FormDateTimeSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRender6(): void
     {
         $name                    = 'test-name';
         $renderDelimiters        = true;
         $shouldCreateEmptyOption = true;
-        $minYear                 = date('Y') - 2;
-        $maxYear                 = date('Y') + 2;
+        $minYear                 = (int) date('Y') - 2;
+        $maxYear                 = (int) date('Y') + 2;
         $indent                  = '    ';
         $renderedDay             = $indent . '<select name="day"></select>';
         $renderedMonth           = $indent . '<select name="month"></select>';
@@ -1932,7 +1960,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '29' => ['value' => '29', 'label' => '29'],
                     '30' => ['value' => '30', 'label' => '30'],
                     '31' => ['value' => '31', 'label' => '31'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $dayElement->expects(self::once())
@@ -1995,7 +2023,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '12',
                         'label' => 'Dezember',
                     ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $monthElement->expects(self::once())
@@ -2010,6 +2038,14 @@ final class FormDateTimeSelectTest extends TestCase
             ->method('setValueOptions')
             ->with(
                 [
+                    2025 => [
+                        'value' => '2025',
+                        'label' => '2025',
+                    ],
+                    2024 => [
+                        'value' => '2024',
+                        'label' => '2024',
+                    ],
                     2023 => [
                         'value' => '2023',
                         'label' => '2023',
@@ -2022,15 +2058,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '2021',
                         'label' => '2021',
                     ],
-                    2020 => [
-                        'value' => '2020',
-                        'label' => '2020',
-                    ],
-                    2019 => [
-                        'value' => '2019',
-                        'label' => '2019',
-                    ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $yearElement->expects(self::once())
@@ -2069,7 +2097,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '21' => ['value' => '21', 'label' => '21'],
                     '22' => ['value' => '22', 'label' => '22'],
                     '23' => ['value' => '23', 'label' => '23'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $hourElement->expects(self::once())
@@ -2144,7 +2172,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '57' => ['value' => '57', 'label' => '57'],
                     '58' => ['value' => '58', 'label' => '58'],
                     '59' => ['value' => '59', 'label' => '59'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $minuteElement->expects(self::once())
@@ -2160,8 +2188,15 @@ final class FormDateTimeSelectTest extends TestCase
             ->with($indent);
         $selectHelper->expects(self::exactly(5))
             ->method('render')
-            ->withConsecutive([$dayElement], [$monthElement], [$yearElement], [$hourElement], [$minuteElement])
-            ->willReturnOnConsecutiveCalls($renderedDay, $renderedMonth, $renderedYear, $renderedHour, $renderedMinute);
+            ->willReturnMap(
+                [
+                    [$dayElement, $renderedDay],
+                    [$monthElement, $renderedMonth],
+                    [$yearElement, $renderedYear],
+                    [$hourElement, $renderedHour],
+                    [$minuteElement, $renderedMinute],
+                ],
+            );
 
         $helper = new FormDateTimeSelect($selectHelper);
 
@@ -2213,15 +2248,14 @@ final class FormDateTimeSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithSeconds1(): void
     {
         $name                    = 'test-name';
         $renderDelimiters        = true;
         $shouldCreateEmptyOption = true;
-        $minYear                 = date('Y') - 2;
-        $maxYear                 = date('Y') + 2;
+        $minYear                 = (int) date('Y') - 2;
+        $maxYear                 = (int) date('Y') + 2;
         $renderedDay             = '<select name="day"></select>';
         $renderedMonth           = '<select name="month"></select>';
         $renderedYear            = '<select name="year"></select>';
@@ -2270,7 +2304,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '29' => ['value' => '29', 'label' => '29'],
                     '30' => ['value' => '30', 'label' => '30'],
                     '31' => ['value' => '31', 'label' => '31'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $dayElement->expects(self::once())
@@ -2333,7 +2367,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '12',
                         'label' => 'Dezember',
                     ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $monthElement->expects(self::once())
@@ -2348,6 +2382,14 @@ final class FormDateTimeSelectTest extends TestCase
             ->method('setValueOptions')
             ->with(
                 [
+                    2025 => [
+                        'value' => '2025',
+                        'label' => '2025',
+                    ],
+                    2024 => [
+                        'value' => '2024',
+                        'label' => '2024',
+                    ],
                     2023 => [
                         'value' => '2023',
                         'label' => '2023',
@@ -2360,15 +2402,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '2021',
                         'label' => '2021',
                     ],
-                    2020 => [
-                        'value' => '2020',
-                        'label' => '2020',
-                    ],
-                    2019 => [
-                        'value' => '2019',
-                        'label' => '2019',
-                    ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $yearElement->expects(self::once())
@@ -2407,7 +2441,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '21' => ['value' => '21', 'label' => '21'],
                     '22' => ['value' => '22', 'label' => '22'],
                     '23' => ['value' => '23', 'label' => '23'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $hourElement->expects(self::once())
@@ -2482,7 +2516,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '57' => ['value' => '57', 'label' => '57'],
                     '58' => ['value' => '58', 'label' => '58'],
                     '59' => ['value' => '59', 'label' => '59'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $minuteElement->expects(self::once())
@@ -2557,7 +2591,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '57' => ['value' => '57', 'label' => '57'],
                     '58' => ['value' => '58', 'label' => '58'],
                     '59' => ['value' => '59', 'label' => '59'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $secondElement->expects(self::once())
@@ -2573,8 +2607,16 @@ final class FormDateTimeSelectTest extends TestCase
             ->with($indent);
         $selectHelper->expects(self::exactly(6))
             ->method('render')
-            ->withConsecutive([$dayElement], [$monthElement], [$yearElement], [$hourElement], [$minuteElement], [$secondElement])
-            ->willReturnOnConsecutiveCalls($renderedDay, $renderedMonth, $renderedYear, $renderedHour, $renderedMinute, $renderedSecond);
+            ->willReturnMap(
+                [
+                    [$dayElement, $renderedDay],
+                    [$monthElement, $renderedMonth],
+                    [$yearElement, $renderedYear],
+                    [$hourElement, $renderedHour],
+                    [$minuteElement, $renderedMinute],
+                    [$secondElement, $renderedSecond],
+                ],
+            );
 
         $helper = new FormDateTimeSelect($selectHelper);
 
@@ -2625,15 +2667,14 @@ final class FormDateTimeSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithSeconds2(): void
     {
         $name                    = 'test-name';
         $renderDelimiters        = false;
         $shouldCreateEmptyOption = true;
-        $minYear                 = date('Y') - 2;
-        $maxYear                 = date('Y') + 2;
+        $minYear                 = (int) date('Y') - 2;
+        $maxYear                 = (int) date('Y') + 2;
         $renderedDay             = '<select name="day"></select>';
         $renderedMonth           = '<select name="month"></select>';
         $renderedYear            = '<select name="year"></select>';
@@ -2682,7 +2723,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '29' => ['value' => '29', 'label' => '29'],
                     '30' => ['value' => '30', 'label' => '30'],
                     '31' => ['value' => '31', 'label' => '31'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $dayElement->expects(self::once())
@@ -2745,7 +2786,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '12',
                         'label' => 'Dezember',
                     ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $monthElement->expects(self::once())
@@ -2760,6 +2801,14 @@ final class FormDateTimeSelectTest extends TestCase
             ->method('setValueOptions')
             ->with(
                 [
+                    2025 => [
+                        'value' => '2025',
+                        'label' => '2025',
+                    ],
+                    2024 => [
+                        'value' => '2024',
+                        'label' => '2024',
+                    ],
                     2023 => [
                         'value' => '2023',
                         'label' => '2023',
@@ -2772,15 +2821,7 @@ final class FormDateTimeSelectTest extends TestCase
                         'value' => '2021',
                         'label' => '2021',
                     ],
-                    2020 => [
-                        'value' => '2020',
-                        'label' => '2020',
-                    ],
-                    2019 => [
-                        'value' => '2019',
-                        'label' => '2019',
-                    ],
-                ]
+                ],
             )
             ->willReturnSelf();
         $yearElement->expects(self::once())
@@ -2819,7 +2860,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '21' => ['value' => '21', 'label' => '21'],
                     '22' => ['value' => '22', 'label' => '22'],
                     '23' => ['value' => '23', 'label' => '23'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $hourElement->expects(self::once())
@@ -2894,7 +2935,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '57' => ['value' => '57', 'label' => '57'],
                     '58' => ['value' => '58', 'label' => '58'],
                     '59' => ['value' => '59', 'label' => '59'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $minuteElement->expects(self::once())
@@ -2969,7 +3010,7 @@ final class FormDateTimeSelectTest extends TestCase
                     '57' => ['value' => '57', 'label' => '57'],
                     '58' => ['value' => '58', 'label' => '58'],
                     '59' => ['value' => '59', 'label' => '59'],
-                ]
+                ],
             )
             ->willReturnSelf();
         $secondElement->expects(self::once())
@@ -2985,8 +3026,16 @@ final class FormDateTimeSelectTest extends TestCase
             ->with($indent);
         $selectHelper->expects(self::exactly(6))
             ->method('render')
-            ->withConsecutive([$dayElement], [$monthElement], [$yearElement], [$hourElement], [$minuteElement], [$secondElement])
-            ->willReturnOnConsecutiveCalls($renderedDay, $renderedMonth, $renderedYear, $renderedHour, $renderedMinute, $renderedSecond);
+            ->willReturnMap(
+                [
+                    [$dayElement, $renderedDay],
+                    [$monthElement, $renderedMonth],
+                    [$yearElement, $renderedYear],
+                    [$hourElement, $renderedHour],
+                    [$minuteElement, $renderedMinute],
+                    [$secondElement, $renderedSecond],
+                ],
+            );
 
         $helper = new FormDateTimeSelect($selectHelper);
 
@@ -3036,7 +3085,6 @@ final class FormDateTimeSelectTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderSetGetTimeType(): void
     {
@@ -3058,7 +3106,6 @@ final class FormDateTimeSelectTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws ExtensionNotLoadedException
      */
     public function testSetGetIndent1(): void
@@ -3079,7 +3126,6 @@ final class FormDateTimeSelectTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws ExtensionNotLoadedException
      */
     public function testSetGetIndent2(): void

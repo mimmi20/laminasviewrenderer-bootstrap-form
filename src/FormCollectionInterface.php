@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -36,7 +36,10 @@ interface FormCollectionInterface extends FormIndentInterface, FormRenderInterfa
      * @throws InvalidArgumentException
      * @throws Exception\InvalidArgumentException
      */
-    public function __invoke(?ElementInterface $element = null, bool $wrap = true);
+    public function __invoke(
+        ElementInterface | null $element = null,
+        bool $wrap = true,
+    );
 
     /**
      * Render a collection by iterating through all fieldsets and elements

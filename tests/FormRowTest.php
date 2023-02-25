@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -30,7 +30,6 @@ use Mimmi20\LaminasView\BootstrapForm\FormRow;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 use const PHP_EOL;
 
@@ -110,7 +109,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -195,7 +193,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -275,7 +272,7 @@ final class FormRowTest extends TestCase
                     'labelPosition' => \Laminas\Form\View\Helper\FormRow::LABEL_PREPEND,
                     'renderErrors' => $renderErrors,
                     'indent' => $indent,
-                ]
+                ],
             )
             ->willReturn($expected);
 
@@ -291,7 +288,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -374,7 +370,7 @@ final class FormRowTest extends TestCase
                     'labelPosition' => \Laminas\Form\View\Helper\FormRow::LABEL_PREPEND,
                     'renderErrors' => $renderErrors,
                     'indent' => $indent,
-                ]
+                ],
             )
             ->willReturn($expected);
 
@@ -390,7 +386,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -423,8 +418,12 @@ final class FormRowTest extends TestCase
             ->with('class', $class . ' is-invalid');
         $element->expects(self::exactly(2))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'])
-            ->willReturnOnConsecutiveCalls($type, $class);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -474,7 +473,7 @@ final class FormRowTest extends TestCase
                     'labelPosition' => \Laminas\Form\View\Helper\FormRow::LABEL_PREPEND,
                     'renderErrors' => $renderErrors,
                     'indent' => $indent,
-                ]
+                ],
             )
             ->willReturn($expected);
 
@@ -490,7 +489,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -575,7 +573,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -655,7 +652,7 @@ final class FormRowTest extends TestCase
                     'labelPosition' => \Laminas\Form\View\Helper\FormRow::LABEL_PREPEND,
                     'renderErrors' => $renderErrors,
                     'indent' => $indent,
-                ]
+                ],
             )
             ->willReturn($expected);
 
@@ -671,7 +668,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -754,7 +750,7 @@ final class FormRowTest extends TestCase
                     'labelPosition' => \Laminas\Form\View\Helper\FormRow::LABEL_PREPEND,
                     'renderErrors' => $renderErrors,
                     'indent' => $indent,
-                ]
+                ],
             )
             ->willReturn($expected);
 
@@ -770,7 +766,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -803,8 +798,12 @@ final class FormRowTest extends TestCase
             ->with('class', $class . ' is-invalid');
         $element->expects(self::exactly(2))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'])
-            ->willReturnOnConsecutiveCalls($type, $class);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -854,7 +853,7 @@ final class FormRowTest extends TestCase
                     'labelPosition' => \Laminas\Form\View\Helper\FormRow::LABEL_PREPEND,
                     'renderErrors' => $renderErrors,
                     'indent' => $indent,
-                ]
+                ],
             )
             ->willReturn($expected);
 
@@ -870,7 +869,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -963,7 +961,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -1044,7 +1041,7 @@ final class FormRowTest extends TestCase
                     'labelPosition' => \Laminas\Form\View\Helper\FormRow::LABEL_PREPEND,
                     'renderErrors' => $renderErrors,
                     'indent' => $indent,
-                ]
+                ],
             )
             ->willReturn($expected);
 
@@ -1067,7 +1064,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -1151,7 +1147,7 @@ final class FormRowTest extends TestCase
                     'labelPosition' => \Laminas\Form\View\Helper\FormRow::LABEL_PREPEND,
                     'renderErrors' => $renderErrors,
                     'indent' => $indent,
-                ]
+                ],
             )
             ->willReturn($expected);
 
@@ -1174,7 +1170,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -1208,8 +1203,12 @@ final class FormRowTest extends TestCase
             ->with('class', $class . ' is-invalid');
         $element->expects(self::exactly(2))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'])
-            ->willReturnOnConsecutiveCalls($type, $class);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -1259,7 +1258,7 @@ final class FormRowTest extends TestCase
                     'labelPosition' => \Laminas\Form\View\Helper\FormRow::LABEL_PREPEND,
                     'renderErrors' => $renderErrors,
                     'indent' => $indent,
-                ]
+                ],
             )
             ->willReturn($expected);
 
@@ -1282,7 +1281,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -1306,8 +1304,14 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(4))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['help_content'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $helpContent);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['help_content', $helpContent],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::never())
@@ -1316,8 +1320,12 @@ final class FormRowTest extends TestCase
             ->method('setAttribute');
         $element->expects(self::exactly(2))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['required'])
-            ->willReturnOnConsecutiveCalls($type, $required);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['required', $required],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -1380,7 +1388,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -1404,8 +1411,14 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(4))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['help_content'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $helpContent);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['help_content', $helpContent],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::never())
@@ -1414,8 +1427,12 @@ final class FormRowTest extends TestCase
             ->method('setAttribute');
         $element->expects(self::exactly(2))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['required'])
-            ->willReturnOnConsecutiveCalls($type, $required);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['required', $required],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -1478,7 +1495,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -1502,8 +1518,14 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(4))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['help_content'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $helpContent);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['help_content', $helpContent],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::once())
@@ -1515,8 +1537,12 @@ final class FormRowTest extends TestCase
             ->with('class', 'is-invalid');
         $element->expects(self::exactly(2))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['required'])
-            ->willReturnOnConsecutiveCalls($type, $required);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['required', $required],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -1579,7 +1605,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -1604,8 +1629,14 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(4))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['help_content'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $helpContent);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['help_content', $helpContent],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::once())
@@ -1617,8 +1648,13 @@ final class FormRowTest extends TestCase
             ->with('class', $class . ' is-invalid');
         $element->expects(self::exactly(3))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -1681,7 +1717,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -1708,21 +1743,43 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(4))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['help_content'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $helpContent);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['help_content', $helpContent],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(3))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'], ['aria-describedby'])
-            ->willReturnOnConsecutiveCalls(true, true, false);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', true],
+                    ['aria-describedby', false],
+                ],
+            );
         $element->expects(self::exactly(2))
             ->method('setAttribute')
-            ->withConsecutive(['class', $class . ' is-invalid'], ['aria-describedby', $id . 'Feedback']);
+            ->willReturnMap(
+                [
+                    ['class', $class . ' is-invalid', null],
+                    ['aria-describedby', $id . 'Feedback', null],
+                ],
+            );
         $element->expects(self::exactly(4))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'], ['id'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required, $id);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                    ['id', $id],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -1788,7 +1845,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -1814,21 +1870,36 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(4))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['help_content'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $helpContent);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['help_content', $helpContent],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(2))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'])
-            ->willReturnOnConsecutiveCalls(true, false);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', false],
+                ],
+            );
         $element->expects(self::once())
             ->method('setAttribute')
             ->with('class', $class . ' is-invalid');
         $element->expects(self::exactly(3))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -1894,7 +1965,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -1922,21 +1992,44 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(4))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['help_content'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $helpContent);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['help_content', $helpContent],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(3))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'], ['aria-describedby'])
-            ->willReturnOnConsecutiveCalls(true, true, true);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', true],
+                    ['aria-describedby', true],
+                ],
+            );
         $element->expects(self::exactly(2))
             ->method('setAttribute')
-            ->withConsecutive(['class', $class . ' is-invalid'], ['aria-describedby', $aria . ' ' . $id . 'Feedback']);
+            ->willReturnMap(
+                [
+                    ['class', $class . ' is-invalid', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback', null],
+                ],
+            );
         $element->expects(self::exactly(5))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'], ['aria-describedby'], ['id'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required, $aria, $id);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                    ['aria-describedby', $aria],
+                    ['id', $id],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -2002,7 +2095,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -2031,21 +2123,45 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['help_content'], ['help_content'], ['help_attributes'], ['form'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $helpContent, $helpContent, $helpAttributes, $form);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['help_content', $helpContent],
+                    ['help_attributes', $helpAttributes],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(3))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'], ['aria-describedby'])
-            ->willReturnOnConsecutiveCalls(true, true, true);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', true],
+                    ['aria-describedby', true],
+                ],
+            );
         $element->expects(self::exactly(2))
             ->method('setAttribute')
-            ->withConsecutive(['class', $class . ' is-invalid'], ['aria-describedby', $aria . ' ' . $id . 'Help']);
+            ->willReturnMap(
+                [
+                    ['class', $class . ' is-invalid', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Help', null],
+                ],
+            );
         $element->expects(self::exactly(6))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'], ['id'], ['aria-describedby'], ['id'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required, $id, $aria, $id);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                    ['id', $id],
+                    ['aria-describedby', $aria],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -2110,7 +2226,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -2140,21 +2255,46 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['help_content'], ['help_content'], ['help_attributes'], ['form'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $helpContent, $helpContent, $helpAttributes, $form);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['help_content', $helpContent],
+                    ['help_attributes', $helpAttributes],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(5))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'], ['aria-describedby'], ['id'], ['aria-describedby'])
-            ->willReturnOnConsecutiveCalls(true, true, true, true, true);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', true],
+                    ['aria-describedby', true],
+                ],
+            );
         $element->expects(self::exactly(3))
             ->method('setAttribute')
-            ->withConsecutive(['class', $class . ' is-invalid'], ['aria-describedby', $aria . ' ' . $id . 'Feedback'], ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help']);
+            ->willReturnMap(
+                [
+                    ['class', $class . ' is-invalid', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help', null],
+                ],
+            );
         $element->expects(self::exactly(8))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'], ['aria-describedby'], ['id'], ['id'], ['aria-describedby'], ['id'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required, $aria, $id, $id, $aria . ' ' . $id . 'Feedback', $id);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                    ['aria-describedby', $aria],
+                    ['id', $id],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -2222,7 +2362,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -2261,21 +2400,50 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(15))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['row_attributes'], ['form'], ['col_attributes'], ['form'], ['label_attributes'], ['form'], ['label_col_attributes'], ['form'], ['help_content'], ['help_content'], ['help_attributes'], ['form'], ['form'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $rowAttributes, $form, $colAttributes, $form, $labelAttributes, $form, $labelColAttributes, $form, $helpContent, $helpContent, $helpAttributes, $form, $form);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['row_attributes', $rowAttributes],
+                    ['col_attributes', $colAttributes],
+                    ['label_attributes', $labelAttributes],
+                    ['label_col_attributes', $labelColAttributes],
+                    ['help_content', $helpContent],
+                    ['help_attributes', $helpAttributes],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(5))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'], ['aria-describedby'], ['id'], ['aria-describedby'])
-            ->willReturnOnConsecutiveCalls(true, true, true, true, true);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', true],
+                    ['aria-describedby', true],
+                ],
+            );
         $element->expects(self::exactly(3))
             ->method('setAttribute')
-            ->withConsecutive(['class', $class . ' is-invalid'], ['aria-describedby', $aria . ' ' . $id . 'Feedback'], ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help']);
+            ->willReturnMap(
+                [
+                    ['class', $class . ' is-invalid', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help', null],
+                ],
+            );
         $element->expects(self::exactly(8))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'], ['aria-describedby'], ['id'], ['id'], ['aria-describedby'], ['id'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required, $aria, $id, $id, $aria . ' ' . $id . 'Feedback', $id);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                    ['aria-describedby', $aria],
+                    ['id', $id],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -2310,17 +2478,13 @@ final class FormRowTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::exactly(4))
             ->method('toHtml')
-            ->withConsecutive(
-                ['legend', $labelColAttributes + $labelAttributes + ['class' => 'col-form-label'], $labelTranslatedEscaped],
-                ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent],
-                ['div', $colAttributes, PHP_EOL . $expected . $expectedErrors . PHP_EOL . $indent . '    ' . $expectedHelp . PHP_EOL . $indent . '    '],
-                ['fieldset', $rowAttributes + ['class' => 'row'], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedCol . PHP_EOL . $indent]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $expectedLegend,
-                $expectedHelp,
-                $expectedCol,
-                $expectedRow
+            ->willReturnMap(
+                [
+                    ['legend', $labelColAttributes + $labelAttributes + ['class' => 'col-form-label'], $labelTranslatedEscaped, $expectedLegend],
+                    ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent, $expectedHelp],
+                    ['div', $colAttributes, PHP_EOL . $expected . $expectedErrors . PHP_EOL . $indent . '    ' . $expectedHelp . PHP_EOL . $indent . '    ', $expectedCol],
+                    ['fieldset', $rowAttributes + ['class' => 'row'], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedCol . PHP_EOL . $indent, $expectedRow],
+                ],
             );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -2357,7 +2521,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -2395,21 +2558,49 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(13))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['col_attributes'], ['form'], ['label_attributes'], ['form'], ['legend_attributes'], ['form'], ['help_content'], ['help_content'], ['help_attributes'], ['form'], ['form'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $colAttributes, $form, $labelAttributes, $form, $legendAttributes, $form, $helpContent, $helpContent, $helpAttributes, $form, $form);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['col_attributes', $colAttributes],
+                    ['label_attributes', $labelAttributes],
+                    ['legend_attributes', $legendAttributes],
+                    ['help_content', $helpContent],
+                    ['help_attributes', $helpAttributes],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(6))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'], ['id'], ['aria-describedby'], ['id'], ['aria-describedby'])
-            ->willReturnOnConsecutiveCalls(true, true, true, true, true, true);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', true],
+                    ['aria-describedby', true],
+                ],
+            );
         $element->expects(self::exactly(3))
             ->method('setAttribute')
-            ->withConsecutive(['class', $class . ' is-invalid'], ['aria-describedby', $aria . ' ' . $id . 'Feedback'], ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help']);
+            ->willReturnMap(
+                [
+                    ['class', $class . ' is-invalid', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help', null],
+                ],
+            );
         $element->expects(self::exactly(9))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'], ['id'], ['aria-describedby'], ['id'], ['id'], ['aria-describedby'], ['id'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required, $id, $aria, $id, $id, $aria . ' ' . $id . 'Feedback', $id);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                    ['id', $id],
+                    ['aria-describedby', $aria],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -2450,15 +2641,12 @@ final class FormRowTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::exactly(3))
             ->method('toHtml')
-            ->withConsecutive(
-                ['legend', $legendAttributes + ['class' => ''], $labelTranslatedEscaped],
-                ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent],
-                ['fieldset', $colAttributes, PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $expectedLegend,
-                $expectedHelp,
-                $expectedCol
+            ->willReturnMap(
+                [
+                    ['legend', $legendAttributes + ['class' => ''], $labelTranslatedEscaped, $expectedLegend],
+                    ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent, $expectedHelp],
+                    ['fieldset', $colAttributes, PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent, $expectedCol],
+                ],
             );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -2495,7 +2683,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -2534,21 +2721,50 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(15))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['row_attributes'], ['form'], ['col_attributes'], ['form'], ['label_attributes'], ['form'], ['label_col_attributes'], ['form'], ['help_content'], ['help_content'], ['help_attributes'], ['form'], ['form'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $rowAttributes, $form, $colAttributes, $form, $labelAttributes, $form, $labelColAttributes, $form, $helpContent, $helpContent, $helpAttributes, $form, $form);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['row_attributes', $rowAttributes],
+                    ['col_attributes', $colAttributes],
+                    ['label_attributes', $labelAttributes],
+                    ['label_col_attributes', $labelColAttributes],
+                    ['help_content', $helpContent],
+                    ['help_attributes', $helpAttributes],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(5))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'], ['aria-describedby'], ['id'], ['aria-describedby'])
-            ->willReturnOnConsecutiveCalls(true, true, true, true, true);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', true],
+                    ['aria-describedby', true],
+                ],
+            );
         $element->expects(self::exactly(3))
             ->method('setAttribute')
-            ->withConsecutive(['class', $class . ' is-invalid'], ['aria-describedby', $aria . ' ' . $id . 'Feedback'], ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help']);
+            ->willReturnMap(
+                [
+                    ['class', $class . ' is-invalid', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help', null],
+                ],
+            );
         $element->expects(self::exactly(8))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'], ['aria-describedby'], ['id'], ['id'], ['aria-describedby'], ['id'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required, $aria, $id, $id, $aria . ' ' . $id . 'Feedback', $id);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                    ['aria-describedby', $aria],
+                    ['id', $id],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -2589,15 +2805,12 @@ final class FormRowTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::exactly(3))
             ->method('toHtml')
-            ->withConsecutive(
-                ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent],
-                ['div', $colAttributes, PHP_EOL . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent . '    '],
-                ['div', $rowAttributes + ['class' => 'row'], PHP_EOL . $indent . '    ' . $expectedCol . PHP_EOL . $indent]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $expectedHelp,
-                $expectedCol,
-                $expectedRow
+            ->willReturnMap(
+                [
+                    ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent, $expectedHelp],
+                    ['div', $colAttributes, PHP_EOL . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent . '    ', $expectedCol],
+                    ['div', $rowAttributes + ['class' => 'row'], PHP_EOL . $indent . '    ' . $expectedCol . PHP_EOL . $indent, $expectedRow],
+                ],
             );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -2634,7 +2847,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -2670,21 +2882,48 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(11))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['col_attributes'], ['form'], ['label_attributes'], ['form'], ['help_content'], ['help_content'], ['help_attributes'], ['form'], ['form'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $colAttributes, $form, $labelAttributes, $form, $helpContent, $helpContent, $helpAttributes, $form, $form);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['col_attributes', $colAttributes],
+                    ['label_attributes', $labelAttributes],
+                    ['help_content', $helpContent],
+                    ['help_attributes', $helpAttributes],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(6))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'], ['id'], ['aria-describedby'], ['id'], ['aria-describedby'])
-            ->willReturnOnConsecutiveCalls(true, true, true, true, true, true);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', true],
+                    ['aria-describedby', true],
+                ],
+            );
         $element->expects(self::exactly(3))
             ->method('setAttribute')
-            ->withConsecutive(['class', $class . ' is-invalid'], ['aria-describedby', $aria . ' ' . $id . 'Feedback'], ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help']);
+            ->willReturnMap(
+                [
+                    ['class', $class . ' is-invalid', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help', null],
+                ],
+            );
         $element->expects(self::exactly(9))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'], ['id'], ['aria-describedby'], ['id'], ['id'], ['aria-describedby'], ['id'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required, $id, $aria, $id, $id, $aria . ' ' . $id . 'Feedback', $id);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                    ['id', $id],
+                    ['aria-describedby', $aria],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -2725,13 +2964,11 @@ final class FormRowTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::exactly(2))
             ->method('toHtml')
-            ->withConsecutive(
-                ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent],
-                ['div', $colAttributes, PHP_EOL . $expected . $expectedErrors . PHP_EOL . $indent . '    ' . $expectedHelp . PHP_EOL . $indent]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $expectedHelp,
-                $expectedCol
+            ->willReturnMap(
+                [
+                    ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent, $expectedHelp],
+                    ['div', $colAttributes, PHP_EOL . $expected . $expectedErrors . PHP_EOL . $indent . '    ' . $expectedHelp . PHP_EOL . $indent, $expectedCol],
+                ],
             );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -2768,7 +3005,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -2806,21 +3042,49 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(13))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['col_attributes'], ['form'], ['label_attributes'], ['form'], ['legend_attributes'], ['form'], ['help_content'], ['help_content'], ['help_attributes'], ['form'], ['form'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $colAttributes, $form, $labelAttributes, $form, $legendAttributes, $form, $helpContent, $helpContent, $helpAttributes, $form, $form);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['col_attributes', $colAttributes],
+                    ['label_attributes', $labelAttributes],
+                    ['legend_attributes', $legendAttributes],
+                    ['help_content', $helpContent],
+                    ['help_attributes', $helpAttributes],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(6))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'], ['id'], ['aria-describedby'], ['id'], ['aria-describedby'])
-            ->willReturnOnConsecutiveCalls(true, true, true, true, true, true);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', true],
+                    ['aria-describedby', true],
+                ],
+            );
         $element->expects(self::exactly(3))
             ->method('setAttribute')
-            ->withConsecutive(['class', $class . ' is-invalid'], ['aria-describedby', $aria . ' ' . $id . 'Feedback'], ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help']);
+            ->willReturnMap(
+                [
+                    ['class', $class . ' is-invalid', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help', null],
+                ],
+            );
         $element->expects(self::exactly(9))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'], ['id'], ['aria-describedby'], ['id'], ['id'], ['aria-describedby'], ['id'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required, $id, $aria, $id, $id, $aria . ' ' . $id . 'Feedback', $id);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                    ['id', $id],
+                    ['aria-describedby', $aria],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -2861,15 +3125,12 @@ final class FormRowTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::exactly(3))
             ->method('toHtml')
-            ->withConsecutive(
-                ['legend', $legendAttributes + ['class' => ''], $labelTranslatedEscaped],
-                ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent],
-                ['fieldset', $colAttributes, PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $expectedLegend,
-                $expectedHelp,
-                $expectedCol
+            ->willReturnMap(
+                [
+                    ['legend', $legendAttributes + ['class' => ''], $labelTranslatedEscaped, $expectedLegend],
+                    ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent, $expectedHelp],
+                    ['fieldset', $colAttributes, PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent, $expectedCol],
+                ],
             );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -2906,7 +3167,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -2945,21 +3205,49 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(12))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['col_attributes'], ['form'], ['label_attributes'], ['form'], ['floating'], ['help_content'], ['help_content'], ['help_attributes'], ['form'], ['form'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $colAttributes, $form, $labelAttributes, $form, $floating, $helpContent, $helpContent, $helpAttributes, $form, $form);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['col_attributes', $colAttributes],
+                    ['label_attributes', $labelAttributes],
+                    ['floating', $floating],
+                    ['help_content', $helpContent],
+                    ['help_attributes', $helpAttributes],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(6))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'], ['id'], ['aria-describedby'], ['id'], ['aria-describedby'])
-            ->willReturnOnConsecutiveCalls(true, true, true, true, true, true);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', true],
+                    ['aria-describedby', true],
+                ],
+            );
         $element->expects(self::exactly(3))
             ->method('setAttribute')
-            ->withConsecutive(['class', $class . ' is-invalid'], ['aria-describedby', $aria . ' ' . $id . 'Feedback'], ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help']);
+            ->willReturnMap(
+                [
+                    ['class', $class . ' is-invalid', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help', null],
+                ],
+            );
         $element->expects(self::exactly(9))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'], ['id'], ['aria-describedby'], ['id'], ['id'], ['aria-describedby'], ['id'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required, $id, $aria, $id, $id, $aria . ' ' . $id . 'Feedback', $id);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                    ['id', $id],
+                    ['aria-describedby', $aria],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -2972,8 +3260,12 @@ final class FormRowTest extends TestCase
             ->willReturn(true);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['label_position'])
-            ->willReturnOnConsecutiveCalls($disableEscape, $labelPosition);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', $disableEscape],
+                    ['label_position', $labelPosition],
+                ],
+            );
 
         $formElement = $this->getMockBuilder(FormElementInterface::class)
             ->disableOriginalConstructor()
@@ -3002,15 +3294,12 @@ final class FormRowTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::exactly(3))
             ->method('toHtml')
-            ->withConsecutive(
-                ['label', ['class' => 'form-label'] + $labelAttributes + ['for' => $id], $labelTranslatedEscaped],
-                ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent],
-                ['div', $colAttributes, PHP_EOL . $expected . PHP_EOL . $indent . '    ' . $expectedLegend . $expectedErrors . PHP_EOL . $indent . '    ' . $expectedHelp . PHP_EOL . $indent]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $expectedLegend,
-                $expectedHelp,
-                $expectedCol
+            ->willReturnMap(
+                [
+                    ['label', $labelAttributes + ['class' => 'form-label', 'for' => $id], $labelTranslatedEscaped, $expectedLegend],
+                    ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent, $expectedHelp],
+                    ['div', $colAttributes, PHP_EOL . $expected . PHP_EOL . $indent . '    ' . $expectedLegend . $expectedErrors . PHP_EOL . $indent . '    ' . $expectedHelp . PHP_EOL . $indent, $expectedCol],
+                ],
             );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -3047,7 +3336,6 @@ final class FormRowTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -3087,21 +3375,50 @@ final class FormRowTest extends TestCase
             ->getMock();
         $element->expects(self::exactly(15))
             ->method('getOption')
-            ->withConsecutive(['form'], ['show-required-mark'], ['layout'], ['row_attributes'], ['form'], ['col_attributes'], ['form'], ['label_attributes'], ['form'], ['label_col_attributes'], ['form'], ['help_content'], ['help_content'], ['help_attributes'], ['form'], ['form'])
-            ->willReturnOnConsecutiveCalls($form, $showRequiredMark, $layout, $rowAttributes, $form, $colAttributes, $form, $labelAttributes, $form, $labelColAttributes, $form, $helpContent, $helpContent, $helpAttributes, $form, $form);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['show-required-mark', $showRequiredMark],
+                    ['layout', $layout],
+                    ['row_attributes', $rowAttributes],
+                    ['col_attributes', $colAttributes],
+                    ['label_attributes', $labelAttributes],
+                    ['label_col_attributes', $labelColAttributes],
+                    ['help_content', $helpContent],
+                    ['help_attributes', $helpAttributes],
+                ],
+            );
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::exactly(6))
             ->method('hasAttribute')
-            ->withConsecutive(['class'], ['id'], ['id'], ['aria-describedby'], ['id'], ['aria-describedby'])
-            ->willReturnOnConsecutiveCalls(true, true, true, true, true, true);
+            ->willReturnMap(
+                [
+                    ['class', true],
+                    ['id', true],
+                    ['aria-describedby', true],
+                ],
+            );
         $element->expects(self::exactly(3))
             ->method('setAttribute')
-            ->withConsecutive(['class', $class . ' is-invalid'], ['aria-describedby', $aria . ' ' . $id . 'Feedback'], ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help']);
+            ->willReturnMap(
+                [
+                    ['class', $class . ' is-invalid', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback', null],
+                    ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help', null],
+                ],
+            );
         $element->expects(self::exactly(9))
             ->method('getAttribute')
-            ->withConsecutive(['type'], ['class'], ['required'], ['id'], ['aria-describedby'], ['id'], ['id'], ['aria-describedby'], ['id'])
-            ->willReturnOnConsecutiveCalls($type, $class, $required, $id, $aria, $id, $id, $aria . ' ' . $id . 'Feedback', $id);
+            ->willReturnMap(
+                [
+                    ['type', $type],
+                    ['class', $class],
+                    ['required', $required],
+                    ['id', $id],
+                    ['aria-describedby', $aria],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
@@ -3142,17 +3459,13 @@ final class FormRowTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::exactly(4))
             ->method('toHtml')
-            ->withConsecutive(
-                ['label', $labelColAttributes + $labelAttributes + ['class' => 'col-form-label', 'for' => $id], $labelTranslatedEscaped],
-                ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent],
-                ['div', $colAttributes, PHP_EOL . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent . '    '],
-                ['div', $rowAttributes + ['class' => 'row'], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedCol . PHP_EOL . $indent]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $expectedLegend,
-                $expectedHelp,
-                $expectedCol,
-                $expectedRow
+            ->willReturnMap(
+                [
+                    ['label', $labelColAttributes + $labelAttributes + ['class' => 'col-form-label', 'for' => $id], $labelTranslatedEscaped, $expectedLegend],
+                    ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent, $expectedHelp],
+                    ['div', $colAttributes, PHP_EOL . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent . '    ', $expectedCol],
+                    ['div', $rowAttributes + ['class' => 'row'], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedCol . PHP_EOL . $indent, $expectedRow],
+                ],
             );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)

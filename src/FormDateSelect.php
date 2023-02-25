@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -41,8 +41,11 @@ final class FormDateSelect extends AbstractHelper implements FormIndentInterface
      * @throws DomainException
      * @throws InvalidArgumentException
      */
-    public function __invoke(?ElementInterface $element = null, int $dateType = IntlDateFormatter::LONG, ?string $locale = null)
-    {
+    public function __invoke(
+        ElementInterface | null $element = null,
+        int $dateType = IntlDateFormatter::LONG,
+        string | null $locale = null,
+    ) {
         if (!$element) {
             return $this;
         }
@@ -69,18 +72,19 @@ final class FormDateSelect extends AbstractHelper implements FormIndentInterface
                 sprintf(
                     '%s requires that the element is of type %s',
                     __METHOD__,
-                    DateSelectElement::class
-                )
+                    DateSelectElement::class,
+                ),
             );
         }
 
         $name = $element->getName();
+
         if (null === $name || '' === $name) {
             throw new DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
-                    __METHOD__
-                )
+                    __METHOD__,
+                ),
             );
         }
 
@@ -109,6 +113,7 @@ final class FormDateSelect extends AbstractHelper implements FormIndentInterface
         $data[$pattern['year']]  = $this->selectHelper->render($yearElement);
 
         $markups = [];
+
         foreach ($pattern as $key => $value) {
             // Delimiter
             if (is_numeric($key)) {
