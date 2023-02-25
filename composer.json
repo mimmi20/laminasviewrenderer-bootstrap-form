@@ -26,7 +26,7 @@
     "laminas/laminas-i18n": "^2.12.0",
     "laminas/laminas-modulemanager": "^2.11.0",
     "laminas/laminas-servicemanager": "^3.10.0",
-    "mimmi20/coding-standard": "^2.5.1",
+    "mimmi20/coding-standard": "^2.9.6",
     "mimmi20/laminas-form-element-group": "^2.0.1",
     "mimmi20/laminas-form-element-links": "^1.0.4",
     "mimmi20/laminas-form-element-paragraph": "^1.0.4",
