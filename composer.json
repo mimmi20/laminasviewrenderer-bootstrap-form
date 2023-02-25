@@ -30,7 +30,7 @@
     "mimmi20/laminas-form-element-group": "^2.0.1",
     "mimmi20/laminas-form-element-links": "^1.0.4",
     "mimmi20/laminas-form-element-paragraph": "^1.0.4",
-    "phpstan/extension-installer": "^1.1.0",
+    "phpstan/extension-installer": "^1.2.0",
     "phpstan/phpstan": "^1.2.0",
     "phpstan/phpstan-deprecation-rules": "^1.0.0",
     "phpstan/phpstan-phpunit": "^1.0.0",
