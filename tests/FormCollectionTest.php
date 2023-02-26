@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -92,18 +92,15 @@ final class FormCollectionTest extends TestCase
             sprintf(
                 '%s requires that the element is of type %s',
                 'Mimmi20\LaminasView\BootstrapForm\FormCollection::render',
-                FieldsetInterface::class
-            )
+                FieldsetInterface::class,
+            ),
         );
         $this->expectExceptionCode(0);
 
         $helper->render($element);
     }
 
-    /**
-     * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         $formRow = $this->getMockBuilder(FormRowInterface::class)
@@ -132,10 +129,7 @@ final class FormCollectionTest extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         $formRow = $this->getMockBuilder(FormRowInterface::class)
@@ -164,10 +158,7 @@ final class FormCollectionTest extends TestCase
         self::assertSame('  ', $helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetShouldWrap(): void
     {
         $formRow = $this->getMockBuilder(FormRowInterface::class)
@@ -209,7 +200,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithFormWithoutOptionsAndElements(): void
     {
@@ -248,8 +238,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::exactly(2))
             ->method('toHtml')
-            ->withConsecutive(['legend', ['class' => ''], sprintf('<span>%s</span>', $labelEscaped)], ['fieldset', [], PHP_EOL . '    ' . $expectedLegend . PHP_EOL])
-            ->willReturnOnConsecutiveCalls($expectedLegend, $expectedFieldset);
+            ->willReturnMap(
+                [
+                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $labelEscaped), $expectedLegend],
+                    ['fieldset', [], PHP_EOL . '    ' . $expectedLegend . PHP_EOL, $expectedFieldset],
+                ],
+            );
 
         $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, null);
 
@@ -262,8 +256,14 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(4))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating, $labelAttributes);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['label_attributes', $labelAttributes],
+                ],
+            );
         $element->expects(self::once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -272,8 +272,12 @@ final class FormCollectionTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls($disableEscape, $wrap);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', $disableEscape],
+                    ['always_wrap', $wrap],
+                ],
+            );
         $element->expects(self::once())
             ->method('hasAttribute')
             ->with('id')
@@ -295,7 +299,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithFormAndElementsWithoutOptions(): void
     {
@@ -346,24 +349,40 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(2))
             ->method('render')
-            ->withConsecutive([$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
             ->getMock();
         $escapeHtml->expects(self::exactly(2))
             ->method('__invoke')
-            ->withConsecutive([$innerLabel, 0], [$label, 0])
-            ->willReturnOnConsecutiveCalls($innerLabelEscaped, $labelEscaped);
+            ->willReturnMap(
+                [
+                    [$innerLabel, 0, $innerLabelEscaped],
+                    [$label, 0, $labelEscaped],
+                ],
+            );
+
+        // var_dump('expected: fieldset', [], PHP_EOL . '        ' . $expectedInnerLegend . PHP_EOL . '    ', $expectedInnerFieldset);
 
         $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
         $htmlElement->expects(self::exactly(4))
             ->method('toHtml')
-            ->withConsecutive(['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelEscaped)], ['fieldset', [], PHP_EOL . '        ' . $expectedInnerLegend . PHP_EOL . '    '], ['legend', ['class' => ''], sprintf('<span>%s</span>', $labelEscaped)], ['fieldset', [], PHP_EOL . '    ' . $expectedLegend . PHP_EOL . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL])
-            ->willReturnOnConsecutiveCalls($expectedInnerLegend, $expectedInnerFieldset, $expectedLegend, $expectedFieldset);
+            ->willReturnMap(
+                [
+                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelEscaped), $expectedInnerLegend],
+                    ['fieldset', [], PHP_EOL . '        ' . $expectedInnerLegend . PHP_EOL . '    ', $expectedInnerFieldset],
+                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $labelEscaped), $expectedLegend],
+                    ['fieldset', [], PHP_EOL . '    ' . $expectedLegend . PHP_EOL . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL, $expectedFieldset],
+                ],
+            );
 
         $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, null);
 
@@ -374,8 +393,14 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(4))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating, []);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['label_attributes', []],
+                ],
+            );
         $collectionElement->expects(self::never())
             ->method('setOption');
         $collectionElement->expects(self::once())
@@ -413,8 +438,15 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating, false, false, false, $labelAttributes);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                    ['label_attributes', $labelAttributes],
+                ],
+            );
         $element->expects(self::once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -423,8 +455,12 @@ final class FormCollectionTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls($disableEscape, $wrap);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', $disableEscape],
+                    ['always_wrap', $wrap],
+                ],
+            );
         $element->expects(self::once())
             ->method('hasAttribute')
             ->with('id')
@@ -446,7 +482,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithCollectionAndElementsWithoutOptions(): void
     {
@@ -497,24 +532,38 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(2))
             ->method('render')
-            ->withConsecutive([$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
             ->getMock();
         $escapeHtml->expects(self::exactly(2))
             ->method('__invoke')
-            ->withConsecutive([$innerLabel, 0], [$label, 0])
-            ->willReturnOnConsecutiveCalls($innerLabelEscaped, $labelEscaped);
+            ->willReturnMap(
+                [
+                    [$innerLabel, 0, $innerLabelEscaped],
+                    [$label, 0, $labelEscaped],
+                ],
+            );
 
         $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
         $htmlElement->expects(self::exactly(4))
             ->method('toHtml')
-            ->withConsecutive(['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelEscaped)], ['fieldset', [], PHP_EOL . '        ' . $expectedInnerLegend . PHP_EOL . '    '], ['legend', ['class' => ''], sprintf('<span>%s</span>', $labelEscaped)], ['fieldset', [], PHP_EOL . '    ' . $expectedLegend . PHP_EOL . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL])
-            ->willReturnOnConsecutiveCalls($expectedInnerLegend, $expectedInnerFieldset, $expectedLegend, $expectedFieldset);
+            ->willReturnMap(
+                [
+                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelEscaped), $expectedInnerLegend],
+                    ['fieldset', [], PHP_EOL . '        ' . $expectedInnerLegend . PHP_EOL . '    ', $expectedInnerFieldset],
+                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $labelEscaped), $expectedLegend],
+                    ['fieldset', [], PHP_EOL . '    ' . $expectedLegend . PHP_EOL . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL, $expectedFieldset],
+                ],
+            );
 
         $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, null);
 
@@ -525,8 +574,14 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(4))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating, []);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['label_attributes', []],
+                ],
+            );
         $collectionElement->expects(self::never())
             ->method('setOption');
         $collectionElement->expects(self::once())
@@ -564,8 +619,15 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating, false, false, false, $labelAttributes);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                    ['label_attributes', $labelAttributes],
+                ],
+            );
         $element->expects(self::once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -574,8 +636,12 @@ final class FormCollectionTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls($disableEscape, $wrap);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', $disableEscape],
+                    ['always_wrap', $wrap],
+                ],
+            );
         $element->expects(self::once())
             ->method('hasAttribute')
             ->with('id')
@@ -602,7 +668,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithFormAndElementsAndOptions(): void
     {
@@ -629,8 +694,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $textElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $textElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -640,8 +709,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $buttonElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $buttonElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -657,8 +730,12 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(2))
             ->method('render')
-            ->withConsecutive([$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
@@ -671,8 +748,14 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::exactly(4))
             ->method('toHtml')
-            ->withConsecutive(['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabel)], ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    '], ['legend', ['class' => ''], $label], ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent])
-            ->willReturnOnConsecutiveCalls($expectedInnerLegend, $expectedInnerFieldset, $expectedLegend, $expectedFieldset);
+            ->willReturnMap(
+                [
+                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabel), $expectedInnerLegend],
+                    ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    ', $expectedInnerFieldset],
+                    ['legend', ['class' => ''], $label, $expectedLegend],
+                    ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent, $expectedFieldset],
+                ],
+            );
 
         $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, null);
 
@@ -683,8 +766,14 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(6))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['form'], ['layout'], ['floating'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $form, $layout, $floating, []);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['label_attributes', []],
+                ],
+            );
         $collectionElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -723,8 +812,15 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating, false, false, false, $labelAttributes);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                    ['label_attributes', $labelAttributes],
+                ],
+            );
         $element->expects(self::once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -733,8 +829,12 @@ final class FormCollectionTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls($disableEscape, $wrap);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', $disableEscape],
+                    ['always_wrap', $wrap],
+                ],
+            );
         $element->expects(self::once())
             ->method('hasAttribute')
             ->with('id')
@@ -756,7 +856,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithCollectionAndElementsAndOptions(): void
     {
@@ -783,8 +882,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $textElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $textElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -794,8 +897,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $buttonElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $buttonElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -811,8 +918,12 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(2))
             ->method('render')
-            ->withConsecutive([$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
@@ -825,8 +936,14 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::exactly(4))
             ->method('toHtml')
-            ->withConsecutive(['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabel)], ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    '], ['legend', ['class' => ''], $label], ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent])
-            ->willReturnOnConsecutiveCalls($expectedInnerLegend, $expectedInnerFieldset, $expectedLegend, $expectedFieldset);
+            ->willReturnMap(
+                [
+                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabel), $expectedInnerLegend],
+                    ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    ', $expectedInnerFieldset],
+                    ['legend', ['class' => ''], $label, $expectedLegend],
+                    ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent, $expectedFieldset],
+                ],
+            );
 
         $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, null);
 
@@ -837,8 +954,14 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(6))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['form'], ['layout'], ['floating'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $form, $layout, $floating, []);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['label_attributes', []],
+                ],
+            );
         $collectionElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -877,8 +1000,15 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating, false, false, false, $labelAttributes);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                    ['label_attributes', $labelAttributes],
+                ],
+            );
         $element->expects(self::once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -887,8 +1017,12 @@ final class FormCollectionTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls($disableEscape, $wrap);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', $disableEscape],
+                    ['always_wrap', $wrap],
+                ],
+            );
         $element->expects(self::once())
             ->method('hasAttribute')
             ->with('id')
@@ -915,7 +1049,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithCollectionAndElementsAndOptionsAndTranslator(): void
     {
@@ -945,8 +1078,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $textElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $textElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -956,8 +1093,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $buttonElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $buttonElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -973,16 +1114,24 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(2))
             ->method('render')
-            ->withConsecutive([$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $translator = $this->getMockBuilder(Translate::class)
             ->disableOriginalConstructor()
             ->getMock();
         $translator->expects(self::exactly(2))
             ->method('__invoke')
-            ->withConsecutive([$innerLabel, $textDomain, null], [$label, $textDomain, null])
-            ->willReturnOnConsecutiveCalls($innerLabelTranslated, $labelTranslated);
+            ->willReturnMap(
+                [
+                    [$innerLabel, $textDomain, null, $innerLabelTranslated],
+                    [$label, $textDomain, null, $labelTranslated],
+                ],
+            );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
@@ -995,8 +1144,14 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $htmlElement->expects(self::exactly(4))
             ->method('toHtml')
-            ->withConsecutive(['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelTranslated)], ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    '], ['legend', ['class' => ''], $labelTranslated], ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent])
-            ->willReturnOnConsecutiveCalls($expectedInnerLegend, $expectedInnerFieldset, $expectedLegend, $expectedFieldset);
+            ->willReturnMap(
+                [
+                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelTranslated), $expectedInnerLegend],
+                    ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    ', $expectedInnerFieldset],
+                    ['legend', ['class' => ''], $labelTranslated, $expectedLegend],
+                    ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent, $expectedFieldset],
+                ],
+            );
 
         $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, $translator);
 
@@ -1007,8 +1162,14 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(6))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['form'], ['layout'], ['floating'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $form, $layout, $floating, []);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['label_attributes', []],
+                ],
+            );
         $collectionElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1047,8 +1208,15 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating, false, false, false, $labelAttributes);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                    ['label_attributes', $labelAttributes],
+                ],
+            );
         $element->expects(self::once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -1057,8 +1225,12 @@ final class FormCollectionTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls($disableEscape, $wrap);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', $disableEscape],
+                    ['always_wrap', $wrap],
+                ],
+            );
         $element->expects(self::once())
             ->method('hasAttribute')
             ->with('id')
@@ -1086,7 +1258,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithCollectionAndElementsAndOptionsAndTranslator2(): void
     {
@@ -1118,8 +1289,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $textElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $textElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1129,8 +1304,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $buttonElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $buttonElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1146,32 +1325,50 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(2))
             ->method('render')
-            ->withConsecutive([$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $translator = $this->getMockBuilder(Translate::class)
             ->disableOriginalConstructor()
             ->getMock();
         $translator->expects(self::exactly(2))
             ->method('__invoke')
-            ->withConsecutive([$innerLabel, $textDomain, null], [$label, $textDomain, null])
-            ->willReturnOnConsecutiveCalls($innerLabelTranslated, $labelTranslated);
+            ->willReturnMap(
+                [
+                    [$innerLabel, $textDomain, null, $innerLabelTranslated],
+                    [$label, $textDomain, null, $labelTranslated],
+                ],
+            );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
             ->getMock();
         $escapeHtml->expects(self::exactly(2))
             ->method('__invoke')
-            ->withConsecutive([$innerLabelTranslated, 0], [$labelTranslated, 0])
-            ->willReturnOnConsecutiveCalls($innerLabelTranslatedEscaped, $labelTranslatedEscaped);
+            ->willReturnMap(
+                [
+                    [$innerLabelTranslated, 0, $innerLabelTranslatedEscaped],
+                    [$labelTranslated, 0, $labelTranslatedEscaped],
+                ],
+            );
 
         $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
         $htmlElement->expects(self::exactly(4))
             ->method('toHtml')
-            ->withConsecutive(['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelTranslatedEscaped)], ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    '], ['legend', ['class' => ''], $labelTranslatedEscaped], ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent])
-            ->willReturnOnConsecutiveCalls($expectedInnerLegend, $expectedInnerFieldset, $expectedLegend, $expectedFieldset);
+            ->willReturnMap(
+                [
+                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelTranslatedEscaped), $expectedInnerLegend],
+                    ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    ', $expectedInnerFieldset],
+                    ['legend', ['class' => ''], $labelTranslatedEscaped, $expectedLegend],
+                    ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent, $expectedFieldset],
+                ],
+            );
 
         $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, $translator);
 
@@ -1182,8 +1379,14 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(6))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['form'], ['layout'], ['floating'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $form, $layout, $floating, []);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['label_attributes', []],
+                ],
+            );
         $collectionElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1222,8 +1425,15 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'], ['label_attributes'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating, false, false, false, $labelAttributes);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                    ['label_attributes', $labelAttributes],
+                ],
+            );
         $element->expects(self::once())
             ->method('getAttributes')
             ->willReturn($attributes);
@@ -1232,8 +1442,12 @@ final class FormCollectionTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls($disableEscape, $wrap);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', $disableEscape],
+                    ['always_wrap', $wrap],
+                ],
+            );
         $element->expects(self::once())
             ->method('hasAttribute')
             ->with('id')
@@ -1261,7 +1475,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithCollectionAndElementsAndOptionsAndTranslator3(): void
     {
@@ -1276,8 +1489,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $textElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $textElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1287,8 +1504,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $buttonElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $buttonElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1305,8 +1526,12 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(2))
             ->method('render')
-            ->withConsecutive([$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $translator = $this->getMockBuilder(Translate::class)
             ->disableOriginalConstructor()
@@ -1335,8 +1560,13 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(5))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['form'], ['layout'], ['floating'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $form, $layout, $floating);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                ],
+            );
         $collectionElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1369,8 +1599,14 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(6))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating, false, false, false);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                ],
+            );
         $element->expects(self::never())
             ->method('getAttributes');
         $element->expects(self::never())
@@ -1403,7 +1639,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithCollectionAndElementsAndOptionsAndTranslator4(): void
     {
@@ -1418,8 +1653,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $textElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $textElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1429,8 +1668,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $buttonElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $buttonElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1447,8 +1690,12 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(2))
             ->method('render')
-            ->withConsecutive([$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $translator = $this->getMockBuilder(Translate::class)
             ->disableOriginalConstructor()
@@ -1477,8 +1724,13 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(5))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['form'], ['layout'], ['floating'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $form, $layout, $floating);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                ],
+            );
         $collectionElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1511,8 +1763,14 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(6))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating, false, false, false);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                ],
+            );
         $element->expects(self::never())
             ->method('getAttributes');
         $element->expects(self::never())
@@ -1546,7 +1804,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithCollectionAndElementsAndOptionsAndTranslator5(): void
     {
@@ -1562,8 +1819,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $textElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $textElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1581,8 +1842,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $buttonElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $buttonElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1602,8 +1867,13 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(3))
             ->method('render')
-            ->withConsecutive([$templateElement], [$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedTemplate, $expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$templateElement, null, $expectedTemplate],
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $translator = $this->getMockBuilder(Translate::class)
             ->disableOriginalConstructor()
@@ -1634,8 +1904,13 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(5))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['form'], ['layout'], ['floating'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $form, $layout, $floating);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                ],
+            );
         $collectionElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1668,8 +1943,15 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['template_attributes'], ['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'])
-            ->willReturnOnConsecutiveCalls($templateAttributes, $form, $layout, $floating, false, false, false);
+            ->willReturnMap(
+                [
+                    ['template_attributes', $templateAttributes],
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                ],
+            );
         $element->expects(self::never())
             ->method('getAttributes');
         $element->expects(self::never())
@@ -1703,7 +1985,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithCollectionAndElementsAndOptionsAndTranslator6(): void
     {
@@ -1719,8 +2000,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $textElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $textElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1732,8 +2017,13 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $templateElement->expects(self::exactly(3))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                ],
+            );
         $templateElement->expects(self::never())
             ->method('setOption');
         $templateElement->expects(self::never())
@@ -1758,8 +2048,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $buttonElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $buttonElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1778,8 +2072,12 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(2))
             ->method('render')
-            ->withConsecutive([$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $translator = $this->getMockBuilder(Translate::class)
             ->disableOriginalConstructor()
@@ -1810,8 +2108,13 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(5))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['form'], ['layout'], ['floating'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $form, $layout, $floating);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                ],
+            );
         $collectionElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1844,8 +2147,15 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['template_attributes'], ['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'])
-            ->willReturnOnConsecutiveCalls($templateAttributes, $form, $layout, $floating, false, false, false);
+            ->willReturnMap(
+                [
+                    ['template_attributes', $templateAttributes],
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                ],
+            );
         $element->expects(self::never())
             ->method('getAttributes');
         $element->expects(self::never())
@@ -1879,7 +2189,6 @@ final class FormCollectionTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithCollectionAndElementsAndOptionsAndTranslator7(): void
     {
@@ -1895,8 +2204,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $textElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $textElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1908,8 +2221,13 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $templateElement->expects(self::exactly(3))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                ],
+            );
         $templateElement->expects(self::never())
             ->method('setOption');
         $templateElement->expects(self::never())
@@ -1934,8 +2252,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $buttonElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $buttonElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -1954,8 +2276,12 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(2))
             ->method('render')
-            ->withConsecutive([$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $translator = $this->getMockBuilder(Translate::class)
             ->disableOriginalConstructor()
@@ -1986,8 +2312,13 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(5))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['form'], ['layout'], ['floating'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $form, $layout, $floating);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                ],
+            );
         $collectionElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -2020,8 +2351,15 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['template_attributes'], ['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'])
-            ->willReturnOnConsecutiveCalls($templateAttributes, $form, $layout, $floating, false, false, false);
+            ->willReturnMap(
+                [
+                    ['template_attributes', $templateAttributes],
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                ],
+            );
         $element->expects(self::never())
             ->method('getAttributes');
         $element->expects(self::never())
@@ -2051,10 +2389,7 @@ final class FormCollectionTest extends TestCase
         self::assertSame($expected, $helperObject->render($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testRenderWithCollectionAndElementsAndOptionsAndTranslator8(): void
     {
         $form               = 'test-form';
@@ -2069,8 +2404,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $textElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $textElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -2082,8 +2421,13 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $templateElement->expects(self::exactly(3))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['floating'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $floating);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                ],
+            );
         $templateElement->expects(self::never())
             ->method('setOption');
         $templateElement->expects(self::never())
@@ -2108,8 +2452,12 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $buttonElement->expects(self::exactly(2))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'])
-            ->willReturnOnConsecutiveCalls($form, $layout);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                ],
+            );
         $buttonElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -2128,8 +2476,12 @@ final class FormCollectionTest extends TestCase
             ->with($indent . '    ');
         $formRow->expects(self::exactly(2))
             ->method('render')
-            ->withConsecutive([$buttonElement], [$textElement])
-            ->willReturnOnConsecutiveCalls($expectedButton, $expectedText);
+            ->willReturnMap(
+                [
+                    [$buttonElement, null, $expectedButton],
+                    [$textElement, null, $expectedText],
+                ],
+            );
 
         $translator = $this->getMockBuilder(Translate::class)
             ->disableOriginalConstructor()
@@ -2160,8 +2512,13 @@ final class FormCollectionTest extends TestCase
             ->getMock();
         $collectionElement->expects(self::exactly(5))
             ->method('getOption')
-            ->withConsecutive(['form'], ['layout'], ['form'], ['layout'], ['floating'])
-            ->willReturnOnConsecutiveCalls($form, $layout, $form, $layout, $floating);
+            ->willReturnMap(
+                [
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                ],
+            );
         $collectionElement->expects(self::once())
             ->method('setOption')
             ->with('floating', true);
@@ -2194,8 +2551,15 @@ final class FormCollectionTest extends TestCase
             ->method('getName');
         $element->expects(self::exactly(7))
             ->method('getOption')
-            ->withConsecutive(['template_attributes'], ['form'], ['layout'], ['floating'], ['show-required-mark'], ['show-required-mark'], ['show-required-mark'])
-            ->willReturnOnConsecutiveCalls($templateAttributes, $form, $layout, $floating, false, false, false);
+            ->willReturnMap(
+                [
+                    ['template_attributes', $templateAttributes],
+                    ['form', $form],
+                    ['layout', $layout],
+                    ['floating', $floating],
+                    ['show-required-mark', false],
+                ],
+            );
         $element->expects(self::never())
             ->method('getAttributes');
         $element->expects(self::never())

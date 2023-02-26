@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -56,9 +56,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected $translatableAttributes = ['label' => true];
-    private FormHiddenInterface $formHidden;
-    private ?Translate $translate;
-    private EscapeHtml $escaper;
+    private Translate | null $translate;
 
     /**
      * Attributes valid for select
@@ -98,14 +96,13 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         'label' => true,
     ];
 
+    /** @throws void */
     public function __construct(
-        EscapeHtml $escaper,
-        FormHiddenInterface $formHidden,
-        ?Translate $translator = null
+        private readonly EscapeHtml $escaper,
+        private readonly FormHiddenInterface $formHidden,
+        Translate | null $translator = null,
     ) {
-        $this->formHidden = $formHidden;
-        $this->escaper    = $escaper;
-        $this->translate  = $translator;
+        $this->translate = $translator;
     }
 
     /**
@@ -118,7 +115,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
      */
-    public function __invoke(?ElementInterface $element = null)
+    public function __invoke(ElementInterface | null $element = null)
     {
         if (!$element) {
             return $this;
@@ -140,18 +137,19 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
                 sprintf(
                     '%s requires that the element is of type %s',
                     __METHOD__,
-                    SelectElement::class
-                )
+                    SelectElement::class,
+                ),
             );
         }
 
         $name = $element->getName();
+
         if (empty($name) && 0 !== $name) {
             throw new Exception\DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
-                    __METHOD__
-                )
+                    __METHOD__,
+                ),
             );
         }
 
@@ -166,6 +164,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         $value      = $this->validateMultiValue($element->getValue(), $attributes);
 
         $attributes['name'] = $name;
+
         if (array_key_exists('multiple', $attributes) && $attributes['multiple']) {
             $attributes['name'] .= '[]';
         }
@@ -190,7 +189,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         $rendered = sprintf(
             '<select %s>%s</select>',
             $this->createAttributesString($attributes),
-            PHP_EOL . implode(PHP_EOL, $optionContent) . PHP_EOL . $indent
+            PHP_EOL . implode(PHP_EOL, $optionContent) . PHP_EOL . $indent,
         );
 
         $rendered = $indent . $rendered;
@@ -224,9 +223,14 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @param array<int|string, array<string, string>|string> $options
      * @param array<int|string, string>                       $selectedOptions Option values that should be marked as selected
      * @phpstan-param array<int|string, array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string> $options
+     *
+     * @throws void
      */
-    public function renderOptions(array $options, array $selectedOptions, int $level): string
-    {
+    public function renderOptions(
+        array $options,
+        array $selectedOptions,
+        int $level,
+    ): string {
         $optionStrings = [];
 
         foreach ($options as $key => $optionSpec) {
@@ -241,9 +245,15 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @param array<string, string>|string $optionSpec
      * @param array<int|string, string>    $selectedOptions
      * @phpstan-param array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string $optionSpec
+     *
+     * @throws void
      */
-    public function renderOption($key, $optionSpec, array $selectedOptions, int $level): string
-    {
+    public function renderOption(
+        $key,
+        $optionSpec,
+        array $selectedOptions,
+        int $level,
+    ): string {
         $value    = '';
         $label    = '';
         $selected = false;
@@ -284,8 +294,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
             is_string($label),
             sprintf(
                 '$label should be a string, but was %s',
-                gettype($label)
-            )
+                gettype($label),
+            ),
         );
 
         if ('' !== $label) {
@@ -313,6 +323,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         $this->validTagAttributes = $this->validOptionAttributes;
 
         $attributesString = $this->createAttributesString($attributes);
+
         if (!empty($attributesString)) {
             $attributesString = ' ' . $attributesString;
         }
@@ -320,7 +331,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         $content = sprintf(
             '<option%s>%s</option>',
             $attributesString,
-            $label
+            $label,
         );
         $indent  = $this->getIndent();
 
@@ -336,10 +347,16 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      *
      * @param array<string, array<mixed>|bool|int|string> $optgroup
      * @param array<int|string, string>                   $selectedOptions
+     *
+     * @throws void
      */
-    public function renderOptgroup(array $optgroup, array $selectedOptions, int $level): string
-    {
+    public function renderOptgroup(
+        array $optgroup,
+        array $selectedOptions,
+        int $level,
+    ): string {
         $options = [];
+
         if (array_key_exists('options', $optgroup)) {
             if (is_array($optgroup['options'])) {
                 /** @phpstan-var array<int|string, array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string> $options */
@@ -351,6 +368,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
 
         $this->validTagAttributes = $this->validOptgroupAttributes;
         $attributes               = $this->createAttributesString($optgroup);
+
         if (!empty($attributes)) {
             $attributes = ' ' . $attributes;
         }
@@ -360,7 +378,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         $content = sprintf(
             '<optgroup%s>%s</optgroup>',
             $attributes,
-            PHP_EOL . $this->renderOptions($options, $selectedOptions, $level + 1) . PHP_EOL . $indent
+            PHP_EOL . $this->renderOptions($options, $selectedOptions, $level + 1) . PHP_EOL . $indent,
         );
 
         return $indent . $content;
@@ -399,8 +417,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
             throw new Exception\DomainException(
                 sprintf(
                     '%s does not allow specifying multiple selected values when the element does not have a multiple attribute set to a boolean true',
-                    self::class
-                )
+                    self::class,
+                ),
             );
         }
 

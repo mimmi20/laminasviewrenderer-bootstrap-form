@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -47,13 +47,11 @@ abstract class AbstractFormMultiCheckbox extends FormInput
     use LabelPositionTrait;
     use UseHiddenElementTrait;
 
-    public const LABEL_APPEND  = 'append';
+    public const LABEL_APPEND = 'append';
+
     public const LABEL_PREPEND = 'prepend';
 
-    private FormLabelInterface $formLabel;
-    private ?Translate $translate;
-    private HtmlElementInterface $htmlElement;
-    private FormHiddenInterface $formHidden;
+    private Translate | null $translate;
 
     /**
      * The attributes applied to option label
@@ -67,22 +65,20 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      */
     private string $separator = '';
 
+    /** @throws void */
     public function __construct(
         EscapeHtml $escapeHtml,
         EscapeHtmlAttr $escapeHtmlAttr,
         Doctype $doctype,
-        FormLabelInterface $formLabel,
-        HtmlElementInterface $htmlElement,
-        FormHiddenInterface $formHidden,
-        ?Translate $translator = null
+        private FormLabelInterface $formLabel,
+        private HtmlElementInterface $htmlElement,
+        private FormHiddenInterface $formHidden,
+        Translate | null $translator = null,
     ) {
         parent::__construct($escapeHtml, $escapeHtmlAttr, $doctype);
 
-        $this->formLabel   = $formLabel;
-        $this->htmlElement = $htmlElement;
-        $this->escapeHtml  = $escapeHtml;
-        $this->formHidden  = $formHidden;
-        $this->translate   = $translator;
+        $this->escapeHtml = $escapeHtml;
+        $this->translate  = $translator;
     }
 
     /**
@@ -95,8 +91,10 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
      */
-    public function __invoke(?ElementInterface $element = null, ?string $labelPosition = null)
-    {
+    public function __invoke(
+        ElementInterface | null $element = null,
+        string | null $labelPosition = null,
+    ) {
         if (null === $element) {
             return $this;
         }
@@ -121,8 +119,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
                 sprintf(
                     '%s requires that the element is of type %s',
                     __METHOD__,
-                    MultiCheckboxElement::class
-                )
+                    MultiCheckboxElement::class,
+                ),
             );
         }
 
@@ -155,6 +153,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * Sets the attributes applied to option label.
      *
      * @param array<int|string, bool|string> $attributes
+     *
+     * @throws void
      */
     public function setLabelAttributes(array $attributes): self
     {
@@ -167,6 +167,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * Returns the attributes applied to each option label.
      *
      * @return array<int|string, bool|string>
+     *
+     * @throws void
      */
     public function getLabelAttributes(): array
     {
@@ -175,6 +177,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
 
     /**
      * Set separator string for checkbox elements
+     *
+     * @throws void
      */
     public function setSeparator(string $separator): self
     {
@@ -185,6 +189,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
 
     /**
      * Get separator for checkbox elements
+     *
+     * @throws void
      */
     public function getSeparator(): string
     {
@@ -193,6 +199,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
 
     /**
      * Return input type
+     *
+     * @throws void
      */
     abstract protected function getInputType(): string;
 
@@ -201,7 +209,9 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @throws Exception\DomainException
      */
-    abstract protected static function getName(ElementInterface $element): string;
+    abstract protected static function getName(
+        ElementInterface $element,
+    ): string;
 
     /**
      * Render options
@@ -217,7 +227,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
         MultiCheckboxElement $element,
         array $options,
         array $selectedOptions,
-        array $attributes
+        array $attributes,
     ): string {
         if ($element->hasLabelOption('label_position')) {
             $labelPosition = $element->getLabelOption('label_position');
@@ -244,6 +254,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
 
         foreach ($options as $key => $optionSpec) {
             ++$count;
+
             if (1 < $count && array_key_exists('id', $attributes)) {
                 unset($attributes['id']);
             }
@@ -339,7 +350,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
             $input = sprintf(
                 '<input %s%s',
                 $this->createAttributesString($inputAttributes),
-                $closingBracket
+                $closingBracket,
             );
 
             assert(is_string($label));
@@ -347,7 +358,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
             if (null !== $this->translate) {
                 $label = ($this->translate)(
                     $label,
-                    $this->getTranslatorTextDomain()
+                    $this->getTranslatorTextDomain(),
                 );
             }
 
@@ -359,7 +370,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
             $filteredAttributes = array_filter(
                 $labelAttributes,
                 static fn ($key): bool => is_string($key),
-                ARRAY_FILTER_USE_KEY
+                ARRAY_FILTER_USE_KEY,
             );
 
             if (
@@ -390,10 +401,12 @@ abstract class AbstractFormMultiCheckbox extends FormInput
             switch ($labelPosition) {
                 case BaseFormRow::LABEL_PREPEND:
                     $markup = $labelOpen . $label . PHP_EOL . $input . $labelClose;
+
                     break;
                 case BaseFormRow::LABEL_APPEND:
                 default:
                     $markup = $labelOpen . $input . PHP_EOL . $label . $labelClose;
+
                     break;
             }
 
@@ -422,6 +435,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
 
     /**
      * @param array<int|string, string> $classes
+     *
+     * @throws void
      */
     private function combineClasses(array $classes): string
     {

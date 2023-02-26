@@ -1,18 +1,45 @@
 parameters:
   level: max
+
   parallel:
     maximumNumberOfProcesses: 1
     processTimeout: 200.0
+
   paths:
     - src
     - tests
+
   scanFiles:
     - %currentWorkingDirectory%/vendor/autoload.php
     - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/autoload.php
     - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/src/Util/Tokens.php
-  checkGenericClassInNonGenericObjectType: false
-  checkMissingIterableValueType: false
+
+  checkAlwaysTrueCheckTypeFunctionCall: true
+  checkAlwaysTrueInstanceof: true
+  checkAlwaysTrueStrictComparison: true
+  checkBenevolentUnionTypes: true
+  checkDynamicProperties: true
+  checkExplicitMixedMissingReturn: true
+  checkFunctionNameCase: true
+  checkGenericClassInNonGenericObjectType: true
+  checkImplicitMixed: false
+  checkInternalClassCaseSensitivity: true
+  checkMissingCallableSignature: true
+  checkMissingIterableValueType: true
+  checkTooWideReturnTypesInProtectedAndPublicMethods: true
+  checkUninitializedProperties: true
+  inferPrivatePropertyTypeFromConstructor: true
+  polluteScopeWithAlwaysIterableForeach: false
+  polluteScopeWithLoopInitialAssignments: false
+# reportAlwaysTrueInLastCondition: true
+  reportMaybesInMethodSignatures: false
+  reportMaybesInPropertyPhpDocTypes: false
+  reportStaticMethodSignatures: true
+# reportWrongPhpDocTypeInVarTag: true
   treatPhpDocTypesAsCertain: false
+
+  tipsOfTheDay: false
+
   exceptions:
     implicitThrows: false
     checkedExceptionRegexes:
@@ -21,6 +48,7 @@ parameters:
     check:
       missingCheckedExceptionInThrows: true
       tooWideThrowType: true
+
   ignoreErrors:
 #    - '~is not subtype of Throwable~'
     - '~Call to an undefined method Laminas\\InputFilter\\InputFilterInterface\|Laminas\\InputFilter\\InputInterface::isRequired\(\)~'
@@ -30,3 +58,6 @@ parameters:
 #    - '~Cannot call method .* on class-string\|object~'
     - '~Parameter #1 \$className of method PHPUnit\\Framework\\TestCase::getMockBuilder\(\) expects class-string<mixed>, string given~'
     - '~Unable to resolve the template type T in call to method PHPUnit\\Framework\\TestCase::getMockBuilder\(\)~'
+    - '~will always evaluate to true~'
+    - '~Parameter #2 \$v3config of class Laminas\\View\\HelperPluginManager constructor expects~'
+    - '~Parameter #2 \$factory of method Laminas\\ServiceManager\\ServiceManager::setFactory\(\) expects~'

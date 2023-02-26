@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,13 +14,13 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
 use Mimmi20\LaminasView\BootstrapForm\FormLabel;
 use Mimmi20\LaminasView\BootstrapForm\FormLabelInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 use function assert;
 use function gettype;
@@ -29,9 +29,8 @@ use function sprintf;
 final class FormLabelTest extends TestCase
 {
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithNull(): void
@@ -50,9 +49,8 @@ final class FormLabelTest extends TestCase
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithArray(): void
@@ -73,7 +71,7 @@ final class FormLabelTest extends TestCase
     }
 
     /**
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      * @throws Exception
      */
@@ -89,13 +87,13 @@ final class FormLabelTest extends TestCase
 
         $helper = new FormLabel($escapeHtml, null);
 
-        $this->expectException(\Laminas\Form\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf(
                 '%s expects an array or Laminas\Form\ElementInterface instance; received "%s"',
                 'Mimmi20\LaminasView\BootstrapForm\FormLabel::openTag',
-                gettype($value)
-            )
+                gettype($value),
+            ),
         );
         $this->expectExceptionCode(0);
         $helper->openTag($value);
@@ -103,7 +101,7 @@ final class FormLabelTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithoutNameAndId(): void
@@ -143,8 +141,8 @@ final class FormLabelTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 '%s expects the Element provided to have either a name or an id present; neither found',
-                'Mimmi20\LaminasView\BootstrapForm\FormLabel::openTag'
-            )
+                'Mimmi20\LaminasView\BootstrapForm\FormLabel::openTag',
+            ),
         );
         $this->expectExceptionCode(0);
         $helper->openTag($element);
@@ -152,9 +150,8 @@ final class FormLabelTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
-     * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithId(): void
     {
@@ -198,9 +195,8 @@ final class FormLabelTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
-     * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithoutId(): void
     {
@@ -245,9 +241,8 @@ final class FormLabelTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
-     * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws DomainException
      */
     public function testInvokeWithElementWithoutId(): void
     {
@@ -294,9 +289,7 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helperObject->openTag($element));
     }
 
-    /**
-     * @throws Exception
-     */
+    /** @throws Exception */
     public function testInvokeWithoutLabel(): void
     {
         $element = $this->getMockBuilder(Text::class)
@@ -332,18 +325,15 @@ final class FormLabelTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 '%s expects either label content as the second argument, or that the element provided has a label attribute; neither found',
-                'Mimmi20\LaminasView\BootstrapForm\FormLabel::__invoke'
-            )
+                'Mimmi20\LaminasView\BootstrapForm\FormLabel::__invoke',
+            ),
         );
         $this->expectExceptionCode(0);
 
         $helper($element);
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvokeWithoutLabelButWithPosition(): void
     {
         $for          = 'test-type';
@@ -388,10 +378,7 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvokeWithLabelAndPosition1(): void
     {
         $for          = 'test-type';
@@ -444,10 +431,7 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvokeWithLabelAndPosition2(): void
     {
         $for          = 'test-type';
@@ -480,8 +464,12 @@ final class FormLabelTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls(false, false);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', false],
+                    ['always_wrap', false],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
@@ -499,10 +487,7 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvokeWithLabelAndPosition3(): void
     {
         $for          = 'test-type';
@@ -535,8 +520,12 @@ final class FormLabelTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls(false, true);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', false],
+                    ['always_wrap', true],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
@@ -554,10 +543,7 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvokeWithLabelAndPosition4(): void
     {
         $for          = 'test-type';
@@ -607,10 +593,7 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvokeWithLabelAndPosition5(): void
     {
         $for          = 'test-type';
@@ -642,8 +625,12 @@ final class FormLabelTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls(true, true);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', true],
+                    ['always_wrap', true],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
@@ -659,10 +646,7 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvokeWithLabelAndPositionAndTranslator1(): void
     {
         $for                   = 'test-type';
@@ -697,8 +681,12 @@ final class FormLabelTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls(false, false);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', false],
+                    ['always_wrap', false],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
@@ -726,10 +714,7 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvokeWithLabelAndPositionAndTranslator2(): void
     {
         $for                   = 'test-type';
@@ -763,8 +748,12 @@ final class FormLabelTest extends TestCase
             ->willReturn($label);
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
-            ->withConsecutive(['disable_html_escape'], ['always_wrap'])
-            ->willReturnOnConsecutiveCalls(false, false);
+            ->willReturnMap(
+                [
+                    ['disable_html_escape', false],
+                    ['always_wrap', false],
+                ],
+            );
         $element->expects(self::once())
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);

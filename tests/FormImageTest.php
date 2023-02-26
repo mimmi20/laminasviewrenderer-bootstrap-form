@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -20,7 +20,6 @@ use Laminas\View\Helper\EscapeHtmlAttr;
 use Mimmi20\LaminasView\BootstrapForm\FormImage;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 use function sprintf;
 
@@ -78,8 +77,8 @@ final class FormImageTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 '%s requires that the element has an assigned src; none discovered',
-                'Mimmi20\LaminasView\BootstrapForm\FormImage::render'
-            )
+                'Mimmi20\LaminasView\BootstrapForm\FormImage::render',
+            ),
         );
         $this->expectExceptionCode(0);
         $helper->render($element);
@@ -140,8 +139,8 @@ final class FormImageTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 '%s requires that the element has an assigned name; none discovered',
-                'Mimmi20\LaminasView\BootstrapForm\FormInput::render'
-            )
+                'Mimmi20\LaminasView\BootstrapForm\FormInput::render',
+            ),
         );
         $this->expectExceptionCode(0);
         $helper->render($element);
@@ -149,7 +148,6 @@ final class FormImageTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderHtml(): void
@@ -212,7 +210,6 @@ final class FormImageTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderXHtml(): void
@@ -275,7 +272,6 @@ final class FormImageTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderReadonlyXHtml(): void
@@ -338,10 +334,7 @@ final class FormImageTest extends TestCase
         self::assertSame($expected, $helper->render($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -370,10 +363,7 @@ final class FormImageTest extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)

@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -76,8 +76,8 @@ final class FormSelectTest extends TestCase
             sprintf(
                 '%s requires that the element is of type %s',
                 'Mimmi20\LaminasView\BootstrapForm\FormSelect::render',
-                SelectElement::class
-            )
+                SelectElement::class,
+            ),
         );
         $this->expectExceptionCode(0);
 
@@ -136,8 +136,8 @@ final class FormSelectTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 '%s requires that the element has an assigned name; none discovered',
-                'Mimmi20\LaminasView\BootstrapForm\FormSelect::render'
-            )
+                'Mimmi20\LaminasView\BootstrapForm\FormSelect::render',
+            ),
         );
         $this->expectExceptionCode(0);
 
@@ -148,7 +148,6 @@ final class FormSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithNameWithoutValue(): void
     {
@@ -163,18 +162,22 @@ final class FormSelectTest extends TestCase
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id];
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
-        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" name="%s">', $class, $ariaLabel, $id, $name) . PHP_EOL .
-            sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL .
-            sprintf('    <option value="%s">%s</option>', $value3, $value2Escaped) . PHP_EOL .
-            '</select>';
+        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" name="%s">', $class, $ariaLabel, $id, $name) . PHP_EOL
+            . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
+            . sprintf('    <option value="%s">%s</option>', $value3, $value2Escaped) . PHP_EOL
+            . '</select>';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
             ->getMock();
         $escapeHtml->expects(self::exactly(2))
             ->method('__invoke')
-            ->withConsecutive([$emptyOption], [$value2])
-            ->willReturnOnConsecutiveCalls($emptyOptionEscaped, $value2Escaped);
+            ->willReturnMap(
+                [
+                    [$emptyOption, 0, $emptyOptionEscaped],
+                    [$value2, 0, $value2Escaped],
+                ],
+            );
 
         $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
             ->disableOriginalConstructor()
@@ -223,7 +226,6 @@ final class FormSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithNameWithStringValue(): void
     {
@@ -239,18 +241,22 @@ final class FormSelectTest extends TestCase
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id];
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
-        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" name="%s">', $class, $ariaLabel, $id, $name) . PHP_EOL .
-            sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL .
-            sprintf('    <option value="%s">%s</option>', $value3, $value2Escaped) . PHP_EOL .
-            '</select>';
+        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" name="%s">', $class, $ariaLabel, $id, $name) . PHP_EOL
+            . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
+            . sprintf('    <option value="%s">%s</option>', $value3, $value2Escaped) . PHP_EOL
+            . '</select>';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
             ->getMock();
         $escapeHtml->expects(self::exactly(2))
             ->method('__invoke')
-            ->withConsecutive([$emptyOption], [$value2])
-            ->willReturnOnConsecutiveCalls($emptyOptionEscaped, $value2Escaped);
+            ->willReturnMap(
+                [
+                    [$emptyOption, 0, $emptyOptionEscaped],
+                    [$value2, 0, $value2Escaped],
+                ],
+            );
 
         $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
             ->disableOriginalConstructor()
@@ -361,8 +367,8 @@ final class FormSelectTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 '%s does not allow specifying multiple selected values when the element does not have a multiple attribute set to a boolean true',
-                FormSelect::class
-            )
+                FormSelect::class,
+            ),
         );
         $this->expectExceptionCode(0);
 
@@ -373,7 +379,6 @@ final class FormSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithNameWithArrayMultipleValue(): void
     {
@@ -389,18 +394,22 @@ final class FormSelectTest extends TestCase
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id, 'multiple' => true];
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
-        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL .
-            sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL .
-            sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL .
-            '</select>';
+        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+            . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
+            . sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL
+            . '</select>';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
             ->getMock();
         $escapeHtml->expects(self::exactly(2))
             ->method('__invoke')
-            ->withConsecutive([$emptyOption], [$value2])
-            ->willReturnOnConsecutiveCalls($emptyOptionEscaped, $value2Escaped);
+            ->willReturnMap(
+                [
+                    [$emptyOption, 0, $emptyOptionEscaped],
+                    [$value2, 0, $value2Escaped],
+                ],
+            );
 
         $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
             ->disableOriginalConstructor()
@@ -449,7 +458,6 @@ final class FormSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderMultipleOptions1(): void
     {
@@ -519,27 +527,36 @@ final class FormSelectTest extends TestCase
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id, 'multiple' => true];
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
-        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL .
-            sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL .
-            sprintf('    <option value="%s" selected="selected">%s</option>', $value1, $label1Escaped) . PHP_EOL .
-            sprintf('    <option value="%s">%s</option>', $value2, $label2Escaped) . PHP_EOL .
-            sprintf('    <optgroup label="%s">', $label3) . PHP_EOL .
-            sprintf('        <option value="%s">%s</option>', $value4, $label4Escaped) . PHP_EOL .
-            sprintf('        <option value="%s">%s</option>', $value5, $label5Escaped) . PHP_EOL .
-            sprintf('        <optgroup label="%s">', $label6) . PHP_EOL .
-            sprintf('            <option value="%s" selected="selected">%s</option>', $value7, $label7Escaped) . PHP_EOL .
-            sprintf('            <option value="%s" selected="selected" disabled="disabled">%s</option>', $value8, $label8Escaped) . PHP_EOL .
-            '        </optgroup>' . PHP_EOL .
-            '    </optgroup>' . PHP_EOL .
-            '</select>';
+        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+            . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
+            . sprintf('    <option value="%s" selected="selected">%s</option>', $value1, $label1Escaped) . PHP_EOL
+            . sprintf('    <option value="%s">%s</option>', $value2, $label2Escaped) . PHP_EOL
+            . sprintf('    <optgroup label="%s">', $label3) . PHP_EOL
+            . sprintf('        <option value="%s">%s</option>', $value4, $label4Escaped) . PHP_EOL
+            . sprintf('        <option value="%s">%s</option>', $value5, $label5Escaped) . PHP_EOL
+            . sprintf('        <optgroup label="%s">', $label6) . PHP_EOL
+            . sprintf('            <option value="%s" selected="selected">%s</option>', $value7, $label7Escaped) . PHP_EOL
+            . sprintf('            <option value="%s" selected="selected" disabled="disabled">%s</option>', $value8, $label8Escaped) . PHP_EOL
+            . '        </optgroup>' . PHP_EOL
+            . '    </optgroup>' . PHP_EOL
+            . '</select>';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
             ->getMock();
         $escapeHtml->expects(self::exactly(7))
             ->method('__invoke')
-            ->withConsecutive([$emptyOption], [$label1], [$label2], [$label4], [$label5], [$label7], [$label8])
-            ->willReturnOnConsecutiveCalls($emptyOptionEscaped, $label1Escaped, $label2Escaped, $label4Escaped, $label5Escaped, $label7Escaped, $label8Escaped);
+            ->willReturnMap(
+                [
+                    [$emptyOption, 0, $emptyOptionEscaped],
+                    [$label1, 0, $label1Escaped],
+                    [$label2, 0, $label2Escaped],
+                    [$label4, 0, $label4Escaped],
+                    [$label5, 0, $label5Escaped],
+                    [$label7, 0, $label7Escaped],
+                    [$label8, 0, $label8Escaped],
+                ],
+            );
 
         $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
             ->disableOriginalConstructor()
@@ -588,7 +605,6 @@ final class FormSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderMultipleOptions2(): void
     {
@@ -667,19 +683,19 @@ final class FormSelectTest extends TestCase
         $emptyOptionTranslated        = '0t';
         $emptyOptionTranslatedEscaped = '0te';
 
-        $expected   = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL .
-            sprintf('    <option value="">%s</option>', $emptyOptionTranslatedEscaped) . PHP_EOL .
-            sprintf('    <option value="%s" selected="selected">%s</option>', $value1, $label1TranslatedEscaped) . PHP_EOL .
-            sprintf('    <option value="%s">%s</option>', $value2, $label2TranslatedEscaped) . PHP_EOL .
-            sprintf('    <optgroup label="%s">', $label3) . PHP_EOL .
-            sprintf('        <option value="%s">%s</option>', $value4, $label4TranslatedEscaped) . PHP_EOL .
-            sprintf('        <option value="%s" selected="selected">%s</option>', $value5, $label5TranslatedEscaped) . PHP_EOL .
-            sprintf('        <optgroup label="%s">', $label6) . PHP_EOL .
-            sprintf('            <option value="%s">%s</option>', $value7, $label7TranslatedEscaped) . PHP_EOL .
-            sprintf('            <option value="%s" disabled="disabled">%s</option>', $value8, $label8Translated) . PHP_EOL .
-            '        </optgroup>' . PHP_EOL .
-            '    </optgroup>' . PHP_EOL .
-            '</select>';
+        $expected   = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+            . sprintf('    <option value="">%s</option>', $emptyOptionTranslatedEscaped) . PHP_EOL
+            . sprintf('    <option value="%s" selected="selected">%s</option>', $value1, $label1TranslatedEscaped) . PHP_EOL
+            . sprintf('    <option value="%s">%s</option>', $value2, $label2TranslatedEscaped) . PHP_EOL
+            . sprintf('    <optgroup label="%s">', $label3) . PHP_EOL
+            . sprintf('        <option value="%s">%s</option>', $value4, $label4TranslatedEscaped) . PHP_EOL
+            . sprintf('        <option value="%s" selected="selected">%s</option>', $value5, $label5TranslatedEscaped) . PHP_EOL
+            . sprintf('        <optgroup label="%s">', $label6) . PHP_EOL
+            . sprintf('            <option value="%s">%s</option>', $value7, $label7TranslatedEscaped) . PHP_EOL
+            . sprintf('            <option value="%s" disabled="disabled">%s</option>', $value8, $label8Translated) . PHP_EOL
+            . '        </optgroup>' . PHP_EOL
+            . '    </optgroup>' . PHP_EOL
+            . '</select>';
         $textDomain = 'test-domain';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -687,8 +703,16 @@ final class FormSelectTest extends TestCase
             ->getMock();
         $escapeHtml->expects(self::exactly(6))
             ->method('__invoke')
-            ->withConsecutive([$emptyOptionTranslated], [$label1Translated], [$label2Translated], [$label4Translated], [$label5Translated], [$label7Translated])
-            ->willReturnOnConsecutiveCalls($emptyOptionTranslatedEscaped, $label1TranslatedEscaped, $label2TranslatedEscaped, $label4TranslatedEscaped, $label5TranslatedEscaped, $label7TranslatedEscaped);
+            ->willReturnMap(
+                [
+                    [$emptyOptionTranslated, 0, $emptyOptionTranslatedEscaped],
+                    [$label1Translated, 0, $label1TranslatedEscaped],
+                    [$label2Translated, 0, $label2TranslatedEscaped],
+                    [$label4Translated, 0, $label4TranslatedEscaped],
+                    [$label5Translated, 0, $label5TranslatedEscaped],
+                    [$label7Translated, 0, $label7TranslatedEscaped],
+                ],
+            );
 
         $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
             ->disableOriginalConstructor()
@@ -701,8 +725,17 @@ final class FormSelectTest extends TestCase
             ->getMock();
         $translator->expects(self::exactly(7))
             ->method('__invoke')
-            ->withConsecutive([$emptyOption, $textDomain], [$label1, $textDomain], [$label2, $textDomain], [$label4, $textDomain], [$label5, $textDomain], [$label7, $textDomain], [$label8, $textDomain])
-            ->willReturnOnConsecutiveCalls($emptyOptionTranslated, $label1Translated, $label2Translated, $label4Translated, $label5Translated, $label7Translated, $label8Translated);
+            ->willReturnMap(
+                [
+                    [$emptyOption, $textDomain, null, $emptyOptionTranslated],
+                    [$label1, $textDomain, null, $label1Translated],
+                    [$label2, $textDomain, null, $label2Translated],
+                    [$label4, $textDomain, null, $label4Translated],
+                    [$label5, $textDomain, null, $label5Translated],
+                    [$label7, $textDomain, null, $label7Translated],
+                    [$label8, $textDomain, null, $label8Translated],
+                ],
+            );
 
         $helper = new FormSelect($escapeHtml, $formHidden, $translator);
 
@@ -747,7 +780,6 @@ final class FormSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderWithHiddenElement(): void
     {
@@ -764,19 +796,23 @@ final class FormSelectTest extends TestCase
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
         $unselectedValue    = 'u';
-        $expected           = sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue) . PHP_EOL .
-            sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL .
-            sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL .
-            sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL .
-            '</select>';
+        $expected           = sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue) . PHP_EOL
+            . sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+            . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
+            . sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL
+            . '</select>';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
             ->getMock();
         $escapeHtml->expects(self::exactly(2))
             ->method('__invoke')
-            ->withConsecutive([$emptyOption], [$value2])
-            ->willReturnOnConsecutiveCalls($emptyOptionEscaped, $value2Escaped);
+            ->willReturnMap(
+                [
+                    [$emptyOption, 0, $emptyOptionEscaped],
+                    [$value2, 0, $value2Escaped],
+                ],
+            );
 
         $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
             ->disableOriginalConstructor()
@@ -828,7 +864,6 @@ final class FormSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testInvokeWithHiddenElement1(): void
     {
@@ -845,19 +880,23 @@ final class FormSelectTest extends TestCase
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
         $unselectedValue    = 'u';
-        $expected           = sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue) . PHP_EOL .
-            sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL .
-            sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL .
-            sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL .
-            '</select>';
+        $expected           = sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue) . PHP_EOL
+            . sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+            . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
+            . sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL
+            . '</select>';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
             ->getMock();
         $escapeHtml->expects(self::exactly(2))
             ->method('__invoke')
-            ->withConsecutive([$emptyOption], [$value2])
-            ->willReturnOnConsecutiveCalls($emptyOptionEscaped, $value2Escaped);
+            ->willReturnMap(
+                [
+                    [$emptyOption, 0, $emptyOptionEscaped],
+                    [$value2, 0, $value2Escaped],
+                ],
+            );
 
         $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
             ->disableOriginalConstructor()
@@ -909,10 +948,7 @@ final class FormSelectTest extends TestCase
         self::assertSame($expected, $helperObject->render($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvokeWithHiddenElement2(): void
     {
         $name               = 'test-name';
@@ -928,19 +964,23 @@ final class FormSelectTest extends TestCase
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
         $unselectedValue    = 'u';
-        $expected           = sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue) . PHP_EOL .
-            sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL .
-            sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL .
-            sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL .
-            '</select>';
+        $expected           = sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue) . PHP_EOL
+            . sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+            . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
+            . sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL
+            . '</select>';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
             ->getMock();
         $escapeHtml->expects(self::exactly(2))
             ->method('__invoke')
-            ->withConsecutive([$emptyOption], [$value2])
-            ->willReturnOnConsecutiveCalls($emptyOptionEscaped, $value2Escaped);
+            ->willReturnMap(
+                [
+                    [$emptyOption, 0, $emptyOptionEscaped],
+                    [$value2, 0, $value2Escaped],
+                ],
+            );
 
         $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
             ->disableOriginalConstructor()
@@ -988,10 +1028,7 @@ final class FormSelectTest extends TestCase
         self::assertSame($expected, $helper($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -1012,10 +1049,7 @@ final class FormSelectTest extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)

@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -29,10 +29,10 @@ interface FormRowInterface extends FormIndentInterface
      * @return self|string
      */
     public function __invoke(
-        ?ElementInterface $element = null,
-        ?string $labelPosition = null,
-        ?bool $renderErrors = null,
-        ?string $partial = null
+        ElementInterface | null $element = null,
+        string | null $labelPosition = null,
+        bool | null $renderErrors = null,
+        string | null $partial = null,
     );
 
     /**
@@ -49,5 +49,8 @@ interface FormRowInterface extends FormIndentInterface
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function render(ElementInterface $element, $labelPosition = null): string;
+    public function render(
+        ElementInterface $element,
+        $labelPosition = null,
+    ): string;
 }

@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,7 +21,6 @@ use Mimmi20\LaminasView\BootstrapForm\FormLabel;
 use Mimmi20\LaminasView\BootstrapForm\FormLabelFactory;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 use function assert;
 
@@ -29,15 +28,13 @@ final class FormLabelFactoryTest extends TestCase
 {
     private FormLabelFactory $factory;
 
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormLabelFactory();
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvocationWithTranslator(): void
     {
         $translatePlugin = $this->createMock(Translate::class);
@@ -52,8 +49,12 @@ final class FormLabelFactoryTest extends TestCase
             ->willReturn(true);
         $helperPluginManager->expects(self::exactly(2))
             ->method('get')
-            ->withConsecutive([Translate::class], [EscapeHtml::class])
-            ->willReturnOnConsecutiveCalls($translatePlugin, $escapeHtml);
+            ->willReturnMap(
+                [
+                    [Translate::class, null, $translatePlugin],
+                    [EscapeHtml::class, null, $escapeHtml],
+                ],
+            );
 
         $container = $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
@@ -69,10 +70,7 @@ final class FormLabelFactoryTest extends TestCase
         self::assertInstanceOf(FormLabel::class, $helper);
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvocationWithoutTranslator(): void
     {
         $escapeHtml = $this->createMock(EscapeHtml::class);
@@ -103,9 +101,7 @@ final class FormLabelFactoryTest extends TestCase
         self::assertInstanceOf(FormLabel::class, $helper);
     }
 
-    /**
-     * @throws Exception
-     */
+    /** @throws Exception */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

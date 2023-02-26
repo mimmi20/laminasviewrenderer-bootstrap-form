@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -22,7 +22,6 @@ use Mimmi20\LaminasView\BootstrapForm\FormElementErrorsFactory;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 use function assert;
 
@@ -30,15 +29,13 @@ final class FormElementErrorsFactoryTest extends TestCase
 {
     private FormElementErrorsFactory $factory;
 
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormElementErrorsFactory();
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvocationWithTranslator(): void
     {
         $escapeHtml      = $this->createMock(EscapeHtml::class);
@@ -54,16 +51,24 @@ final class FormElementErrorsFactoryTest extends TestCase
             ->willReturn(true);
         $helperPluginManager->expects(self::exactly(2))
             ->method('get')
-            ->withConsecutive([Translate::class], [EscapeHtml::class])
-            ->willReturnOnConsecutiveCalls($translatePlugin, $escapeHtml);
+            ->willReturnMap(
+                [
+                    [Translate::class, null, $translatePlugin],
+                    [EscapeHtml::class, null, $escapeHtml],
+                ],
+            );
 
         $container = $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
         $container->expects(self::exactly(2))
             ->method('get')
-            ->withConsecutive([HelperPluginManager::class], [HtmlElementInterface::class])
-            ->willReturnOnConsecutiveCalls($helperPluginManager, $htmlElement);
+            ->willReturnMap(
+                [
+                    [HelperPluginManager::class, $helperPluginManager],
+                    [HtmlElementInterface::class, $htmlElement],
+                ],
+            );
 
         assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);
@@ -71,10 +76,7 @@ final class FormElementErrorsFactoryTest extends TestCase
         self::assertInstanceOf(FormElementErrors::class, $helper);
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvocationWithoutTranslator(): void
     {
         $escapeHtml  = $this->createMock(EscapeHtml::class);
@@ -97,8 +99,12 @@ final class FormElementErrorsFactoryTest extends TestCase
             ->getMock();
         $container->expects(self::exactly(2))
             ->method('get')
-            ->withConsecutive([HelperPluginManager::class], [HtmlElementInterface::class])
-            ->willReturnOnConsecutiveCalls($helperPluginManager, $htmlElement);
+            ->willReturnMap(
+                [
+                    [HelperPluginManager::class, $helperPluginManager],
+                    [HtmlElementInterface::class, $htmlElement],
+                ],
+            );
 
         assert($container instanceof ContainerInterface);
         $helper = ($this->factory)($container);
@@ -106,9 +112,7 @@ final class FormElementErrorsFactoryTest extends TestCase
         self::assertInstanceOf(FormElementErrors::class, $helper);
     }
 
-    /**
-     * @throws Exception
-     */
+    /** @throws Exception */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

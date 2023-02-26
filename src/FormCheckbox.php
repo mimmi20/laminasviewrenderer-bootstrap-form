@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -45,26 +45,21 @@ final class FormCheckbox extends FormInput
     use LabelPositionTrait;
     use UseHiddenElementTrait;
 
-    private ?Translate $translate;
-    private HtmlElementInterface $htmlElement;
-    private FormLabelInterface $formLabel;
-    private FormHiddenInterface $formHidden;
+    private Translate | null $translate;
 
+    /** @throws void */
     public function __construct(
         EscapeHtml $escapeHtml,
         EscapeHtmlAttr $escapeHtmlAttr,
         Doctype $doctype,
-        FormLabelInterface $formLabel,
-        HtmlElementInterface $htmlElement,
-        FormHiddenInterface $formHidden,
-        ?Translate $translator = null
+        private readonly FormLabelInterface $formLabel,
+        private readonly HtmlElementInterface $htmlElement,
+        private readonly FormHiddenInterface $formHidden,
+        Translate | null $translator = null,
     ) {
         parent::__construct($escapeHtml, $escapeHtmlAttr, $doctype);
 
-        $this->htmlElement = $htmlElement;
-        $this->formLabel   = $formLabel;
-        $this->formHidden  = $formHidden;
-        $this->translate   = $translator;
+        $this->translate = $translator;
     }
 
     /**
@@ -80,18 +75,19 @@ final class FormCheckbox extends FormInput
                 sprintf(
                     '%s requires that the element is of type %s',
                     __METHOD__,
-                    CheckboxElement::class
-                )
+                    CheckboxElement::class,
+                ),
             );
         }
 
         $name = $element->getName();
+
         if (empty($name) && 0 !== $name) {
             throw new Exception\DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
-                    __METHOD__
-                )
+                    __METHOD__,
+                ),
             );
         }
 
@@ -152,13 +148,13 @@ final class FormCheckbox extends FormInput
         $filteredAttributes = array_filter(
             $labelAttributes,
             static fn ($key): bool => is_string($key),
-            ARRAY_FILTER_USE_KEY
+            ARRAY_FILTER_USE_KEY,
         );
 
         $rendered = sprintf(
             '<input %s%s',
             $this->createAttributesString($attributes),
-            $closingBracket
+            $closingBracket,
         );
 
         $hidden = '';
@@ -210,10 +206,12 @@ final class FormCheckbox extends FormInput
         switch ($labelPosition) {
             case BaseFormRow::LABEL_PREPEND:
                 $markup = $labelOpen . $label . PHP_EOL . $rendered . $labelClose;
+
                 break;
             case BaseFormRow::LABEL_APPEND:
             default:
                 $markup = $labelOpen . $rendered . PHP_EOL . $label . $labelClose;
+
                 break;
         }
 
@@ -222,6 +220,8 @@ final class FormCheckbox extends FormInput
 
     /**
      * Return input type
+     *
+     * @throws void
      */
     protected function getInputType(): string
     {

@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -63,8 +63,8 @@ final class FormParagraphTest extends TestCase
             sprintf(
                 '%s requires that the element is of type %s',
                 'Mimmi20\LaminasView\BootstrapForm\FormParagraph::render',
-                ParagraphElement::class
-            )
+                ParagraphElement::class,
+            ),
         );
         $this->expectExceptionCode(0);
 
@@ -74,7 +74,6 @@ final class FormParagraphTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderEmptyString(): void
     {
@@ -111,7 +110,6 @@ final class FormParagraphTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderText(): void
     {
@@ -152,7 +150,6 @@ final class FormParagraphTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderTextWithIndent(): void
     {
@@ -197,7 +194,6 @@ final class FormParagraphTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testRenderTextWithTranslator(): void
     {
@@ -251,7 +247,6 @@ final class FormParagraphTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testInvokeTextWithTranslator1(): void
     {
@@ -306,10 +301,7 @@ final class FormParagraphTest extends TestCase
         self::assertSame($expected, $helperObject->render($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvokeTextWithTranslator2(): void
     {
         $textDomain           = 'test-domain';
@@ -359,10 +351,7 @@ final class FormParagraphTest extends TestCase
         self::assertSame($expected, $helper($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -377,10 +366,7 @@ final class FormParagraphTest extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)

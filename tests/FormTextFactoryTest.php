@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -22,7 +22,6 @@ use Mimmi20\LaminasView\BootstrapForm\FormText;
 use Mimmi20\LaminasView\BootstrapForm\FormTextFactory;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 use function assert;
 
@@ -30,15 +29,13 @@ final class FormTextFactoryTest extends TestCase
 {
     private FormTextFactory $factory;
 
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormTextFactory();
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testInvocation(): void
     {
         $escapeHtml     = $this->createMock(EscapeHtml::class);
@@ -52,8 +49,13 @@ final class FormTextFactoryTest extends TestCase
             ->method('has');
         $helperPluginManager->expects(self::exactly(3))
             ->method('get')
-            ->withConsecutive([EscapeHtml::class], [EscapeHtmlAttr::class], [Doctype::class])
-            ->willReturnOnConsecutiveCalls($escapeHtml, $escapeHtmlAttr, $doctype);
+            ->willReturnMap(
+                [
+                    [EscapeHtml::class, null, $escapeHtml],
+                    [EscapeHtmlAttr::class, null, $escapeHtmlAttr],
+                    [Doctype::class, null, $doctype],
+                ],
+            );
 
         $container = $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
@@ -69,9 +71,7 @@ final class FormTextFactoryTest extends TestCase
         self::assertInstanceOf(FormText::class, $helper);
     }
 
-    /**
-     * @throws Exception
-     */
+    /** @throws Exception */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

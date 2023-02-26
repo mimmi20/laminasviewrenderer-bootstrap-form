@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -43,6 +43,7 @@ use Laminas\Form\Element\Time;
 use Laminas\Form\Element\Url;
 use Laminas\Form\Element\Week;
 use Laminas\Form\ElementInterface;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\HelperPluginManager;
@@ -53,16 +54,12 @@ use Mimmi20\LaminasView\BootstrapForm\FormElement;
 use Mimmi20\LaminasView\BootstrapForm\FormInputInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 use function assert;
 
 final class FormElementTest extends TestCase
 {
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetInden1(): void
     {
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
@@ -77,10 +74,7 @@ final class FormElementTest extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetInden2(): void
     {
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
@@ -95,10 +89,7 @@ final class FormElementTest extends TestCase
         self::assertSame('  ', $helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testSetGetDefaultHelper(): void
     {
         $defaultHelper = 'xyz';
@@ -115,10 +106,7 @@ final class FormElementTest extends TestCase
         self::assertSame($defaultHelper, $helper->getDefaultHelper());
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testAddType(): void
     {
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
@@ -132,10 +120,7 @@ final class FormElementTest extends TestCase
         self::assertSame($helper, $helper->addType('xyz', 'abc'));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     */
+    /** @throws Exception */
     public function testAddClass(): void
     {
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
@@ -152,9 +137,9 @@ final class FormElementTest extends TestCase
     /**
      * @return array<int, array<int, ElementInterface|string>>
      *
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function providerRender(): array
+    public static function providerRender(): array
     {
         return [
             [
@@ -355,15 +340,18 @@ final class FormElementTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @dataProvider providerRender
      */
-    public function testRender(ElementInterface $element, string $helperType, string $class, string $rendered): void
-    {
+    public function testRender(
+        ElementInterface $element,
+        string $helperType,
+        string $class,
+        string $rendered,
+    ): void {
         $subHelper = $this->getMockBuilder($class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -391,7 +379,6 @@ final class FormElementTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
@@ -432,7 +419,6 @@ final class FormElementTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testInvoke2(): void
     {

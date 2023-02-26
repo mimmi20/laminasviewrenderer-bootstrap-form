@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,7 +21,6 @@ use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 
 use function assert;
-use function get_class;
 use function gettype;
 use function is_array;
 use function is_object;
@@ -62,14 +61,14 @@ final class FormButton extends FormInput
         'reset' => true,
         'submit' => true,
     ];
+    private Translate | null $translate;
 
-    private ?Translate $translate;
-
+    /** @throws void */
     public function __construct(
         EscapeHtml $escapeHtml,
         EscapeHtmlAttr $escapeHtmlAttr,
         Doctype $doctype,
-        ?Translate $translator = null
+        Translate | null $translator = null,
     ) {
         parent::__construct($escapeHtml, $escapeHtmlAttr, $doctype);
 
@@ -86,8 +85,10 @@ final class FormButton extends FormInput
      * @throws Exception\DomainException
      * @throws Exception\InvalidArgumentException
      */
-    public function __invoke(?ElementInterface $element = null, ?string $buttonContent = null)
-    {
+    public function __invoke(
+        ElementInterface | null $element = null,
+        string | null $buttonContent = null,
+    ) {
         if (!$element) {
             return $this;
         }
@@ -102,8 +103,10 @@ final class FormButton extends FormInput
      * @throws Exception\DomainException
      * @throws Exception\InvalidArgumentException
      */
-    public function render(ElementInterface $element, ?string $buttonContent = null): string
-    {
+    public function render(
+        ElementInterface $element,
+        string | null $buttonContent = null,
+    ): string {
         $openTag = $this->openTag($element);
 
         if (null === $buttonContent) {
@@ -113,8 +116,8 @@ final class FormButton extends FormInput
                 throw new Exception\DomainException(
                     sprintf(
                         '%s expects either button content as the second argument, or that the element provided has a label value; neither found',
-                        __METHOD__
-                    )
+                        __METHOD__,
+                    ),
                 );
             }
         }
@@ -122,7 +125,7 @@ final class FormButton extends FormInput
         if (null !== $this->translate) {
             $buttonContent = ($this->translate)(
                 $buttonContent,
-                $this->getTranslatorTextDomain()
+                $this->getTranslatorTextDomain(),
             );
         }
 
@@ -160,19 +163,20 @@ final class FormButton extends FormInput
                 sprintf(
                     '%s expects null, an array or a \Laminas\Form\ElementInterface instance; received "%s"',
                     __METHOD__,
-                    is_object($attributesOrElement) ? get_class($attributesOrElement) : gettype($attributesOrElement)
-                )
+                    is_object($attributesOrElement) ? $attributesOrElement::class : gettype($attributesOrElement),
+                ),
             );
         }
 
         $element = $attributesOrElement;
         $name    = $element->getName();
+
         if (empty($name) && 0 !== $name) {
             throw new Exception\DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
-                    __METHOD__
-                )
+                    __METHOD__,
+                ),
             );
         }
 
@@ -189,12 +193,14 @@ final class FormButton extends FormInput
 
         return sprintf(
             '<button %s>',
-            $this->createAttributesString($attributes)
+            $this->createAttributesString($attributes),
         );
     }
 
     /**
      * Return a closing button tag
+     *
+     * @throws void
      */
     public function closeTag(): string
     {
@@ -203,10 +209,13 @@ final class FormButton extends FormInput
 
     /**
      * Determine button type to use
+     *
+     * @throws void
      */
     protected function getType(ElementInterface $element): string
     {
         $type = $element->getAttribute('type');
+
         if (empty($type)) {
             return 'submit';
         }
@@ -214,6 +223,7 @@ final class FormButton extends FormInput
         assert(is_string($type));
 
         $type = mb_strtolower($type);
+
         if (!isset($this->validTypes[$type])) {
             return 'submit';
         }

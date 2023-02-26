@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,16 +19,13 @@ use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
-use function get_class;
 use function gettype;
 use function is_object;
 use function sprintf;
 
 final class FormTextareaFactory
 {
-    /**
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws ContainerExceptionInterface */
     public function __invoke(ContainerInterface $container): FormTextarea
     {
         $plugin = $container->get(HelperPluginManager::class);
@@ -37,15 +34,22 @@ final class FormTextareaFactory
             sprintf(
                 '$plugin should be an Instance of %s, but was %s',
                 HelperPluginManager::class,
-                is_object($plugin) ? get_class($plugin) : gettype($plugin)
-            )
+                is_object($plugin) ? $plugin::class : gettype($plugin),
+            ),
         );
 
         $htmlElement = $container->get(HtmlElementInterface::class);
         $escapeHtml  = $plugin->get(EscapeHtml::class);
 
         assert($htmlElement instanceof HtmlElementInterface);
-        assert($escapeHtml instanceof EscapeHtml);
+        assert(
+            $escapeHtml instanceof EscapeHtml,
+            sprintf(
+                '$escapeHtml should be an Instance of %s, but was %s',
+                EscapeHtml::class,
+                is_object($escapeHtml) ? $escapeHtml::class : gettype($escapeHtml),
+            ),
+        );
 
         return new FormTextarea($htmlElement, $escapeHtml);
     }

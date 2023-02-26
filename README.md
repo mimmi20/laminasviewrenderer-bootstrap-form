@@ -14,8 +14,8 @@
 
 Run
 
-```
-$ composer require mimmi20/laminasviewrenderer-bootstrap-form
+```shell
+composer require mimmi20/laminasviewrenderer-bootstrap-form
 ```
 
 ## License

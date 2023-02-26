@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,25 +14,24 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Button;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Mimmi20\LaminasView\BootstrapForm\FormButton;
-use Mimmi20Test\LaminasView\BootstrapForm\Compare\AbstractTest;
+use Mimmi20Test\LaminasView\BootstrapForm\Compare\AbstractTestCase;
 use PHPUnit\Framework\Exception;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 use function assert;
 use function gettype;
 use function sprintf;
 
-final class FormButtonTest extends AbstractTest
+final class FormButtonTest extends AbstractTestCase
 {
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithNull(): void
@@ -63,9 +62,8 @@ final class FormButtonTest extends AbstractTest
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithArray(): void
@@ -98,7 +96,7 @@ final class FormButtonTest extends AbstractTest
     }
 
     /**
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      * @throws Exception
      */
@@ -126,13 +124,13 @@ final class FormButtonTest extends AbstractTest
 
         $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, null);
 
-        $this->expectException(\Laminas\Form\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf(
                 '%s expects null, an array or a \Laminas\Form\ElementInterface instance; received "%s"',
                 'Mimmi20\LaminasView\BootstrapForm\FormButton::openTag',
-                gettype($value)
-            )
+                gettype($value),
+            ),
         );
         $this->expectExceptionCode(0);
         $helper->openTag($value);
@@ -140,7 +138,7 @@ final class FormButtonTest extends AbstractTest
 
     /**
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithoutName(): void
@@ -186,17 +184,16 @@ final class FormButtonTest extends AbstractTest
         $this->expectExceptionMessage(
             sprintf(
                 '%s requires that the element has an assigned name; none discovered',
-                'Mimmi20\LaminasView\BootstrapForm\FormButton::openTag'
-            )
+                'Mimmi20\LaminasView\BootstrapForm\FormButton::openTag',
+            ),
         );
         $this->expectExceptionCode(0);
         $helper->openTag($element);
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithoutValue(): void
@@ -251,9 +248,8 @@ final class FormButtonTest extends AbstractTest
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithValue(): void
@@ -309,9 +305,8 @@ final class FormButtonTest extends AbstractTest
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithoutType(): void
@@ -367,9 +362,8 @@ final class FormButtonTest extends AbstractTest
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithWrongType(): void
@@ -426,7 +420,7 @@ final class FormButtonTest extends AbstractTest
 
     /**
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderWithoutLabel(): void
@@ -480,17 +474,16 @@ final class FormButtonTest extends AbstractTest
         $this->expectExceptionMessage(
             sprintf(
                 '%s expects either button content as the second argument, or that the element provided has a label value; neither found',
-                'Mimmi20\LaminasView\BootstrapForm\FormButton::render'
-            )
+                'Mimmi20\LaminasView\BootstrapForm\FormButton::render',
+            ),
         );
         $this->expectExceptionCode(0);
         $helper->render($element);
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderWithTranslator(): void
@@ -564,10 +557,7 @@ final class FormButtonTest extends AbstractTest
         self::assertSame($expected, $helper->render($element));
     }
 
-    /**
-     * @throws InvalidArgumentException
-     * @throws Exception
-     */
+    /** @throws Exception */
     public function testInvokeWithTranslator1(): void
     {
         $type                  = 'button';
@@ -640,9 +630,8 @@ final class FormButtonTest extends AbstractTest
     }
 
     /**
-     * @throws InvalidArgumentException
      * @throws Exception
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testInvokeWithTranslator2(): void
@@ -720,10 +709,7 @@ final class FormButtonTest extends AbstractTest
         self::assertSame($expected, $helperObject->render($element));
     }
 
-    /**
-     * @throws InvalidArgumentException
-     * @throws Exception
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         $translator = $this->getMockBuilder(Translate::class)
@@ -756,10 +742,7 @@ final class FormButtonTest extends AbstractTest
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /**
-     * @throws InvalidArgumentException
-     * @throws Exception
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         $translator = $this->getMockBuilder(Translate::class)

@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,7 +21,6 @@ use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
 
 use function array_merge;
-use function get_class;
 use function gettype;
 use function is_array;
 use function is_object;
@@ -39,13 +38,13 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
         'for' => true,
         'form' => true,
     ];
+    private Translate | null $translate;
 
-    private ?Translate $translate;
-    private EscapeHtml $escaper;
-
-    public function __construct(EscapeHtml $escaper, ?Translate $translator = null)
-    {
-        $this->escaper   = $escaper;
+    /** @throws void */
+    public function __construct(
+        private EscapeHtml $escaper,
+        Translate | null $translator = null,
+    ) {
         $this->translate = $translator;
     }
 
@@ -60,8 +59,11 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
      * @throws Exception\DomainException
      * @throws InvalidArgumentException
      */
-    public function __invoke(?ElementInterface $element = null, ?string $labelContent = null, ?string $position = null)
-    {
+    public function __invoke(
+        ElementInterface | null $element = null,
+        string | null $labelContent = null,
+        string | null $position = null,
+    ) {
         if (!$element) {
             return $this;
         }
@@ -75,8 +77,8 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
                 throw new Exception\DomainException(
                     sprintf(
                         '%s expects either label content as the second argument, or that the element provided has a label attribute; neither found',
-                        __METHOD__
-                    )
+                        __METHOD__,
+                    ),
                 );
             }
 
@@ -102,10 +104,12 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
             switch ($position) {
                 case FormLabelInterface::APPEND:
                     $labelContent .= $label;
+
                     break;
                 case FormLabelInterface::PREPEND:
                 default:
                     $labelContent = $label . $labelContent;
+
                     break;
             }
         }
@@ -142,22 +146,24 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
                 sprintf(
                     '%s expects an array or Laminas\Form\ElementInterface instance; received "%s"',
                     __METHOD__,
-                    is_object($attributesOrElement) ? get_class($attributesOrElement) : gettype($attributesOrElement)
-                )
+                    is_object($attributesOrElement) ? $attributesOrElement::class : gettype($attributesOrElement),
+                ),
             );
         }
 
         $id = $this->getId($attributesOrElement);
+
         if (null === $id) {
             throw new Exception\DomainException(
                 sprintf(
                     '%s expects the Element provided to have either a name or an id present; neither found',
-                    __METHOD__
-                )
+                    __METHOD__,
+                ),
             );
         }
 
         $labelAttributes = [];
+
         if ($attributesOrElement instanceof LabelAwareInterface) {
             $labelAttributes = $attributesOrElement->getLabelAttributes();
         }
@@ -175,6 +181,8 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
 
     /**
      * Return a closing label tag
+     *
+     * @throws void
      */
     public function closeTag(): string
     {

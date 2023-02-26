@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
+use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
@@ -36,16 +37,16 @@ final class Form extends BaseForm
     use FormTrait;
 
     public const LAYOUT_HORIZONTAL = 'horizontal';
-    public const LAYOUT_VERTICAL   = 'vertical';
-    public const LAYOUT_INLINE     = 'inline';
 
-    private FormCollectionInterface $formCollection;
-    private FormRowInterface $formRow;
+    public const LAYOUT_VERTICAL = 'vertical';
 
-    public function __construct(FormCollectionInterface $formCollection, FormRowInterface $formRow)
-    {
-        $this->formCollection = $formCollection;
-        $this->formRow        = $formRow;
+    public const LAYOUT_INLINE = 'inline';
+
+    /** @throws void */
+    public function __construct(
+        private readonly FormCollectionInterface $formCollection,
+        private readonly FormRowInterface $formRow,
+    ) {
     }
 
     /**
@@ -91,6 +92,8 @@ final class Form extends BaseForm
         $indent      = $this->getIndent();
 
         foreach ($form->getIterator() as $element) {
+            assert($element instanceof ElementInterface);
+
             $element->setOption('form', $form);
 
             if (null !== $formLayout && !$element->getOption('layout')) {
