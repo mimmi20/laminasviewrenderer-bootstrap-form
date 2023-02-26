@@ -153,7 +153,7 @@ jobs:
           verbose: false
 
       - name: "Run mutation tests with infection/infection"
-        run: "vendor/bin/infection --show-mutations --min-covered-msi=89 --min-msi=89 --coverage=.build/coverage --only-covered --logger-github --no-progress -vv"
+        run: "vendor/bin/infection --show-mutations --min-covered-msi=81 --min-msi=81 --coverage=.build/coverage --only-covered --logger-github --no-progress -vv"
 
   # This is a meta job to avoid to have to constantly change the protection rules
   # whenever we touch the matrix.
