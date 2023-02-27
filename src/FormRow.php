@@ -26,6 +26,7 @@ use Laminas\Form\FormInterface;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Laminas\I18n\View\Helper\Translate;
+use Laminas\InputFilter\InputInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Helper\EscapeHtml;
@@ -97,9 +98,12 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             if (
                 null !== $elementName
                 && $form->getInputFilter()->has($elementName)
-                && $form->getInputFilter()->get($elementName)->isRequired()
             ) {
-                $element->setAttribute('required', true);
+                $filter = $form->getInputFilter()->get($elementName);
+
+                if ($filter instanceof InputInterface && $filter->isRequired()) {
+                    $element->setAttribute('required', true);
+                }
             }
         }
 

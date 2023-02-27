@@ -20,7 +20,9 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\Form;
+use Mimmi20\LaminasView\BootstrapForm\FormCollection;
 use Mimmi20\LaminasView\BootstrapForm\FormCollectionInterface;
+use Mimmi20\LaminasView\BootstrapForm\FormRow;
 use Mimmi20\LaminasView\BootstrapForm\FormRowInterface;
 use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
@@ -50,8 +52,8 @@ final class FormTest extends AbstractTestCase
 
         assert($plugin instanceof HelperPluginManager);
 
-        $row        = $plugin->get(FormRowInterface::class);
-        $collection = $plugin->get(FormCollectionInterface::class);
+        $row        = $plugin->get(FormRow::class);
+        $collection = $plugin->get(FormCollection::class);
 
         assert($row instanceof FormRowInterface);
         assert($collection instanceof FormCollectionInterface);
