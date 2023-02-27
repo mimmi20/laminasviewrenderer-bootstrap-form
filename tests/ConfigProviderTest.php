@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Mimmi20Test\LaminasView\BootstrapForm;
 
+use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\ConfigProvider;
 use Mimmi20\LaminasView\BootstrapForm\Form;
 use PHPUnit\Framework\Exception;
@@ -45,12 +46,28 @@ final class ConfigProviderTest extends TestCase
     }
 
     /** @throws Exception */
+    public function testGetDependencyConfig(): void
+    {
+        $dependencyConfig = $this->provider->getDependencyConfig();
+        self::assertIsArray($dependencyConfig);
+
+        self::assertArrayHasKey('factories', $dependencyConfig);
+        $factories = $dependencyConfig['factories'];
+        self::assertIsArray($factories);
+        self::assertArrayHasKey(HelperPluginManager::class, $factories);
+
+        self::assertArrayNotHasKey('aliases', $dependencyConfig);
+    }
+
+    /** @throws Exception */
     public function testInvocationReturnsArrayWithDependencies(): void
     {
         $config = ($this->provider)();
 
         self::assertIsArray($config);
+        self::assertCount(2, $config);
         self::assertArrayHasKey('view_helpers', $config);
+        self::assertArrayHasKey('dependencies', $config);
 
         $viewHelperConfig = $config['view_helpers'];
         self::assertArrayHasKey('factories', $viewHelperConfig);
@@ -62,5 +79,11 @@ final class ConfigProviderTest extends TestCase
         $aliases = $viewHelperConfig['aliases'];
         self::assertIsArray($aliases);
         self::assertArrayHasKey('form', $aliases);
+
+        $dependencyConfig = $config['dependencies'];
+        self::assertArrayHasKey('factories', $dependencyConfig);
+        $factories = $dependencyConfig['factories'];
+        self::assertIsArray($factories);
+        self::assertArrayHasKey(HelperPluginManager::class, $factories);
     }
 }

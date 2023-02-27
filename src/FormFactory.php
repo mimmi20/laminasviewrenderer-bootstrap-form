@@ -36,8 +36,8 @@ final class FormFactory
             ),
         );
 
-        $collection = $plugin->get(FormCollectionInterface::class);
-        $row        = $plugin->get(FormRowInterface::class);
+        $collection = $plugin->get(FormCollection::class);
+        $row        = $plugin->get(FormRow::class);
 
         assert($collection instanceof FormCollectionInterface);
         assert($row instanceof FormRowInterface);

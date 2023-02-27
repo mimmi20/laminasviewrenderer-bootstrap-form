@@ -16,8 +16,10 @@ use AssertionError;
 use Interop\Container\ContainerInterface;
 use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\Form;
+use Mimmi20\LaminasView\BootstrapForm\FormCollection;
 use Mimmi20\LaminasView\BootstrapForm\FormCollectionInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormFactory;
+use Mimmi20\LaminasView\BootstrapForm\FormRow;
 use Mimmi20\LaminasView\BootstrapForm\FormRowInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -49,8 +51,8 @@ final class FormFactoryTest extends TestCase
             ->method('get')
             ->willReturnMap(
                 [
-                    [FormCollectionInterface::class, null, $formCollection],
-                    [FormRowInterface::class, null, $formRow],
+                    [FormCollection::class, null, $formCollection],
+                    [FormRow::class, null, $formRow],
                 ],
             );
 

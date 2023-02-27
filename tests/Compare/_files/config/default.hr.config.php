@@ -22,7 +22,7 @@ use Laminas\Form\Element\Text;
 use Laminas\Form\Form;
 use Laminas\Validator\NotEmpty;
 use Mimmi20\Form\Element\Group\ElementGroup;
-use Mimmi20\Form\Element\Links\Links;
+use Mimmi20\Form\Links\Element\Links;
 
 return [
     'type' => Form::class,

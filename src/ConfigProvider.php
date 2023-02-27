@@ -12,20 +12,57 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
+use Closure;
+use Laminas\View\Helper\HelperInterface;
+use Laminas\View\HelperPluginManager;
+use Mimmi20\Form\Links\View\Helper\FormLinks;
+use Mimmi20\Form\Links\View\Helper\FormLinksFactory;
+use Mimmi20\Form\Paragraph\View\Helper\FormParagraph;
+use Mimmi20\Form\Paragraph\View\Helper\FormParagraphFactory;
+use Psr\Container\ContainerInterface;
+
+use function assert;
+use function is_array;
+
 final class ConfigProvider
 {
     /**
      * Return general-purpose laminas-navigation configuration.
      *
-     * @return array<string, array<string, array<string, string>>>
-     * @phpstan-return array{view_helpers: array{aliases: array<string, class-string>, factories: array<class-string, class-string>}}
+     * @return array<string, array<string, array<string, Closure|string>>>
+     * @phpstan-return array{dependencies: array{factories: array<class-string, (Closure(ContainerInterface, string, array<mixed>|null):HelperPluginManager<(callable(): HelperInterface)|HelperInterface>)>}, view_helpers: array{aliases: array<string, class-string>, factories: array<class-string, class-string>}}
      *
      * @throws void
      */
     public function __invoke(): array
     {
         return [
+            'dependencies' => $this->getDependencyConfig(),
             'view_helpers' => $this->getViewHelperConfig(),
+        ];
+    }
+
+    /**
+     * Return application-level dependency configuration.
+     *
+     * @return array<string, array<string, Closure>>
+     * @phpstan-return array{factories: array<class-string, (Closure(ContainerInterface, string, array<mixed>|null):HelperPluginManager<(callable(): HelperInterface)|HelperInterface>)>}
+     *
+     * @throws void
+     */
+    public function getDependencyConfig(): array
+    {
+        return [
+            'factories' => [
+                // phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+                HelperPluginManager::class => static function (ContainerInterface $container, string $requestedName, array | null $options = null): HelperPluginManager {
+                    $config = $container->get('config');
+                    assert(is_array($config));
+
+                    return new HelperPluginManager($container, $config['view_helpers'] ?? []);
+                },
+                // phpcs:enable
+            ],
         ];
     }
 

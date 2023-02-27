@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Mimmi20Test\LaminasView\BootstrapForm;
 
+use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\Form;
 use Mimmi20\LaminasView\BootstrapForm\Module;
 use PHPUnit\Framework\Exception;
@@ -27,7 +28,9 @@ final class ModuleTest extends TestCase
         $config = $module->getConfig();
 
         self::assertIsArray($config);
+        self::assertCount(2, $config);
         self::assertArrayHasKey('view_helpers', $config);
+        self::assertArrayHasKey('service_manager', $config);
 
         $viewHelperConfig = $config['view_helpers'];
         self::assertArrayHasKey('factories', $viewHelperConfig);
@@ -39,6 +42,12 @@ final class ModuleTest extends TestCase
         $aliases = $viewHelperConfig['aliases'];
         self::assertIsArray($aliases);
         self::assertArrayHasKey('form', $aliases);
+
+        $dependencyConfig = $config['service_manager'];
+        self::assertArrayHasKey('factories', $dependencyConfig);
+        $factories = $dependencyConfig['factories'];
+        self::assertIsArray($factories);
+        self::assertArrayHasKey(HelperPluginManager::class, $factories);
     }
 
     /** @throws Exception */
@@ -54,7 +63,7 @@ final class ModuleTest extends TestCase
         self::assertContains('Laminas\I18n', $config);
         self::assertContains('Laminas\Form', $config);
         self::assertContains('Mimmi20\Form\Element\Group', $config);
-        self::assertContains('Mimmi20\Form\Element\Links', $config);
-        self::assertContains('Mimmi20\Form\Element\Paragraph', $config);
+        self::assertContains('Mimmi20\Form\Links', $config);
+        self::assertContains('Mimmi20\Form\Paragraph', $config);
     }
 }
