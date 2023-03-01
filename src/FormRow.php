@@ -80,7 +80,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      */
     public function render(
         ElementInterface $element,
-        $labelPosition = null,
+                         $labelPosition = null,
     ): string {
         $form = $element->getOption('form');
         assert(
@@ -371,11 +371,26 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 $helpContent = $this->renderFormHelp($element, $indent . $this->getWhitespace(8));
             }
 
+            $floating   = $element->getOption('floating');
+            $baseIndent = $indent;
+
+            if ($floating) {
+                $indent .= $this->getWhitespace(4);
+            }
+
             $this->formElement->setIndent($indent . $this->getWhitespace(4));
             $elementString  = $indent . $this->getWhitespace(4) . $this->formElement->render($element);
             $elementString .= $errorContent . $helpContent;
 
-            return $indent . $this->htmlElement->toHtml('fieldset', $colAttributes, PHP_EOL . $legend . $elementString . PHP_EOL . $indent);
+
+            if ($floating) {
+                $elementString = $this->htmlElement->toHtml('div', ['class' => 'form-control'], PHP_EOL . $elementString . PHP_EOL . $indent) . $legend;
+                $elementString = $indent . $this->htmlElement->toHtml('div', ['class' => 'form-floating'], PHP_EOL . $elementString . PHP_EOL . $indent);
+            } else {
+                $elementString = $legend . $elementString;
+            }
+
+            return $baseIndent . $this->htmlElement->toHtml('fieldset', $colAttributes, PHP_EOL . $elementString . PHP_EOL . $baseIndent);
         }
 
         if (
