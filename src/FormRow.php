@@ -80,7 +80,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      */
     public function render(
         ElementInterface $element,
-                         $labelPosition = null,
+        $labelPosition = null,
     ): string {
         $form = $element->getOption('form');
         assert(
@@ -382,10 +382,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $elementString  = $indent . $this->getWhitespace(4) . $this->formElement->render($element);
             $elementString .= $errorContent . $helpContent;
 
-
             if ($floating) {
-                $elementString = $this->htmlElement->toHtml('div', ['class' => 'form-control'], PHP_EOL . $elementString . PHP_EOL . $indent) . $legend;
-                $elementString = $indent . $this->htmlElement->toHtml('div', ['class' => 'form-floating'], PHP_EOL . $elementString . PHP_EOL . $indent);
+                $elementString = $this->htmlElement->toHtml('div', ['class' => 'form-control'], PHP_EOL . $elementString . PHP_EOL . $indent) . PHP_EOL . $legend;
+                $elementString = $indent . $this->htmlElement->toHtml('div', ['class' => 'form-floating'], PHP_EOL . $elementString . $indent);
             } else {
                 $elementString = $legend . $elementString;
             }
