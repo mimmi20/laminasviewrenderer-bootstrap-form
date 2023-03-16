@@ -23,8 +23,7 @@ use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
-use function gettype;
-use function is_object;
+use function get_debug_type;
 use function sprintf;
 use function trim;
 
@@ -54,7 +53,7 @@ final class FormSelectTest extends AbstractTestCase
             sprintf(
                 '$escapeHtml should be an Instance of %s, but was %s',
                 EscapeHtml::class,
-                is_object($escapeHtml) ? $escapeHtml::class : gettype($escapeHtml),
+                get_debug_type($escapeHtml),
             ),
         );
         assert($hidden instanceof FormHiddenInterface);

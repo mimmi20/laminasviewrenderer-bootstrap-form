@@ -52,6 +52,7 @@ use Mimmi20\Form\Paragraph\Element\Paragraph;
 use Mimmi20\LaminasView\BootstrapForm\FormCollectionInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormElement;
 use Mimmi20\LaminasView\BootstrapForm\FormInputInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 
@@ -343,9 +344,8 @@ final class FormElementTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      * @throws InvalidArgumentException
-     *
-     * @dataProvider providerRender
      */
+    #[DataProvider('providerRender')]
     public function testRender(
         ElementInterface $element,
         string $helperType,

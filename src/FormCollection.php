@@ -43,8 +43,6 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
 {
     use FormTrait;
 
-    private Translate | null $translate;
-
     /**
      * If set to true, collections are automatically wrapped around a fieldset
      */
@@ -55,9 +53,8 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
         private readonly FormRowInterface $formRow,
         private readonly EscapeHtml $escapeHtml,
         private readonly HtmlElementInterface $htmlElement,
-        Translate | null $translator = null,
+        private readonly Translate | null $translate = null,
     ) {
-        $this->translate = $translator;
     }
 
     /**
@@ -195,7 +192,7 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
             assert(is_array($labelAttributes));
 
             if (array_key_exists('class', $labelAttributes)) {
-                $labelClasses = array_merge($labelClasses, explode(' ', $labelAttributes['class']));
+                $labelClasses = array_merge($labelClasses, explode(' ', (string) $labelAttributes['class']));
             }
 
             $labelAttributes['class'] = trim(implode(' ', array_unique($labelClasses)));

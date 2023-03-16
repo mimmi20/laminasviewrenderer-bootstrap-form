@@ -105,7 +105,7 @@ final class FormTextarea extends AbstractHelper
         $classes = ['form-control'];
 
         if (array_key_exists('class', $attributes)) {
-            $classes = array_merge($classes, explode(' ', $attributes['class']));
+            $classes = array_merge($classes, explode(' ', (string) $attributes['class']));
         }
 
         $attributes['class'] = trim(implode(' ', array_unique($classes)));

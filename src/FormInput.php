@@ -27,6 +27,7 @@ use function implode;
 use function sprintf;
 use function trim;
 
+/** @SuppressWarnings(PHPMD.NumberOfChildren) */
 abstract class FormInput extends BaseFormInput implements FormInputInterface
 {
     use FormTrait;
@@ -75,7 +76,7 @@ abstract class FormInput extends BaseFormInput implements FormInputInterface
             $classes = ['form-control'];
 
             if (array_key_exists('class', $attributes)) {
-                $classes = array_merge($classes, explode(' ', $attributes['class']));
+                $classes = array_merge($classes, explode(' ', (string) $attributes['class']));
             }
         }
 

@@ -23,6 +23,10 @@ jobs:
       ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0"
       composer-options: "--optimize-autoloader --prefer-dist --prefer-stable -v"
       composer-outdated-option: ""
+      skip-phpstan: false
+      skip-phplint: false
+      skip-rector: false
+      skip-phpmd: false
     secrets:
       envPAT: "${{ secrets.GITHUB_TOKEN }}"
 
@@ -32,7 +36,7 @@ jobs:
     needs: "ci"
 
     runs-on: "${{ matrix.operating-system }}"
-
+    timeout-minutes: 10
     continue-on-error: false
 
     strategy:
@@ -92,7 +96,7 @@ jobs:
     needs: "tests"
 
     runs-on: "${{ matrix.operating-system }}"
-
+    timeout-minutes: 10
     continue-on-error: false
 
     strategy:
@@ -125,7 +129,7 @@ jobs:
         with:
           php-version: "${{ matrix.php-version }}"
           extensions: "json, opcache, dom, mbstring, intl, simplexml, tokenizer, xml, xmlwriter"
-          ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0"
+          ini-values: "opcache.enable=1, opcache.fast_shutdown=0, zend.assertions=1, assert.exception=On, intl.default_locale=de, intl.use_exceptions=1, zend.exception_ignore_args=0, xdebug.mode=coverage"
           coverage: "xdebug"
           tools: "composer:v2"
         env:
@@ -149,21 +153,28 @@ jobs:
         uses: "codecov/codecov-action@v3.1.1"
         with:
           file: ".build/coverage/clover.xml"
-          flags: "phpunit,php-${{ matrix.php-version }},${{ matrix.operating-system }},without-extensions"
+          flags: "phpunit,php-${{ matrix.php-version }},${{ matrix.operating-system }}"
           verbose: false
 
       - name: "Run mutation tests with infection/infection"
-        run: "vendor/bin/infection --show-mutations --min-covered-msi=81 --min-msi=81 --coverage=.build/coverage --only-covered --logger-github --no-progress -vv"
+        env:
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+        run: "vendor/bin/infection --show-mutations --only-covered --min-covered-msi=81 --min-msi=81 --coverage=.build/coverage --logger-github --no-progress -vv"
 
   # This is a meta job to avoid to have to constantly change the protection rules
   # whenever we touch the matrix.
   tests-status:
     name: "Unit & Integration Tests Status"
+
     runs-on: "ubuntu-22.04"
+
+    if: always()
+
     needs:
+      - "ci"
       - "tests"
       - "code-coverage"
-    if: always()
+
     steps:
       - name: Successful run
         if: ${{ !(contains(needs.*.result, 'failure')) }}

@@ -14,7 +14,6 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Button;
 use Laminas\Form\Exception\DomainException;
-use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
@@ -24,14 +23,12 @@ use Mimmi20Test\LaminasView\BootstrapForm\Compare\AbstractTestCase;
 use PHPUnit\Framework\Exception;
 
 use function assert;
-use function gettype;
 use function sprintf;
 
 final class FormButtonTest extends AbstractTestCase
 {
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithNull(): void
@@ -63,7 +60,6 @@ final class FormButtonTest extends AbstractTestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithArray(): void
@@ -96,49 +92,7 @@ final class FormButtonTest extends AbstractTestCase
     }
 
     /**
-     * @throws InvalidArgumentException
-     * @throws DomainException
      * @throws Exception
-     */
-    public function testRenderOpenTagWithInt(): void
-    {
-        $value = 1;
-
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, null);
-
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                '%s expects null, an array or a \Laminas\Form\ElementInterface instance; received "%s"',
-                'Mimmi20\LaminasView\BootstrapForm\FormButton::openTag',
-                gettype($value),
-            ),
-        );
-        $this->expectExceptionCode(0);
-        $helper->openTag($value);
-    }
-
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithoutName(): void
@@ -193,7 +147,6 @@ final class FormButtonTest extends AbstractTestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithoutValue(): void
@@ -249,7 +202,6 @@ final class FormButtonTest extends AbstractTestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithValue(): void
@@ -306,7 +258,6 @@ final class FormButtonTest extends AbstractTestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithoutType(): void
@@ -363,7 +314,6 @@ final class FormButtonTest extends AbstractTestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderOpenTagWithElementWithWrongType(): void
@@ -420,7 +370,6 @@ final class FormButtonTest extends AbstractTestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderWithoutLabel(): void
@@ -483,7 +432,6 @@ final class FormButtonTest extends AbstractTestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testRenderWithTranslator(): void
@@ -631,10 +579,9 @@ final class FormButtonTest extends AbstractTestCase
 
     /**
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      */
-    public function testInvokeWithTranslator2(): void
+    public function testRenderWithTranslator2(): void
     {
         $type                  = 'button';
         $name                  = 'test-button';

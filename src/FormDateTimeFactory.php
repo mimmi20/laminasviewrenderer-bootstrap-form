@@ -20,8 +20,7 @@ use Laminas\View\HelperPluginManager;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
-use function gettype;
-use function is_object;
+use function get_debug_type;
 use function sprintf;
 
 /** @deprecated */
@@ -36,7 +35,7 @@ final class FormDateTimeFactory
             sprintf(
                 '$plugin should be an Instance of %s, but was %s',
                 HelperPluginManager::class,
-                is_object($plugin) ? $plugin::class : gettype($plugin),
+                get_debug_type($plugin),
             ),
         );
 
@@ -49,7 +48,7 @@ final class FormDateTimeFactory
             sprintf(
                 '$escapeHtml should be an Instance of %s, but was %s',
                 EscapeHtml::class,
-                is_object($escapeHtml) ? $escapeHtml::class : gettype($escapeHtml),
+                get_debug_type($escapeHtml),
             ),
         );
 
@@ -58,7 +57,7 @@ final class FormDateTimeFactory
             sprintf(
                 '$escapeHtmlAttr should be an Instance of %s, but was %s',
                 EscapeHtmlAttr::class,
-                is_object($escapeHtmlAttr) ? $escapeHtmlAttr::class : gettype($escapeHtmlAttr),
+                get_debug_type($escapeHtmlAttr),
             ),
         );
         assert(
@@ -66,7 +65,7 @@ final class FormDateTimeFactory
             sprintf(
                 '$docType should be an Instance of %s, but was %s',
                 Doctype::class,
-                is_object($docType) ? $docType::class : gettype($docType),
+                get_debug_type($docType),
             ),
         );
 

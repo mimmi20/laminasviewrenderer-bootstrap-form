@@ -49,16 +49,14 @@ trait FormTrait
     /**
      * Retrieve whitespace representation of $indent
      *
-     * @param int|string $indent
-     *
      * @throws void
      */
-    protected function getWhitespace($indent): string
+    protected function getWhitespace(int | string $indent): string
     {
         if (is_int($indent)) {
             $indent = str_repeat(' ', $indent);
         }
 
-        return (string) $indent;
+        return $indent;
     }
 }

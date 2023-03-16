@@ -19,7 +19,6 @@ use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 
-use function array_merge;
 use function array_walk_recursive;
 use function assert;
 use function implode;
@@ -106,7 +105,7 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
         }
 
         // Prepare attributes for opening tag
-        $attributes      = array_merge($this->attributes, $attributes);
+        $attributes      = [...$this->attributes, ...$attributes];
         $errorAttributes = ['class' => 'invalid-feedback'];
 
         if ($element->hasAttribute('id')) {

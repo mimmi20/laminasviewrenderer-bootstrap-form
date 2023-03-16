@@ -21,8 +21,7 @@ use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
-use function gettype;
-use function is_object;
+use function get_debug_type;
 use function sprintf;
 
 final class FormRowFactory
@@ -36,7 +35,7 @@ final class FormRowFactory
             sprintf(
                 '$plugin should be an Instance of %s, but was %s',
                 HelperPluginManager::class,
-                is_object($plugin) ? $plugin::class : gettype($plugin),
+                get_debug_type($plugin),
             ),
         );
 
@@ -62,7 +61,7 @@ final class FormRowFactory
             sprintf(
                 '$escapeHtml should be an Instance of %s, but was %s',
                 EscapeHtml::class,
-                is_object($escapeHtml) ? $escapeHtml::class : gettype($escapeHtml),
+                get_debug_type($escapeHtml),
             ),
         );
         assert($renderer instanceof RendererInterface);

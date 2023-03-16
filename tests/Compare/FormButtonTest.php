@@ -24,8 +24,7 @@ use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
-use function gettype;
-use function is_object;
+use function get_debug_type;
 use function sprintf;
 use function trim;
 
@@ -56,7 +55,7 @@ final class FormButtonTest extends AbstractTestCase
             sprintf(
                 '$escapeHtml should be an Instance of %s, but was %s',
                 EscapeHtml::class,
-                is_object($escapeHtml) ? $escapeHtml::class : gettype($escapeHtml),
+                get_debug_type($escapeHtml),
             ),
         );
         assert(
@@ -64,7 +63,7 @@ final class FormButtonTest extends AbstractTestCase
             sprintf(
                 '$escapeHtmlAttr should be an Instance of %s, but was %s',
                 EscapeHtmlAttr::class,
-                is_object($escapeHtmlAttr) ? $escapeHtmlAttr::class : gettype($escapeHtmlAttr),
+                get_debug_type($escapeHtmlAttr),
             ),
         );
         assert(
@@ -72,7 +71,7 @@ final class FormButtonTest extends AbstractTestCase
             sprintf(
                 '$docType should be an Instance of %s, but was %s',
                 Doctype::class,
-                is_object($docType) ? $docType::class : gettype($docType),
+                get_debug_type($docType),
             ),
         );
 

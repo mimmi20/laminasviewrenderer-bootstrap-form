@@ -86,17 +86,15 @@ final class FormElement extends AbstractHelper implements FormElementInterface
      */
     private string $defaultHelper = FormElementInterface::DEFAULT_HELPER;
 
-    /** @phpstan-var HelperPluginManager<HelperInterface> */
-    private HelperPluginManager $helperPluginManager;
-
     /**
      * @phpstan-param HelperPluginManager<HelperInterface> $helperPluginManager
      *
      * @throws void
      */
-    public function __construct(HelperPluginManager $helperPluginManager)
-    {
-        $this->helperPluginManager = $helperPluginManager;
+    public function __construct(
+        /** @phpstan-var HelperPluginManager<HelperInterface> */
+        private readonly HelperPluginManager $helperPluginManager,
+    ) {
     }
 
     /**
