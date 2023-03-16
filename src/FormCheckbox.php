@@ -45,8 +45,6 @@ final class FormCheckbox extends FormInput
     use LabelPositionTrait;
     use UseHiddenElementTrait;
 
-    private Translate | null $translate;
-
     /** @throws void */
     public function __construct(
         EscapeHtml $escapeHtml,
@@ -55,11 +53,9 @@ final class FormCheckbox extends FormInput
         private readonly FormLabelInterface $formLabel,
         private readonly HtmlElementInterface $htmlElement,
         private readonly FormHiddenInterface $formHidden,
-        Translate | null $translator = null,
+        private readonly Translate | null $translate = null,
     ) {
         parent::__construct($escapeHtml, $escapeHtmlAttr, $doctype);
-
-        $this->translate = $translator;
     }
 
     /**
@@ -111,16 +107,12 @@ final class FormCheckbox extends FormInput
             $groupClasses[] = 'form-check-inline';
         }
 
-        $labelAttributes = [];
-
-        if ($element instanceof LabelAwareInterface) {
-            $labelAttributes = $element->getLabelAttributes();
-        }
+        $labelAttributes = $element->getLabelAttributes();
 
         $labelAttributes = array_merge($labelAttributes, ['for' => $id]);
 
         if (array_key_exists('class', $labelAttributes)) {
-            $labelClasses = array_merge($labelClasses, explode(' ', $labelAttributes['class']));
+            $labelClasses = array_merge($labelClasses, explode(' ', (string) $labelAttributes['class']));
         }
 
         $labelAttributes['class'] = trim(implode(' ', array_unique($labelClasses)));
@@ -137,7 +129,7 @@ final class FormCheckbox extends FormInput
         }
 
         if (array_key_exists('class', $attributes)) {
-            $inputClasses = array_merge($inputClasses, explode(' ', $attributes['class']));
+            $inputClasses = array_merge($inputClasses, explode(' ', (string) $attributes['class']));
         }
 
         $attributes['class'] = trim(implode(' ', array_unique($inputClasses)));
@@ -203,17 +195,10 @@ final class FormCheckbox extends FormInput
 
         $labelPosition = $this->getLabelPosition();
 
-        switch ($labelPosition) {
-            case BaseFormRow::LABEL_PREPEND:
-                $markup = $labelOpen . $label . PHP_EOL . $rendered . $labelClose;
-
-                break;
-            case BaseFormRow::LABEL_APPEND:
-            default:
-                $markup = $labelOpen . $rendered . PHP_EOL . $label . $labelClose;
-
-                break;
-        }
+        $markup = match ($labelPosition) {
+            BaseFormRow::LABEL_PREPEND => $labelOpen . $label . PHP_EOL . $rendered . $labelClose,
+            default => $labelOpen . $rendered . PHP_EOL . $label . $labelClose,
+        };
 
         return $indent . $this->htmlElement->toHtml('div', ['class' => $groupClasses], PHP_EOL . $hidden . $markup . PHP_EOL . $indent);
     }

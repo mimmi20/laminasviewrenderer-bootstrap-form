@@ -146,7 +146,7 @@ trait FormMonthSelectTrait
         $pattern    = $this->getPattern();
         $pregResult = preg_split(
             '/([ -,.\\/]*(?:\'[a-zA-Z]+\')*[ -,.\\/]+)/',
-            $pattern,
+            (string) $pattern,
             -1,
             PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY,
         );

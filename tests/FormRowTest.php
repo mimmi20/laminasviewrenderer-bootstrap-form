@@ -101,7 +101,7 @@ final class FormRowTest extends TestCase
 
         $this->expectException(AssertionError::class);
         $this->expectExceptionCode(1);
-        $this->expectExceptionMessage('$form should be an Instance of Laminas\Form\FormInterface or null, but was boolean');
+        $this->expectExceptionMessage('$form should be an Instance of Laminas\Form\FormInterface or null, but was bool');
 
         $helper->render($element);
     }

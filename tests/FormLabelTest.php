@@ -23,7 +23,7 @@ use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 
 use function assert;
-use function gettype;
+use function get_debug_type;
 use function sprintf;
 
 final class FormLabelTest extends TestCase
@@ -92,7 +92,7 @@ final class FormLabelTest extends TestCase
             sprintf(
                 '%s expects an array or Laminas\Form\ElementInterface instance; received "%s"',
                 'Mimmi20\LaminasView\BootstrapForm\FormLabel::openTag',
-                gettype($value),
+                get_debug_type($value),
             ),
         );
         $this->expectExceptionCode(0);

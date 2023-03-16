@@ -42,16 +42,15 @@ use function sprintf;
 use const ARRAY_FILTER_USE_KEY;
 use const PHP_EOL;
 
+/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
 abstract class AbstractFormMultiCheckbox extends FormInput
 {
     use LabelPositionTrait;
     use UseHiddenElementTrait;
 
-    public const LABEL_APPEND = 'append';
+    final public const LABEL_APPEND = 'append';
 
-    public const LABEL_PREPEND = 'prepend';
-
-    private Translate | null $translate;
+    final public const LABEL_PREPEND = 'prepend';
 
     /**
      * The attributes applied to option label
@@ -70,15 +69,14 @@ abstract class AbstractFormMultiCheckbox extends FormInput
         EscapeHtml $escapeHtml,
         EscapeHtmlAttr $escapeHtmlAttr,
         Doctype $doctype,
-        private FormLabelInterface $formLabel,
-        private HtmlElementInterface $htmlElement,
-        private FormHiddenInterface $formHidden,
-        Translate | null $translator = null,
+        private readonly FormLabelInterface $formLabel,
+        private readonly HtmlElementInterface $htmlElement,
+        private readonly FormHiddenInterface $formHidden,
+        private readonly Translate | null $translate = null,
     ) {
         parent::__construct($escapeHtml, $escapeHtmlAttr, $doctype);
 
         $this->escapeHtml = $escapeHtml;
-        $this->translate  = $translator;
     }
 
     /**
@@ -398,17 +396,10 @@ abstract class AbstractFormMultiCheckbox extends FormInput
                 }
             }
 
-            switch ($labelPosition) {
-                case BaseFormRow::LABEL_PREPEND:
-                    $markup = $labelOpen . $label . PHP_EOL . $input . $labelClose;
-
-                    break;
-                case BaseFormRow::LABEL_APPEND:
-                default:
-                    $markup = $labelOpen . $input . PHP_EOL . $label . $labelClose;
-
-                    break;
-            }
+            $markup = match ($labelPosition) {
+                BaseFormRow::LABEL_PREPEND => $labelOpen . $label . PHP_EOL . $input . $labelClose,
+                default => $labelOpen . $input . PHP_EOL . $label . $labelClose,
+            };
 
             $combinedMarkup[] = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml('div', ['class' => $groupClasses], PHP_EOL . $markup . PHP_EOL . $indent . $this->getWhitespace(4));
         }

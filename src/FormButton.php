@@ -21,9 +21,7 @@ use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 
 use function assert;
-use function gettype;
 use function is_array;
-use function is_object;
 use function is_string;
 use function mb_strtolower;
 use function sprintf;
@@ -61,18 +59,15 @@ final class FormButton extends FormInput
         'reset' => true,
         'submit' => true,
     ];
-    private Translate | null $translate;
 
     /** @throws void */
     public function __construct(
         EscapeHtml $escapeHtml,
         EscapeHtmlAttr $escapeHtmlAttr,
         Doctype $doctype,
-        Translate | null $translator = null,
+        private readonly Translate | null $translate = null,
     ) {
         parent::__construct($escapeHtml, $escapeHtmlAttr, $doctype);
-
-        $this->translate = $translator;
     }
 
     /**
@@ -83,7 +78,6 @@ final class FormButton extends FormInput
      * @return FormButton|string
      *
      * @throws Exception\DomainException
-     * @throws Exception\InvalidArgumentException
      */
     public function __invoke(
         ElementInterface | null $element = null,
@@ -101,7 +95,6 @@ final class FormButton extends FormInput
      * using content from $buttonContent or the element's "label" attribute
      *
      * @throws Exception\DomainException
-     * @throws Exception\InvalidArgumentException
      */
     public function render(
         ElementInterface $element,
@@ -143,11 +136,11 @@ final class FormButton extends FormInput
      *
      * @param array<string, bool|string>|ElementInterface|null $attributesOrElement
      *
-     * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
      */
-    public function openTag($attributesOrElement = null): string
-    {
+    public function openTag(
+        array | ElementInterface | null $attributesOrElement = null,
+    ): string {
         if (null === $attributesOrElement) {
             return '<button>';
         }
@@ -156,16 +149,6 @@ final class FormButton extends FormInput
             $attributes = $this->createAttributesString($attributesOrElement);
 
             return sprintf('<button %s>', $attributes);
-        }
-
-        if (!$attributesOrElement instanceof ElementInterface) {
-            throw new Exception\InvalidArgumentException(
-                sprintf(
-                    '%s expects null, an array or a \Laminas\Form\ElementInterface instance; received "%s"',
-                    __METHOD__,
-                    is_object($attributesOrElement) ? $attributesOrElement::class : gettype($attributesOrElement),
-                ),
-            );
         }
 
         $element = $attributesOrElement;

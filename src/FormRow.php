@@ -38,32 +38,29 @@ use function array_merge;
 use function array_unique;
 use function assert;
 use function explode;
-use function gettype;
+use function get_debug_type;
 use function implode;
 use function is_array;
-use function is_object;
 use function is_string;
 use function sprintf;
 use function trim;
 
 use const PHP_EOL;
 
+/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
 final class FormRow extends BaseFormRow implements FormRowInterface
 {
     use FormTrait;
 
-    private Translate | null $translate;
-
     /** @throws void */
     public function __construct(
-        private FormElementInterface $formElement,
-        private FormElementErrorsInterface $formElementErrors,
-        private HtmlElementInterface $htmlElement,
-        private EscapeHtml $escapeHtml,
-        private RendererInterface $renderer,
-        Translate | null $translator = null,
+        private readonly FormElementInterface $formElement,
+        private readonly FormElementErrorsInterface $formElementErrors,
+        private readonly HtmlElementInterface $htmlElement,
+        private readonly EscapeHtml $escapeHtml,
+        private readonly RendererInterface $renderer,
+        private readonly Translate | null $translate = null,
     ) {
-        $this->translate = $translator;
     }
 
     /**
@@ -88,7 +85,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             sprintf(
                 '$form should be an Instance of %s or null, but was %s',
                 FormInterface::class,
-                is_object($form) ? $form::class : gettype($form),
+                get_debug_type($form),
             ),
         );
 
@@ -217,7 +214,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             unset($labelColAttributes['class']);
         }
 
-        $labelAttributes          = array_merge($labelColAttributes, $labelAttributes);
+        $labelAttributes          = [...$labelColAttributes, ...$labelAttributes];
         $labelAttributes['class'] = trim(implode(' ', array_unique($labelClasses)));
 
         assert(is_array($rowAttributes));
@@ -450,17 +447,10 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $this->formElement->setIndent($indent . $this->getWhitespace(4));
         $elementString = $this->formElement->render($element);
 
-        switch ($labelPosition) {
-            case BaseFormRow::LABEL_PREPEND:
-                $rendered = $legend . PHP_EOL . $elementString;
-
-                break;
-            case BaseFormRow::LABEL_APPEND:
-            default:
-                $rendered = $elementString . PHP_EOL . $legend;
-
-                break;
-        }
+        $rendered = match ($labelPosition) {
+            BaseFormRow::LABEL_PREPEND => $legend . PHP_EOL . $elementString,
+            default => $elementString . PHP_EOL . $legend,
+        };
 
         $rendered .= $errorContent . $helpContent;
 
@@ -529,7 +519,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         assert(is_array($attributes));
 
         if (array_key_exists('class', $attributes)) {
-            $classes = array_merge($classes, explode(' ', $attributes['class']));
+            $classes = array_merge($classes, explode(' ', (string) $attributes['class']));
 
             unset($attributes['class']);
         }
@@ -540,7 +530,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             sprintf(
                 '$form should be an Instance of %s or null, but was %s',
                 FormInterface::class,
-                is_object($form) ? $form::class : gettype($form),
+                get_debug_type($form),
             ),
         );
 
@@ -550,7 +540,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             assert(is_array($formAttributes));
 
             if (array_key_exists('class', $formAttributes)) {
-                $classes = array_merge($classes, explode(' ', $formAttributes['class']));
+                $classes = array_merge($classes, explode(' ', (string) $formAttributes['class']));
 
                 unset($formAttributes['class']);
             }

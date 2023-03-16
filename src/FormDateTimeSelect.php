@@ -33,6 +33,7 @@ use const PHP_EOL;
 use const PREG_SPLIT_DELIM_CAPTURE;
 use const PREG_SPLIT_NO_EMPTY;
 
+/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
 final class FormDateTimeSelect extends AbstractHelper implements FormIndentInterface, FormRenderInterface
 {
     use FormDateSelectTrait;
@@ -217,8 +218,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
         if (null === $this->pattern) {
             $intl = new IntlDateFormatter($this->getLocale(), $this->dateType, $this->timeType);
             // remove time zone format character
-            $pattern       = rtrim($intl->getPattern(), ' z');
-            $this->pattern = $pattern;
+            $this->pattern = rtrim($intl->getPattern(), ' z');
         }
 
         return $this->pattern;

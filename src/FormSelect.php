@@ -56,7 +56,6 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected $translatableAttributes = ['label' => true];
-    private Translate | null $translate;
 
     /**
      * Attributes valid for select
@@ -100,9 +99,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
     public function __construct(
         private readonly EscapeHtml $escaper,
         private readonly FormHiddenInterface $formHidden,
-        Translate | null $translator = null,
+        private readonly Translate | null $translate = null,
     ) {
-        $this->translate = $translator;
     }
 
     /**
@@ -172,7 +170,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         $classes = ['form-select'];
 
         if (array_key_exists('class', $attributes)) {
-            $classes = array_merge($classes, explode(' ', $attributes['class']));
+            $classes = array_merge($classes, explode(' ', (string) $attributes['class']));
         }
 
         $attributes['class'] = trim(implode(' ', array_unique($classes)));
@@ -392,14 +390,13 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * a domain issue -- you cannot have multiple options selected unless the
      * multiple attribute is present and enabled.
      *
-     * @param mixed               $value
      * @param array<string, bool> $attributes
      *
      * @return array<int|string, string>
      *
      * @throws Exception\DomainException
      */
-    private function validateMultiValue($value, array $attributes): array
+    private function validateMultiValue(mixed $value, array $attributes): array
     {
         if (null === $value) {
             return [];
