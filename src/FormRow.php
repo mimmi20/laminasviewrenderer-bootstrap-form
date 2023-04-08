@@ -75,10 +75,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function render(
-        ElementInterface $element,
-        $labelPosition = null,
-    ): string {
+    public function render(ElementInterface $element, $labelPosition = null): string
+    {
         $form = $element->getOption('form');
         assert(
             $form instanceof FormInterface || null === $form,
@@ -192,10 +190,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      * @throws InvalidServiceException
      * @throws Exception\DomainException
      */
-    private function renderHorizontalRow(
-        ElementInterface $element,
-        string $label,
-    ): string {
+    private function renderHorizontalRow(ElementInterface $element, string $label): string
+    {
         $labelClasses       = [];
         $rowAttributes      = $this->mergeAttributes($element, 'row_attributes', ['row']);
         $colAttributes      = $this->mergeAttributes($element, 'col_attributes', []);
@@ -462,10 +458,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     }
 
     /** @throws Exception\DomainException */
-    private function renderFormErrors(
-        ElementInterface $element,
-        string $indent,
-    ): string {
+    private function renderFormErrors(ElementInterface $element, string $indent): string
+    {
         $this->formElementErrors->setIndent($indent);
         $elementErrors = $this->formElementErrors->render($element);
 
@@ -481,10 +475,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     }
 
     /** @throws void */
-    private function renderFormHelp(
-        ElementInterface $element,
-        string $indent,
-    ): string {
+    private function renderFormHelp(ElementInterface $element, string $indent): string
+    {
         $helpContent = $element->getOption('help_content');
         $attributes  = $this->mergeAttributes($element, 'help_attributes', []);
 
@@ -510,11 +502,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      *
      * @throws void
      */
-    private function mergeAttributes(
-        ElementInterface $element,
-        string $optionName,
-        array $classes = [],
-    ): array {
+    private function mergeAttributes(ElementInterface $element, string $optionName, array $classes = []): array
+    {
         $attributes = $element->getOption($optionName) ?? [];
         assert(is_array($attributes));
 

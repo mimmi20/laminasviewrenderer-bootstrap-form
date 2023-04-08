@@ -16,8 +16,6 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
-use Laminas\View\Exception\InvalidArgumentException;
-use Laminas\View\Exception\RuntimeException;
 
 interface FormRowInterface extends FormIndentInterface
 {
@@ -27,6 +25,10 @@ interface FormRowInterface extends FormIndentInterface
      * Proxies to {@link render()}.
      *
      * @return self|string
+     *
+     * @throws ServiceNotFoundException
+     * @throws InvalidServiceException
+     * @throws Exception\DomainException
      */
     public function __invoke(
         ElementInterface | null $element = null,
@@ -43,14 +45,9 @@ interface FormRowInterface extends FormIndentInterface
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      * @throws Exception\DomainException
-     * @throws RuntimeException
-     * @throws InvalidArgumentException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function render(
-        ElementInterface $element,
-        $labelPosition = null,
-    ): string;
+    public function render(ElementInterface $element, $labelPosition = null): string;
 }

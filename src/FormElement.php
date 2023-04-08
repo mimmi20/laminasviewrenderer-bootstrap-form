@@ -197,10 +197,8 @@ final class FormElement extends AbstractHelper implements FormElementInterface
      * @throws ServiceNotFoundException
      * @throws InvalidArgumentException
      */
-    private function renderHelper(
-        string $name,
-        ElementInterface $element,
-    ): string {
+    private function renderHelper(string $name, ElementInterface $element): string
+    {
         $helper = $this->helperPluginManager->get($name);
 
         assert(is_object($helper));

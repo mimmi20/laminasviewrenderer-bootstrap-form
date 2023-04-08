@@ -89,10 +89,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
      */
-    public function __invoke(
-        ElementInterface | null $element = null,
-        string | null $labelPosition = null,
-    ) {
+    public function __invoke(ElementInterface | null $element = null, string | null $labelPosition = null)
+    {
         if (null === $element) {
             return $this;
         }
@@ -207,9 +205,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @throws Exception\DomainException
      */
-    abstract protected static function getName(
-        ElementInterface $element,
-    ): string;
+    abstract protected static function getName(ElementInterface $element): string;
 
     /**
      * Render options

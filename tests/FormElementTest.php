@@ -58,6 +58,7 @@ use PHPUnit\Framework\TestCase;
 
 use function assert;
 
+/** @phpcs:disable Mimmi20CodingStandard.Commenting.FunctionCommentThrowTag.MissingFunctionComment */
 final class FormElementTest extends TestCase
 {
     /** @throws Exception */
@@ -346,12 +347,8 @@ final class FormElementTest extends TestCase
      * @throws InvalidArgumentException
      */
     #[DataProvider('providerRender')]
-    public function testRender(
-        ElementInterface $element,
-        string $helperType,
-        string $class,
-        string $rendered,
-    ): void {
+    public function testRender(ElementInterface $element, string $helperType, string $class, string $rendered): void
+    {
         $subHelper = $this->getMockBuilder($class)
             ->disableOriginalConstructor()
             ->getMock();

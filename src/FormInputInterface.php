@@ -18,6 +18,8 @@ interface FormInputInterface extends FormIndentInterface, FormRenderInterface
      * Get the closing bracket for an inline tag
      *
      * Closes as either "/>" for XHTML doctypes or ">" otherwise.
+     *
+     * @throws void
      */
     public function getInlineClosingBracket(): string;
 }

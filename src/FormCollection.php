@@ -71,10 +71,8 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
      * @throws InvalidArgumentException
      * @throws Exception\InvalidArgumentException
      */
-    public function __invoke(
-        ElementInterface | null $element = null,
-        bool $wrap = true,
-    ) {
+    public function __invoke(ElementInterface | null $element = null, bool $wrap = true)
+    {
         if (!$element) {
             return $this;
         }

@@ -79,10 +79,8 @@ final class FormButton extends FormInput
      *
      * @throws Exception\DomainException
      */
-    public function __invoke(
-        ElementInterface | null $element = null,
-        string | null $buttonContent = null,
-    ) {
+    public function __invoke(ElementInterface | null $element = null, string | null $buttonContent = null)
+    {
         if (!$element) {
             return $this;
         }
@@ -96,10 +94,8 @@ final class FormButton extends FormInput
      *
      * @throws Exception\DomainException
      */
-    public function render(
-        ElementInterface $element,
-        string | null $buttonContent = null,
-    ): string {
+    public function render(ElementInterface $element, string | null $buttonContent = null): string
+    {
         $openTag = $this->openTag($element);
 
         if (null === $buttonContent) {
@@ -138,9 +134,8 @@ final class FormButton extends FormInput
      *
      * @throws Exception\DomainException
      */
-    public function openTag(
-        array | ElementInterface | null $attributesOrElement = null,
-    ): string {
+    public function openTag(array | ElementInterface | null $attributesOrElement = null): string
+    {
         if (null === $attributesOrElement) {
             return '<button>';
         }
