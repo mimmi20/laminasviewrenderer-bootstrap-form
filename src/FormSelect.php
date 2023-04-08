@@ -224,11 +224,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      *
      * @throws void
      */
-    public function renderOptions(
-        array $options,
-        array $selectedOptions,
-        int $level,
-    ): string {
+    public function renderOptions(array $options, array $selectedOptions, int $level): string
+    {
         $optionStrings = [];
 
         foreach ($options as $key => $optionSpec) {
@@ -246,12 +243,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      *
      * @throws void
      */
-    public function renderOption(
-        $key,
-        $optionSpec,
-        array $selectedOptions,
-        int $level,
-    ): string {
+    public function renderOption($key, $optionSpec, array $selectedOptions, int $level): string
+    {
         $value    = '';
         $label    = '';
         $selected = false;
@@ -348,11 +341,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      *
      * @throws void
      */
-    public function renderOptgroup(
-        array $optgroup,
-        array $selectedOptions,
-        int $level,
-    ): string {
+    public function renderOptgroup(array $optgroup, array $selectedOptions, int $level): string
+    {
         $options = [];
 
         if (array_key_exists('options', $optgroup)) {

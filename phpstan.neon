@@ -102,4 +102,4 @@ parameters:
     - '~Parameter #1 \$className of method PHPUnit\\Framework\\TestCase::getMockBuilder\(\) expects class-string<mixed>, string given~'
     - '~Unable to resolve the template type T in call to method PHPUnit\\Framework\\TestCase::getMockBuilder\(\)~'
     - '~will always evaluate to true~'
-    - '~Parameter #2 \$v3config of class Laminas\\View\\HelperPluginManager constructor expects~'
+#    - '~Parameter #2 \$v3config of class Laminas\\View\\HelperPluginManager constructor expects~'

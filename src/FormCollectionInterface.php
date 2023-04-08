@@ -36,10 +36,7 @@ interface FormCollectionInterface extends FormIndentInterface, FormRenderInterfa
      * @throws InvalidArgumentException
      * @throws Exception\InvalidArgumentException
      */
-    public function __invoke(
-        ElementInterface | null $element = null,
-        bool $wrap = true,
-    );
+    public function __invoke(ElementInterface | null $element = null, bool $wrap = true);
 
     /**
      * Render a collection by iterating through all fieldsets and elements
@@ -67,11 +64,15 @@ interface FormCollectionInterface extends FormIndentInterface, FormRenderInterfa
 
     /**
      * If set to true, collections are automatically wrapped around a fieldset
+     *
+     * @throws void
      */
     public function setShouldWrap(bool $wrap): self;
 
     /**
      * Get wrapped
+     *
+     * @throws void
      */
     public function shouldWrap(): bool;
 }

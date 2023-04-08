@@ -52,10 +52,8 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
      *
      * @throws void
      */
-    public function __invoke(
-        ElementInterface | null $element = null,
-        array $attributes = [],
-    ) {
+    public function __invoke(ElementInterface | null $element = null, array $attributes = [])
+    {
         if (!$element) {
             return $this;
         }
@@ -74,10 +72,8 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
      *
      * @throws void
      */
-    public function render(
-        ElementInterface $element,
-        array $attributes = [],
-    ): string {
+    public function render(ElementInterface $element, array $attributes = []): string
+    {
         $messages = $element->getMessages();
 
         if ([] === $messages) {

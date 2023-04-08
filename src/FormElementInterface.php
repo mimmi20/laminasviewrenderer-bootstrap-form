@@ -45,21 +45,29 @@ interface FormElementInterface extends FormIndentInterface
 
     /**
      * Set default helper name
+     *
+     * @throws void
      */
     public function setDefaultHelper(string $name): self;
 
     /**
      * Set default helper name
+     *
+     * @throws void
      */
     public function getDefaultHelper(): string;
 
     /**
      * Add form element type to plugin map
+     *
+     * @throws void
      */
     public function addType(string $type, string $plugin): self;
 
     /**
      * Add instance class to plugin map
+     *
+     * @throws void
      */
     public function addClass(string $class, string $plugin): self;
 }

@@ -29,10 +29,7 @@ interface FormElementErrorsInterface extends FormIndentInterface
      *
      * @throws DomainException
      */
-    public function __invoke(
-        ElementInterface | null $element = null,
-        array $attributes = [],
-    );
+    public function __invoke(ElementInterface | null $element = null, array $attributes = []);
 
     /**
      * Render validation errors for the provided $element
@@ -45,15 +42,14 @@ interface FormElementErrorsInterface extends FormIndentInterface
      *
      * @throws Exception\DomainException
      */
-    public function render(
-        ElementInterface $element,
-        array $attributes = [],
-    ): string;
+    public function render(ElementInterface $element, array $attributes = []): string;
 
     /**
      * Set the attributes that will go on the message open format
      *
      * @param array<string, string> $attributes key value pairs of attributes
+     *
+     * @throws void
      */
     public function setAttributes(array $attributes): self;
 
@@ -61,6 +57,8 @@ interface FormElementErrorsInterface extends FormIndentInterface
      * Get the attributes that will go on the message open format
      *
      * @return array<string, string>
+     *
+     * @throws void
      */
     public function getAttributes(): array;
 }

@@ -22,12 +22,16 @@ interface FormIndentInterface
      *
      * @return self
      *
+     * @throws void
+     *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
     public function setIndent($indent);
 
     /**
      * Returns indentation
+     *
+     * @throws void
      */
     public function getIndent(): string;
 }
