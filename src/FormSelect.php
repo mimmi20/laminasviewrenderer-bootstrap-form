@@ -308,7 +308,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         ];
 
         if (isset($optionSpec['attributes']) && is_array($optionSpec['attributes'])) {
-            $attributes = array_merge($attributes, $optionSpec['attributes']);
+            $attributes = [...$attributes, ...$optionSpec['attributes']];
         }
 
         $this->validTagAttributes = $this->validOptionAttributes;
