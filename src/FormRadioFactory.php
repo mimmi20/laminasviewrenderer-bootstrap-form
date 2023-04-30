@@ -83,6 +83,14 @@ final class FormRadioFactory
         assert($htmlElement instanceof HtmlElementInterface);
         assert($hidden instanceof FormHiddenInterface);
 
-        return new FormRadio($escapeHtml, $escapeHtmlAttr, $docType, $label, $htmlElement, $hidden, $translator);
+        return new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $docType,
+            $label,
+            $htmlElement,
+            $hidden,
+            $translator,
+        );
     }
 }

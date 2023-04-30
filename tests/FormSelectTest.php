@@ -162,7 +162,13 @@ final class FormSelectTest extends TestCase
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id];
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
-        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" name="%s">', $class, $ariaLabel, $id, $name) . PHP_EOL
+        $expected           = sprintf(
+            '<select class="form-select&#x20;%s" aria-label="%s" id="%s" name="%s">',
+            $class,
+            $ariaLabel,
+            $id,
+            $name,
+        ) . PHP_EOL
             . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
             . sprintf('    <option value="%s">%s</option>', $value3, $value2Escaped) . PHP_EOL
             . '</select>';
@@ -241,7 +247,13 @@ final class FormSelectTest extends TestCase
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id];
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
-        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" name="%s">', $class, $ariaLabel, $id, $name) . PHP_EOL
+        $expected           = sprintf(
+            '<select class="form-select&#x20;%s" aria-label="%s" id="%s" name="%s">',
+            $class,
+            $ariaLabel,
+            $id,
+            $name,
+        ) . PHP_EOL
             . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
             . sprintf('    <option value="%s">%s</option>', $value3, $value2Escaped) . PHP_EOL
             . '</select>';
@@ -394,9 +406,19 @@ final class FormSelectTest extends TestCase
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id, 'multiple' => true];
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
-        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+        $expected           = sprintf(
+            '<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">',
+            $class,
+            $ariaLabel,
+            $id,
+            $name,
+        ) . PHP_EOL
             . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
-            . sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL
+            . sprintf(
+                '    <option value="%s" selected="selected">%s</option>',
+                $value3,
+                $value2Escaped,
+            ) . PHP_EOL
             . '</select>';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -527,16 +549,34 @@ final class FormSelectTest extends TestCase
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id, 'multiple' => true];
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
-        $expected           = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+        $expected           = sprintf(
+            '<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">',
+            $class,
+            $ariaLabel,
+            $id,
+            $name,
+        ) . PHP_EOL
             . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
-            . sprintf('    <option value="%s" selected="selected">%s</option>', $value1, $label1Escaped) . PHP_EOL
+            . sprintf(
+                '    <option value="%s" selected="selected">%s</option>',
+                $value1,
+                $label1Escaped,
+            ) . PHP_EOL
             . sprintf('    <option value="%s">%s</option>', $value2, $label2Escaped) . PHP_EOL
             . sprintf('    <optgroup label="%s">', $label3) . PHP_EOL
             . sprintf('        <option value="%s">%s</option>', $value4, $label4Escaped) . PHP_EOL
             . sprintf('        <option value="%s">%s</option>', $value5, $label5Escaped) . PHP_EOL
             . sprintf('        <optgroup label="%s">', $label6) . PHP_EOL
-            . sprintf('            <option value="%s" selected="selected">%s</option>', $value7, $label7Escaped) . PHP_EOL
-            . sprintf('            <option value="%s" selected="selected" disabled="disabled">%s</option>', $value8, $label8Escaped) . PHP_EOL
+            . sprintf(
+                '            <option value="%s" selected="selected">%s</option>',
+                $value7,
+                $label7Escaped,
+            ) . PHP_EOL
+            . sprintf(
+                '            <option value="%s" selected="selected" disabled="disabled">%s</option>',
+                $value8,
+                $label8Escaped,
+            ) . PHP_EOL
             . '        </optgroup>' . PHP_EOL
             . '    </optgroup>' . PHP_EOL
             . '</select>';
@@ -683,16 +723,42 @@ final class FormSelectTest extends TestCase
         $emptyOptionTranslated        = '0t';
         $emptyOptionTranslatedEscaped = '0te';
 
-        $expected   = sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+        $expected   = sprintf(
+            '<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">',
+            $class,
+            $ariaLabel,
+            $id,
+            $name,
+        ) . PHP_EOL
             . sprintf('    <option value="">%s</option>', $emptyOptionTranslatedEscaped) . PHP_EOL
-            . sprintf('    <option value="%s" selected="selected">%s</option>', $value1, $label1TranslatedEscaped) . PHP_EOL
+            . sprintf(
+                '    <option value="%s" selected="selected">%s</option>',
+                $value1,
+                $label1TranslatedEscaped,
+            ) . PHP_EOL
             . sprintf('    <option value="%s">%s</option>', $value2, $label2TranslatedEscaped) . PHP_EOL
             . sprintf('    <optgroup label="%s">', $label3) . PHP_EOL
-            . sprintf('        <option value="%s">%s</option>', $value4, $label4TranslatedEscaped) . PHP_EOL
-            . sprintf('        <option value="%s" selected="selected">%s</option>', $value5, $label5TranslatedEscaped) . PHP_EOL
+            . sprintf(
+                '        <option value="%s">%s</option>',
+                $value4,
+                $label4TranslatedEscaped,
+            ) . PHP_EOL
+            . sprintf(
+                '        <option value="%s" selected="selected">%s</option>',
+                $value5,
+                $label5TranslatedEscaped,
+            ) . PHP_EOL
             . sprintf('        <optgroup label="%s">', $label6) . PHP_EOL
-            . sprintf('            <option value="%s">%s</option>', $value7, $label7TranslatedEscaped) . PHP_EOL
-            . sprintf('            <option value="%s" disabled="disabled">%s</option>', $value8, $label8Translated) . PHP_EOL
+            . sprintf(
+                '            <option value="%s">%s</option>',
+                $value7,
+                $label7TranslatedEscaped,
+            ) . PHP_EOL
+            . sprintf(
+                '            <option value="%s" disabled="disabled">%s</option>',
+                $value8,
+                $label8Translated,
+            ) . PHP_EOL
             . '        </optgroup>' . PHP_EOL
             . '    </optgroup>' . PHP_EOL
             . '</select>';
@@ -796,10 +862,24 @@ final class FormSelectTest extends TestCase
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
         $unselectedValue    = 'u';
-        $expected           = sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue) . PHP_EOL
-            . sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+        $expected           = sprintf(
+            '<input type="hidden" name="%s" value="%s"/>',
+            $name,
+            $unselectedValue,
+        ) . PHP_EOL
+            . sprintf(
+                '<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">',
+                $class,
+                $ariaLabel,
+                $id,
+                $name,
+            ) . PHP_EOL
             . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
-            . sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL
+            . sprintf(
+                '    <option value="%s" selected="selected">%s</option>',
+                $value3,
+                $value2Escaped,
+            ) . PHP_EOL
             . '</select>';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -820,7 +900,9 @@ final class FormSelectTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue),
+            );
 
         $helper = new FormSelect($escapeHtml, $formHidden, null);
 
@@ -880,10 +962,24 @@ final class FormSelectTest extends TestCase
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
         $unselectedValue    = 'u';
-        $expected           = sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue) . PHP_EOL
-            . sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+        $expected           = sprintf(
+            '<input type="hidden" name="%s" value="%s"/>',
+            $name,
+            $unselectedValue,
+        ) . PHP_EOL
+            . sprintf(
+                '<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">',
+                $class,
+                $ariaLabel,
+                $id,
+                $name,
+            ) . PHP_EOL
             . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
-            . sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL
+            . sprintf(
+                '    <option value="%s" selected="selected">%s</option>',
+                $value3,
+                $value2Escaped,
+            ) . PHP_EOL
             . '</select>';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -904,7 +1000,9 @@ final class FormSelectTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue),
+            );
 
         $helper = new FormSelect($escapeHtml, $formHidden, null);
 
@@ -964,10 +1062,24 @@ final class FormSelectTest extends TestCase
         $emptyOption        = '0';
         $emptyOptionEscaped = '0e';
         $unselectedValue    = 'u';
-        $expected           = sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue) . PHP_EOL
-            . sprintf('<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">', $class, $ariaLabel, $id, $name) . PHP_EOL
+        $expected           = sprintf(
+            '<input type="hidden" name="%s" value="%s"/>',
+            $name,
+            $unselectedValue,
+        ) . PHP_EOL
+            . sprintf(
+                '<select class="form-select&#x20;%s" aria-label="%s" id="%s" multiple="multiple" name="%s&#x5B;&#x5D;">',
+                $class,
+                $ariaLabel,
+                $id,
+                $name,
+            ) . PHP_EOL
             . sprintf('    <option value="">%s</option>', $emptyOptionEscaped) . PHP_EOL
-            . sprintf('    <option value="%s" selected="selected">%s</option>', $value3, $value2Escaped) . PHP_EOL
+            . sprintf(
+                '    <option value="%s" selected="selected">%s</option>',
+                $value3,
+                $value2Escaped,
+            ) . PHP_EOL
             . '</select>';
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -988,7 +1100,9 @@ final class FormSelectTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue),
+            );
 
         $helper = new FormSelect($escapeHtml, $formHidden, null);
 

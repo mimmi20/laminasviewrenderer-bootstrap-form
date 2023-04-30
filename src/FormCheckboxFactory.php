@@ -84,6 +84,14 @@ final class FormCheckboxFactory
         assert($htmlElement instanceof HtmlElementInterface);
         assert($hidden instanceof FormHiddenInterface);
 
-        return new FormCheckbox($escapeHtml, $escapeHtmlAttr, $docType, $label, $htmlElement, $hidden, $translator);
+        return new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $docType,
+            $label,
+            $htmlElement,
+            $hidden,
+            $translator,
+        );
     }
 }

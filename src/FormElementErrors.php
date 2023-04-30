@@ -26,6 +26,7 @@ use function is_string;
 
 use const PHP_EOL;
 
+/** @psalm-suppress ReservedWord */
 final class FormElementErrors extends AbstractHelper implements FormElementErrorsInterface
 {
     use FormTrait;
@@ -33,12 +34,17 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
     /** @var array<string, string> Default attributes for the open format tag */
     private array $attributes = [];
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     public function __construct(
         private readonly HtmlElementInterface $htmlElement,
         private readonly EscapeHtml $escapeHtml,
         private readonly Translate | null $translate = null,
     ) {
+        // nothing to do
     }
 
     /**
@@ -48,11 +54,9 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
      *
      * @param array<string, string> $attributes
      *
-     * @return FormElementErrors|string
-     *
      * @throws void
      */
-    public function __invoke(ElementInterface | null $element = null, array $attributes = [])
+    public function __invoke(ElementInterface | null $element = null, array $attributes = []): self | string
     {
         if (!$element) {
             return $this;
@@ -76,14 +80,14 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
     {
         $messages = $element->getMessages();
 
-        if ([] === $messages) {
+        if ($messages === []) {
             return '';
         }
 
         // Flatten message array
         $messages = $this->flattenMessages($messages);
 
-        if ([] === $messages) {
+        if ($messages === []) {
             return '';
         }
 
@@ -91,13 +95,20 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
         $markups = [];
 
         foreach ($messages as $message) {
-            if (!$element instanceof LabelAwareInterface || !$element->getLabelOption('disable_html_escape')) {
+            if (
+                !$element instanceof LabelAwareInterface
+                || !$element->getLabelOption('disable_html_escape')
+            ) {
                 $message = ($this->escapeHtml)($message);
             }
 
             assert(is_string($message));
 
-            $markups[] = $indent . $this->getWhitespace(8) . $this->htmlElement->toHtml('li', [], $message);
+            $markups[] = $indent . $this->getWhitespace(8) . $this->htmlElement->toHtml(
+                'li',
+                [],
+                $message,
+            );
         }
 
         // Prepare attributes for opening tag
@@ -108,7 +119,11 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
             $errorAttributes['id'] = $element->getAttribute('id') . 'Feedback';
         }
 
-        $ul = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml('ul', $attributes, implode(PHP_EOL, $markups) . PHP_EOL . $indent . $this->getWhitespace(4));
+        $ul = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+            'ul',
+            $attributes,
+            implode(PHP_EOL, $markups) . PHP_EOL . $indent . $this->getWhitespace(4),
+        );
 
         return $indent . $this->htmlElement->toHtml('div', $errorAttributes, $ul);
     }
@@ -152,7 +167,7 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
 
         if (!$this->translate instanceof Translate) {
             $messageCallback = static function ($message) use (&$messagesToPrint): void {
-                if ('' === $message) {
+                if ($message === '') {
                     return;
                 }
 
@@ -162,7 +177,7 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
             $translator      = $this->translate;
             $textDomain      = $this->getTranslatorTextDomain();
             $messageCallback = static function ($message) use (&$messagesToPrint, $translator, $textDomain): void {
-                if ('' === $message) {
+                if ($message === '') {
                     return;
                 }
 

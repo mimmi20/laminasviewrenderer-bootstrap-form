@@ -26,6 +26,7 @@ use function is_string;
 use function mb_strtolower;
 use function sprintf;
 
+/** @psalm-suppress ReservedWord */
 final class FormButton extends FormInput
 {
     /**
@@ -33,6 +34,7 @@ final class FormButton extends FormInput
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     * @psalm-suppress NonInvariantDocblockPropertyType
      */
     protected $validTagAttributes = [
         'name' => true,
@@ -60,7 +62,11 @@ final class FormButton extends FormInput
         'submit' => true,
     ];
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     public function __construct(
         EscapeHtml $escapeHtml,
         EscapeHtmlAttr $escapeHtmlAttr,
@@ -75,12 +81,12 @@ final class FormButton extends FormInput
      *
      * Proxies to {@link render()}.
      *
-     * @return FormButton|string
-     *
      * @throws Exception\DomainException
      */
-    public function __invoke(ElementInterface | null $element = null, string | null $buttonContent = null)
-    {
+    public function __invoke(
+        ElementInterface | null $element = null,
+        string | null $buttonContent = null,
+    ): self | string {
         if (!$element) {
             return $this;
         }
@@ -98,10 +104,10 @@ final class FormButton extends FormInput
     {
         $openTag = $this->openTag($element);
 
-        if (null === $buttonContent) {
+        if ($buttonContent === null) {
             $buttonContent = $element->getLabel();
 
-            if (null === $buttonContent) {
+            if ($buttonContent === null) {
                 throw new Exception\DomainException(
                     sprintf(
                         '%s expects either button content as the second argument, or that the element provided has a label value; neither found',
@@ -111,14 +117,17 @@ final class FormButton extends FormInput
             }
         }
 
-        if (null !== $this->translate) {
+        if ($this->translate !== null) {
             $buttonContent = ($this->translate)(
                 $buttonContent,
                 $this->getTranslatorTextDomain(),
             );
         }
 
-        if (!$element instanceof LabelAwareInterface || !$element->getLabelOption('disable_html_escape')) {
+        if (
+            !$element instanceof LabelAwareInterface
+            || !$element->getLabelOption('disable_html_escape')
+        ) {
             $buttonContent = ($this->escapeHtml)($buttonContent);
         }
 
@@ -136,7 +145,7 @@ final class FormButton extends FormInput
      */
     public function openTag(array | ElementInterface | null $attributesOrElement = null): string
     {
-        if (null === $attributesOrElement) {
+        if ($attributesOrElement === null) {
             return '<button>';
         }
 
@@ -149,7 +158,7 @@ final class FormButton extends FormInput
         $element = $attributesOrElement;
         $name    = $element->getName();
 
-        if (empty($name) && 0 !== $name) {
+        if (empty($name)) {
             throw new Exception\DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',

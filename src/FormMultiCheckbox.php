@@ -23,6 +23,8 @@ final class FormMultiCheckbox extends AbstractFormMultiCheckbox
      * Return input type
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     protected function getInputType(): string
     {
@@ -38,7 +40,7 @@ final class FormMultiCheckbox extends AbstractFormMultiCheckbox
     {
         $name = $element->getName();
 
-        if (null === $name || '' === $name) {
+        if ($name === null || $name === '') {
             throw new Exception\DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',

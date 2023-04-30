@@ -168,7 +168,9 @@ final class FormTest extends AbstractTestCase
      */
     public function testHorizontalFormWithElementGroup(): void
     {
-        $form = (new Factory())->createForm(require '_files/config/horizontal.element-group.config.php');
+        $form = (new Factory())->createForm(
+            require '_files/config/horizontal.element-group.config.php',
+        );
 
         $expected = $this->getExpected('form/horizontal.element-group.html');
 

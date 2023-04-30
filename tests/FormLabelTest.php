@@ -386,7 +386,13 @@ final class FormLabelTest extends TestCase
         $labelContent = 'test';
         $label        = 'test-label';
         $escaledLabel = 'test-label-escaped';
-        $expected     = sprintf('<label for="%s" class="%s">%s<span>%s</span></label>', $for, $class, $labelContent, $escaledLabel);
+        $expected     = sprintf(
+            '<label for="%s" class="%s">%s<span>%s</span></label>',
+            $for,
+            $class,
+            $labelContent,
+            $escaledLabel,
+        );
         $position     = FormLabelInterface::APPEND;
 
         $element = $this->getMockBuilder(Text::class)
@@ -439,7 +445,13 @@ final class FormLabelTest extends TestCase
         $labelContent = 'test';
         $label        = 'test-label';
         $escaledLabel = 'test-label-escaped';
-        $expected     = sprintf('<label for="%s" class="%s">%s%s</label>', $for, $class, $escaledLabel, $labelContent);
+        $expected     = sprintf(
+            '<label for="%s" class="%s">%s%s</label>',
+            $for,
+            $class,
+            $escaledLabel,
+            $labelContent,
+        );
         $position     = FormLabelInterface::PREPEND;
 
         $element = $this->getMockBuilder(Text::class)
@@ -495,7 +507,13 @@ final class FormLabelTest extends TestCase
         $labelContent = 'test';
         $label        = 'test-label';
         $escaledLabel = 'test-label-escaped';
-        $expected     = sprintf('<label for="%s" class="%s"><span>%s</span>%s</label>', $for, $class, $escaledLabel, $labelContent);
+        $expected     = sprintf(
+            '<label for="%s" class="%s"><span>%s</span>%s</label>',
+            $for,
+            $class,
+            $escaledLabel,
+            $labelContent,
+        );
         $position     = FormLabelInterface::PREPEND;
 
         $element = $this->getMockBuilder(Text::class)
@@ -550,7 +568,13 @@ final class FormLabelTest extends TestCase
         $class        = 'xyz';
         $labelContent = 'test';
         $label        = 'test-label';
-        $expected     = sprintf('<label for="%s" class="%s">%s<span>%s</span></label>', $for, $class, $labelContent, $label);
+        $expected     = sprintf(
+            '<label for="%s" class="%s">%s<span>%s</span></label>',
+            $for,
+            $class,
+            $labelContent,
+            $label,
+        );
         $position     = FormLabelInterface::APPEND;
 
         $element = $this->getMockBuilder(Text::class)
@@ -600,7 +624,13 @@ final class FormLabelTest extends TestCase
         $class        = 'xyz';
         $labelContent = 'test';
         $label        = 'test-label';
-        $expected     = sprintf('<label for="%s" class="%s"><span>%s</span>%s</label>', $for, $class, $label, $labelContent);
+        $expected     = sprintf(
+            '<label for="%s" class="%s"><span>%s</span>%s</label>',
+            $for,
+            $class,
+            $label,
+            $labelContent,
+        );
         $position     = FormLabelInterface::PREPEND;
 
         $element = $this->getMockBuilder(Text::class)
@@ -656,7 +686,13 @@ final class FormLabelTest extends TestCase
         $textDomain            = 'text-domain';
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
-        $expected              = sprintf('<label for="%s" class="%s">%s%s</label>', $for, $class, $escapedTranlatedLabel, $labelContent);
+        $expected              = sprintf(
+            '<label for="%s" class="%s">%s%s</label>',
+            $for,
+            $class,
+            $escapedTranlatedLabel,
+            $labelContent,
+        );
         $position              = FormLabelInterface::PREPEND;
 
         $element = $this->getMockBuilder(Text::class)
@@ -723,7 +759,12 @@ final class FormLabelTest extends TestCase
         $textDomain            = 'text-domain';
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
-        $expected              = sprintf('<label for="%s" class="%s">%s</label>', $for, $class, $escapedTranlatedLabel);
+        $expected              = sprintf(
+            '<label for="%s" class="%s">%s</label>',
+            $for,
+            $class,
+            $escapedTranlatedLabel,
+        );
         $position              = FormLabelInterface::PREPEND;
 
         $element = $this->getMockBuilder(Text::class)

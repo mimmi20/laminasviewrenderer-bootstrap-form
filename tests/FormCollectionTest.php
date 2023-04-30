@@ -240,7 +240,15 @@ final class FormCollectionTest extends TestCase
             ->method('toHtml')
             ->willReturnMap(
                 [
-                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $labelEscaped), $expectedLegend],
+                    [
+                        'legend',
+                        ['class' => ''],
+                        sprintf(
+                            '<span>%s</span>',
+                            $labelEscaped,
+                        ),
+                        $expectedLegend,
+                    ],
                     ['fieldset', [], PHP_EOL . '    ' . $expectedLegend . PHP_EOL, $expectedFieldset],
                 ],
             );
@@ -377,9 +385,25 @@ final class FormCollectionTest extends TestCase
             ->method('toHtml')
             ->willReturnMap(
                 [
-                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelEscaped), $expectedInnerLegend],
+                    [
+                        'legend',
+                        ['class' => ''],
+                        sprintf(
+                            '<span>%s</span>',
+                            $innerLabelEscaped,
+                        ),
+                        $expectedInnerLegend,
+                    ],
                     ['fieldset', [], PHP_EOL . '        ' . $expectedInnerLegend . PHP_EOL . '    ', $expectedInnerFieldset],
-                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $labelEscaped), $expectedLegend],
+                    [
+                        'legend',
+                        ['class' => ''],
+                        sprintf(
+                            '<span>%s</span>',
+                            $labelEscaped,
+                        ),
+                        $expectedLegend,
+                    ],
                     ['fieldset', [], PHP_EOL . '    ' . $expectedLegend . PHP_EOL . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL, $expectedFieldset],
                 ],
             );
@@ -558,9 +582,25 @@ final class FormCollectionTest extends TestCase
             ->method('toHtml')
             ->willReturnMap(
                 [
-                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelEscaped), $expectedInnerLegend],
+                    [
+                        'legend',
+                        ['class' => ''],
+                        sprintf(
+                            '<span>%s</span>',
+                            $innerLabelEscaped,
+                        ),
+                        $expectedInnerLegend,
+                    ],
                     ['fieldset', [], PHP_EOL . '        ' . $expectedInnerLegend . PHP_EOL . '    ', $expectedInnerFieldset],
-                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $labelEscaped), $expectedLegend],
+                    [
+                        'legend',
+                        ['class' => ''],
+                        sprintf(
+                            '<span>%s</span>',
+                            $labelEscaped,
+                        ),
+                        $expectedLegend,
+                    ],
                     ['fieldset', [], PHP_EOL . '    ' . $expectedLegend . PHP_EOL . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL, $expectedFieldset],
                 ],
             );
@@ -750,7 +790,15 @@ final class FormCollectionTest extends TestCase
             ->method('toHtml')
             ->willReturnMap(
                 [
-                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabel), $expectedInnerLegend],
+                    [
+                        'legend',
+                        ['class' => ''],
+                        sprintf(
+                            '<span>%s</span>',
+                            $innerLabel,
+                        ),
+                        $expectedInnerLegend,
+                    ],
                     ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    ', $expectedInnerFieldset],
                     ['legend', ['class' => ''], $label, $expectedLegend],
                     ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent, $expectedFieldset],
@@ -938,7 +986,15 @@ final class FormCollectionTest extends TestCase
             ->method('toHtml')
             ->willReturnMap(
                 [
-                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabel), $expectedInnerLegend],
+                    [
+                        'legend',
+                        ['class' => ''],
+                        sprintf(
+                            '<span>%s</span>',
+                            $innerLabel,
+                        ),
+                        $expectedInnerLegend,
+                    ],
                     ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    ', $expectedInnerFieldset],
                     ['legend', ['class' => ''], $label, $expectedLegend],
                     ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent, $expectedFieldset],
@@ -1146,7 +1202,15 @@ final class FormCollectionTest extends TestCase
             ->method('toHtml')
             ->willReturnMap(
                 [
-                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelTranslated), $expectedInnerLegend],
+                    [
+                        'legend',
+                        ['class' => ''],
+                        sprintf(
+                            '<span>%s</span>',
+                            $innerLabelTranslated,
+                        ),
+                        $expectedInnerLegend,
+                    ],
                     ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    ', $expectedInnerFieldset],
                     ['legend', ['class' => ''], $labelTranslated, $expectedLegend],
                     ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent, $expectedFieldset],
@@ -1363,7 +1427,15 @@ final class FormCollectionTest extends TestCase
             ->method('toHtml')
             ->willReturnMap(
                 [
-                    ['legend', ['class' => ''], sprintf('<span>%s</span>', $innerLabelTranslatedEscaped), $expectedInnerLegend],
+                    [
+                        'legend',
+                        ['class' => ''],
+                        sprintf(
+                            '<span>%s</span>',
+                            $innerLabelTranslatedEscaped,
+                        ),
+                        $expectedInnerLegend,
+                    ],
                     ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    ', $expectedInnerFieldset],
                     ['legend', ['class' => ''], $labelTranslatedEscaped, $expectedLegend],
                     ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent, $expectedFieldset],

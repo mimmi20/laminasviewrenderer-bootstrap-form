@@ -29,7 +29,11 @@ final class FormFileFactoryTest extends TestCase
 {
     private FormFileFactory $factory;
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     protected function setUp(): void
     {
         $this->factory = new FormFileFactory();
@@ -86,7 +90,9 @@ final class FormFileFactoryTest extends TestCase
 
         $this->expectException(AssertionError::class);
         $this->expectExceptionCode(1);
-        $this->expectExceptionMessage('$plugin should be an Instance of Laminas\View\HelperPluginManager, but was bool');
+        $this->expectExceptionMessage(
+            '$plugin should be an Instance of Laminas\View\HelperPluginManager, but was bool',
+        );
 
         ($this->factory)($container);
     }

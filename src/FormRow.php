@@ -47,12 +47,19 @@ use function trim;
 
 use const PHP_EOL;
 
-/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
+/**
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ * @psalm-suppress ReservedWord
+ */
 final class FormRow extends BaseFormRow implements FormRowInterface
 {
     use FormTrait;
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     public function __construct(
         private readonly FormElementInterface $formElement,
         private readonly FormElementErrorsInterface $formElementErrors,
@@ -61,6 +68,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         private readonly RendererInterface $renderer,
         private readonly Translate | null $translate = null,
     ) {
+        // nothing to do
     }
 
     /**
@@ -79,7 +87,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     {
         $form = $element->getOption('form');
         assert(
-            $form instanceof FormInterface || null === $form,
+            $form instanceof FormInterface || $form === null,
             sprintf(
                 '$form should be an Instance of %s or null, but was %s',
                 FormInterface::class,
@@ -87,13 +95,10 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             ),
         );
 
-        if (null !== $form && !$element->hasAttribute('required')) {
+        if ($form !== null && !$element->hasAttribute('required')) {
             $elementName = $element->getName();
 
-            if (
-                null !== $elementName
-                && $form->getInputFilter()->has($elementName)
-            ) {
+            if ($elementName !== null && $form->getInputFilter()->has($elementName)) {
                 $filter = $form->getInputFilter()->get($elementName);
 
                 if ($filter instanceof InputInterface && $filter->isRequired()) {
@@ -104,7 +109,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
         $label = $element->getLabel() ?? '';
 
-        if (null === $labelPosition) {
+        if ($labelPosition === null) {
             $labelPosition = $this->getLabelPosition();
         }
 
@@ -112,13 +117,15 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $type = $element->getAttribute('type');
 
         // Translate the label
-        if ('' !== $label && null !== $this->translate && 'hidden' !== $type) {
+        if ($label !== '' && $this->translate !== null && $type !== 'hidden') {
             $label = ($this->translate)($label, $this->getTranslatorTextDomain());
         }
 
         // Does this element have errors ?
         if ($element->getMessages()) {
-            $classAttributes  = $element->hasAttribute('class') ? $element->getAttribute('class') . ' ' : '';
+            $classAttributes  = $element->hasAttribute('class')
+                ? $element->getAttribute('class') . ' '
+                : '';
             $classAttributes .= 'is-invalid';
 
             $element->setAttribute('class', $classAttributes);
@@ -139,7 +146,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             return $this->renderer->render($this->partial, $vars);
         }
 
-        if ('hidden' === $type) {
+        if ($type === 'hidden') {
             $this->formElement->setIndent($indent);
             $markup = $this->formElement->render($element);
 
@@ -150,7 +157,13 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             return $markup;
         }
 
-        if ('' !== $label && (!$element instanceof LabelAwareInterface || !$element->getLabelOption('disable_html_escape'))) {
+        if (
+            $label !== ''
+            && (
+                !$element instanceof LabelAwareInterface
+                || !$element->getLabelOption('disable_html_escape')
+            )
+        ) {
             $label = ($this->escapeHtml)($label);
 
             assert(is_string($label));
@@ -160,11 +173,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $label .= $element->getOption('field-required-mark');
         }
 
-        if (Form::LAYOUT_HORIZONTAL === $element->getOption('layout')) {
+        if ($element->getOption('layout') === Form::LAYOUT_HORIZONTAL) {
             return $this->renderHorizontalRow($element, $label);
         }
 
-        if ('' !== $label) {
+        if ($label !== '') {
             return $this->renderVerticalRow($element, $label, $labelPosition);
         }
 
@@ -213,10 +226,6 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $labelAttributes          = [...$labelColAttributes, ...$labelAttributes];
         $labelAttributes['class'] = trim(implode(' ', array_unique($labelClasses)));
 
-        assert(is_array($rowAttributes));
-        assert(is_array($colAttributes));
-        assert(is_array($labelAttributes));
-
         $indent = $this->getIndent();
 
         // Multicheckbox elements have to be handled differently as the HTML standard does not allow nested
@@ -227,7 +236,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             || $element instanceof MonthSelect
             || $element instanceof Captcha
         ) {
-            $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml('legend', $labelAttributes, $label) . PHP_EOL;
+            $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+                'legend',
+                $labelAttributes,
+                $label,
+            ) . PHP_EOL;
 
             $errorContent = '';
             $helpContent  = '';
@@ -244,9 +257,17 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $elementString  = $this->formElement->render($element);
             $elementString .= $errorContent . $helpContent;
 
-            $outerDiv = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml('div', $colAttributes, PHP_EOL . $elementString . PHP_EOL . $indent . $this->getWhitespace(4));
+            $outerDiv = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+                'div',
+                $colAttributes,
+                PHP_EOL . $elementString . PHP_EOL . $indent . $this->getWhitespace(4),
+            );
 
-            return $indent . $this->htmlElement->toHtml('fieldset', $rowAttributes, PHP_EOL . $legend . $outerDiv . PHP_EOL . $indent);
+            return $indent . $this->htmlElement->toHtml(
+                'fieldset',
+                $rowAttributes,
+                PHP_EOL . $legend . $outerDiv . PHP_EOL . $indent,
+            );
         }
 
         if (
@@ -271,9 +292,17 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $elementString  = $this->formElement->render($element);
             $elementString .= $errorContent . $helpContent;
 
-            $outerDiv = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml('div', $colAttributes, PHP_EOL . $elementString . PHP_EOL . $indent . $this->getWhitespace(4));
+            $outerDiv = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+                'div',
+                $colAttributes,
+                PHP_EOL . $elementString . PHP_EOL . $indent . $this->getWhitespace(4),
+            );
 
-            return $indent . $this->htmlElement->toHtml('div', $rowAttributes, PHP_EOL . $outerDiv . PHP_EOL . $indent);
+            return $indent . $this->htmlElement->toHtml(
+                'div',
+                $rowAttributes,
+                PHP_EOL . $outerDiv . PHP_EOL . $indent,
+            );
         }
 
         if ($element->hasAttribute('id')) {
@@ -284,7 +313,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $labelAttributes['for'] = $id;
         }
 
-        $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml('label', $labelAttributes, $label) . PHP_EOL;
+        $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+            'label',
+            $labelAttributes,
+            $label,
+        ) . PHP_EOL;
 
         $errorContent = '';
         $helpContent  = '';
@@ -301,9 +334,17 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $elementString  = $this->formElement->render($element);
         $elementString .= $errorContent . $helpContent;
 
-        $outerDiv = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml('div', $colAttributes, PHP_EOL . $elementString . PHP_EOL . $indent . $this->getWhitespace(4));
+        $outerDiv = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+            'div',
+            $colAttributes,
+            PHP_EOL . $elementString . PHP_EOL . $indent . $this->getWhitespace(4),
+        );
 
-        return $indent . $this->htmlElement->toHtml('div', $rowAttributes, PHP_EOL . $legend . $outerDiv . PHP_EOL . $indent);
+        return $indent . $this->htmlElement->toHtml(
+            'div',
+            $rowAttributes,
+            PHP_EOL . $legend . $outerDiv . PHP_EOL . $indent,
+        );
     }
 
     /**
@@ -318,9 +359,6 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     ): string {
         $colAttributes   = $this->mergeAttributes($element, 'col_attributes', []);
         $labelAttributes = $this->mergeAttributes($element, 'label_attributes', ['form-label']);
-
-        assert(is_array($colAttributes));
-        assert(is_array($labelAttributes));
 
         if ($element->hasAttribute('id')) {
             $id = $element->getAttribute('id');
@@ -351,7 +389,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
             $legendAttributes['class'] = trim(implode(' ', array_unique($legendClasses)));
 
-            $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml('legend', $legendAttributes, $label) . PHP_EOL;
+            $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+                'legend',
+                $legendAttributes,
+                $label,
+            ) . PHP_EOL;
 
             $errorContent = '';
             $helpContent  = '';
@@ -376,13 +418,25 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $elementString .= $errorContent . $helpContent;
 
             if ($floating) {
-                $elementString = $this->htmlElement->toHtml('div', ['class' => 'form-control'], PHP_EOL . $elementString . PHP_EOL . $indent) . PHP_EOL . $legend;
-                $elementString = $indent . $this->htmlElement->toHtml('div', ['class' => 'form-floating'], PHP_EOL . $elementString . $indent);
+                $elementString = $this->htmlElement->toHtml(
+                    'div',
+                    ['class' => 'form-control'],
+                    PHP_EOL . $elementString . PHP_EOL . $indent,
+                ) . PHP_EOL . $legend;
+                $elementString = $indent . $this->htmlElement->toHtml(
+                    'div',
+                    ['class' => 'form-floating'],
+                    PHP_EOL . $elementString . $indent,
+                );
             } else {
                 $elementString = $legend . $elementString;
             }
 
-            return $baseIndent . $this->htmlElement->toHtml('fieldset', $colAttributes, PHP_EOL . $elementString . PHP_EOL . $baseIndent);
+            return $baseIndent . $this->htmlElement->toHtml(
+                'fieldset',
+                $colAttributes,
+                PHP_EOL . $elementString . PHP_EOL . $baseIndent,
+            );
         }
 
         if (
@@ -407,7 +461,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $elementString  = $this->formElement->render($element);
             $elementString .= $errorContent . $helpContent;
 
-            return $indent . $this->htmlElement->toHtml('div', $colAttributes, PHP_EOL . $elementString . PHP_EOL . $indent);
+            return $indent . $this->htmlElement->toHtml(
+                'div',
+                $colAttributes,
+                PHP_EOL . $elementString . PHP_EOL . $indent,
+            );
         }
 
         $floating   = $element->getOption('floating');
@@ -427,7 +485,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
         }
 
-        $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml('label', $labelAttributes, $label);
+        $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+            'label',
+            $labelAttributes,
+            $label,
+        );
 
         $errorContent = '';
         $helpContent  = '';
@@ -451,10 +513,18 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $rendered .= $errorContent . $helpContent;
 
         if ($floating) {
-            $rendered = $indent . $this->htmlElement->toHtml('div', ['class' => 'form-floating'], PHP_EOL . $rendered . PHP_EOL . $indent);
+            $rendered = $indent . $this->htmlElement->toHtml(
+                'div',
+                ['class' => 'form-floating'],
+                PHP_EOL . $rendered . PHP_EOL . $indent,
+            );
         }
 
-        return $baseIndent . $this->htmlElement->toHtml('div', $colAttributes, PHP_EOL . $rendered . PHP_EOL . $baseIndent);
+        return $baseIndent . $this->htmlElement->toHtml(
+            'div',
+            $colAttributes,
+            PHP_EOL . $rendered . PHP_EOL . $baseIndent,
+        );
     }
 
     /** @throws Exception\DomainException */
@@ -464,7 +534,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $elementErrors = $this->formElementErrors->render($element);
 
         if ($elementErrors && $element->hasAttribute('id')) {
-            $ariaDesc = $element->hasAttribute('aria-describedby') ? $element->getAttribute('aria-describedby') . ' ' : '';
+            $ariaDesc = $element->hasAttribute('aria-describedby')
+                ? $element->getAttribute('aria-describedby') . ' '
+                : '';
 
             $ariaDesc .= $element->getAttribute('id') . 'Feedback';
 
@@ -474,7 +546,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         return $elementErrors;
     }
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     private function renderFormHelp(ElementInterface $element, string $indent): string
     {
         $helpContent = $element->getOption('help_content');
@@ -485,7 +561,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         if ($element->hasAttribute('id')) {
             $attributes['id'] = $element->getAttribute('id') . 'Help';
 
-            $ariaDesc = $element->hasAttribute('aria-describedby') ? $element->getAttribute('aria-describedby') . ' ' : '';
+            $ariaDesc = $element->hasAttribute('aria-describedby')
+                ? $element->getAttribute('aria-describedby') . ' '
+                : '';
 
             $ariaDesc .= $element->getAttribute('id') . 'Help';
 
@@ -515,7 +593,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
         $form = $element->getOption('form');
         assert(
-            $form instanceof FormInterface || null === $form,
+            $form instanceof FormInterface || $form === null,
             sprintf(
                 '$form should be an Instance of %s or null, but was %s',
                 FormInterface::class,
@@ -523,7 +601,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             ),
         );
 
-        if (null !== $form) {
+        if ($form !== null) {
             $formAttributes = $form->getOption($optionName) ?? [];
 
             assert(is_array($formAttributes));

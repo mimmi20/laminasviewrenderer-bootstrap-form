@@ -15,6 +15,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 
+/** @psalm-suppress ReservedWord */
 interface FormSelectInterface extends FormIndentInterface
 {
     /**
@@ -26,6 +27,8 @@ interface FormSelectInterface extends FormIndentInterface
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
     public function __invoke(ElementInterface | null $element = null);
 
@@ -53,19 +56,25 @@ interface FormSelectInterface extends FormIndentInterface
      *
      * @param array<int|string, array<string, string>|string> $options
      * @param array<int|string, string>                       $selectedOptions Option values that should be marked as selected
+     * @phpstan-param array<int|string, array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string> $options
      *
      * @throws void
      */
     public function renderOptions(array $options, array $selectedOptions, int $level): string;
 
     /**
-     * @param int|string                   $key
      * @param array<string, string>|string $optionSpec
      * @param array<int|string, string>    $selectedOptions
+     * @phpstan-param array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string $optionSpec
      *
      * @throws void
      */
-    public function renderOption($key, $optionSpec, array $selectedOptions, int $level): string;
+    public function renderOption(
+        int | string $key,
+        array | string $optionSpec,
+        array $selectedOptions,
+        int $level,
+    ): string;
 
     /**
      * Render an optgroup

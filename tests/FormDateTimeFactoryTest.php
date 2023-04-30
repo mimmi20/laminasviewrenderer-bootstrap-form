@@ -29,7 +29,11 @@ final class FormDateTimeFactoryTest extends TestCase
 {
     private FormDateTimeFactory $factory;
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     protected function setUp(): void
     {
         $this->factory = new FormDateTimeFactory();
@@ -86,7 +90,9 @@ final class FormDateTimeFactoryTest extends TestCase
 
         $this->expectException(AssertionError::class);
         $this->expectExceptionCode(1);
-        $this->expectExceptionMessage('$plugin should be an Instance of Laminas\View\HelperPluginManager, but was bool');
+        $this->expectExceptionMessage(
+            '$plugin should be an Instance of Laminas\View\HelperPluginManager, but was bool',
+        );
 
         ($this->factory)($container);
     }

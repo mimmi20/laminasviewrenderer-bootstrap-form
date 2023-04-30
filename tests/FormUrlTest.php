@@ -93,7 +93,12 @@ final class FormUrlTest extends TestCase
         $class = 'test-class';
         $value = 'test-value';
 
-        $expected = sprintf('<input class="form-control&#x20;%s" name="%s" type="url" value="%s">', $class, $name, $value);
+        $expected = sprintf(
+            '<input class="form-control&#x20;%s" name="%s" type="url" value="%s">',
+            $class,
+            $name,
+            $value,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()
@@ -152,7 +157,12 @@ final class FormUrlTest extends TestCase
         $class = 'test-class';
         $value = 'test-value';
 
-        $expected = sprintf('<input class="form-control&#x20;%s" name="%s" type="url" value="%s"/>', $class, $name, $value);
+        $expected = sprintf(
+            '<input class="form-control&#x20;%s" name="%s" type="url" value="%s"/>',
+            $class,
+            $name,
+            $value,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()
@@ -211,7 +221,11 @@ final class FormUrlTest extends TestCase
         $class = 'test-class';
         $value = 'test-value';
 
-        $expected = sprintf('<input class="form-control-plaintext" readonly="readonly" name="%s" type="url" value="%s"/>', $name, $value);
+        $expected = sprintf(
+            '<input class="form-control-plaintext" readonly="readonly" name="%s" type="url" value="%s"/>',
+            $name,
+            $value,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()

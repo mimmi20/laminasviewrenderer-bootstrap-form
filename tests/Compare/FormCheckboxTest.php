@@ -84,7 +84,15 @@ final class FormCheckboxTest extends AbstractTestCase
         assert($htmlElement instanceof HtmlElementInterface);
         assert($hidden instanceof FormHiddenInterface);
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $docType, $label, $htmlElement, $hidden, null);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $docType,
+            $label,
+            $htmlElement,
+            $hidden,
+            null,
+        );
 
         self::assertSame($expected, trim($helper->render($form->get('gridCheck1'))));
     }

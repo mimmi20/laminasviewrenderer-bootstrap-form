@@ -40,6 +40,8 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
      *
      * @throws DomainException
      * @throws InvalidArgumentException
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
     public function __invoke(
         ElementInterface | null $element = null,
@@ -52,7 +54,7 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
 
         $this->setDateType($dateType);
 
-        if (null !== $locale) {
+        if ($locale !== null) {
             $this->setLocale($locale);
         }
 
@@ -79,7 +81,7 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
 
         $name = $element->getName();
 
-        if (null === $name || '' === $name) {
+        if ($name === null || $name === '') {
             throw new Exception\DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
@@ -115,11 +117,7 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
 
         foreach ($pattern as $key => $value) {
             // Delimiter
-            if (is_numeric($key)) {
-                $markups[] = $indent . $value;
-            } else {
-                $markups[] = $data[$value];
-            }
+            $markups[] = is_numeric($key) ? $indent . $value : $data[$value];
         }
 
         return $indent . PHP_EOL . implode(PHP_EOL, $markups) . PHP_EOL . $indent;

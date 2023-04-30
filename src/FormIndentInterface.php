@@ -18,20 +18,21 @@ interface FormIndentInterface
      * Set the indentation string for using in {@link render()}, optionally a
      * number of spaces to indent with
      *
-     * @param int|string $indent
-     *
      * @return self
      *
      * @throws void
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
+     * @psalm-suppress ReservedWord
      */
-    public function setIndent($indent);
+    public function setIndent(int | string $indent);
 
     /**
      * Returns indentation
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     public function getIndent(): string;
 }

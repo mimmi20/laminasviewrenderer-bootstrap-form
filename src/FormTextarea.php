@@ -55,11 +55,16 @@ final class FormTextarea extends AbstractHelper
         'wrap' => true,
     ];
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     public function __construct(
         private readonly HtmlElementInterface $htmlElement,
         private readonly EscapeHtml $escapeHtml,
     ) {
+        // nothing to do
     }
 
     /**
@@ -67,11 +72,9 @@ final class FormTextarea extends AbstractHelper
      *
      * Proxies to {@link render()}.
      *
-     * @return FormTextarea|string
-     *
      * @throws Exception\DomainException
      */
-    public function __invoke(ElementInterface | null $element = null)
+    public function __invoke(ElementInterface | null $element = null): self | string
     {
         if (!$element) {
             return $this;
@@ -89,7 +92,7 @@ final class FormTextarea extends AbstractHelper
     {
         $name = $element->getName();
 
-        if (empty($name) && 0 !== $name) {
+        if (empty($name)) {
             throw new Exception\DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',

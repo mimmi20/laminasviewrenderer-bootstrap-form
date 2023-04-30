@@ -20,6 +20,7 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
 
+/** @psalm-suppress ReservedWord */
 interface FormCollectionInterface extends FormIndentInterface, FormRenderInterface
 {
     /**
@@ -35,6 +36,8 @@ interface FormCollectionInterface extends FormIndentInterface, FormRenderInterfa
      * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws Exception\InvalidArgumentException
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
     public function __invoke(ElementInterface | null $element = null, bool $wrap = true);
 

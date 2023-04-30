@@ -27,7 +27,11 @@ final class FormDateSelectFactoryTest extends TestCase
 {
     private FormDateSelectFactory $factory;
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     protected function setUp(): void
     {
         $this->factory = new FormDateSelectFactory();
@@ -77,7 +81,9 @@ final class FormDateSelectFactoryTest extends TestCase
 
         $this->expectException(AssertionError::class);
         $this->expectExceptionCode(1);
-        $this->expectExceptionMessage('$plugin should be an Instance of Laminas\View\HelperPluginManager, but was bool');
+        $this->expectExceptionMessage(
+            '$plugin should be an Instance of Laminas\View\HelperPluginManager, but was bool',
+        );
 
         ($this->factory)($container);
     }

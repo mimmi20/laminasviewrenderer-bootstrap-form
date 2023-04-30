@@ -28,8 +28,6 @@ interface FormLabelInterface
      * Always generates a "for" statement, as we cannot assume the form input
      * will be provided in the $labelContent.
      *
-     * @return FormLabel|string
-     *
      * @throws Exception\DomainException
      * @throws InvalidArgumentException
      */
@@ -37,7 +35,7 @@ interface FormLabelInterface
         ElementInterface | null $element = null,
         string | null $labelContent = null,
         string | null $position = null,
-    );
+    ): FormLabel | string;
 
     /**
      * Generate an opening label tag
@@ -47,12 +45,14 @@ interface FormLabelInterface
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
      */
-    public function openTag($attributesOrElement = null): string;
+    public function openTag(array | ElementInterface | null $attributesOrElement = null): string;
 
     /**
      * Return a closing label tag
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     public function closeTag(): string;
 }

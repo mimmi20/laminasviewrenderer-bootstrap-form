@@ -27,6 +27,7 @@ final class FormFile extends FormInput
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     * @psalm-suppress NonInvariantDocblockPropertyType
      */
     protected $validTagAttributes = [
         'name' => true,
@@ -48,7 +49,7 @@ final class FormFile extends FormInput
     {
         $name = $element->getName();
 
-        if (null === $name || '' === $name) {
+        if ($name === null || $name === '') {
             throw new Exception\DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
@@ -90,6 +91,7 @@ final class FormFile extends FormInput
      * @throws void
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+     * @psalm-suppress ReservedWord
      */
     protected function getType(ElementInterface $element): string
     {

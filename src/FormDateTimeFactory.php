@@ -23,7 +23,7 @@ use function assert;
 use function get_debug_type;
 use function sprintf;
 
-/** @deprecated */
+/** @deprecated This element is deprecated as it has been removed from WHATWG HTML */
 final class FormDateTimeFactory
 {
     /** @throws ContainerExceptionInterface */
