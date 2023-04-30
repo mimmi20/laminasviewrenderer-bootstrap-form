@@ -25,11 +25,27 @@ trait FormDateSelectTrait
      * @return array<int|string, array<string, string>>
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     private function getDaysOptions(string $pattern): array
     {
-        $keyFormatter   = new IntlDateFormatter($this->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'dd');
-        $valueFormatter = new IntlDateFormatter($this->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, $pattern);
+        $keyFormatter   = new IntlDateFormatter(
+            $this->getLocale(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'dd',
+        );
+        $valueFormatter = new IntlDateFormatter(
+            $this->getLocale(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            $pattern,
+        );
         $date           = new DateTime('1970-01-01');
 
         $result = [];
@@ -37,13 +53,13 @@ trait FormDateSelectTrait
         for ($day = 1; 31 >= $day; ++$day) {
             $key = $keyFormatter->format($date->getTimestamp());
 
-            if (false === $key) {
+            if ($key === false) {
                 continue;
             }
 
             $value = $valueFormatter->format($date->getTimestamp());
 
-            if (false === $value) {
+            if ($value === false) {
                 continue;
             }
 

@@ -26,6 +26,7 @@ use function str_replace;
 use const PREG_SPLIT_DELIM_CAPTURE;
 use const PREG_SPLIT_NO_EMPTY;
 
+/** @psalm-suppress ReservedWord */
 trait FormMonthSelectTrait
 {
     /**
@@ -73,8 +74,12 @@ trait FormMonthSelectTrait
      */
     public function getPattern(): string
     {
-        if (null === $this->pattern) {
-            $intl          = new IntlDateFormatter($this->getLocale(), $this->dateType, IntlDateFormatter::NONE);
+        if ($this->pattern === null) {
+            $intl          = new IntlDateFormatter(
+                $this->getLocale(),
+                $this->dateType,
+                IntlDateFormatter::NONE,
+            );
             $this->pattern = $intl->getPattern();
         }
 
@@ -89,7 +94,7 @@ trait FormMonthSelectTrait
     public function setDateType(int $dateType): self
     {
         // The FULL format uses values that are not used
-        if (IntlDateFormatter::FULL === $dateType) {
+        if ($dateType === IntlDateFormatter::FULL) {
             $dateType = IntlDateFormatter::LONG;
         }
 
@@ -127,7 +132,7 @@ trait FormMonthSelectTrait
      */
     public function getLocale(): string
     {
-        if (null === $this->locale) {
+        if ($this->locale === null) {
             $this->locale = Locale::getDefault();
         }
 
@@ -151,18 +156,18 @@ trait FormMonthSelectTrait
             PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY,
         );
 
-        if (false === $pregResult) {
+        if ($pregResult === false) {
             return [];
         }
 
         $result = [];
 
         foreach ($pregResult as $value) {
-            if (false === mb_stripos($value, '\'') && false !== mb_stripos($value, 'd')) {
+            if (mb_stripos($value, '\'') === false && mb_stripos($value, 'd') !== false) {
                 $result['day'] = $value;
-            } elseif (false === mb_stripos($value, '\'') && false !== mb_stripos($value, 'm')) {
+            } elseif (mb_stripos($value, '\'') === false && mb_stripos($value, 'm') !== false) {
                 $result['month'] = $value;
-            } elseif (false === mb_stripos($value, '\'') && false !== mb_stripos($value, 'y')) {
+            } elseif (mb_stripos($value, '\'') === false && mb_stripos($value, 'y') !== false) {
                 $result['year'] = $value;
             } elseif ($renderDelimiters) {
                 $result[] = str_replace('\'', '', $value);
@@ -183,8 +188,22 @@ trait FormMonthSelectTrait
      */
     private function getMonthsOptions(string $pattern): array
     {
-        $keyFormatter   = new IntlDateFormatter($this->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'MM');
-        $valueFormatter = new IntlDateFormatter($this->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, $pattern);
+        $keyFormatter   = new IntlDateFormatter(
+            $this->getLocale(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'MM',
+        );
+        $valueFormatter = new IntlDateFormatter(
+            $this->getLocale(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            $pattern,
+        );
         $date           = new DateTime('1970-01-01');
 
         $result = [];
@@ -192,13 +211,13 @@ trait FormMonthSelectTrait
         for ($month = 1; 12 >= $month; ++$month) {
             $key = $keyFormatter->format($date->getTimestamp());
 
-            if (false === $key) {
+            if ($key === false) {
                 continue;
             }
 
             $value = $valueFormatter->format($date->getTimestamp());
 
-            if (false === $value) {
+            if ($value === false) {
                 continue;
             }
 

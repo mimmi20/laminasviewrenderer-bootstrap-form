@@ -42,11 +42,16 @@ final class Form extends BaseForm
 
     public const LAYOUT_INLINE = 'inline';
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     public function __construct(
         private readonly FormCollectionInterface $formCollection,
         private readonly FormRowInterface $formRow,
     ) {
+        // nothing to do
     }
 
     /**
@@ -76,13 +81,13 @@ final class Form extends BaseForm
 
         assert(is_string($class));
 
-        if (null === $formLayout && $form->getOption('floating-labels')) {
+        if ($formLayout === null && $form->getOption('floating-labels')) {
             $formLayout = self::LAYOUT_VERTICAL;
         }
 
-        if (self::LAYOUT_VERTICAL === $formLayout) {
+        if ($formLayout === self::LAYOUT_VERTICAL) {
             $class .= ' row';
-        } elseif (self::LAYOUT_INLINE === $formLayout) {
+        } elseif ($formLayout === self::LAYOUT_INLINE) {
             $class .= ' row row-cols-lg-auto align-items-center';
         }
 
@@ -96,7 +101,7 @@ final class Form extends BaseForm
 
             $element->setOption('form', $form);
 
-            if (null !== $formLayout && !$element->getOption('layout')) {
+            if ($formLayout !== null && !$element->getOption('layout')) {
                 $element->setOption('layout', $formLayout);
             }
 
@@ -105,7 +110,13 @@ final class Form extends BaseForm
                 $element->setOption('field-required-mark', $form->getOption('field-required-mark'));
             }
 
-            if ((self::LAYOUT_VERTICAL === $formLayout || self::LAYOUT_INLINE === $formLayout) && $form->getOption('floating-labels')) {
+            if (
+                (
+                    $formLayout === self::LAYOUT_VERTICAL
+                    || $formLayout === self::LAYOUT_INLINE
+                )
+                && $form->getOption('floating-labels')
+            ) {
                 $element->setOption('floating', true);
             }
 

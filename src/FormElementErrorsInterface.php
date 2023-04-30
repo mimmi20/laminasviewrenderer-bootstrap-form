@@ -28,6 +28,8 @@ interface FormElementErrorsInterface extends FormIndentInterface
      * @return self|string
      *
      * @throws DomainException
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
     public function __invoke(ElementInterface | null $element = null, array $attributes = []);
 
@@ -50,6 +52,8 @@ interface FormElementErrorsInterface extends FormIndentInterface
      * @param array<string, string> $attributes key value pairs of attributes
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     public function setAttributes(array $attributes): self;
 
@@ -59,6 +63,8 @@ interface FormElementErrorsInterface extends FormIndentInterface
      * @return array<string, string>
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     public function getAttributes(): array;
 }

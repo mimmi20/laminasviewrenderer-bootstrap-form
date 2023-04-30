@@ -25,6 +25,7 @@ use function get_debug_type;
 use function is_array;
 use function sprintf;
 
+/** @psalm-suppress ReservedWord */
 final class FormLabel extends AbstractHelper implements FormLabelInterface
 {
     /**
@@ -32,17 +33,23 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     * @psalm-suppress NonInvariantDocblockPropertyType
      */
     protected $validTagAttributes = [
         'for' => true,
         'form' => true,
     ];
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     public function __construct(
         private readonly EscapeHtml $escaper,
         private readonly Translate | null $translate = null,
     ) {
+        // nothing to do
     }
 
     /**
@@ -51,8 +58,6 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
      * Always generates a "for" statement, as we cannot assume the form input
      * will be provided in the $labelContent.
      *
-     * @return FormLabel|string
-     *
      * @throws Exception\DomainException
      * @throws InvalidArgumentException
      */
@@ -60,17 +65,17 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
         ElementInterface | null $element = null,
         string | null $labelContent = null,
         string | null $position = null,
-    ) {
+    ): self | string {
         if (!$element) {
             return $this;
         }
 
         $label = '';
 
-        if (null === $labelContent || null !== $position) {
+        if ($labelContent === null || $position !== null) {
             $label = $element->getLabel();
 
-            if (null === $labelContent && empty($label)) {
+            if ($labelContent === null && empty($label)) {
                 throw new Exception\DomainException(
                     sprintf(
                         '%s expects either label content as the second argument, or that the element provided has a label attribute; neither found',
@@ -80,17 +85,22 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
             }
 
             if (!empty($label)) {
-                if (null !== $this->translate) {
+                if ($this->translate !== null) {
                     $label = ($this->translate)($label, $this->getTranslatorTextDomain());
                 }
 
-                if (!$element instanceof LabelAwareInterface || !$element->getLabelOption('disable_html_escape')) {
+                if (
+                    !$element instanceof LabelAwareInterface
+                    || !$element->getLabelOption('disable_html_escape')
+                ) {
                     $label = ($this->escaper)($label);
                 }
 
                 if (
-                    '' !== $label && !$element->hasAttribute('id')
-                    || ($element instanceof LabelAwareInterface && $element->getLabelOption('always_wrap'))
+                    $label !== '' && !$element->hasAttribute('id')
+                    || ($element instanceof LabelAwareInterface && $element->getLabelOption(
+                        'always_wrap',
+                    ))
                 ) {
                     $label = '<span>' . $label . '</span>';
                 }
@@ -111,7 +121,7 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
             }
         }
 
-        if ($label && null === $labelContent) {
+        if ($label && $labelContent === null) {
             $labelContent = $label;
         }
 
@@ -125,10 +135,12 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function openTag($attributesOrElement = null): string
     {
-        if (null === $attributesOrElement) {
+        if ($attributesOrElement === null) {
             return '<label>';
         }
 
@@ -150,7 +162,7 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
 
         $id = $this->getId($attributesOrElement);
 
-        if (null === $id) {
+        if ($id === null) {
             throw new Exception\DomainException(
                 sprintf(
                     '%s expects the Element provided to have either a name or an id present; neither found',

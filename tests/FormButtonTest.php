@@ -444,7 +444,13 @@ final class FormButtonTest extends AbstractTestCase
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
 
-        $expected = sprintf('<button type="%s" name="%s" value="%s">%s</button>', $type, $name, $value, $escapedTranlatedLabel);
+        $expected = sprintf(
+            '<button type="%s" name="%s" value="%s">%s</button>',
+            $type,
+            $name,
+            $value,
+            $escapedTranlatedLabel,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()
@@ -516,7 +522,13 @@ final class FormButtonTest extends AbstractTestCase
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
 
-        $expected = sprintf('<button type="%s" name="%s" value="%s">%s</button>', $type, $name, $value, $escapedTranlatedLabel);
+        $expected = sprintf(
+            '<button type="%s" name="%s" value="%s">%s</button>',
+            $type,
+            $name,
+            $value,
+            $escapedTranlatedLabel,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()
@@ -591,7 +603,13 @@ final class FormButtonTest extends AbstractTestCase
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
 
-        $expected = sprintf('<button type="%s" name="%s" value="%s">%s</button>', $type, $name, $value, $escapedTranlatedLabel);
+        $expected = sprintf(
+            '<button type="%s" name="%s" value="%s">%s</button>',
+            $type,
+            $name,
+            $value,
+            $escapedTranlatedLabel,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()

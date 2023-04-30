@@ -66,7 +66,10 @@ abstract class AbstractTestCase extends TestCase
         $sm->setFactory(
             HelperPluginManager::class,
             /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
-            static fn (ContainerInterface $container, string $requestedName, array | null $options = null): HelperPluginManager => new HelperPluginManager($sm, $config['view_helpers']),
+            static fn (ContainerInterface $container, string $requestedName, array | null $options = null): HelperPluginManager => new HelperPluginManager(
+                $sm,
+                $config['view_helpers'],
+            ),
         );
 
         $sm->setFactory(
@@ -87,8 +90,15 @@ abstract class AbstractTestCase extends TestCase
     {
         $content = file_get_contents($this->files . '/expected/' . $file);
 
-        static::assertIsString($content, sprintf('could not load file %s', $this->files . '/expected/' . $file));
+        static::assertIsString(
+            $content,
+            sprintf('could not load file %s', $this->files . '/expected/' . $file),
+        );
 
-        return str_replace(["\r\n", "\n", "\r", '##lb##'], ['##lb##', '##lb##', '##lb##', PHP_EOL], $content);
+        return str_replace(
+            ["\r\n", "\n", "\r", '##lb##'],
+            ['##lb##', '##lb##', '##lb##', PHP_EOL],
+            $content,
+        );
     }
 }

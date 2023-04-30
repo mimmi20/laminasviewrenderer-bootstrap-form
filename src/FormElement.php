@@ -27,6 +27,7 @@ use function assert;
 use function is_object;
 use function method_exists;
 
+/** @psalm-suppress ReservedWord */
 final class FormElement extends AbstractHelper implements FormElementInterface
 {
     use FormTrait;
@@ -92,9 +93,10 @@ final class FormElement extends AbstractHelper implements FormElementInterface
      * @throws void
      */
     public function __construct(
-        /** @phpstan-var HelperPluginManager<HelperInterface> */
+        /** @phpstan-param HelperPluginManager<HelperInterface> $helperPluginManager */
         private readonly HelperPluginManager $helperPluginManager,
     ) {
+        // nothing to do
     }
 
     /**
@@ -107,6 +109,8 @@ final class FormElement extends AbstractHelper implements FormElementInterface
      * @throws InvalidServiceException
      * @throws ServiceNotFoundException
      * @throws InvalidArgumentException
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
     public function __invoke(ElementInterface | null $element = null)
     {
@@ -131,13 +135,13 @@ final class FormElement extends AbstractHelper implements FormElementInterface
     {
         $renderedInstance = $this->renderInstance($element);
 
-        if (null !== $renderedInstance) {
+        if ($renderedInstance !== null) {
             return $renderedInstance;
         }
 
         $renderedType = $this->renderType($element);
 
-        if (null !== $renderedType) {
+        if ($renderedType !== null) {
             return $renderedType;
         }
 

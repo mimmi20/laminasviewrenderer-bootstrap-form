@@ -24,6 +24,7 @@ use Psr\Container\ContainerInterface;
 use function assert;
 use function is_array;
 
+/** @psalm-suppress ReservedWord */
 final class ConfigProvider
 {
     /**
@@ -33,6 +34,8 @@ final class ConfigProvider
      * @phpstan-return array{dependencies: array{factories: array<class-string, (Closure(ContainerInterface, string, array<mixed>|null):HelperPluginManager<(callable(): HelperInterface)|HelperInterface>)>}, view_helpers: array{aliases: array<string, class-string>, factories: array<class-string, class-string>}}
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     public function __invoke(): array
     {
@@ -49,6 +52,8 @@ final class ConfigProvider
      * @phpstan-return array{factories: array<class-string, (Closure(ContainerInterface, string, array<mixed>|null):HelperPluginManager<(callable(): HelperInterface)|HelperInterface>)>}
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     public function getDependencyConfig(): array
     {
@@ -73,6 +78,8 @@ final class ConfigProvider
      * @phpstan-return array{aliases: array<string, class-string>, factories: array<class-string, class-string>}
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     public function getViewHelperConfig(): array
     {

@@ -69,7 +69,7 @@ parameters:
   reportAlwaysTrueInLastCondition: true
 
   # reports violations of parameter type contravariance and return type covariance
-  reportMaybesInMethodSignatures: false
+  reportMaybesInMethodSignatures: true
 
   # reports violations of property type invariance
   reportMaybesInPropertyPhpDocTypes: false
@@ -96,10 +96,9 @@ parameters:
 
   ignoreErrors:
 #    - '~is not subtype of Throwable~'
-    - '~Parameter #1 \$attributesOrElement of method .* expects .*, int given~'
     - '~Fetching class constant class of deprecated class~'
     - '~Instantiation of deprecated class~'
-    - '~Parameter #1 \$className of method PHPUnit\\Framework\\TestCase::getMockBuilder\(\) expects class-string<mixed>, string given~'
-    - '~Unable to resolve the template type T in call to method PHPUnit\\Framework\\TestCase::getMockBuilder\(\)~'
-    - '~will always evaluate to true~'
-#    - '~Parameter #2 \$v3config of class Laminas\\View\\HelperPluginManager constructor expects~'
+    - '~Call to static method PHPUnit\\Framework\\Assert::assert.*\(\) with .* will always evaluate to true~'
+    -
+      message: '~Parameter #1 \$attributesOrElement of method .* expects .*, int given~'
+      path: tests\FormLabelTest.php

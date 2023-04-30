@@ -27,17 +27,25 @@ use function implode;
 use function sprintf;
 use function trim;
 
-/** @SuppressWarnings(PHPMD.NumberOfChildren) */
+/**
+ * @SuppressWarnings(PHPMD.NumberOfChildren)
+ * @psalm-suppress ReservedWord
+ */
 abstract class FormInput extends BaseFormInput implements FormInputInterface
 {
     use FormTrait;
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     public function __construct(
         protected EscapeHtml $escapeHtml,
         protected EscapeHtmlAttr $escapeHtmlAttr,
         protected Doctype $doctype,
     ) {
+        // nothing to do
     }
 
     /**
@@ -49,7 +57,7 @@ abstract class FormInput extends BaseFormInput implements FormInputInterface
     {
         $name = $element->getName();
 
-        if (null === $name || '' === $name) {
+        if ($name === null || $name === '') {
             throw new Exception\DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
@@ -64,11 +72,7 @@ abstract class FormInput extends BaseFormInput implements FormInputInterface
         $type               = $this->getType($element);
         $attributes['type'] = $type;
 
-        if ('password' === $type) {
-            $attributes['value'] = '';
-        } else {
-            $attributes['value'] = $element->getValue();
-        }
+        $attributes['value'] = $type === 'password' ? '' : $element->getValue();
 
         if (isset($attributes['readonly']) && $element->getOption('plain')) {
             $classes = ['form-control-plaintext'];

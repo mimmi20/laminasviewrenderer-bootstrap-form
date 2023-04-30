@@ -33,7 +33,10 @@ use const PHP_EOL;
 use const PREG_SPLIT_DELIM_CAPTURE;
 use const PREG_SPLIT_NO_EMPTY;
 
-/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
+/**
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ * @psalm-suppress ReservedWord
+ */
 final class FormDateTimeSelect extends AbstractHelper implements FormIndentInterface, FormRenderInterface
 {
     use FormDateSelectTrait;
@@ -75,6 +78,8 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
     public function __invoke(
         ElementInterface | null $element = null,
@@ -89,7 +94,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
         $this->setDateType($dateType);
         $this->setTimeType($timeType);
 
-        if (null !== $locale) {
+        if ($locale !== null) {
             $this->setLocale($locale);
         }
 
@@ -116,7 +121,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
 
         $name = $element->getName();
 
-        if (null === $name || '' === $name) {
+        if ($name === null || $name === '') {
             throw new Exception\DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
@@ -179,21 +184,21 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
 
         foreach ($pattern as $key => $value) {
             // Delimiter
-            if (is_numeric($key)) {
-                $markups[] = $indent . $value;
-            } else {
-                $markups[] = $data[$value];
-            }
+            $markups[] = is_numeric($key) ? $indent . $value : $data[$value];
         }
 
         return $indent . PHP_EOL . implode(PHP_EOL, $markups) . PHP_EOL . $indent;
     }
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     public function setTimeType(int $timeType): self
     {
         // The FULL format uses values that are not used
-        if (IntlDateFormatter::FULL === $timeType) {
+        if ($timeType === IntlDateFormatter::FULL) {
             $timeType = IntlDateFormatter::LONG;
         }
 
@@ -202,7 +207,11 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
         return $this;
     }
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @psalm-suppress ReservedWord
+     */
     public function getTimeType(): int
     {
         return $this->timeType;
@@ -215,7 +224,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
      */
     public function getPattern(): string
     {
-        if (null === $this->pattern) {
+        if ($this->pattern === null) {
             $intl = new IntlDateFormatter($this->getLocale(), $this->dateType, $this->timeType);
             // remove time zone format character
             $this->pattern = rtrim($intl->getPattern(), ' z');
@@ -241,26 +250,26 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
             PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY,
         );
 
-        if (false === $pregResult) {
+        if ($pregResult === false) {
             return [];
         }
 
         $result = [];
 
         foreach ($pregResult as $value) {
-            if (false === mb_stripos($value, '\'') && false !== mb_stripos($value, 'd')) {
+            if (mb_stripos($value, '\'') === false && mb_stripos($value, 'd') !== false) {
                 $result['day'] = $value;
-            } elseif (false === mb_stripos($value, '\'') && false !== mb_strpos($value, 'M')) {
+            } elseif (mb_stripos($value, '\'') === false && mb_strpos($value, 'M') !== false) {
                 $result['month'] = $value;
-            } elseif (false === mb_stripos($value, '\'') && false !== mb_stripos($value, 'y')) {
+            } elseif (mb_stripos($value, '\'') === false && mb_stripos($value, 'y') !== false) {
                 $result['year'] = $value;
-            } elseif (false === mb_stripos($value, '\'') && false !== mb_stripos($value, 'h')) {
+            } elseif (mb_stripos($value, '\'') === false && mb_stripos($value, 'h') !== false) {
                 $result['hour'] = $value;
-            } elseif (false === mb_stripos($value, '\'') && false !== mb_stripos($value, 'm')) {
+            } elseif (mb_stripos($value, '\'') === false && mb_stripos($value, 'm') !== false) {
                 $result['minute'] = $value;
-            } elseif (false === mb_stripos($value, '\'') && false !== mb_strpos($value, 's')) {
+            } elseif (mb_stripos($value, '\'') === false && mb_strpos($value, 's') !== false) {
                 $result['second'] = $value;
-            } elseif (false === mb_stripos($value, '\'') && false !== mb_stripos($value, 'a')) {
+            } elseif (mb_stripos($value, '\'') === false && mb_stripos($value, 'a') !== false) {
                 // ignore ante/post meridiem marker
                 continue;
             } elseif ($renderDelimiters) {
@@ -282,8 +291,22 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
      */
     private function getHoursOptions(string $pattern): array
     {
-        $keyFormatter   = new IntlDateFormatter($this->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'HH');
-        $valueFormatter = new IntlDateFormatter($this->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, $pattern);
+        $keyFormatter   = new IntlDateFormatter(
+            $this->getLocale(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'HH',
+        );
+        $valueFormatter = new IntlDateFormatter(
+            $this->getLocale(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            $pattern,
+        );
         $date           = new DateTime('1970-01-01 00:00:00');
 
         $result = [];
@@ -291,13 +314,13 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
         for ($hour = 1; 24 >= $hour; ++$hour) {
             $key = $keyFormatter->format($date);
 
-            if (false === $key) {
+            if ($key === false) {
                 continue;
             }
 
             $value = $valueFormatter->format($date);
 
-            if (false === $value) {
+            if ($value === false) {
                 continue;
             }
 
@@ -320,8 +343,22 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
      */
     private function getMinutesOptions(string $pattern): array
     {
-        $keyFormatter   = new IntlDateFormatter($this->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'mm');
-        $valueFormatter = new IntlDateFormatter($this->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, $pattern);
+        $keyFormatter   = new IntlDateFormatter(
+            $this->getLocale(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'mm',
+        );
+        $valueFormatter = new IntlDateFormatter(
+            $this->getLocale(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            $pattern,
+        );
         $date           = new DateTime('1970-01-01 00:00:00');
 
         $result = [];
@@ -329,13 +366,13 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
         for ($min = 1; 60 >= $min; ++$min) {
             $key = $keyFormatter->format($date);
 
-            if (false === $key) {
+            if ($key === false) {
                 continue;
             }
 
             $value = $valueFormatter->format($date);
 
-            if (false === $value) {
+            if ($value === false) {
                 continue;
             }
 
@@ -358,8 +395,22 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
      */
     private function getSecondsOptions(string $pattern): array
     {
-        $keyFormatter   = new IntlDateFormatter($this->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'ss');
-        $valueFormatter = new IntlDateFormatter($this->getLocale(), IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, $pattern);
+        $keyFormatter   = new IntlDateFormatter(
+            $this->getLocale(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            'ss',
+        );
+        $valueFormatter = new IntlDateFormatter(
+            $this->getLocale(),
+            IntlDateFormatter::NONE,
+            IntlDateFormatter::NONE,
+            null,
+            null,
+            $pattern,
+        );
         $date           = new DateTime('1970-01-01 00:00:00');
 
         $result = [];
@@ -367,13 +418,13 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
         for ($sec = 1; 60 >= $sec; ++$sec) {
             $key = $keyFormatter->format($date);
 
-            if (false === $key) {
+            if ($key === false) {
                 continue;
             }
 
             $value = $valueFormatter->format($date);
 
-            if (false === $value) {
+            if ($value === false) {
                 continue;
             }
 

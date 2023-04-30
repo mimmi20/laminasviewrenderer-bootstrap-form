@@ -101,7 +101,9 @@ final class FormRowTest extends TestCase
 
         $this->expectException(AssertionError::class);
         $this->expectExceptionCode(1);
-        $this->expectExceptionMessage('$form should be an Instance of Laminas\Form\FormInterface or null, but was bool');
+        $this->expectExceptionMessage(
+            '$form should be an Instance of Laminas\Form\FormInterface or null, but was bool',
+        );
 
         $helper->render($element);
     }
@@ -949,7 +951,14 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -1051,7 +1060,14 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -1157,7 +1173,14 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -1268,7 +1291,14 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -1376,7 +1406,14 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -1483,7 +1520,14 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -1593,7 +1637,14 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -1705,7 +1756,14 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -1833,7 +1891,14 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -1953,7 +2018,14 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -2083,7 +2155,14 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -2214,13 +2293,23 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
         $helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($expected . PHP_EOL . $indent . '    ' . $expectedHelp, $helper->render($element));
+        self::assertSame(
+            $expected . PHP_EOL . $indent . '    ' . $expectedHelp,
+            $helper->render($element),
+        );
     }
 
     /**
@@ -2350,13 +2439,23 @@ final class FormRowTest extends TestCase
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
         $helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($expected . $expectedErrors . PHP_EOL . $indent . '    ' . $expectedHelp, $helper->render($element));
+        self::assertSame(
+            $expected . $expectedErrors . PHP_EOL . $indent . '    ' . $expectedHelp,
+            $helper->render($element),
+        );
     }
 
     /**
@@ -2509,7 +2608,14 @@ final class FormRowTest extends TestCase
             ->with($label, $textDomain, null)
             ->willReturn($labelTranslated);
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -2673,7 +2779,14 @@ final class FormRowTest extends TestCase
             ->with($label, $textDomain, null)
             ->willReturn($labelTranslated);
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -2837,7 +2950,14 @@ final class FormRowTest extends TestCase
             ->with($label, $textDomain, null)
             ->willReturn($labelTranslated);
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -2995,7 +3115,14 @@ final class FormRowTest extends TestCase
             ->with($label, $textDomain, null)
             ->willReturn($labelTranslated);
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -3159,7 +3286,14 @@ final class FormRowTest extends TestCase
             ->with($label, $textDomain, null)
             ->willReturn($labelTranslated);
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -3328,7 +3462,14 @@ final class FormRowTest extends TestCase
             ->with($label, $textDomain, null)
             ->willReturn($labelTranslated);
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -3494,7 +3635,14 @@ final class FormRowTest extends TestCase
             ->with($label, $textDomain, null)
             ->willReturn($labelTranslated);
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -3662,7 +3810,14 @@ final class FormRowTest extends TestCase
             ->with($label, $textDomain, null)
             ->willReturn($labelTranslated);
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);
@@ -3830,7 +3985,14 @@ final class FormRowTest extends TestCase
             ->with($label, $textDomain, null)
             ->willReturn($labelTranslated);
 
-        $helper = new FormRow($formElement, $formElementErrors, $htmlElement, $escapeHtml, $renderer, $translator);
+        $helper = new FormRow(
+            $formElement,
+            $formElementErrors,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
 
         $helper->setIndent($indent);
         $helper->setRenderErrors($renderErrors);

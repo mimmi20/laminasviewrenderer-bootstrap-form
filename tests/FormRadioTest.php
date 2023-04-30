@@ -82,7 +82,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         self::assertSame([], $helper->getLabelAttributes());
 
@@ -135,7 +143,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         self::assertSame('', $helper->getSeparator());
 
@@ -193,7 +209,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -258,7 +282,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         self::assertSame(BaseFormRow::LABEL_APPEND, $helper->getLabelPosition());
 
@@ -310,7 +342,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         self::assertFalse($helper->getUseHiddenElement());
 
@@ -364,7 +404,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         self::assertSame('', $helper->getUncheckedValue());
 
@@ -420,7 +468,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $element = $this->getMockBuilder(Text::class)
             ->disableOriginalConstructor()
@@ -500,7 +556,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -561,7 +625,13 @@ final class FormRadioTest extends TestCase
         $labelEnd        = '</label>';
         $renderedField   = PHP_EOL
             . '    ' . $labelStart . PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s" aria-label="%s" name="%s" type="radio" value="%s">', $class, $ariaLabel, $name, $value3) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s" aria-label="%s" name="%s" type="radio" value="%s">',
+                $class,
+                $ariaLabel,
+                $name,
+                $value3,
+            ) . PHP_EOL
             . '        ' . sprintf('<span>%s</span>', $value2Escaped) . PHP_EOL
             . '    ' . $labelEnd . PHP_EOL
             . '    ';
@@ -619,7 +689,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -683,7 +761,14 @@ final class FormRadioTest extends TestCase
         $labelEnd        = '</label>';
         $expected        = '<div></div>';
         $renderedField   = PHP_EOL
-        . '        ' . sprintf('<input class="form-check-input&#x20;%s" aria-label="%s" id="%s" name="%s" type="radio" value="%s">', $class, $ariaLabel, $id, $name, $value3) . PHP_EOL
+        . '        ' . sprintf(
+            '<input class="form-check-input&#x20;%s" aria-label="%s" id="%s" name="%s" type="radio" value="%s">',
+            $class,
+            $ariaLabel,
+            $id,
+            $name,
+            $value3,
+        ) . PHP_EOL
         . '        ' . $labelStart . $value2Escaped . $labelEnd . PHP_EOL
             . '    ';
         $wrap            = false;
@@ -741,7 +826,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -810,7 +903,13 @@ final class FormRadioTest extends TestCase
         $renderedField   = PHP_EOL
             . '    ' . $labelStart . PHP_EOL
             . '        ' . sprintf('<span>%s</span>', $value2Escaped) . PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s" aria-label="%s" name="%s" type="radio" value="%s">', $class, $ariaLabel, $name, $value3) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s" aria-label="%s" name="%s" type="radio" value="%s">',
+                $class,
+                $ariaLabel,
+                $name,
+                $value3,
+            ) . PHP_EOL
             . '    ' . $labelEnd . PHP_EOL
             . '    ';
         $expected        = '<div></div>';
@@ -867,7 +966,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -934,7 +1041,14 @@ final class FormRadioTest extends TestCase
         $expected        = '<div></div>';
         $renderedField   = PHP_EOL
             . '        ' . $labelStart . $value2Escaped . $labelEnd . PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s" aria-label="%s" id="%s" name="%s" type="radio" value="%s">', $class, $ariaLabel, $id, $name, $value3) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s" aria-label="%s" id="%s" name="%s" type="radio" value="%s">',
+                $class,
+                $ariaLabel,
+                $id,
+                $name,
+                $value3,
+            ) . PHP_EOL
             . '    ';
         $wrap            = false;
 
@@ -991,7 +1105,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -1061,7 +1183,14 @@ final class FormRadioTest extends TestCase
         $labelEnd        = '</label>';
         $expected        = '<div></div>';
         $renderedField   = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s" aria-label="%s" id="%s" name="%s" type="radio" value="%s">', $class, $ariaLabel, $id, $name, $value3) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s" aria-label="%s" id="%s" name="%s" type="radio" value="%s">',
+                $class,
+                $ariaLabel,
+                $id,
+                $name,
+                $value3,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value2 . $labelEnd . PHP_EOL
             . '    ';
         $wrap            = false;
@@ -1117,7 +1246,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -1190,7 +1327,14 @@ final class FormRadioTest extends TestCase
         $expected                = '<div></div>';
         $textDomain              = 'test-domain';
         $renderedField           = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>', $class, $ariaLabel, $id, $name, $value3) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $id,
+                $name,
+                $value3,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value2TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $wrap                    = false;
@@ -1256,7 +1400,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -1371,15 +1523,34 @@ final class FormRadioTest extends TestCase
         $expectedSummary         = '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" name="%s" type="radio" id="%s" value="%s"/>', $class, $ariaLabel, $name, $id, $value3) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" name="%s" type="radio" id="%s" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $id,
+                $value3,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value2TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField2          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>', $class, $ariaLabel, $name, $value1) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value1,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value3TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField3          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>', $class, $ariaLabel, $name, $value4) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value4,
+            ) . PHP_EOL
             . '        ' . $labelStart . $name4TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $wrap                    = false;
@@ -1420,9 +1591,36 @@ final class FormRadioTest extends TestCase
             ->method('openTag')
             ->willReturnMap(
                 [
-                    [['class' => sprintf('form-check-label %s rst', $labelClass), 'for' => $id], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst2', $labelClass), 'for' => 'test-id2'], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst3', $labelClass), 'for' => 'test-id3'], $labelStart],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst',
+                                $labelClass,
+                            ),
+                            'for' => $id,
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst2',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id2',
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst3',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id3',
+                        ],
+                        $labelStart,
+                    ],
                 ],
             );
         $formLabel->expects(self::exactly(3))
@@ -1461,7 +1659,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -1573,18 +1779,41 @@ final class FormRadioTest extends TestCase
         $labelEnd                = '</label>';
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
-        $expectedSummary         = '    ' . sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
+        $expectedSummary         = '    ' . sprintf(
+            '<input type="hidden" name="%s" value="%s"/>',
+            $name,
+            $uncheckedValue,
+        ) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" name="%s" type="radio" id="%s" value="%s"/>', $class, $ariaLabel, $name, $id, $value3) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" name="%s" type="radio" id="%s" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $id,
+                $value3,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value2TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField2          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>', $class, $ariaLabel, $name, $value1) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value1,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value3TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField3          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>', $class, $ariaLabel, $name, $value4) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value4,
+            ) . PHP_EOL
             . '        ' . $labelStart . $name4TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $wrap                    = false;
@@ -1625,9 +1854,36 @@ final class FormRadioTest extends TestCase
             ->method('openTag')
             ->willReturnMap(
                 [
-                    [['class' => sprintf('form-check-label %s rst', $labelClass), 'for' => $id], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst2', $labelClass), 'for' => 'test-id2'], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst3', $labelClass), 'for' => 'test-id3'], $labelStart],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst',
+                                $labelClass,
+                            ),
+                            'for' => $id,
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst2',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id2',
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst3',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id3',
+                        ],
+                        $labelStart,
+                    ],
                 ],
             );
         $formLabel->expects(self::exactly(3))
@@ -1666,9 +1922,19 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
+            );
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -1685,7 +1951,7 @@ final class FormRadioTest extends TestCase
         $element->expects(self::once())
             ->method('getValue')
             ->willReturn($value1);
-        $element->expects(self::exactly(2))
+        $element->expects(self::once())
             ->method('useHiddenElement')
             ->willReturn(true);
         $element->expects(self::once())
@@ -1782,18 +2048,41 @@ final class FormRadioTest extends TestCase
         $labelEnd                = '</label>';
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
-        $expectedSummary         = '    ' . sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
+        $expectedSummary         = '    ' . sprintf(
+            '<input type="hidden" name="%s" value="%s"/>',
+            $name,
+            $uncheckedValue,
+        ) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" name="%s" type="radio" id="%s" value="%s"/>', $class, $ariaLabel, $name, $id, $value3) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" name="%s" type="radio" id="%s" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $id,
+                $value3,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value2TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField2          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>', $class, $ariaLabel, $name, $value1) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value1,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value3TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField3          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>', $class, $ariaLabel, $name, $value4) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value4,
+            ) . PHP_EOL
             . '        ' . $labelStart . $name4TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $wrap                    = false;
@@ -1834,9 +2123,36 @@ final class FormRadioTest extends TestCase
             ->method('openTag')
             ->willReturnMap(
                 [
-                    [['class' => sprintf('form-check-label %s rst', $labelClass), 'for' => $id], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst2', $labelClass), 'for' => 'test-id2'], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst3', $labelClass), 'for' => 'test-id3'], $labelStart],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst',
+                                $labelClass,
+                            ),
+                            'for' => $id,
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst2',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id2',
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst3',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id3',
+                        ],
+                        $labelStart,
+                    ],
                 ],
             );
         $formLabel->expects(self::exactly(3))
@@ -1875,9 +2191,19 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
+            );
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -1894,7 +2220,7 @@ final class FormRadioTest extends TestCase
         $element->expects(self::once())
             ->method('getValue')
             ->willReturn($value1);
-        $element->expects(self::exactly(2))
+        $element->expects(self::once())
             ->method('useHiddenElement')
             ->willReturn(true);
         $element->expects(self::once())
@@ -1990,18 +2316,41 @@ final class FormRadioTest extends TestCase
         $labelEnd                = '</label>';
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
-        $expectedSummary         = '    ' . sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
+        $expectedSummary         = '    ' . sprintf(
+            '<input type="hidden" name="%s" value="%s"/>',
+            $name,
+            $uncheckedValue,
+        ) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>', $class, $ariaLabel, $id, $name, $value3) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $id,
+                $name,
+                $value3,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value2TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField2          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>', $class, $ariaLabel, $name, $value1) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value1,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value3TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField3          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>', $class, $ariaLabel, $name, $value4) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value4,
+            ) . PHP_EOL
             . '        ' . $labelStart . $name4TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $wrap                    = false;
@@ -2042,9 +2391,36 @@ final class FormRadioTest extends TestCase
             ->method('openTag')
             ->willReturnMap(
                 [
-                    [['class' => sprintf('form-check-label %s rst', $labelClass), 'for' => $id], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst2', $labelClass), 'for' => 'test-id2'], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst3', $labelClass), 'for' => 'test-id3'], $labelStart],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst',
+                                $labelClass,
+                            ),
+                            'for' => $id,
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst2',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id2',
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst3',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id3',
+                        ],
+                        $labelStart,
+                    ],
                 ],
             );
         $formLabel->expects(self::exactly(3))
@@ -2083,9 +2459,19 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
+            );
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -2102,7 +2488,7 @@ final class FormRadioTest extends TestCase
         $element->expects(self::once())
             ->method('getValue')
             ->willReturn($value1);
-        $element->expects(self::exactly(2))
+        $element->expects(self::once())
             ->method('useHiddenElement')
             ->willReturn(true);
         $element->expects(self::once())
@@ -2199,18 +2585,41 @@ final class FormRadioTest extends TestCase
         $labelEnd                = '</label>';
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
-        $expectedSummary         = '    ' . sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
+        $expectedSummary         = '    ' . sprintf(
+            '<input type="hidden" name="%s" value="%s"/>',
+            $name,
+            $uncheckedValue,
+        ) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>', $class, $ariaLabel, $id, $name, $value3) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $id,
+                $name,
+                $value3,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value2TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField2          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>', $class, $ariaLabel, $name, $value1) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value1,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value3TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField3          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>', $class, $ariaLabel, $name, $value4) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value4,
+            ) . PHP_EOL
             . '        ' . $labelStart . $name4TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $wrap                    = false;
@@ -2251,9 +2660,36 @@ final class FormRadioTest extends TestCase
             ->method('openTag')
             ->willReturnMap(
                 [
-                    [['class' => sprintf('form-check-label %s rst', $labelClass), 'for' => $id], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst2', $labelClass), 'for' => 'test-id2'], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst3', $labelClass), 'for' => 'test-id3'], $labelStart],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst',
+                                $labelClass,
+                            ),
+                            'for' => $id,
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst2',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id2',
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst3',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id3',
+                        ],
+                        $labelStart,
+                    ],
                 ],
             );
         $formLabel->expects(self::exactly(3))
@@ -2292,9 +2728,19 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
+            );
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -2311,7 +2757,7 @@ final class FormRadioTest extends TestCase
         $element->expects(self::once())
             ->method('getValue')
             ->willReturn($value1);
-        $element->expects(self::exactly(2))
+        $element->expects(self::once())
             ->method('useHiddenElement')
             ->willReturn(true);
         $element->expects(self::once())
@@ -2412,18 +2858,41 @@ final class FormRadioTest extends TestCase
         $labelEnd                = '</label>';
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
-        $expectedSummary         = '    ' . sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
+        $expectedSummary         = '    ' . sprintf(
+            '<input type="hidden" name="%s" value="%s"/>',
+            $name,
+            $uncheckedValue,
+        ) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>', $class, $ariaLabel, $id, $name, $value3) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $id,
+                $name,
+                $value3,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value2TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField2          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>', $class, $ariaLabel, $name, $value1) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value1,
+            ) . PHP_EOL
             . '        ' . $labelStart . $value3TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $renderedField3          = PHP_EOL
-            . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>', $class, $ariaLabel, $name, $value4) . PHP_EOL
+            . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value4,
+            ) . PHP_EOL
             . '        ' . $labelStart . $name4TranslatedEscaped . $labelEnd . PHP_EOL
             . '    ';
         $wrap                    = false;
@@ -2464,9 +2933,36 @@ final class FormRadioTest extends TestCase
             ->method('openTag')
             ->willReturnMap(
                 [
-                    [['class' => sprintf('form-check-label %s rst', $labelClass), 'for' => $id], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst2', $labelClass), 'for' => 'test-id2'], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst3', $labelClass), 'for' => 'test-id3'], $labelStart],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst',
+                                $labelClass,
+                            ),
+                            'for' => $id,
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst2',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id2',
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst3',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id3',
+                        ],
+                        $labelStart,
+                    ],
                 ],
             );
         $formLabel->expects(self::exactly(3))
@@ -2505,9 +3001,19 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
+            );
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -2524,7 +3030,7 @@ final class FormRadioTest extends TestCase
         $element->expects(self::once())
             ->method('getValue')
             ->willReturn($value1);
-        $element->expects(self::exactly(2))
+        $element->expects(self::once())
             ->method('useHiddenElement')
             ->willReturn(true);
         $element->expects(self::once())
@@ -2618,19 +3124,42 @@ final class FormRadioTest extends TestCase
         $labelEnd                = '</label>';
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
-        $expectedSummary         = $indent . '    ' . sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>';
+        $expectedSummary         = $indent . '    ' . sprintf(
+            '<input type="hidden" name="%s" value="%s"/>',
+            $name,
+            $uncheckedValue,
+        ) . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
             . $indent . '        ' . $labelStart . $value2TranslatedEscaped . $labelEnd . PHP_EOL
-            . $indent . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>', $class, $ariaLabel, $id, $name, $value3) . PHP_EOL
+            . $indent . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $id,
+                $name,
+                $value3,
+            ) . PHP_EOL
             . $indent . '    ';
         $renderedField2          = PHP_EOL
             . $indent . '        ' . $labelStart . $value3TranslatedEscaped . $labelEnd . PHP_EOL
-            . $indent . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>', $class, $ariaLabel, $name, $value1) . PHP_EOL
+            . $indent . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value1,
+            ) . PHP_EOL
             . $indent . '    ';
         $renderedField3          = PHP_EOL
             . $indent . '        ' . $labelStart . $name4TranslatedEscaped . $labelEnd . PHP_EOL
-            . $indent . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>', $class, $ariaLabel, $name, $value4) . PHP_EOL
+            . $indent . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value4,
+            ) . PHP_EOL
             . $indent . '    ';
         $wrap                    = false;
         $disableEscape           = false;
@@ -2670,9 +3199,36 @@ final class FormRadioTest extends TestCase
             ->method('openTag')
             ->willReturnMap(
                 [
-                    [['class' => sprintf('form-check-label %s rst', $labelClass), 'for' => $id], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst2', $labelClass), 'for' => 'test-id2'], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst3', $labelClass), 'for' => 'test-id3'], $labelStart],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst',
+                                $labelClass,
+                            ),
+                            'for' => $id,
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst2',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id2',
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst3',
+                                $labelClass,
+                            ),
+                            'for' => 'test-id3',
+                        ],
+                        $labelStart,
+                    ],
                 ],
             );
         $formLabel->expects(self::exactly(3))
@@ -2711,9 +3267,19 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
+            );
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -2730,7 +3296,7 @@ final class FormRadioTest extends TestCase
         $element->expects(self::once())
             ->method('getValue')
             ->willReturn($value1);
-        $element->expects(self::exactly(2))
+        $element->expects(self::once())
             ->method('useHiddenElement')
             ->willReturn(true);
         $element->expects(self::once())
@@ -2827,19 +3393,42 @@ final class FormRadioTest extends TestCase
         $labelEnd                = '</label>';
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
-        $expectedSummary         = $indent . '    ' . sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>';
+        $expectedSummary         = $indent . '    ' . sprintf(
+            '<input type="hidden" name="%s" value="%s"/>',
+            $name,
+            $uncheckedValue,
+        ) . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
             . $indent . '        ' . $labelStart . $value2TranslatedEscaped . $labelEnd . PHP_EOL
-            . $indent . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>', $class, $ariaLabel, $id, $name, $value3) . PHP_EOL
+            . $indent . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg" aria-label="%s" id="%s" name="%s" type="radio" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $id,
+                $name,
+                $value3,
+            ) . PHP_EOL
             . $indent . '    ';
         $renderedField2          = PHP_EOL
             . $indent . '        ' . $labelStart . $value3TranslatedEscaped . $labelEnd . PHP_EOL
-            . $indent . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>', $class, $ariaLabel, $name, $value1) . PHP_EOL
+            . $indent . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg2" aria-label="%s" disabled="disabled" name="%s" type="radio" aria-disabled="true" id="test-id2" value="%s" checked="checked"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value1,
+            ) . PHP_EOL
             . $indent . '    ';
         $renderedField3          = PHP_EOL
             . $indent . '        ' . $labelStart . $name4TranslatedEscaped . $labelEnd . PHP_EOL
-            . $indent . '        ' . sprintf('<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>', $class, $ariaLabel, $name, $value4) . PHP_EOL
+            . $indent . '        ' . sprintf(
+                '<input class="form-check-input&#x20;%s&#x20;efg3" aria-label="%s" name="%s" type="radio" aria-disabled="false" id="test-id3" value="%s"/>',
+                $class,
+                $ariaLabel,
+                $name,
+                $value4,
+            ) . PHP_EOL
             . $indent . '    ';
         $wrap                    = false;
         $disableEscape           = false;
@@ -2879,9 +3468,45 @@ final class FormRadioTest extends TestCase
             ->method('openTag')
             ->willReturnMap(
                 [
-                    [['class' => sprintf('form-check-label %s rst rst-test', $labelClass), 'data-show' => 'yes', 'data-visible' => true, 'data-img' => 'sample1', 'for' => $id], $labelStart],
-                    [['class' => sprintf('form-check-label %s rst2', $labelClass), 'data-show' => 'yes', 'data-visible' => true, 'data-vid' => 'sample2', 'for' => 'test-id2'], $labelStart],
-                    [['class' => sprintf('form-check-label %s', $labelClass), 'data-show' => 'yes', 'data-visible' => true, 'data-img' => 'sample3', 'for' => 'test-id3'], $labelStart],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst rst-test',
+                                $labelClass,
+                            ),
+                            'data-show' => 'yes',
+                            'data-visible' => true,
+                            'data-img' => 'sample1',
+                            'for' => $id,
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s rst2',
+                                $labelClass,
+                            ),
+                            'data-show' => 'yes',
+                            'data-visible' => true,
+                            'data-vid' => 'sample2',
+                            'for' => 'test-id2',
+                        ],
+                        $labelStart,
+                    ],
+                    [
+                        [
+                            'class' => sprintf(
+                                'form-check-label %s',
+                                $labelClass,
+                            ),
+                            'data-show' => 'yes',
+                            'data-visible' => true,
+                            'data-img' => 'sample3',
+                            'for' => 'test-id3',
+                        ],
+                        $labelStart,
+                    ],
                 ],
             );
         $formLabel->expects(self::exactly(3))
@@ -2920,9 +3545,19 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
+            );
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -2939,7 +3574,7 @@ final class FormRadioTest extends TestCase
         $element->expects(self::once())
             ->method('getValue')
             ->willReturn($value1);
-        $element->expects(self::exactly(2))
+        $element->expects(self::once())
             ->method('useHiddenElement')
             ->willReturn(true);
         $element->expects(self::once())
@@ -3018,7 +3653,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         self::assertSame($helper, $helper->setIndent(4));
         self::assertSame('    ', $helper->getIndent());
@@ -3067,7 +3710,15 @@ final class FormRadioTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormRadio(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         self::assertSame($helper, $helper->setIndent('  '));
         self::assertSame('  ', $helper->getIndent());

@@ -157,7 +157,11 @@ final class FormImageTest extends TestCase
         $class = 'test-class';
         $value = 'test-value';
 
-        $expected = sprintf('<input class="form-control&#x20;%s" name="%s" type="image">', $class, $name);
+        $expected = sprintf(
+            '<input class="form-control&#x20;%s" name="%s" type="image">',
+            $class,
+            $name,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()
@@ -219,7 +223,11 @@ final class FormImageTest extends TestCase
         $class = 'test-class';
         $value = 'test-value';
 
-        $expected = sprintf('<input class="form-control&#x20;%s" name="%s" type="image"/>', $class, $name);
+        $expected = sprintf(
+            '<input class="form-control&#x20;%s" name="%s" type="image"/>',
+            $class,
+            $name,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()

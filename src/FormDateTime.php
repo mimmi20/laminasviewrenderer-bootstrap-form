@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 
-/** @deprecated use {@see \Mimmi20\LaminasView\BootstrapForm\FormDateTimeLocal} instead */
+/** @deprecated This element is deprecated as it has been removed from WHATWG HTML, use {@see \Mimmi20\LaminasView\BootstrapForm\FormDateTimeLocal} instead */
 final class FormDateTime extends FormInput
 {
     /**
@@ -22,6 +22,7 @@ final class FormDateTime extends FormInput
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     * @psalm-suppress NonInvariantDocblockPropertyType
      */
     protected $validTagAttributes = [
         'name' => true,
@@ -45,6 +46,7 @@ final class FormDateTime extends FormInput
      * @throws void
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+     * @psalm-suppress ReservedWord
      */
     protected function getType(ElementInterface $element): string
     {

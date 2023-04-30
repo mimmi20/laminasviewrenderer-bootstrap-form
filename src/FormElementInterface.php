@@ -16,6 +16,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 
+/** @psalm-suppress ReservedWord */
 interface FormElementInterface extends FormIndentInterface
 {
     public const DEFAULT_HELPER = 'formInput';
@@ -29,6 +30,8 @@ interface FormElementInterface extends FormIndentInterface
      *
      * @throws InvalidServiceException
      * @throws ServiceNotFoundException
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
     public function __invoke(ElementInterface | null $element = null);
 

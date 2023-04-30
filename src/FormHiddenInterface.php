@@ -27,6 +27,8 @@ interface FormHiddenInterface extends FormIndentInterface
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
     public function __invoke(ElementInterface | null $element = null);
 

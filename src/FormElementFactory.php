@@ -35,8 +35,6 @@ final class FormElementFactory
             ),
         );
 
-        return new FormElement(
-            $plugin,
-        );
+        return new FormElement($plugin);
     }
 }

@@ -66,6 +66,13 @@ final class FormRowFactory
         );
         assert($renderer instanceof RendererInterface);
 
-        return new FormRow($formElement, $formElementError, $htmlElement, $escapeHtml, $renderer, $translator);
+        return new FormRow(
+            $formElement,
+            $formElementError,
+            $htmlElement,
+            $escapeHtml,
+            $renderer,
+            $translator,
+        );
     }
 }

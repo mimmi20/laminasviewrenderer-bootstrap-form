@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
 
 use function sprintf;
 
-/** @deprecated */
+/** @deprecated This element is deprecated as it has been removed from WHATWG HTML */
 final class FormDateTimeTest extends TestCase
 {
     /**
@@ -94,7 +94,12 @@ final class FormDateTimeTest extends TestCase
         $class = 'test-class';
         $value = 'test-value';
 
-        $expected = sprintf('<input class="form-control&#x20;%s" name="%s" type="datetime" value="%s">', $class, $name, $value);
+        $expected = sprintf(
+            '<input class="form-control&#x20;%s" name="%s" type="datetime" value="%s">',
+            $class,
+            $name,
+            $value,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()
@@ -153,7 +158,12 @@ final class FormDateTimeTest extends TestCase
         $class = 'test-class';
         $value = 'test-value';
 
-        $expected = sprintf('<input class="form-control&#x20;%s" name="%s" type="datetime" value="%s"/>', $class, $name, $value);
+        $expected = sprintf(
+            '<input class="form-control&#x20;%s" name="%s" type="datetime" value="%s"/>',
+            $class,
+            $name,
+            $value,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()
@@ -212,7 +222,11 @@ final class FormDateTimeTest extends TestCase
         $class = 'test-class';
         $value = 'test-value';
 
-        $expected = sprintf('<input class="form-control-plaintext" readonly="readonly" name="%s" type="datetime" value="%s"/>', $name, $value);
+        $expected = sprintf(
+            '<input class="form-control-plaintext" readonly="readonly" name="%s" type="datetime" value="%s"/>',
+            $name,
+            $value,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()

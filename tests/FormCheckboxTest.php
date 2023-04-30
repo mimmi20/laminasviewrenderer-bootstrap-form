@@ -83,7 +83,15 @@ final class FormCheckboxTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -146,7 +154,15 @@ final class FormCheckboxTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $helper->setLabelPosition($labelPosition);
 
@@ -198,7 +214,15 @@ final class FormCheckboxTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $element = $this->getMockBuilder(Text::class)
             ->disableOriginalConstructor()
@@ -264,7 +288,15 @@ final class FormCheckboxTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $element = $this->getMockBuilder(Checkbox::class)
             ->disableOriginalConstructor()
@@ -354,7 +386,15 @@ final class FormCheckboxTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         $element = $this->getMockBuilder(Checkbox::class)
             ->disableOriginalConstructor()
@@ -474,7 +514,15 @@ final class FormCheckboxTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $helper->setTranslatorTextDomain($textDomain);
         $helper->setLabelPosition(BaseFormRow::LABEL_PREPEND);
@@ -597,7 +645,15 @@ final class FormCheckboxTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $helper->setTranslatorTextDomain($textDomain);
         $helper->setLabelPosition(BaseFormRow::LABEL_PREPEND);
@@ -693,7 +749,11 @@ final class FormCheckboxTest extends TestCase
                 'div',
                 ['class' => ['form-check']],
                 PHP_EOL
-                . sprintf('    <input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL
+                . sprintf(
+                    '    <input type="hidden" name="%s" value="%s"/>',
+                    $name,
+                    $uncheckedValue,
+                ) . PHP_EOL
                 . '    <label for="chck-id">test-label-translated-escaped</label>' . PHP_EOL
                 . '    <input class="form-check-input&#x20;xyz" id="chck-id" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL,
             )
@@ -726,9 +786,19 @@ final class FormCheckboxTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
+            );
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $helper->setTranslatorTextDomain($textDomain);
         $helper->setLabelPosition(BaseFormRow::LABEL_PREPEND);
@@ -767,7 +837,7 @@ final class FormCheckboxTest extends TestCase
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
-        $element->expects(self::exactly(2))
+        $element->expects(self::once())
             ->method('useHiddenElement')
             ->willReturn(true);
         $element->expects(self::once())
@@ -827,7 +897,11 @@ final class FormCheckboxTest extends TestCase
                 'div',
                 ['class' => ['form-check']],
                 PHP_EOL
-                . sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue) . PHP_EOL
+                . sprintf(
+                    '<input type="hidden" name="%s" value="%s"/>',
+                    $name,
+                    $uncheckedValue,
+                ) . PHP_EOL
                 . '<label for="chck-id">' . PHP_EOL
                 . '    <span>test-label-translated-escaped</span>' . PHP_EOL
                 . '    <input class="form-check-input&#x20;xyz" id="chck-id" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL
@@ -862,9 +936,19 @@ final class FormCheckboxTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue));
+            ->willReturn(
+                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
+            );
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, $translator);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            $translator,
+        );
 
         $helper->setTranslatorTextDomain($textDomain);
         $helper->setLabelPosition(BaseFormRow::LABEL_PREPEND);
@@ -903,7 +987,7 @@ final class FormCheckboxTest extends TestCase
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
-        $element->expects(self::exactly(2))
+        $element->expects(self::once())
             ->method('useHiddenElement')
             ->willReturn(true);
         $element->expects(self::once())
@@ -956,7 +1040,15 @@ final class FormCheckboxTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         self::assertSame($helper, $helper->setIndent(4));
         self::assertSame('    ', $helper->getIndent());
@@ -1003,7 +1095,15 @@ final class FormCheckboxTest extends TestCase
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox($escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $htmlElement, $formHidden, null);
+        $helper = new FormCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $doctype,
+            $formLabel,
+            $htmlElement,
+            $formHidden,
+            null,
+        );
 
         self::assertSame($helper, $helper->setIndent('  '));
         self::assertSame('  ', $helper->getIndent());

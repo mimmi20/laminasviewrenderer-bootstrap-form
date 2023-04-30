@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
+/** @psalm-suppress ReservedWord */
 trait UseHiddenElementTrait
 {
     /**

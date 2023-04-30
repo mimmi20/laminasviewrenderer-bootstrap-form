@@ -29,6 +29,8 @@ interface FormRowInterface extends FormIndentInterface
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      * @throws Exception\DomainException
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
     public function __invoke(
         ElementInterface | null $element = null,

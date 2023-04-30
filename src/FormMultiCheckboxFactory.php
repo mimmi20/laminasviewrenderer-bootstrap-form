@@ -83,6 +83,14 @@ final class FormMultiCheckboxFactory
         assert($htmlElement instanceof HtmlElementInterface);
         assert($hidden instanceof FormHiddenInterface);
 
-        return new FormMultiCheckbox($escapeHtml, $escapeHtmlAttr, $docType, $label, $htmlElement, $hidden, $translator);
+        return new FormMultiCheckbox(
+            $escapeHtml,
+            $escapeHtmlAttr,
+            $docType,
+            $label,
+            $htmlElement,
+            $hidden,
+            $translator,
+        );
     }
 }

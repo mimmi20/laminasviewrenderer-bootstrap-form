@@ -15,9 +15,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\Exception;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 
-use function assert;
 use function in_array;
-use function is_string;
 use function mb_strtolower;
 use function sprintf;
 
@@ -36,8 +34,6 @@ trait LabelPositionTrait
     public function setLabelPosition(string $labelPosition): self
     {
         $labelPosition = mb_strtolower($labelPosition);
-
-        assert(is_string($labelPosition));
 
         if (!in_array($labelPosition, [BaseFormRow::LABEL_APPEND, BaseFormRow::LABEL_PREPEND], true)) {
             throw new Exception\InvalidArgumentException(
@@ -60,6 +56,8 @@ trait LabelPositionTrait
      * Get position of label
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     public function getLabelPosition(): string
     {

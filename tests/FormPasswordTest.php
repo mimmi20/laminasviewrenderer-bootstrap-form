@@ -92,7 +92,11 @@ final class FormPasswordTest extends TestCase
         $name  = 'test-name';
         $class = 'test-class';
 
-        $expected = sprintf('<input class="form-control&#x20;%s" name="%s" type="password" value="">', $class, $name);
+        $expected = sprintf(
+            '<input class="form-control&#x20;%s" name="%s" type="password" value="">',
+            $class,
+            $name,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()
@@ -149,7 +153,11 @@ final class FormPasswordTest extends TestCase
         $name  = 'test-name';
         $class = 'test-class';
 
-        $expected = sprintf('<input class="form-control&#x20;%s" name="%s" type="password" value=""/>', $class, $name);
+        $expected = sprintf(
+            '<input class="form-control&#x20;%s" name="%s" type="password" value=""/>',
+            $class,
+            $name,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()
@@ -206,7 +214,10 @@ final class FormPasswordTest extends TestCase
         $name  = 'test-name';
         $class = 'test-class';
 
-        $expected = sprintf('<input class="form-control-plaintext" readonly="readonly" name="%s" type="password" value=""/>', $name);
+        $expected = sprintf(
+            '<input class="form-control-plaintext" readonly="readonly" name="%s" type="password" value=""/>',
+            $name,
+        );
 
         $element = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()

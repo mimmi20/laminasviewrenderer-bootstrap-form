@@ -23,11 +23,11 @@ trait FormTrait
      * Set the indentation string for using in {@link render()}, optionally a
      * number of spaces to indent with
      *
-     * @param int|string $indent
-     *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
-    public function setIndent($indent): self
+    public function setIndent(int | string $indent): self
     {
         $this->indent = $this->getWhitespace($indent);
 
@@ -38,6 +38,8 @@ trait FormTrait
      * Returns indentation
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     public function getIndent(): string
     {
@@ -50,6 +52,8 @@ trait FormTrait
      * Retrieve whitespace representation of $indent
      *
      * @throws void
+     *
+     * @psalm-suppress ReservedWord
      */
     protected function getWhitespace(int | string $indent): string
     {
