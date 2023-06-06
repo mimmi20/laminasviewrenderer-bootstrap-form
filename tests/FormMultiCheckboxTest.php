@@ -29,6 +29,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormLabelInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormMultiCheckbox;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 
@@ -1705,9 +1706,8 @@ final class FormMultiCheckboxTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     *
-     * @group test-hidden-field-in-multicheckbox
      */
+    #[Group('test-hidden-field-in-multicheckbox')]
     public function testRenderMultiOptionInlineWithHiddenField1(): void
     {
         $name                    = 'test-name';
@@ -1984,9 +1984,8 @@ final class FormMultiCheckboxTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     *
-     * @group test-hidden-field-in-multicheckbox
      */
+    #[Group('test-hidden-field-in-multicheckbox')]
     public function testRenderMultiOptionInlineWithHiddenField2(): void
     {
         $name                    = 'test-name';
@@ -2255,9 +2254,8 @@ final class FormMultiCheckboxTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     *
-     * @group test-hidden-field-in-multicheckbox
      */
+    #[Group('test-hidden-field-in-multicheckbox')]
     public function testRenderMultiOptionInlineWithHiddenField3(): void
     {
         $name                    = 'test-name';
@@ -2527,9 +2525,8 @@ final class FormMultiCheckboxTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     *
-     * @group test-hidden-field-in-multicheckbox
      */
+    #[Group('test-hidden-field-in-multicheckbox')]
     public function testInvokeMultiOptionInlineWithHiddenField1(): void
     {
         $name                    = 'test-name';
@@ -2803,9 +2800,8 @@ final class FormMultiCheckboxTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
-     *
-     * @group test-hidden-field-in-multicheckbox
      */
+    #[Group('test-hidden-field-in-multicheckbox')]
     public function testInvokeMultiOptionInlineWithHiddenField2(): void
     {
         $name                    = 'test-name';
@@ -3071,11 +3067,8 @@ final class FormMultiCheckboxTest extends TestCase
         self::assertSame($expectedSummary, $helper($element));
     }
 
-    /**
-     * @throws Exception
-     *
-     * @group test-hidden-field-in-multicheckbox
-     */
+    /** @throws Exception */
+    #[Group('test-hidden-field-in-multicheckbox')]
     public function testInvokeMultiOptionInlineWithHiddenField3(): void
     {
         $name                    = 'test-name';
@@ -3345,11 +3338,8 @@ final class FormMultiCheckboxTest extends TestCase
         self::assertSame($labelPosition, $helper->getLabelPosition());
     }
 
-    /**
-     * @throws Exception
-     *
-     * @group test-hidden-field-in-multicheckbox
-     */
+    /** @throws Exception */
+    #[Group('test-hidden-field-in-multicheckbox')]
     public function testInvokeMultiOptionInlineWithHiddenField4(): void
     {
         $name                    = 'test-name';
@@ -3625,11 +3615,8 @@ final class FormMultiCheckboxTest extends TestCase
         self::assertSame($labelPosition, $helper->getLabelPosition());
     }
 
-    /**
-     * @throws Exception
-     *
-     * @group test-hidden-field-in-multicheckbox
-     */
+    /** @throws Exception */
+    #[Group('test-hidden-field-in-multicheckbox')]
     public function testInvokeMultiOptionInlineWithHiddenField5(): void
     {
         $name                    = 'test-name';
