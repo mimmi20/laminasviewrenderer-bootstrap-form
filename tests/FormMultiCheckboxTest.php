@@ -16,6 +16,7 @@ use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\MultiCheckbox as MultiCheckboxElement;
 use Laminas\Form\Element\Radio;
 use Laminas\Form\Element\Text;
+use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
@@ -28,7 +29,6 @@ use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormLabelInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormMultiCheckbox;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
-use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 
@@ -1705,6 +1705,8 @@ final class FormMultiCheckboxTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     *
+     * @group test-hidden-field-in-multicheckbox
      */
     public function testRenderMultiOptionInlineWithHiddenField1(): void
     {
@@ -1907,9 +1909,17 @@ final class FormMultiCheckboxTest extends TestCase
             ->getMock();
         $formHidden->expects(self::once())
             ->method('render')
-            ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(
-                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
+            ->willReturnCallback(
+                static function (ElementInterface $element) use ($name, $uncheckedValue): string {
+                    self::assertInstanceOf(Hidden::class, $element);
+                    self::assertSame($uncheckedValue, $element->getValue());
+
+                    return sprintf(
+                        '<input type="hidden" name="%s" value="%s"/>',
+                        $name,
+                        $uncheckedValue,
+                    );
+                },
             );
 
         $helper = new FormMultiCheckbox(
@@ -1974,6 +1984,8 @@ final class FormMultiCheckboxTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     *
+     * @group test-hidden-field-in-multicheckbox
      */
     public function testRenderMultiOptionInlineWithHiddenField2(): void
     {
@@ -2035,9 +2047,8 @@ final class FormMultiCheckboxTest extends TestCase
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
         $expectedSummary         = '    ' . sprintf(
-            '<input type="hidden" name="%s" value="%s"/>',
+            '<input type="hidden" name="%s" value=""/>',
             $name,
-            $uncheckedValue,
         ) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
@@ -2176,10 +2187,12 @@ final class FormMultiCheckboxTest extends TestCase
             ->getMock();
         $formHidden->expects(self::once())
             ->method('render')
-            ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(
-                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
-            );
+            ->willReturnCallback(static function (ElementInterface $element) use ($name): string {
+                self::assertInstanceOf(Hidden::class, $element);
+                self::assertSame('', $element->getValue());
+
+                return sprintf('<input type="hidden" name="%s" value="%s"/>', $name, '');
+            });
 
         $helper = new FormMultiCheckbox(
             $escapeHtml,
@@ -2242,6 +2255,8 @@ final class FormMultiCheckboxTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     *
+     * @group test-hidden-field-in-multicheckbox
      */
     public function testRenderMultiOptionInlineWithHiddenField3(): void
     {
@@ -2303,9 +2318,8 @@ final class FormMultiCheckboxTest extends TestCase
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
         $expectedSummary         = '    ' . sprintf(
-            '<input type="hidden" name="%s" value="%s"/>',
+            '<input type="hidden" name="%s" value=""/>',
             $name,
-            $uncheckedValue,
         ) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
@@ -2444,10 +2458,12 @@ final class FormMultiCheckboxTest extends TestCase
             ->getMock();
         $formHidden->expects(self::once())
             ->method('render')
-            ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(
-                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
-            );
+            ->willReturnCallback(static function (ElementInterface $element) use ($name): string {
+                self::assertInstanceOf(Hidden::class, $element);
+                self::assertSame('', $element->getValue());
+
+                return sprintf('<input type="hidden" name="%s" value="%s"/>', $name, '');
+            });
 
         $helper = new FormMultiCheckbox(
             $escapeHtml,
@@ -2511,6 +2527,8 @@ final class FormMultiCheckboxTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     *
+     * @group test-hidden-field-in-multicheckbox
      */
     public function testInvokeMultiOptionInlineWithHiddenField1(): void
     {
@@ -2572,9 +2590,8 @@ final class FormMultiCheckboxTest extends TestCase
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
         $expectedSummary         = '    ' . sprintf(
-            '<input type="hidden" name="%s" value="%s"/>',
+            '<input type="hidden" name="%s" value=""/>',
             $name,
-            $uncheckedValue,
         ) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
@@ -2713,10 +2730,12 @@ final class FormMultiCheckboxTest extends TestCase
             ->getMock();
         $formHidden->expects(self::once())
             ->method('render')
-            ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(
-                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
-            );
+            ->willReturnCallback(static function (ElementInterface $element) use ($name): string {
+                self::assertInstanceOf(Hidden::class, $element);
+                self::assertSame('', $element->getValue());
+
+                return sprintf('<input type="hidden" name="%s" value="%s"/>', $name, '');
+            });
 
         $helper = new FormMultiCheckbox(
             $escapeHtml,
@@ -2784,6 +2803,8 @@ final class FormMultiCheckboxTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
+     *
+     * @group test-hidden-field-in-multicheckbox
      */
     public function testInvokeMultiOptionInlineWithHiddenField2(): void
     {
@@ -2845,9 +2866,8 @@ final class FormMultiCheckboxTest extends TestCase
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
         $expectedSummary         = '    ' . sprintf(
-            '<input type="hidden" name="%s" value="%s"/>',
+            '<input type="hidden" name="%s" value=""/>',
             $name,
-            $uncheckedValue,
         ) . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>' . PHP_EOL . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
@@ -2986,10 +3006,12 @@ final class FormMultiCheckboxTest extends TestCase
             ->getMock();
         $formHidden->expects(self::once())
             ->method('render')
-            ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(
-                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
-            );
+            ->willReturnCallback(static function (ElementInterface $element) use ($name): string {
+                self::assertInstanceOf(Hidden::class, $element);
+                self::assertSame('', $element->getValue());
+
+                return sprintf('<input type="hidden" name="%s" value="%s"/>', $name, '');
+            });
 
         $helper = new FormMultiCheckbox(
             $escapeHtml,
@@ -3049,7 +3071,11 @@ final class FormMultiCheckboxTest extends TestCase
         self::assertSame($expectedSummary, $helper($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     *
+     * @group test-hidden-field-in-multicheckbox
+     */
     public function testInvokeMultiOptionInlineWithHiddenField3(): void
     {
         $name                    = 'test-name';
@@ -3111,9 +3137,8 @@ final class FormMultiCheckboxTest extends TestCase
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
         $expectedSummary         = $indent . '    ' . sprintf(
-            '<input type="hidden" name="%s" value="%s"/>',
+            '<input type="hidden" name="%s" value=""/>',
             $name,
-            $uncheckedValue,
         ) . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
@@ -3252,10 +3277,12 @@ final class FormMultiCheckboxTest extends TestCase
             ->getMock();
         $formHidden->expects(self::once())
             ->method('render')
-            ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(
-                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
-            );
+            ->willReturnCallback(static function (ElementInterface $element) use ($name): string {
+                self::assertInstanceOf(Hidden::class, $element);
+                self::assertSame('', $element->getValue());
+
+                return sprintf('<input type="hidden" name="%s" value="%s"/>', $name, '');
+            });
 
         $helper = new FormMultiCheckbox(
             $escapeHtml,
@@ -3318,7 +3345,11 @@ final class FormMultiCheckboxTest extends TestCase
         self::assertSame($labelPosition, $helper->getLabelPosition());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     *
+     * @group test-hidden-field-in-multicheckbox
+     */
     public function testInvokeMultiOptionInlineWithHiddenField4(): void
     {
         $name                    = 'test-name';
@@ -3380,9 +3411,8 @@ final class FormMultiCheckboxTest extends TestCase
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
         $expectedSummary         = $indent . '    ' . sprintf(
-            '<input type="hidden" name="%s" value="%s"/>',
+            '<input type="hidden" name="%s" value=""/>',
             $name,
-            $uncheckedValue,
         ) . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
@@ -3527,10 +3557,12 @@ final class FormMultiCheckboxTest extends TestCase
             ->getMock();
         $formHidden->expects(self::once())
             ->method('render')
-            ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(
-                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
-            );
+            ->willReturnCallback(static function (ElementInterface $element) use ($name): string {
+                self::assertInstanceOf(Hidden::class, $element);
+                self::assertSame('', $element->getValue());
+
+                return sprintf('<input type="hidden" name="%s" value="%s"/>', $name, '');
+            });
 
         $helper = new FormMultiCheckbox(
             $escapeHtml,
@@ -3593,8 +3625,12 @@ final class FormMultiCheckboxTest extends TestCase
         self::assertSame($labelPosition, $helper->getLabelPosition());
     }
 
-    /** @throws Exception */
-    public function testInvokeMultiOptionInlineWithHiddenField45(): void
+    /**
+     * @throws Exception
+     *
+     * @group test-hidden-field-in-multicheckbox
+     */
+    public function testInvokeMultiOptionInlineWithHiddenField5(): void
     {
         $name                    = 'test-name';
         $id                      = 'test-id';
@@ -3655,9 +3691,8 @@ final class FormMultiCheckboxTest extends TestCase
         $expected                = '<div></div>';
         $uncheckedValue          = '0';
         $expectedSummary         = $indent . '    ' . sprintf(
-            '<input type="hidden" name="%s" value="%s"/>',
+            '<input type="hidden" name="%s" value=""/>',
             $name,
-            $uncheckedValue,
         ) . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>' . PHP_EOL . $indent . '    <div></div>';
         $textDomain              = 'test-domain';
         $renderedField1          = PHP_EOL
@@ -3808,10 +3843,12 @@ final class FormMultiCheckboxTest extends TestCase
             ->getMock();
         $formHidden->expects(self::once())
             ->method('render')
-            ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(
-                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
-            );
+            ->willReturnCallback(static function (ElementInterface $element) use ($name): string {
+                self::assertInstanceOf(Hidden::class, $element);
+                self::assertSame('', $element->getValue());
+
+                return sprintf('<input type="hidden" name="%s" value="%s"/>', $name, '');
+            });
 
         $helper = new FormMultiCheckbox(
             $escapeHtml,

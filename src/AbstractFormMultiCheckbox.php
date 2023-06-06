@@ -450,8 +450,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      */
     private function renderHiddenElement(MultiCheckboxElement $element): string
     {
-        $uncheckedValue = $element->getUncheckedValue()
-            ?: $this->uncheckedValue;
+        $uncheckedValue = $element->getUncheckedValue() ?: $this->uncheckedValue;
 
         $hiddenElement = new Element\Hidden($element->getName());
         $hiddenElement->setValue($uncheckedValue);
