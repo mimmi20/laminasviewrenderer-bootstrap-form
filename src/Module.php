@@ -52,9 +52,6 @@ final class Module implements ConfigProviderInterface, DependencyIndicatorInterf
         return [
             'Laminas\I18n',
             'Laminas\Form',
-            'Mimmi20\Form\Element\Group',
-            'Mimmi20\Form\Links',
-            'Mimmi20\Form\Paragraph',
         ];
     }
 }
