@@ -71,6 +71,7 @@ jobs:
           fail-fast: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           phpts: "nts"
+          debug: true
 
       - name: "Update dependencies with composer"
         uses: "ramsey/composer-install@2.2.0"
@@ -125,6 +126,7 @@ jobs:
           fail-fast: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           phpts: "nts"
+          debug: true
 
       - name: "Update dependencies with composer"
         uses: "ramsey/composer-install@2.2.0"
@@ -178,6 +180,7 @@ jobs:
           fail-fast: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           phpts: "nts"
+          debug: true
 
       - name: "Update dependencies with composer"
         uses: "ramsey/composer-install@2.2.0"
