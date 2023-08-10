@@ -502,4 +502,70 @@ final class FormTest extends AbstractTestCase
 
         self::assertSame($expected, trim($helper->render($form)));
     }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws InvalidServiceException
+     * @throws ServiceNotFoundException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     * @throws ContainerExceptionInterface
+     */
+    public function testAdminForm(): void
+    {
+        $form = (new Factory())->createForm(require '_files/config/default.admin.config.php');
+
+        $expected = $this->getExpected('form/admin.html');
+
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $row        = $plugin->get(FormRowInterface::class);
+        $collection = $plugin->get(FormCollectionInterface::class);
+
+        assert($row instanceof FormRowInterface);
+        assert($collection instanceof FormCollectionInterface);
+
+        $collection->setShouldWrap(false);
+
+        $helper = new Form($collection, $row);
+
+        self::assertSame($expected, trim($helper->render($form)));
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws InvalidServiceException
+     * @throws ServiceNotFoundException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     * @throws ContainerExceptionInterface
+     */
+    public function testAdminForm2(): void
+    {
+        $form = (new Factory())->createForm(require '_files/config/default.admin2.config.php');
+
+        $expected = $this->getExpected('form/admin2.html');
+
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $row        = $plugin->get(FormRowInterface::class);
+        $collection = $plugin->get(FormCollectionInterface::class);
+
+        assert($row instanceof FormRowInterface);
+        assert($collection instanceof FormCollectionInterface);
+
+        $collection->setShouldWrap(false);
+
+        $helper = new Form($collection, $row);
+
+        self::assertSame($expected, trim($helper->render($form)));
+    }
 }

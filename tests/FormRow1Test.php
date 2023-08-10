@@ -80,10 +80,13 @@ final class FormRow1Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(true);
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::never())
-            ->method('hasAttribute');
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $element->expects(self::once())
+            ->method('hasAttribute')
+            ->with('required')
+            ->willReturn(false);
         $element->expects(self::never())
             ->method('setAttribute');
         $element->expects(self::never())
@@ -124,10 +127,13 @@ final class FormRow1Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::never())
-            ->method('hasAttribute');
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $element->expects(self::once())
+            ->method('hasAttribute')
+            ->with('required')
+            ->willReturn(false);
         $element->expects(self::never())
             ->method('setAttribute');
         $element->expects(self::once())
@@ -209,10 +215,13 @@ final class FormRow1Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::never())
-            ->method('hasAttribute');
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $element->expects(self::once())
+            ->method('hasAttribute')
+            ->with('required')
+            ->willReturn(false);
         $element->expects(self::never())
             ->method('setAttribute');
         $element->expects(self::once())
@@ -304,12 +313,30 @@ final class FormRow1Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
         $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('hasAttribute')
-            ->with('class')
-            ->willReturn(false);
+            ->willReturnCallback(
+                static function (string $key) use ($matcher): bool {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'required',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return false;
+                },
+            );
         $element->expects(self::once())
             ->method('setAttribute')
             ->with('class', 'is-invalid');
@@ -403,12 +430,33 @@ final class FormRow1Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
         $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('hasAttribute')
-            ->with('class')
-            ->willReturn(true);
+            ->willReturnCallback(
+                static function (string $key) use ($matcher): bool {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'required',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => false,
+                        default => true,
+                    };
+                },
+            );
         $element->expects(self::once())
             ->method('setAttribute')
             ->with('class', $class . ' is-invalid');
@@ -504,10 +552,13 @@ final class FormRow1Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::never())
-            ->method('hasAttribute');
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $element->expects(self::once())
+            ->method('hasAttribute')
+            ->with('required')
+            ->willReturn(false);
         $element->expects(self::never())
             ->method('setAttribute');
         $element->expects(self::once())
@@ -589,10 +640,13 @@ final class FormRow1Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::never())
-            ->method('hasAttribute');
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $element->expects(self::once())
+            ->method('hasAttribute')
+            ->with('required')
+            ->willReturn(false);
         $element->expects(self::never())
             ->method('setAttribute');
         $element->expects(self::once())
@@ -684,12 +738,30 @@ final class FormRow1Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
         $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('hasAttribute')
-            ->with('class')
-            ->willReturn(false);
+            ->willReturnCallback(
+                static function (string $key) use ($matcher): bool {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'required',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return false;
+                },
+            );
         $element->expects(self::once())
             ->method('setAttribute')
             ->with('class', 'is-invalid');
@@ -783,12 +855,33 @@ final class FormRow1Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
         $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('hasAttribute')
-            ->with('class')
-            ->willReturn(true);
+            ->willReturnCallback(
+                static function (string $key) use ($matcher): bool {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'required',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => false,
+                        default => true,
+                    };
+                },
+            );
         $element->expects(self::once())
             ->method('setAttribute')
             ->with('class', $class . ' is-invalid');
@@ -885,10 +978,13 @@ final class FormRow1Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::never())
-            ->method('hasAttribute');
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $element->expects(self::once())
+            ->method('hasAttribute')
+            ->with('required')
+            ->willReturn(false);
         $element->expects(self::never())
             ->method('setAttribute');
         $element->expects(self::once())

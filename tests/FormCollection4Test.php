@@ -15,9 +15,9 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Collection;
 use Laminas\Form\Element\Text;
+use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
-use Laminas\I18n\View\Helper\Translate;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\Stdlib\PriorityList;
@@ -45,7 +45,7 @@ final class FormCollection4Test extends TestCase
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
      */
-    public function testRenderWithCollectionAndElementsAndOptionsAndTranslator(): void
+    public function testRenderWithFormAndElementsAndOptions(): void
     {
         $form            = 'test-form';
         $layout          = Form::LAYOUT_HORIZONTAL;
@@ -53,14 +53,11 @@ final class FormCollection4Test extends TestCase
         $attributes      = [];
         $labelAttributes = [];
         $label           = 'test-label';
-        $labelTranslated = 'test-label-translated';
         $disableEscape   = true;
         $wrap            = false;
         $indent          = '<!-- -->  ';
-        $textDomain      = 'test-domain';
 
-        $innerLabel           = 'inner-test-label';
-        $innerLabelTranslated = 'inner-test-label-translated';
+        $innerLabel = 'inner-test-label';
 
         $expectedLegend   = '<legend></legend>';
         $expectedFieldset = '<fieldset></fieldset>';
@@ -68,35 +65,121 @@ final class FormCollection4Test extends TestCase
         $expectedInnerLegend   = '<legend>inside</legend>';
         $expectedInnerFieldset = '<fieldset>inside</fieldset>';
 
+        $element = $this->getMockBuilder(\Laminas\Form\Form::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $textElement = $this->getMockBuilder(Text::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $textElement->expects(self::exactly(2))
+        $matcher     = self::exactly(2);
+        $textElement->expects($matcher)
             ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['layout', $layout],
-                ],
+            ->willReturnCallback(
+                static function (string $option) use ($matcher, $form, $layout): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'layout',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $form,
+                        default => $layout,
+                    };
+                },
             );
-        $textElement->expects(self::once())
+        $matcher = self::exactly(2);
+        $textElement->expects($matcher)
             ->method('setOption')
-            ->with('floating', true);
+            ->willReturnCallback(
+                static function (string $key, mixed $value) use ($matcher, $element): void {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'floating',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'fieldset',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertTrue($value, (string) $matcher->numberOfInvocations()),
+                        default => self::assertSame(
+                            $element,
+                            $value,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+                },
+            );
 
         $buttonElement = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $buttonElement->expects(self::exactly(2))
+        $matcher       = self::exactly(2);
+        $buttonElement->expects($matcher)
             ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['layout', $layout],
-                ],
+            ->willReturnCallback(
+                static function (string $option) use ($matcher, $form, $layout): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'layout',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $form,
+                        default => $layout,
+                    };
+                },
             );
-        $buttonElement->expects(self::once())
+        $matcher = self::exactly(2);
+        $buttonElement->expects($matcher)
             ->method('setOption')
-            ->with('floating', true);
+            ->willReturnCallback(
+                static function (string $key, mixed $value) use ($matcher, $element): void {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'floating',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'fieldset',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertTrue($value, (string) $matcher->numberOfInvocations()),
+                        default => self::assertSame(
+                            $element,
+                            $value,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+                },
+            );
 
         $expectedButton = $indent . '    <button></button>';
         $expectedText   = $indent . '    <text></text>';
@@ -107,25 +190,31 @@ final class FormCollection4Test extends TestCase
         $formRow->expects(self::exactly(2))
             ->method('setIndent')
             ->with($indent . '    ');
-        $formRow->expects(self::exactly(2))
+        $matcher = self::exactly(2);
+        $formRow->expects($matcher)
             ->method('render')
-            ->willReturnMap(
-                [
-                    [$buttonElement, null, $expectedButton],
-                    [$textElement, null, $expectedText],
-                ],
-            );
+            ->willReturnCallback(
+                static function (ElementInterface $element, string | null $labelPosition = null) use ($matcher, $buttonElement, $textElement, $expectedButton, $expectedText): string {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            $buttonElement,
+                            $element,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            $textElement,
+                            $element,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $translator->expects(self::exactly(2))
-            ->method('__invoke')
-            ->willReturnMap(
-                [
-                    [$innerLabel, $textDomain, null, $innerLabelTranslated],
-                    [$label, $textDomain, null, $labelTranslated],
-                ],
+                    self::assertNull($labelPosition, (string) $matcher->numberOfInvocations());
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $expectedButton,
+                        default => $expectedText,
+                    };
+                },
             );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -146,17 +235,17 @@ final class FormCollection4Test extends TestCase
                         ['class' => ''],
                         sprintf(
                             '<span>%s</span>',
-                            $innerLabelTranslated,
+                            $innerLabel,
                         ),
                         $expectedInnerLegend,
                     ],
                     ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    ', $expectedInnerFieldset],
-                    ['legend', ['class' => ''], $labelTranslated, $expectedLegend],
+                    ['legend', ['class' => ''], $label, $expectedLegend],
                     ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent, $expectedFieldset],
                 ],
             );
 
-        $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, $translator);
+        $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, null);
 
         $innerList = new PriorityList();
 
@@ -204,21 +293,49 @@ final class FormCollection4Test extends TestCase
         $list->insert('y', $buttonElement);
         $list->insert('z', $collectionElement);
 
-        $element = $this->getMockBuilder(Collection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
         $element->expects(self::never())
             ->method('getName');
-        $element->expects(self::exactly(7))
+        $matcher = self::exactly(7);
+        $element->expects($matcher)
             ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['layout', $layout],
-                    ['floating', $floating],
-                    ['show-required-mark', false],
-                    ['label_attributes', $labelAttributes],
-                ],
+            ->willReturnCallback(
+                static function (string $option) use ($matcher, $form, $layout, $floating, $labelAttributes): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        3 => self::assertSame(
+                            'floating',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        4, 5, 6 => self::assertSame(
+                            'show-required-mark',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        7 => self::assertSame(
+                            'label_attributes',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'layout',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $form,
+                        3 => $floating,
+                        4, 5, 6 => false,
+                        7 => $labelAttributes,
+                        default => $layout,
+                    };
+                },
             );
         $element->expects(self::once())
             ->method('getAttributes')
@@ -226,13 +343,29 @@ final class FormCollection4Test extends TestCase
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
-        $element->expects(self::exactly(2))
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('getLabelOption')
-            ->willReturnMap(
-                [
-                    ['disable_html_escape', $disableEscape],
-                    ['always_wrap', $wrap],
-                ],
+            ->willReturnCallback(
+                static function (int | string $key) use ($matcher, $disableEscape, $wrap): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => self::assertSame(
+                            'disable_html_escape',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'always_wrap',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => $disableEscape,
+                        default => $wrap,
+                    };
+                },
             );
         $element->expects(self::once())
             ->method('hasAttribute')
@@ -241,14 +374,8 @@ final class FormCollection4Test extends TestCase
         $element->expects(self::once())
             ->method('getIterator')
             ->willReturn($list);
-        $element->expects(self::once())
-            ->method('shouldCreateTemplate')
-            ->willReturn(false);
-        $element->expects(self::never())
-            ->method('getTemplateElement');
 
         $helper->setIndent($indent);
-        $helper->setTranslatorTextDomain($textDomain);
 
         self::assertSame($indent . $expectedFieldset, $helper->render($element));
     }
@@ -262,24 +389,19 @@ final class FormCollection4Test extends TestCase
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
      */
-    public function testRenderWithCollectionAndElementsAndOptionsAndTranslator2(): void
+    public function testRenderWithCollectionAndElementsAndOptions(): void
     {
-        $form                   = 'test-form';
-        $layout                 = Form::LAYOUT_HORIZONTAL;
-        $floating               = true;
-        $attributes             = [];
-        $labelAttributes        = [];
-        $label                  = 'test-label';
-        $labelTranslated        = 'test-label-translated';
-        $labelTranslatedEscaped = 'test-label-translated-escaped';
-        $disableEscape          = false;
-        $wrap                   = false;
-        $indent                 = '<!-- -->  ';
-        $textDomain             = 'test-domain';
+        $form            = 'test-form';
+        $layout          = Form::LAYOUT_HORIZONTAL;
+        $floating        = true;
+        $attributes      = [];
+        $labelAttributes = [];
+        $label           = 'test-label';
+        $disableEscape   = true;
+        $wrap            = false;
+        $indent          = '<!-- -->  ';
 
-        $innerLabel                  = 'inner-test-label';
-        $innerLabelTranslated        = 'inner-test-label-translated';
-        $innerLabelTranslatedEscaped = 'inner-test-label-translated-escaped';
+        $innerLabel = 'inner-test-label';
 
         $expectedLegend   = '<legend></legend>';
         $expectedFieldset = '<fieldset></fieldset>';
@@ -287,35 +409,121 @@ final class FormCollection4Test extends TestCase
         $expectedInnerLegend   = '<legend>inside</legend>';
         $expectedInnerFieldset = '<fieldset>inside</fieldset>';
 
+        $element = $this->getMockBuilder(Collection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $textElement = $this->getMockBuilder(Text::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $textElement->expects(self::exactly(2))
+        $matcher     = self::exactly(2);
+        $textElement->expects($matcher)
             ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['layout', $layout],
-                ],
+            ->willReturnCallback(
+                static function (string $option) use ($matcher, $form, $layout): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'layout',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $form,
+                        default => $layout,
+                    };
+                },
             );
-        $textElement->expects(self::once())
+        $matcher = self::exactly(2);
+        $textElement->expects($matcher)
             ->method('setOption')
-            ->with('floating', true);
+            ->willReturnCallback(
+                static function (string $key, mixed $value) use ($matcher, $element): void {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'floating',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'fieldset',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertTrue($value, (string) $matcher->numberOfInvocations()),
+                        default => self::assertSame(
+                            $element,
+                            $value,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+                },
+            );
 
         $buttonElement = $this->getMockBuilder(Button::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $buttonElement->expects(self::exactly(2))
+        $matcher       = self::exactly(2);
+        $buttonElement->expects($matcher)
             ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['layout', $layout],
-                ],
+            ->willReturnCallback(
+                static function (string $option) use ($matcher, $form, $layout): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'layout',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $form,
+                        default => $layout,
+                    };
+                },
             );
-        $buttonElement->expects(self::once())
+        $matcher = self::exactly(2);
+        $buttonElement->expects($matcher)
             ->method('setOption')
-            ->with('floating', true);
+            ->willReturnCallback(
+                static function (string $key, mixed $value) use ($matcher, $element): void {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'floating',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'fieldset',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertTrue($value, (string) $matcher->numberOfInvocations()),
+                        default => self::assertSame(
+                            $element,
+                            $value,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+                },
+            );
 
         $expectedButton = $indent . '    <button></button>';
         $expectedText   = $indent . '    <text></text>';
@@ -326,38 +534,38 @@ final class FormCollection4Test extends TestCase
         $formRow->expects(self::exactly(2))
             ->method('setIndent')
             ->with($indent . '    ');
-        $formRow->expects(self::exactly(2))
+        $matcher = self::exactly(2);
+        $formRow->expects($matcher)
             ->method('render')
-            ->willReturnMap(
-                [
-                    [$buttonElement, null, $expectedButton],
-                    [$textElement, null, $expectedText],
-                ],
-            );
+            ->willReturnCallback(
+                static function (ElementInterface $element, string | null $labelPosition = null) use ($matcher, $buttonElement, $textElement, $expectedButton, $expectedText): string {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            $buttonElement,
+                            $element,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            $textElement,
+                            $element,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $translator->expects(self::exactly(2))
-            ->method('__invoke')
-            ->willReturnMap(
-                [
-                    [$innerLabel, $textDomain, null, $innerLabelTranslated],
-                    [$label, $textDomain, null, $labelTranslated],
-                ],
+                    self::assertNull($labelPosition, (string) $matcher->numberOfInvocations());
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $expectedButton,
+                        default => $expectedText,
+                    };
+                },
             );
 
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $escapeHtml->expects(self::exactly(2))
-            ->method('__invoke')
-            ->willReturnMap(
-                [
-                    [$innerLabelTranslated, 0, $innerLabelTranslatedEscaped],
-                    [$labelTranslated, 0, $labelTranslatedEscaped],
-                ],
-            );
+        $escapeHtml->expects(self::never())
+            ->method('__invoke');
 
         $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
             ->disableOriginalConstructor()
@@ -371,17 +579,17 @@ final class FormCollection4Test extends TestCase
                         ['class' => ''],
                         sprintf(
                             '<span>%s</span>',
-                            $innerLabelTranslatedEscaped,
+                            $innerLabel,
                         ),
                         $expectedInnerLegend,
                     ],
                     ['fieldset', [], PHP_EOL . $indent . '        ' . $expectedInnerLegend . PHP_EOL . $indent . '    ', $expectedInnerFieldset],
-                    ['legend', ['class' => ''], $labelTranslatedEscaped, $expectedLegend],
+                    ['legend', ['class' => ''], $label, $expectedLegend],
                     ['fieldset', [], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedInnerFieldset . PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent, $expectedFieldset],
                 ],
             );
 
-        $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, $translator);
+        $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, null);
 
         $innerList = new PriorityList();
 
@@ -429,21 +637,49 @@ final class FormCollection4Test extends TestCase
         $list->insert('y', $buttonElement);
         $list->insert('z', $collectionElement);
 
-        $element = $this->getMockBuilder(Collection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
         $element->expects(self::never())
             ->method('getName');
-        $element->expects(self::exactly(7))
+        $matcher = self::exactly(7);
+        $element->expects($matcher)
             ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['layout', $layout],
-                    ['floating', $floating],
-                    ['show-required-mark', false],
-                    ['label_attributes', $labelAttributes],
-                ],
+            ->willReturnCallback(
+                static function (string $option) use ($matcher, $form, $layout, $floating, $labelAttributes): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        3 => self::assertSame(
+                            'floating',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        4, 5, 6 => self::assertSame(
+                            'show-required-mark',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        7 => self::assertSame(
+                            'label_attributes',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'layout',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $form,
+                        3 => $floating,
+                        4, 5, 6 => false,
+                        7 => $labelAttributes,
+                        default => $layout,
+                    };
+                },
             );
         $element->expects(self::once())
             ->method('getAttributes')
@@ -451,13 +687,29 @@ final class FormCollection4Test extends TestCase
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn($label);
-        $element->expects(self::exactly(2))
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('getLabelOption')
-            ->willReturnMap(
-                [
-                    ['disable_html_escape', $disableEscape],
-                    ['always_wrap', $wrap],
-                ],
+            ->willReturnCallback(
+                static function (int | string $key) use ($matcher, $disableEscape, $wrap): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => self::assertSame(
+                            'disable_html_escape',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'always_wrap',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => $disableEscape,
+                        default => $wrap,
+                    };
+                },
             );
         $element->expects(self::once())
             ->method('hasAttribute')
@@ -473,172 +725,7 @@ final class FormCollection4Test extends TestCase
             ->method('getTemplateElement');
 
         $helper->setIndent($indent);
-        $helper->setTranslatorTextDomain($textDomain);
 
         self::assertSame($indent . $expectedFieldset, $helper->render($element));
-    }
-
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws DomainException
-     * @throws InvalidServiceException
-     * @throws ServiceNotFoundException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     * @throws RuntimeException
-     */
-    public function testRenderWithCollectionAndElementsAndOptionsAndTranslator3(): void
-    {
-        $form       = 'test-form';
-        $layout     = Form::LAYOUT_HORIZONTAL;
-        $floating   = true;
-        $indent     = '<!-- -->  ';
-        $textDomain = 'test-domain';
-
-        $textElement = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $textElement->expects(self::exactly(2))
-            ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['layout', $layout],
-                ],
-            );
-        $textElement->expects(self::once())
-            ->method('setOption')
-            ->with('floating', true);
-
-        $buttonElement = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $buttonElement->expects(self::exactly(2))
-            ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['layout', $layout],
-                ],
-            );
-        $buttonElement->expects(self::once())
-            ->method('setOption')
-            ->with('floating', true);
-
-        $expectedButton = $indent . '    <button></button>';
-        $expectedText   = $indent . '    <text></text>';
-        $expected       = PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL;
-
-        $formRow = $this->getMockBuilder(FormRowInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $formRow->expects(self::exactly(2))
-            ->method('setIndent')
-            ->with($indent . '    ');
-        $formRow->expects(self::exactly(2))
-            ->method('render')
-            ->willReturnMap(
-                [
-                    [$buttonElement, null, $expectedButton],
-                    [$textElement, null, $expectedText],
-                ],
-            );
-
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $translator->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, $translator);
-
-        $innerList = new PriorityList();
-
-        $collectionElement = $this->getMockBuilder(Collection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $collectionElement->expects(self::exactly(5))
-            ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['layout', $layout],
-                    ['floating', $floating],
-                ],
-            );
-        $collectionElement->expects(self::once())
-            ->method('setOption')
-            ->with('floating', true);
-        $collectionElement->expects(self::never())
-            ->method('getAttributes');
-        $collectionElement->expects(self::never())
-            ->method('getLabel');
-        $collectionElement->expects(self::never())
-            ->method('getLabelOption');
-        $collectionElement->expects(self::never())
-            ->method('hasAttribute');
-        $collectionElement->expects(self::once())
-            ->method('getIterator')
-            ->willReturn($innerList);
-        $collectionElement->expects(self::once())
-            ->method('shouldCreateTemplate')
-            ->willReturn(false);
-        $collectionElement->expects(self::never())
-            ->method('getTemplateElement');
-
-        $list = new PriorityList();
-        $list->insert('x', $textElement);
-        $list->insert('y', $buttonElement);
-        $list->insert('z', $collectionElement);
-
-        $element = $this->getMockBuilder(Collection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::exactly(6))
-            ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['layout', $layout],
-                    ['floating', $floating],
-                    ['show-required-mark', false],
-                ],
-            );
-        $element->expects(self::never())
-            ->method('getAttributes');
-        $element->expects(self::never())
-            ->method('getLabel');
-        $element->expects(self::never())
-            ->method('getLabelOption');
-        $element->expects(self::never())
-            ->method('hasAttribute');
-        $element->expects(self::once())
-            ->method('getIterator')
-            ->willReturn($list);
-        $element->expects(self::once())
-            ->method('shouldCreateTemplate')
-            ->willReturn(false);
-        $element->expects(self::never())
-            ->method('getTemplateElement');
-
-        $helper->setIndent($indent);
-        $helper->setTranslatorTextDomain($textDomain);
-        $helper->setShouldWrap(false);
-
-        self::assertSame($expected, $helper->render($element));
     }
 }

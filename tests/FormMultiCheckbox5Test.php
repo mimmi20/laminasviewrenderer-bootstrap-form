@@ -286,13 +286,29 @@ final class FormMultiCheckbox5Test extends TestCase
             ->method('getOption')
             ->with('layout')
             ->willReturn(Form::LAYOUT_INLINE);
-        $element->expects(self::exactly(9))
+        $matcher = self::exactly(9);
+        $element->expects($matcher)
             ->method('getLabelOption')
-            ->willReturnMap(
-                [
-                    ['disable_html_escape', $disableEscape],
-                    ['always_wrap', $wrap],
-                ],
+            ->willReturnCallback(
+                static function (int | string $key) use ($matcher, $disableEscape, $wrap): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => self::assertSame(
+                            'disable_html_escape',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'always_wrap',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => $disableEscape,
+                        default => $wrap,
+                    };
+                },
             );
         $element->expects(self::once())
             ->method('hasLabelOption')
@@ -499,14 +515,39 @@ final class FormMultiCheckbox5Test extends TestCase
         $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $htmlElement->expects(self::exactly(3))
+        $matcher     = self::exactly(3);
+        $htmlElement->expects($matcher)
             ->method('toHtml')
-            ->willReturnMap(
-                [
-                    ['div', ['class' => ['form-check', 'form-check-inline']], $renderedField1, $expected],
-                    ['div', ['class' => ['form-check', 'form-check-inline']], $renderedField2, $expected],
-                    ['div', ['class' => ['form-check', 'form-check-inline']], $renderedField3, $expected],
-                ],
+            ->willReturnCallback(
+                static function (string $element, array $attribs, string $content) use ($matcher, $renderedField1, $renderedField2, $renderedField3, $expected): string {
+                    self::assertSame('div', $element, (string) $matcher->numberOfInvocations());
+
+                    self::assertSame(
+                        ['class' => ['form-check', 'form-check-inline']],
+                        $attribs,
+                        (string) $matcher->numberOfInvocations(),
+                    );
+
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            $renderedField1,
+                            $content,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        2 => self::assertSame(
+                            $renderedField2,
+                            $content,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            $renderedField3,
+                            $content,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return $expected;
+                },
             );
 
         $translator = $this->getMockBuilder(Translate::class)
@@ -569,13 +610,29 @@ final class FormMultiCheckbox5Test extends TestCase
             ->method('getOption')
             ->with('layout')
             ->willReturn(Form::LAYOUT_INLINE);
-        $element->expects(self::exactly(9))
+        $matcher = self::exactly(9);
+        $element->expects($matcher)
             ->method('getLabelOption')
-            ->willReturnMap(
-                [
-                    ['disable_html_escape', $disableEscape],
-                    ['always_wrap', $wrap],
-                ],
+            ->willReturnCallback(
+                static function (int | string $key) use ($matcher, $disableEscape, $wrap): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => self::assertSame(
+                            'disable_html_escape',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'always_wrap',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => $disableEscape,
+                        default => $wrap,
+                    };
+                },
             );
         $element->expects(self::once())
             ->method('hasLabelOption')

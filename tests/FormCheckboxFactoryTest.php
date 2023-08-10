@@ -13,11 +13,11 @@ declare(strict_types = 1);
 namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use AssertionError;
-use Interop\Container\ContainerInterface;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\FormCheckbox;
 use Mimmi20\LaminasView\BootstrapForm\FormCheckboxFactory;
@@ -26,6 +26,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormLabelInterface;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 use function assert;
 
@@ -61,29 +62,83 @@ final class FormCheckboxFactoryTest extends TestCase
             ->method('has')
             ->with(Translate::class)
             ->willReturn(true);
-        $helperPluginManager->expects(self::exactly(6))
+        $matcher = self::exactly(6);
+        $helperPluginManager->expects($matcher)
             ->method('get')
-            ->willReturnMap(
-                [
-                    [Translate::class, null, $translatePlugin],
-                    [EscapeHtml::class, null, $escapeHtml],
-                    [EscapeHtmlAttr::class, null, $escapeHtmlAttr],
-                    [Doctype::class, null, $doctype],
-                    [FormLabelInterface::class, null, $formLabel],
-                    [FormHiddenInterface::class, null, $formHidden],
-                ],
+            ->willReturnCallback(
+                static function ($name, array | null $options = null) use ($matcher, $translatePlugin, $escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $formHidden): HelperInterface | FormLabelInterface | FormHiddenInterface {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            Translate::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        2 => self::assertSame(
+                            EscapeHtml::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        3 => self::assertSame(
+                            EscapeHtmlAttr::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        4 => self::assertSame(
+                            Doctype::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        5 => self::assertSame(
+                            FormLabelInterface::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            FormHiddenInterface::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $translatePlugin,
+                        2 => $escapeHtml,
+                        3 => $escapeHtmlAttr,
+                        4 => $doctype,
+                        5 => $formLabel,
+                        default => $formHidden,
+                    };
+                },
             );
 
         $container = $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $container->expects(self::exactly(2))
+        $matcher   = self::exactly(2);
+        $container->expects($matcher)
             ->method('get')
-            ->willReturnMap(
-                [
-                    [HelperPluginManager::class, $helperPluginManager],
-                    [HtmlElementInterface::class, $htmlElement],
-                ],
+            ->willReturnCallback(
+                static function (string $id) use ($matcher, $helperPluginManager, $htmlElement): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            HelperPluginManager::class,
+                            $id,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            HtmlElementInterface::class,
+                            $id,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $helperPluginManager,
+                        default => $htmlElement,
+                    };
+                },
             );
 
         assert($container instanceof ContainerInterface);
@@ -109,28 +164,77 @@ final class FormCheckboxFactoryTest extends TestCase
             ->method('has')
             ->with(Translate::class)
             ->willReturn(false);
-        $helperPluginManager->expects(self::exactly(5))
+        $matcher = self::exactly(5);
+        $helperPluginManager->expects($matcher)
             ->method('get')
-            ->willReturnMap(
-                [
-                    [EscapeHtml::class, null, $escapeHtml],
-                    [EscapeHtmlAttr::class, null, $escapeHtmlAttr],
-                    [Doctype::class, null, $doctype],
-                    [FormLabelInterface::class, null, $formLabel],
-                    [FormHiddenInterface::class, null, $formHidden],
-                ],
+            ->willReturnCallback(
+                static function ($name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype, $formLabel, $formHidden): HelperInterface | FormLabelInterface | FormHiddenInterface {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            EscapeHtml::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        2 => self::assertSame(
+                            EscapeHtmlAttr::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        3 => self::assertSame(
+                            Doctype::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        4 => self::assertSame(
+                            FormLabelInterface::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            FormHiddenInterface::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        4 => $formLabel,
+                        default => $formHidden,
+                    };
+                },
             );
 
         $container = $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $container->expects(self::exactly(2))
+        $matcher   = self::exactly(2);
+        $container->expects($matcher)
             ->method('get')
-            ->willReturnMap(
-                [
-                    [HelperPluginManager::class, $helperPluginManager],
-                    [HtmlElementInterface::class, $htmlElement],
-                ],
+            ->willReturnCallback(
+                static function (string $id) use ($matcher, $helperPluginManager, $htmlElement): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            HelperPluginManager::class,
+                            $id,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            HtmlElementInterface::class,
+                            $id,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $helperPluginManager,
+                        default => $htmlElement,
+                    };
+                },
             );
 
         assert($container instanceof ContainerInterface);

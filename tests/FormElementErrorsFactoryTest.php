@@ -13,7 +13,6 @@ declare(strict_types = 1);
 namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use AssertionError;
-use Interop\Container\ContainerInterface;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\HelperPluginManager;
@@ -22,6 +21,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormElementErrorsFactory;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 use function assert;
 
@@ -65,13 +65,29 @@ final class FormElementErrorsFactoryTest extends TestCase
         $container = $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $container->expects(self::exactly(2))
+        $matcher   = self::exactly(2);
+        $container->expects($matcher)
             ->method('get')
-            ->willReturnMap(
-                [
-                    [HelperPluginManager::class, $helperPluginManager],
-                    [HtmlElementInterface::class, $htmlElement],
-                ],
+            ->willReturnCallback(
+                static function (string $id) use ($matcher, $helperPluginManager, $htmlElement): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            HelperPluginManager::class,
+                            $id,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            HtmlElementInterface::class,
+                            $id,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $helperPluginManager,
+                        default => $htmlElement,
+                    };
+                },
             );
 
         assert($container instanceof ContainerInterface);
@@ -101,13 +117,29 @@ final class FormElementErrorsFactoryTest extends TestCase
         $container = $this->getMockBuilder(ContainerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $container->expects(self::exactly(2))
+        $matcher   = self::exactly(2);
+        $container->expects($matcher)
             ->method('get')
-            ->willReturnMap(
-                [
-                    [HelperPluginManager::class, $helperPluginManager],
-                    [HtmlElementInterface::class, $htmlElement],
-                ],
+            ->willReturnCallback(
+                static function (string $id) use ($matcher, $helperPluginManager, $htmlElement): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            HelperPluginManager::class,
+                            $id,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            HtmlElementInterface::class,
+                            $id,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $helperPluginManager,
+                        default => $htmlElement,
+                    };
+                },
             );
 
         assert($container instanceof ContainerInterface);
