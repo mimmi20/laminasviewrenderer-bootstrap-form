@@ -287,7 +287,7 @@ final class FormElementErrorsTest extends TestCase
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
             ->with('disable_html_escape')
-            ->willReturnOnConsecutiveCalls(false, true);
+            ->willReturn(false, true);
 
         $helper->setTranslatorTextDomain($textDomain);
 
@@ -359,7 +359,7 @@ final class FormElementErrorsTest extends TestCase
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
             ->with('disable_html_escape')
-            ->willReturnOnConsecutiveCalls(false, true);
+            ->willReturn(false, true);
 
         $helper->setTranslatorTextDomain($textDomain);
 
@@ -435,7 +435,7 @@ final class FormElementErrorsTest extends TestCase
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
             ->with('disable_html_escape')
-            ->willReturnOnConsecutiveCalls(false, true);
+            ->willReturn(false, true);
 
         $helper->setTranslatorTextDomain($textDomain);
 
@@ -534,7 +534,7 @@ final class FormElementErrorsTest extends TestCase
         $element->expects(self::exactly(2))
             ->method('getLabelOption')
             ->with('disable_html_escape')
-            ->willReturnOnConsecutiveCalls(false, true);
+            ->willReturn(false, true);
 
         $helper->setTranslatorTextDomain($textDomain);
         $helper->setAttributes($attributes);
