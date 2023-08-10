@@ -13,12 +13,12 @@ declare(strict_types = 1);
 namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use AssertionError;
-use Interop\Container\ContainerInterface;
 use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\FormElement;
 use Mimmi20\LaminasView\BootstrapForm\FormElementFactory;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 use function assert;
 

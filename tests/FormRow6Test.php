@@ -12,9 +12,8 @@ declare(strict_types = 1);
 
 namespace Mimmi20Test\LaminasView\BootstrapForm;
 
-use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Radio;
-use Laminas\Form\ElementInterface;
+use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
@@ -31,7 +30,7 @@ use PHPUnit\Framework\TestCase;
 
 use const PHP_EOL;
 
-final class FormRow4Test extends TestCase
+final class FormRow6Test extends TestCase
 {
     /**
      * @throws Exception
@@ -39,212 +38,7 @@ final class FormRow4Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
-    public function testRenderTextWithoutFormOptionAndLabel11(): void
-    {
-        $label            = '';
-        $messages         = ['x' => 'y'];
-        $type             = 'text';
-        $class            = 'test-class';
-        $indent           = '<!-- -->  ';
-        $expected         = '<hidden></hidden>';
-        $expectedErrors   = '<errors></errors>';
-        $renderErrors     = true;
-        $required         = true;
-        $showRequiredMark = false;
-        $layout           = null;
-        $helpContent      = 'help';
-        $helpAttributes   = ['a' => 'b'];
-        $expectedHelp     = '<help></help>';
-        $id               = 'test-id';
-        $aria             = 'aria-described';
-        $form             = null;
-        $textDomain       = 'text-domain';
-
-        $element = $this->getMockBuilder(ElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $matcher = self::exactly(7);
-        $element->expects($matcher)
-            ->method('getOption')
-            ->willReturnCallback(
-                static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent, $helpAttributes): mixed {
-                    match ($matcher->numberOfInvocations()) {
-                        1, 7 => self::assertSame(
-                            'form',
-                            $option,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                        2 => self::assertSame(
-                            'show-required-mark',
-                            $option,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                        3 => self::assertSame(
-                            'layout',
-                            $option,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                        4, 5 => self::assertSame(
-                            'help_content',
-                            $option,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                        6 => self::assertSame(
-                            'help_attributes',
-                            $option,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                        default => self::assertSame(
-                            'fieldset',
-                            $option,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                    };
-
-                    return match ($matcher->numberOfInvocations()) {
-                        1, 7 => $form,
-                        2 => $showRequiredMark,
-                        3 => $layout,
-                        4, 5 => $helpContent,
-                        6 => $helpAttributes,
-                        default => null,
-                    };
-                },
-            );
-        $element->expects(self::once())
-            ->method('getName')
-            ->willReturn('element-name');
-        $matcher = self::exactly(6);
-        $element->expects($matcher)
-            ->method('hasAttribute')
-            ->willReturnCallback(
-                static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
-                        1 => self::assertSame(
-                            'required',
-                            $key,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                        3, 5 => self::assertSame('id', $key, (string) $matcher->numberOfInvocations()),
-                        4, 6 => self::assertSame(
-                            'aria-describedby',
-                            $key,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                        default => self::assertSame(
-                            'class',
-                            $key,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                    };
-
-                    return match ($matcher->numberOfInvocations()) {
-                        1 => false,
-                        default => true,
-                    };
-                },
-            );
-        $element->expects(self::exactly(3))
-            ->method('setAttribute')
-            ->willReturnMap(
-                [
-                    ['class', $class . ' is-invalid', null],
-                    ['aria-describedby', $aria . ' ' . $id . 'Feedback', null],
-                    ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help', null],
-                ],
-            );
-        $element->expects(self::exactly(8))
-            ->method('getAttribute')
-            ->willReturnMap(
-                [
-                    ['type', $type],
-                    ['class', $class],
-                    ['required', $required],
-                    ['aria-describedby', $aria],
-                    ['id', $id],
-                ],
-            );
-        $element->expects(self::once())
-            ->method('getLabel')
-            ->willReturn($label);
-        $element->expects(self::once())
-            ->method('getMessages')
-            ->willReturn($messages);
-
-        $formElement = $this->getMockBuilder(FormElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $formElement->expects(self::once())
-            ->method('setIndent')
-            ->with($indent . '    ');
-        $formElement->expects(self::once())
-            ->method('render')
-            ->with($element)
-            ->willReturn($expected);
-
-        $formElementErrors = $this->getMockBuilder(FormElementErrorsInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $formElementErrors->expects(self::once())
-            ->method('setIndent')
-            ->with($indent . '    ');
-        $formElementErrors->expects(self::once())
-            ->method('render')
-            ->with($element)
-            ->willReturn($expectedErrors);
-
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $htmlElement->expects(self::once())
-            ->method('toHtml')
-            ->with('div', $helpAttributes + ['id' => $id . 'Help'], $helpContent)
-            ->willReturn($expectedHelp);
-
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->getMockBuilder(RendererInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $translator->expects(self::never())
-            ->method('__invoke');
-
-        $helper = new FormRow(
-            $formElement,
-            $formElementErrors,
-            $htmlElement,
-            $escapeHtml,
-            $renderer,
-            $translator,
-        );
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame(
-            $expected . $expectedErrors . PHP_EOL . $indent . '    ' . $expectedHelp,
-            $helper->render($element),
-        );
-    }
-
-    /**
-     * @throws Exception
-     * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
-     */
-    public function testRenderTextWithoutFormOptionAndLabel12(): void
+    public function testRenderTextWithoutFormOptionAndLabel18(): void
     {
         $label                  = 'test-label';
         $labelTranslated        = 'test-label-translated';
@@ -273,15 +67,16 @@ final class FormRow4Test extends TestCase
         $expectedCol            = '<col1></col1>';
         $expectedRow            = '<row></row>';
         $textDomain             = 'text-domain';
+        $disableEscape          = false;
 
-        $element = $this->getMockBuilder(Radio::class)
+        $element = $this->getMockBuilder(Text::class)
             ->disableOriginalConstructor()
             ->getMock();
         $matcher = self::exactly(15);
         $element->expects($matcher)
             ->method('getOption')
             ->willReturnCallback(
-                static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent, $helpAttributes, $rowAttributes, $colAttributes, $labelAttributes, $labelColAttributes): mixed {
+                static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent, $helpAttributes, $colAttributes, $rowAttributes, $labelAttributes, $labelColAttributes): mixed {
                     match ($matcher->numberOfInvocations()) {
                         1, 5, 7, 9, 11, 15 => self::assertSame(
                             'form',
@@ -308,13 +103,13 @@ final class FormRow4Test extends TestCase
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
-                        4 => self::assertSame(
-                            'row_attributes',
+                        6 => self::assertSame(
+                            'col_attributes',
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
-                        6 => self::assertSame(
-                            'col_attributes',
+                        4 => self::assertSame(
+                            'row_attributes',
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
@@ -341,8 +136,8 @@ final class FormRow4Test extends TestCase
                         3 => $layout,
                         12, 13 => $helpContent,
                         14 => $helpAttributes,
-                        4 => $rowAttributes,
                         6 => $colAttributes,
+                        4 => $rowAttributes,
                         8 => $labelAttributes,
                         10 => $labelColAttributes,
                         default => null,
@@ -352,7 +147,7 @@ final class FormRow4Test extends TestCase
         $element->expects(self::once())
             ->method('getName')
             ->willReturn('element-name');
-        $matcher = self::exactly(6);
+        $matcher = self::exactly(7);
         $element->expects($matcher)
             ->method('hasAttribute')
             ->willReturnCallback(
@@ -363,8 +158,12 @@ final class FormRow4Test extends TestCase
                             $key,
                             (string) $matcher->numberOfInvocations(),
                         ),
-                        3, 5 => self::assertSame('id', $key, (string) $matcher->numberOfInvocations()),
-                        4, 6 => self::assertSame(
+                        3, 4, 6 => self::assertSame(
+                            'id',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        5, 7 => self::assertSame(
                             'aria-describedby',
                             $key,
                             (string) $matcher->numberOfInvocations(),
@@ -391,15 +190,15 @@ final class FormRow4Test extends TestCase
                     ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help', null],
                 ],
             );
-        $element->expects(self::exactly(8))
+        $element->expects(self::exactly(9))
             ->method('getAttribute')
             ->willReturnMap(
                 [
                     ['type', $type],
                     ['class', $class],
                     ['required', $required],
-                    ['aria-describedby', $aria],
                     ['id', $id],
+                    ['aria-describedby', $aria],
                 ],
             );
         $element->expects(self::once())
@@ -408,13 +207,19 @@ final class FormRow4Test extends TestCase
         $element->expects(self::once())
             ->method('getMessages')
             ->willReturn($messages);
+        $element->expects(self::never())
+            ->method('hasLabelOption');
+        $element->expects(self::once())
+            ->method('getLabelOption')
+            ->with('disable_html_escape')
+            ->willReturn($disableEscape);
 
         $formElement = $this->getMockBuilder(FormElementInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
         $formElement->expects(self::once())
             ->method('setIndent')
-            ->with($indent . '    ');
+            ->with($indent . '        ');
         $formElement->expects(self::once())
             ->method('render')
             ->with($element)
@@ -425,7 +230,7 @@ final class FormRow4Test extends TestCase
             ->getMock();
         $formElementErrors->expects(self::once())
             ->method('setIndent')
-            ->with($indent . '    ');
+            ->with($indent . '        ');
         $formElementErrors->expects(self::once())
             ->method('render')
             ->with($element)
@@ -438,10 +243,10 @@ final class FormRow4Test extends TestCase
             ->method('toHtml')
             ->willReturnMap(
                 [
-                    ['legend', $labelColAttributes + $labelAttributes + ['class' => 'col-form-label'], $labelTranslatedEscaped, $expectedLegend],
+                    ['label', $labelColAttributes + $labelAttributes + ['class' => 'col-form-label', 'for' => $id], $labelTranslatedEscaped, $expectedLegend],
                     ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent, $expectedHelp],
-                    ['div', $colAttributes, PHP_EOL . $expected . $expectedErrors . PHP_EOL . $indent . '    ' . $expectedHelp . PHP_EOL . $indent . '    ', $expectedCol],
-                    ['fieldset', $rowAttributes + ['class' => 'row'], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedCol . PHP_EOL . $indent, $expectedRow],
+                    ['div', $colAttributes, PHP_EOL . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent . '    ', $expectedCol],
+                    ['div', $rowAttributes + ['class' => 'row'], PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expectedCol . PHP_EOL . $indent, $expectedRow],
                 ],
             );
 
@@ -489,7 +294,7 @@ final class FormRow4Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
-    public function testRenderTextWithoutFormOptionAndLabel13(): void
+    public function testRenderTextWithoutFormOptionAndLabel19(): void
     {
         $label                  = 'test-label';
         $labelTranslated        = 'test-label-translated';
@@ -515,9 +320,11 @@ final class FormRow4Test extends TestCase
         $legendAttributes       = ['i' => 'j'];
         $expectedLegend         = '<legend></legend>';
         $expectedCol            = '<col1></col1>';
+        $expectedControl        = '<control1></control1>';
+        $expectedFloating       = '<floating1></floating1>';
         $textDomain             = 'text-domain';
         $disableEscape          = false;
-        $floating               = false;
+        $floating               = true;
 
         $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
@@ -553,6 +360,11 @@ final class FormRow4Test extends TestCase
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
+                        8 => self::assertSame(
+                            'legend_attributes',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
                         4 => self::assertSame(
                             'col_attributes',
                             $option,
@@ -560,11 +372,6 @@ final class FormRow4Test extends TestCase
                         ),
                         6 => self::assertSame(
                             'label_attributes',
-                            $option,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                        8 => self::assertSame(
-                            'legend_attributes',
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
@@ -586,9 +393,9 @@ final class FormRow4Test extends TestCase
                         3 => $layout,
                         10, 11 => $helpContent,
                         12 => $helpAttributes,
+                        8 => $legendAttributes,
                         4 => $colAttributes,
                         6 => $labelAttributes,
-                        8 => $legendAttributes,
                         14 => $floating,
                         default => null,
                     };
@@ -669,7 +476,7 @@ final class FormRow4Test extends TestCase
             ->getMock();
         $formElement->expects(self::once())
             ->method('setIndent')
-            ->with($indent . '    ');
+            ->with($indent . '        ');
         $formElement->expects(self::once())
             ->method('render')
             ->with($element)
@@ -689,13 +496,15 @@ final class FormRow4Test extends TestCase
         $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $htmlElement->expects(self::exactly(3))
+        $htmlElement->expects(self::exactly(5))
             ->method('toHtml')
             ->willReturnMap(
                 [
                     ['legend', $legendAttributes + ['class' => ''], $labelTranslatedEscaped, $expectedLegend],
                     ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent, $expectedHelp],
-                    ['fieldset', $colAttributes, PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ' . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent, $expectedCol],
+                    ['div', ['class' => 'form-control'], PHP_EOL . $indent . '        ' . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent . '    ', $expectedControl],
+                    ['div', ['class' => 'form-floating'], PHP_EOL . $expectedControl . PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ', $expectedFloating],
+                    ['fieldset', $colAttributes, PHP_EOL . $indent . '    ' . $expectedFloating . PHP_EOL . $indent, $expectedCol],
                 ],
             );
 
@@ -743,7 +552,7 @@ final class FormRow4Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      */
-    public function testRenderTextWithoutFormOptionAndLabel14(): void
+    public function testRenderTextWithoutFormOptionAndLabel20(): void
     {
         $label                  = 'test-label';
         $labelTranslated        = 'test-label-translated';
@@ -757,32 +566,34 @@ final class FormRow4Test extends TestCase
         $renderErrors           = true;
         $required               = true;
         $showRequiredMark       = false;
-        $layout                 = Form::LAYOUT_HORIZONTAL;
+        $layout                 = Form::LAYOUT_VERTICAL;
         $helpContent            = 'help';
         $helpAttributes         = ['a' => 'b'];
         $expectedHelp           = '<help></help>';
         $id                     = 'test-id';
         $aria                   = 'aria-described';
         $form                   = null;
-        $rowAttributes          = ['c' => 'd'];
         $colAttributes          = ['e' => 'f'];
         $labelAttributes        = ['g' => 'h'];
-        $labelColAttributes     = ['i' => 'j'];
+        $legendAttributes       = ['i' => 'j', 'class' => 'legend-class'];
+        $expectedLegend         = '<legend></legend>';
         $expectedCol            = '<col1></col1>';
-        $expectedRow            = '<row></row>';
+        $expectedControl        = '<control1></control1>';
+        $expectedFloating       = '<floating1></floating1>';
         $textDomain             = 'text-domain';
         $disableEscape          = false;
+        $floating               = true;
 
-        $element = $this->getMockBuilder(Button::class)
+        $element = $this->getMockBuilder(Radio::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $matcher = self::exactly(15);
+        $matcher = self::exactly(14);
         $element->expects($matcher)
             ->method('getOption')
             ->willReturnCallback(
-                static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent, $helpAttributes, $rowAttributes, $colAttributes, $labelAttributes, $labelColAttributes): mixed {
+                static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent, $helpAttributes, $legendAttributes, $colAttributes, $labelAttributes, $floating): mixed {
                     match ($matcher->numberOfInvocations()) {
-                        1, 5, 7, 9, 11, 15 => self::assertSame(
+                        1, 5, 7, 9, 13 => self::assertSame(
                             'form',
                             $option,
                             (string) $matcher->numberOfInvocations(),
@@ -797,33 +608,33 @@ final class FormRow4Test extends TestCase
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
-                        12, 13 => self::assertSame(
+                        10, 11 => self::assertSame(
                             'help_content',
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
-                        14 => self::assertSame(
+                        12 => self::assertSame(
                             'help_attributes',
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
-                        4 => self::assertSame(
-                            'row_attributes',
+                        8 => self::assertSame(
+                            'legend_attributes',
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
-                        6 => self::assertSame(
+                        4 => self::assertSame(
                             'col_attributes',
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
-                        8 => self::assertSame(
+                        6 => self::assertSame(
                             'label_attributes',
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
-                        10 => self::assertSame(
-                            'label_col_attributes',
+                        14 => self::assertSame(
+                            'floating',
                             $option,
                             (string) $matcher->numberOfInvocations(),
                         ),
@@ -835,15 +646,15 @@ final class FormRow4Test extends TestCase
                     };
 
                     return match ($matcher->numberOfInvocations()) {
-                        1, 5, 7, 9, 11, 15 => $form,
+                        1, 5, 7, 9, 13 => $form,
                         2 => $showRequiredMark,
                         3 => $layout,
-                        12, 13 => $helpContent,
-                        14 => $helpAttributes,
-                        4 => $rowAttributes,
-                        6 => $colAttributes,
-                        8 => $labelAttributes,
-                        10 => $labelColAttributes,
+                        10, 11 => $helpContent,
+                        12 => $helpAttributes,
+                        8 => $legendAttributes,
+                        4 => $colAttributes,
+                        6 => $labelAttributes,
+                        14 => $floating,
                         default => null,
                     };
                 },
@@ -851,7 +662,7 @@ final class FormRow4Test extends TestCase
         $element->expects(self::once())
             ->method('getName')
             ->willReturn('element-name');
-        $matcher = self::exactly(6);
+        $matcher = self::exactly(7);
         $element->expects($matcher)
             ->method('hasAttribute')
             ->willReturnCallback(
@@ -862,8 +673,12 @@ final class FormRow4Test extends TestCase
                             $key,
                             (string) $matcher->numberOfInvocations(),
                         ),
-                        3, 5 => self::assertSame('id', $key, (string) $matcher->numberOfInvocations()),
-                        4, 6 => self::assertSame(
+                        3, 4, 6 => self::assertSame(
+                            'id',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        5, 7 => self::assertSame(
                             'aria-describedby',
                             $key,
                             (string) $matcher->numberOfInvocations(),
@@ -890,15 +705,15 @@ final class FormRow4Test extends TestCase
                     ['aria-describedby', $aria . ' ' . $id . 'Feedback ' . $id . 'Help', null],
                 ],
             );
-        $element->expects(self::exactly(8))
+        $element->expects(self::exactly(9))
             ->method('getAttribute')
             ->willReturnMap(
                 [
                     ['type', $type],
                     ['class', $class],
                     ['required', $required],
-                    ['aria-describedby', $aria],
                     ['id', $id],
+                    ['aria-describedby', $aria],
                 ],
             );
         $element->expects(self::once())
@@ -939,13 +754,15 @@ final class FormRow4Test extends TestCase
         $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $htmlElement->expects(self::exactly(3))
+        $htmlElement->expects(self::exactly(5))
             ->method('toHtml')
             ->willReturnMap(
                 [
+                    ['legend', $legendAttributes + ['class' => ''], $labelTranslatedEscaped, $expectedLegend],
                     ['div', $helpAttributes + ['id' => $id . 'Help'], $helpContent, $expectedHelp],
-                    ['div', $colAttributes, PHP_EOL . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent . '    ', $expectedCol],
-                    ['div', $rowAttributes + ['class' => 'row'], PHP_EOL . $indent . '    ' . $expectedCol . PHP_EOL . $indent, $expectedRow],
+                    ['div', ['class' => 'form-control'], PHP_EOL . $indent . '        ' . $expected . $expectedErrors . PHP_EOL . $indent . '        ' . $expectedHelp . PHP_EOL . $indent . '    ', $expectedControl],
+                    ['div', ['class' => 'form-floating'], PHP_EOL . $expectedControl . PHP_EOL . $indent . '    ' . $expectedLegend . PHP_EOL . $indent . '    ', $expectedFloating],
+                    ['fieldset', $colAttributes, PHP_EOL . $indent . '    ' . $expectedFloating . PHP_EOL . $indent, $expectedCol],
                 ],
             );
 
@@ -984,6 +801,6 @@ final class FormRow4Test extends TestCase
         $helper->setRenderErrors($renderErrors);
         $helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($indent . $expectedRow, $helper->render($element));
+        self::assertSame($indent . $expectedCol, $helper->render($element));
     }
 }

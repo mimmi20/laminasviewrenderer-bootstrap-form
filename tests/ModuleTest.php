@@ -58,12 +58,9 @@ final class ModuleTest extends TestCase
         $config = $module->getModuleDependencies();
 
         self::assertIsArray($config);
-        self::assertCount(5, $config);
+        self::assertCount(2, $config);
         self::assertArrayHasKey(0, $config);
         self::assertContains('Laminas\I18n', $config);
         self::assertContains('Laminas\Form', $config);
-        self::assertContains('Mimmi20\Form\Element\Group', $config);
-        self::assertContains('Mimmi20\Form\Links', $config);
-        self::assertContains('Mimmi20\Form\Paragraph', $config);
     }
 }

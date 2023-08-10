@@ -52,10 +52,13 @@ final class FormRow2Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::never())
-            ->method('hasAttribute');
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $element->expects(self::once())
+            ->method('hasAttribute')
+            ->with('required')
+            ->willReturn(false);
         $element->expects(self::never())
             ->method('setAttribute');
         $element->expects(self::once())
@@ -162,12 +165,30 @@ final class FormRow2Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
         $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('hasAttribute')
-            ->with('class')
-            ->willReturn(false);
+            ->willReturnCallback(
+                static function (string $key) use ($matcher): bool {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'required',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return false;
+                },
+            );
         $element->expects(self::once())
             ->method('setAttribute')
             ->with('class', 'is-invalid');
@@ -276,12 +297,33 @@ final class FormRow2Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(null);
-        $element->expects(self::never())
-            ->method('getName');
         $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('hasAttribute')
-            ->with('class')
-            ->willReturn(true);
+            ->willReturnCallback(
+                static function (string $key) use ($matcher): bool {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'required',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => false,
+                        default => true,
+                    };
+                },
+            );
         $element->expects(self::once())
             ->method('setAttribute')
             ->with('class', $class . ' is-invalid');
@@ -393,20 +435,55 @@ final class FormRow2Test extends TestCase
         $element = $this->getMockBuilder(ElementInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $element->expects(self::exactly(4))
+        $matcher = self::exactly(4);
+        $element->expects($matcher)
             ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['show-required-mark', $showRequiredMark],
-                    ['layout', $layout],
-                    ['help_content', $helpContent],
-                ],
+            ->willReturnCallback(
+                static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        2 => self::assertSame(
+                            'show-required-mark',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        3 => self::assertSame(
+                            'layout',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        4 => self::assertSame(
+                            'help_content',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'fieldset',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $form,
+                        2 => $showRequiredMark,
+                        3 => $layout,
+                        4 => $helpContent,
+                        default => null,
+                    };
+                },
             );
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::never())
-            ->method('hasAttribute');
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $element->expects(self::once())
+            ->method('hasAttribute')
+            ->with('required')
+            ->willReturn(false);
         $element->expects(self::never())
             ->method('setAttribute');
         $element->expects(self::exactly(2))
@@ -507,20 +584,55 @@ final class FormRow2Test extends TestCase
         $element = $this->getMockBuilder(ElementInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $element->expects(self::exactly(4))
+        $matcher = self::exactly(4);
+        $element->expects($matcher)
             ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['show-required-mark', $showRequiredMark],
-                    ['layout', $layout],
-                    ['help_content', $helpContent],
-                ],
+            ->willReturnCallback(
+                static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        2 => self::assertSame(
+                            'show-required-mark',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        3 => self::assertSame(
+                            'layout',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        4 => self::assertSame(
+                            'help_content',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'fieldset',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $form,
+                        2 => $showRequiredMark,
+                        3 => $layout,
+                        4 => $helpContent,
+                        default => null,
+                    };
+                },
             );
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::never())
-            ->method('hasAttribute');
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $element->expects(self::once())
+            ->method('hasAttribute')
+            ->with('required')
+            ->willReturn(false);
         $element->expects(self::never())
             ->method('setAttribute');
         $element->expects(self::exactly(2))
@@ -621,22 +733,72 @@ final class FormRow2Test extends TestCase
         $element = $this->getMockBuilder(ElementInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $element->expects(self::exactly(4))
+        $matcher = self::exactly(4);
+        $element->expects($matcher)
             ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['show-required-mark', $showRequiredMark],
-                    ['layout', $layout],
-                    ['help_content', $helpContent],
-                ],
+            ->willReturnCallback(
+                static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        2 => self::assertSame(
+                            'show-required-mark',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        3 => self::assertSame(
+                            'layout',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        4 => self::assertSame(
+                            'help_content',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'fieldset',
+                            $option,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $form,
+                        2 => $showRequiredMark,
+                        3 => $layout,
+                        4 => $helpContent,
+                        default => null,
+                    };
+                },
             );
-        $element->expects(self::never())
-            ->method('getName');
         $element->expects(self::once())
+            ->method('getName')
+            ->willReturn('element-name');
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('hasAttribute')
-            ->with('class')
-            ->willReturn(false);
+            ->willReturnCallback(
+                static function (string $key) use ($matcher): bool {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            'required',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return false;
+                },
+            );
         $element->expects(self::once())
             ->method('setAttribute')
             ->with('class', 'is-invalid');
@@ -712,259 +874,5 @@ final class FormRow2Test extends TestCase
         $helper->setTranslatorTextDomain($textDomain);
 
         self::assertSame($expected, $helper->render($element));
-    }
-
-    /**
-     * @throws Exception
-     * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
-     */
-    public function testRenderTextWithoutFormOptionAndLabel6(): void
-    {
-        $label            = '';
-        $messages         = ['x' => 'y'];
-        $type             = 'text';
-        $class            = 'test-class';
-        $indent           = '<!-- -->  ';
-        $expected         = '<hidden></hidden>';
-        $renderErrors     = false;
-        $required         = true;
-        $showRequiredMark = false;
-        $layout           = null;
-        $helpContent      = null;
-        $form             = null;
-        $textDomain       = 'text-domain';
-
-        $element = $this->getMockBuilder(ElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $element->expects(self::exactly(4))
-            ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['show-required-mark', $showRequiredMark],
-                    ['layout', $layout],
-                    ['help_content', $helpContent],
-                ],
-            );
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::once())
-            ->method('hasAttribute')
-            ->with('class')
-            ->willReturn(true);
-        $element->expects(self::once())
-            ->method('setAttribute')
-            ->with('class', $class . ' is-invalid');
-        $element->expects(self::exactly(3))
-            ->method('getAttribute')
-            ->willReturnMap(
-                [
-                    ['type', $type],
-                    ['class', $class],
-                    ['required', $required],
-                ],
-            );
-        $element->expects(self::once())
-            ->method('getLabel')
-            ->willReturn($label);
-        $element->expects(self::once())
-            ->method('getMessages')
-            ->willReturn($messages);
-
-        $formElement = $this->getMockBuilder(FormElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $formElement->expects(self::once())
-            ->method('setIndent')
-            ->with($indent . '    ');
-        $formElement->expects(self::once())
-            ->method('render')
-            ->with($element)
-            ->willReturn($expected);
-
-        $formElementErrors = $this->getMockBuilder(FormElementErrorsInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->getMockBuilder(RendererInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $translator->expects(self::never())
-            ->method('__invoke');
-
-        $helper = new FormRow(
-            $formElement,
-            $formElementErrors,
-            $htmlElement,
-            $escapeHtml,
-            $renderer,
-            $translator,
-        );
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected, $helper->render($element));
-    }
-
-    /**
-     * @throws Exception
-     * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
-     */
-    public function testRenderTextWithoutFormOptionAndLabel7(): void
-    {
-        $label            = '';
-        $messages         = ['x' => 'y'];
-        $type             = 'text';
-        $class            = 'test-class';
-        $indent           = '<!-- -->  ';
-        $expected         = '<hidden></hidden>';
-        $expectedErrors   = '<errors></errors>';
-        $renderErrors     = true;
-        $required         = true;
-        $showRequiredMark = false;
-        $layout           = null;
-        $helpContent      = null;
-        $id               = 'test-id';
-        $form             = null;
-        $textDomain       = 'text-domain';
-
-        $element = $this->getMockBuilder(ElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $element->expects(self::exactly(4))
-            ->method('getOption')
-            ->willReturnMap(
-                [
-                    ['form', $form],
-                    ['show-required-mark', $showRequiredMark],
-                    ['layout', $layout],
-                    ['help_content', $helpContent],
-                ],
-            );
-        $element->expects(self::never())
-            ->method('getName');
-        $element->expects(self::exactly(3))
-            ->method('hasAttribute')
-            ->willReturnMap(
-                [
-                    ['class', true],
-                    ['id', true],
-                    ['aria-describedby', false],
-                ],
-            );
-        $element->expects(self::exactly(2))
-            ->method('setAttribute')
-            ->willReturnMap(
-                [
-                    ['class', $class . ' is-invalid', null],
-                    ['aria-describedby', $id . 'Feedback', null],
-                ],
-            );
-        $element->expects(self::exactly(4))
-            ->method('getAttribute')
-            ->willReturnMap(
-                [
-                    ['type', $type],
-                    ['class', $class],
-                    ['required', $required],
-                    ['id', $id],
-                ],
-            );
-        $element->expects(self::once())
-            ->method('getLabel')
-            ->willReturn($label);
-        $element->expects(self::once())
-            ->method('getMessages')
-            ->willReturn($messages);
-
-        $formElement = $this->getMockBuilder(FormElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $formElement->expects(self::once())
-            ->method('setIndent')
-            ->with($indent . '    ');
-        $formElement->expects(self::once())
-            ->method('render')
-            ->with($element)
-            ->willReturn($expected);
-
-        $formElementErrors = $this->getMockBuilder(FormElementErrorsInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $formElementErrors->expects(self::once())
-            ->method('setIndent')
-            ->with($indent . '    ');
-        $formElementErrors->expects(self::once())
-            ->method('render')
-            ->with($element)
-            ->willReturn($expectedErrors);
-
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->getMockBuilder(RendererInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $translator->expects(self::never())
-            ->method('__invoke');
-
-        $helper = new FormRow(
-            $formElement,
-            $formElementErrors,
-            $htmlElement,
-            $escapeHtml,
-            $renderer,
-            $translator,
-        );
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected . $expectedErrors, $helper->render($element));
     }
 }

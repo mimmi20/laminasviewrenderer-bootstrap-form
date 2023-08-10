@@ -283,13 +283,29 @@ final class FormRadio4Test extends TestCase
             ->method('getOption')
             ->with('layout')
             ->willReturn(Form::LAYOUT_INLINE);
-        $element->expects(self::exactly(9))
+        $matcher = self::exactly(9);
+        $element->expects($matcher)
             ->method('getLabelOption')
-            ->willReturnMap(
-                [
-                    ['disable_html_escape', $disableEscape],
-                    ['always_wrap', $wrap],
-                ],
+            ->willReturnCallback(
+                static function (int | string $key) use ($matcher, $disableEscape, $wrap): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => self::assertSame(
+                            'disable_html_escape',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'always_wrap',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => $disableEscape,
+                        default => $wrap,
+                    };
+                },
             );
         $element->expects(self::once())
             ->method('hasLabelOption')
@@ -556,13 +572,29 @@ final class FormRadio4Test extends TestCase
             ->method('getOption')
             ->with('layout')
             ->willReturn(Form::LAYOUT_INLINE);
-        $element->expects(self::exactly(9))
+        $matcher = self::exactly(9);
+        $element->expects($matcher)
             ->method('getLabelOption')
-            ->willReturnMap(
-                [
-                    ['disable_html_escape', $disableEscape],
-                    ['always_wrap', $wrap],
-                ],
+            ->willReturnCallback(
+                static function (int | string $key) use ($matcher, $disableEscape, $wrap): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => self::assertSame(
+                            'disable_html_escape',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'always_wrap',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => $disableEscape,
+                        default => $wrap,
+                    };
+                },
             );
         $element->expects(self::once())
             ->method('hasLabelOption')
@@ -822,13 +854,29 @@ final class FormRadio4Test extends TestCase
             ->method('getOption')
             ->with('layout')
             ->willReturn(Form::LAYOUT_INLINE);
-        $element->expects(self::exactly(9))
+        $matcher = self::exactly(9);
+        $element->expects($matcher)
             ->method('getLabelOption')
-            ->willReturnMap(
-                [
-                    ['disable_html_escape', $disableEscape],
-                    ['always_wrap', $wrap],
-                ],
+            ->willReturnCallback(
+                static function (int | string $key) use ($matcher, $disableEscape, $wrap): mixed {
+                    match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => self::assertSame(
+                            'disable_html_escape',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            'always_wrap',
+                            $key,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1, 4, 7 => $disableEscape,
+                        default => $wrap,
+                    };
+                },
             );
         $element->expects(self::once())
             ->method('hasLabelOption')

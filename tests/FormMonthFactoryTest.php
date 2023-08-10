@@ -13,15 +13,16 @@ declare(strict_types = 1);
 namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use AssertionError;
-use Interop\Container\ContainerInterface;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\FormMonth;
 use Mimmi20\LaminasView\BootstrapForm\FormMonthFactory;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 use function assert;
 
@@ -51,14 +52,37 @@ final class FormMonthFactoryTest extends TestCase
             ->getMock();
         $helperPluginManager->expects(self::never())
             ->method('has');
-        $helperPluginManager->expects(self::exactly(3))
+        $matcher = self::exactly(3);
+        $helperPluginManager->expects($matcher)
             ->method('get')
-            ->willReturnMap(
-                [
-                    [EscapeHtml::class, null, $escapeHtml],
-                    [EscapeHtmlAttr::class, null, $escapeHtmlAttr],
-                    [Doctype::class, null, $doctype],
-                ],
+            ->willReturnCallback(
+                static function ($name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface {
+                    match ($matcher->numberOfInvocations()) {
+                        1 => self::assertSame(
+                            EscapeHtml::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        2 => self::assertSame(
+                            EscapeHtmlAttr::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                        default => self::assertSame(
+                            Doctype::class,
+                            $name,
+                            (string) $matcher->numberOfInvocations(),
+                        ),
+                    };
+
+                    self::assertNull($options, (string) $matcher->numberOfInvocations());
+
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        default => $doctype,
+                    };
+                },
             );
 
         $container = $this->getMockBuilder(ContainerInterface::class)

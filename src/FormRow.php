@@ -22,10 +22,13 @@ use Laminas\Form\Element\Submit;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\Fieldset;
+use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Laminas\I18n\View\Helper\Translate;
+use Laminas\InputFilter\InputFilterInterface;
+use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\InputFilter\InputInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
@@ -42,7 +45,12 @@ use function get_debug_type;
 use function implode;
 use function is_array;
 use function is_string;
+use function mb_strlen;
+use function mb_strpos;
+use function mb_substr;
 use function sprintf;
+use function str_contains;
+use function str_replace;
 use function trim;
 
 use const PHP_EOL;
@@ -85,24 +93,30 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      */
     public function render(ElementInterface $element, $labelPosition = null): string
     {
-        $form = $element->getOption('form');
-        assert(
-            $form instanceof FormInterface || $form === null,
-            sprintf(
-                '$form should be an Instance of %s or null, but was %s',
-                FormInterface::class,
-                get_debug_type($form),
-            ),
-        );
-
-        if ($form !== null && !$element->hasAttribute('required')) {
+        if (!$element->hasAttribute('required')) {
             $elementName = $element->getName();
 
-            if ($elementName !== null && $form->getInputFilter()->has($elementName)) {
-                $filter = $form->getInputFilter()->get($elementName);
+            if ($elementName !== null) {
+                $form = $element->getOption('form');
+                assert(
+                    $form instanceof FormInterface || $form === null,
+                    sprintf(
+                        '$form should be an Instance of %s or null, but was %s',
+                        FormInterface::class,
+                        get_debug_type($form),
+                    ),
+                );
 
-                if ($filter instanceof InputInterface && $filter->isRequired()) {
-                    $element->setAttribute('required', true);
+                if ($form !== null) {
+                    $filter = $this->getInputFilter(
+                        elementName: $elementName,
+                        inputFilter: $form->getInputFilter(),
+                        element: $element,
+                    );
+
+                    if ($filter instanceof InputInterface && $filter->isRequired()) {
+                        $element->setAttribute('required', true);
+                    }
                 }
             }
         }
@@ -620,5 +634,98 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         return $attributes;
+    }
+
+    /** @throws void */
+    private function getInputFilter(
+        string $elementName,
+        InputFilterInterface $inputFilter,
+        ElementInterface $element,
+        int $level = 0,
+    ): InputInterface | InputFilterInterface | null {
+        if ($inputFilter->has($elementName)) {
+            $filter = $inputFilter->get($elementName);
+
+            if ($filter instanceof InputInterface) {
+                return $filter;
+            }
+        }
+
+        $fieldset = $element->getOption('fieldset');
+        assert(
+            $fieldset instanceof FieldsetInterface || $fieldset === null,
+            sprintf(
+                '$fieldset should be an Instance of %s or null, but was %s',
+                FieldsetInterface::class,
+                get_debug_type($fieldset),
+            ),
+        );
+
+        if (!$fieldset instanceof InputFilterProviderInterface || $fieldset->getName() === null) {
+            return null;
+        }
+
+        $fieldsetName         = $fieldset->getName();
+        $fieldsetNameOriginal = $fieldsetName;
+
+        if (!$inputFilter->has($fieldsetNameOriginal) && str_contains($fieldsetNameOriginal, '[')) {
+            $startPos = mb_strpos($fieldsetNameOriginal, '[');
+            $endPos   = mb_strpos($fieldsetNameOriginal, ']', $startPos + 1);
+
+            if ($startPos !== false && $endPos !== false) {
+                $baseFieldsetName = mb_substr($fieldsetNameOriginal, 0, $startPos);
+                $fieldsetName     = mb_substr(
+                    $fieldsetNameOriginal,
+                    $startPos + 1,
+                    $endPos - $startPos - 1,
+                );
+
+                if ($inputFilter->has($baseFieldsetName)) {
+                    $baseFilter = $inputFilter->get($baseFieldsetName);
+
+                    if ($baseFilter instanceof InputFilterInterface) {
+                        return $this->getInputFilter(
+                            elementName: str_replace(
+                                $fieldsetNameOriginal,
+                                $fieldsetName,
+                                $elementName,
+                            ),
+                            inputFilter: $baseFilter,
+                            element: $element,
+                            level: $level + 1,
+                        );
+                    }
+                }
+            }
+        }
+
+        if (!$inputFilter->has($fieldsetName)) {
+            return null;
+        }
+
+        $filter = $inputFilter->get($fieldsetName);
+
+        if ($filter instanceof InputInterface) {
+            return $filter;
+        }
+
+        $originalElementName = mb_substr($elementName, mb_strlen($fieldsetName) + 1, -1);
+
+        if ($filter->has($originalElementName)) {
+            $subFilter = $filter->get($originalElementName);
+
+            if ($subFilter instanceof InputInterface) {
+                return $subFilter;
+            }
+
+            return $this->getInputFilter(
+                elementName: $originalElementName,
+                inputFilter: $subFilter,
+                element: $element,
+                level: $level + 1,
+            );
+        }
+
+        return null;
     }
 }

@@ -157,6 +157,8 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
 
                 $this->setIndent($indent);
             } else {
+                $elementOrFieldset->setOption('fieldset', $element);
+
                 $this->formRow->setIndent($indent . $this->getWhitespace(4));
                 $markup .= $this->formRow->render($elementOrFieldset) . PHP_EOL;
             }
