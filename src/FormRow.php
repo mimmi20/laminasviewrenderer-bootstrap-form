@@ -636,7 +636,15 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         return $attributes;
     }
 
-    /** @throws void */
+    /**
+     * @param InputFilterInterface<TFilteredValues> $inputFilter
+     *
+     * @return InputFilterInterface<mixed>|InputInterface|null
+     *
+     * @throws void
+     *
+     * @template TFilteredValues
+     */
     private function getInputFilter(
         string $elementName,
         InputFilterInterface $inputFilter,
