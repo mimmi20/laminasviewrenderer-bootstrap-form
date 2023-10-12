@@ -35,7 +35,7 @@
     "infection/infection": "^0.27.2",
     "laminas/laminas-i18n": "^2.23.0",
     "laminas/laminas-modulemanager": "^2.14.0",
-    "laminas/laminas-servicemanager": "^3.21.0",
+    "laminas/laminas-servicemanager": "^3.22.0",
     "mimmi20/coding-standard": "^5.1.18",
     "mimmi20/laminas-form-element-group": "^3.0.5",
     "mimmi20/laminas-form-element-links": "^2.0.4",
