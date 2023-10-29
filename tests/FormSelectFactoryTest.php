@@ -21,6 +21,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormSelect;
 use Mimmi20\LaminasView\BootstrapForm\FormSelectFactory;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 use function assert;
@@ -39,7 +40,10 @@ final class FormSelectFactoryTest extends TestCase
         $this->factory = new FormSelectFactory();
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithTranslator(): void
     {
         $escapeHtml      = $this->createMock(EscapeHtml::class);
@@ -77,7 +81,10 @@ final class FormSelectFactoryTest extends TestCase
         self::assertInstanceOf(FormSelect::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithoutTranslator(): void
     {
         $escapeHtml = $this->createMock(EscapeHtml::class);
@@ -113,7 +120,10 @@ final class FormSelectFactoryTest extends TestCase
         self::assertInstanceOf(FormSelect::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

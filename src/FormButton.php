@@ -15,7 +15,9 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\LabelAwareInterface;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
@@ -82,6 +84,8 @@ final class FormButton extends FormInput
      * Proxies to {@link render()}.
      *
      * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function __invoke(
         ElementInterface | null $element = null,
@@ -99,6 +103,8 @@ final class FormButton extends FormInput
      * using content from $buttonContent or the element's "label" attribute
      *
      * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function render(ElementInterface $element, string | null $buttonContent = null): string
     {

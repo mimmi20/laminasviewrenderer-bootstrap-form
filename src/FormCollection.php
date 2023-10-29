@@ -76,6 +76,7 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
      * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws Exception\InvalidArgumentException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
@@ -99,6 +100,7 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
      * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws Exception\InvalidArgumentException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function render(ElementInterface $element): string
     {
@@ -240,6 +242,7 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
      * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws Exception\InvalidArgumentException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function renderTemplate(CollectionElement $collection): string
     {

@@ -15,9 +15,11 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use Laminas\Form\Element\Radio;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Renderer\RendererInterface;
 use Mimmi20\LaminasView\BootstrapForm\Form;
@@ -37,6 +39,8 @@ final class FormRow6Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel18(): void
     {
@@ -293,6 +297,8 @@ final class FormRow6Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel19(): void
     {
@@ -551,6 +557,8 @@ final class FormRow6Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel20(): void
     {

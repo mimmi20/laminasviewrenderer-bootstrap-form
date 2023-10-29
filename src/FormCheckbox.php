@@ -19,6 +19,7 @@ use Laminas\Form\Exception;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
@@ -66,6 +67,8 @@ final class FormCheckbox extends FormInput
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function render(ElementInterface $element): string
     {
@@ -112,7 +115,7 @@ final class FormCheckbox extends FormInput
 
         $labelAttributes = $element->getLabelAttributes();
 
-        $labelAttributes = array_merge($labelAttributes, ['for' => $id]);
+        $labelAttributes = [...$labelAttributes, 'for' => $id];
 
         if (array_key_exists('class', $labelAttributes)) {
             $labelClasses = array_merge(

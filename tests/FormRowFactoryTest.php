@@ -24,6 +24,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormRowFactory;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 use function assert;
@@ -42,7 +43,10 @@ final class FormRowFactoryTest extends TestCase
         $this->factory = new FormRowFactory();
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithTranslator(): void
     {
         $formElement       = $this->createMock(FormElementInterface::class);
@@ -89,7 +93,10 @@ final class FormRowFactoryTest extends TestCase
         self::assertInstanceOf(FormRow::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithoutTranslator(): void
     {
         $formElement       = $this->createMock(FormElementInterface::class);
@@ -134,7 +141,10 @@ final class FormRowFactoryTest extends TestCase
         self::assertInstanceOf(FormRow::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

@@ -21,6 +21,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormElementErrorsFactory;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 use function assert;
@@ -39,7 +40,10 @@ final class FormElementErrorsFactoryTest extends TestCase
         $this->factory = new FormElementErrorsFactory();
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithTranslator(): void
     {
         $escapeHtml      = $this->createMock(EscapeHtml::class);
@@ -96,7 +100,10 @@ final class FormElementErrorsFactoryTest extends TestCase
         self::assertInstanceOf(FormElementErrors::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithoutTranslator(): void
     {
         $escapeHtml  = $this->createMock(EscapeHtml::class);
@@ -148,7 +155,10 @@ final class FormElementErrorsFactoryTest extends TestCase
         self::assertInstanceOf(FormElementErrors::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

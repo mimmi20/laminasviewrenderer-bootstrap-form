@@ -17,6 +17,7 @@ use Laminas\Form\Exception;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
 
@@ -60,6 +61,8 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
      *
      * @throws Exception\DomainException
      * @throws InvalidArgumentException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function __invoke(
         ElementInterface | null $element = null,

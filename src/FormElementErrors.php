@@ -16,6 +16,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\AbstractHelper;
 use Laminas\I18n\View\Helper\Translate;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 
@@ -54,7 +55,7 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
      *
      * @param array<string, string> $attributes
      *
-     * @throws void
+     * @throws InvalidArgumentException
      */
     public function __invoke(ElementInterface | null $element = null, array $attributes = []): self | string
     {
@@ -74,7 +75,7 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
      *
      * @param array<string, string> $attributes
      *
-     * @throws void
+     * @throws InvalidArgumentException
      */
     public function render(ElementInterface $element, array $attributes = []): string
     {

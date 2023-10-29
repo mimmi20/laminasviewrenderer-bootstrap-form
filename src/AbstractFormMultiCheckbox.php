@@ -19,6 +19,7 @@ use Laminas\Form\Exception;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
@@ -94,6 +95,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
@@ -115,6 +118,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function render(ElementInterface $element): string
     {
@@ -235,6 +240,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     private function renderOptions(
         MultiCheckboxElement $element,

@@ -20,6 +20,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormLabel;
 use Mimmi20\LaminasView\BootstrapForm\FormLabelFactory;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 use function assert;
@@ -38,7 +39,10 @@ final class FormLabelFactoryTest extends TestCase
         $this->factory = new FormLabelFactory();
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithTranslator(): void
     {
         $translatePlugin = $this->createMock(Translate::class);
@@ -74,7 +78,10 @@ final class FormLabelFactoryTest extends TestCase
         self::assertInstanceOf(FormLabel::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithoutTranslator(): void
     {
         $escapeHtml = $this->createMock(EscapeHtml::class);
@@ -105,7 +112,10 @@ final class FormLabelFactoryTest extends TestCase
         self::assertInstanceOf(FormLabel::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

@@ -55,12 +55,16 @@ use Mimmi20\LaminasView\BootstrapForm\FormInputInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
 
 final class FormElementTest extends TestCase
 {
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetInden1(): void
     {
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
@@ -75,7 +79,10 @@ final class FormElementTest extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetInden2(): void
     {
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
@@ -90,7 +97,10 @@ final class FormElementTest extends TestCase
         self::assertSame('  ', $helper->getIndent());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetDefaultHelper(): void
     {
         $defaultHelper = 'xyz';
@@ -107,7 +117,10 @@ final class FormElementTest extends TestCase
         self::assertSame($defaultHelper, $helper->getDefaultHelper());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testAddType(): void
     {
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
@@ -121,7 +134,10 @@ final class FormElementTest extends TestCase
         self::assertSame($helper, $helper->addType('xyz', 'abc'));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testAddClass(): void
     {
         $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
@@ -417,6 +433,8 @@ final class FormElementTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
+     * @throws ServiceNotFoundException
+     * @throws InvalidServiceException
      */
     public function testInvoke2(): void
     {

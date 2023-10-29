@@ -17,6 +17,7 @@ use Laminas\Form\Element\Radio;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
@@ -29,6 +30,7 @@ use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
 use function sprintf;
@@ -41,6 +43,8 @@ final class FormRadio4Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testInvokeMultiOptionInlineWithHiddenField1(): void
     {
@@ -330,6 +334,9 @@ final class FormRadio4Test extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testInvokeMultiOptionInlineWithHiddenField2(): void
     {
@@ -611,7 +618,14 @@ final class FormRadio4Test extends TestCase
         self::assertSame($expectedSummary, $helper($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     public function testInvokeMultiOptionInlineWithHiddenField3(): void
     {
         $name                    = 'test-name';

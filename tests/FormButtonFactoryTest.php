@@ -23,6 +23,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormButton;
 use Mimmi20\LaminasView\BootstrapForm\FormButtonFactory;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 use function assert;
@@ -41,7 +42,10 @@ final class FormButtonFactoryTest extends TestCase
         $this->factory = new FormButtonFactory();
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithTranslator(): void
     {
         $translatePlugin = $this->createMock(Translate::class);
@@ -109,7 +113,10 @@ final class FormButtonFactoryTest extends TestCase
         self::assertInstanceOf(FormButton::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithoutTranslator(): void
     {
         $escapeHtml     = $this->createMock(EscapeHtml::class);
@@ -170,7 +177,10 @@ final class FormButtonFactoryTest extends TestCase
         self::assertInstanceOf(FormButton::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

@@ -20,6 +20,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormTextareaFactory;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 use function assert;
@@ -38,7 +39,10 @@ final class FormTextareaFactoryTest extends TestCase
         $this->factory = new FormTextareaFactory();
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocation(): void
     {
         $escapeHtml  = $this->createMock(EscapeHtml::class);
@@ -88,7 +92,10 @@ final class FormTextareaFactoryTest extends TestCase
         self::assertInstanceOf(FormTextarea::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

@@ -25,6 +25,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormRowInterface;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 use function sprintf;
 
@@ -38,6 +39,7 @@ final class FormCollection1Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function testRenderWithWrongElement(): void
     {
@@ -92,7 +94,10 @@ final class FormCollection1Test extends TestCase
         $helper->render($element);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetIndent1(): void
     {
         $formRow = $this->getMockBuilder(FormRowInterface::class)
@@ -121,7 +126,10 @@ final class FormCollection1Test extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetIndent2(): void
     {
         $formRow = $this->getMockBuilder(FormRowInterface::class)
@@ -150,7 +158,10 @@ final class FormCollection1Test extends TestCase
         self::assertSame('  ', $helper->getIndent());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetShouldWrap(): void
     {
         $formRow = $this->getMockBuilder(FormRowInterface::class)

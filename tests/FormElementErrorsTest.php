@@ -14,11 +14,13 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Text;
 use Laminas\I18n\View\Helper\Translate;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 use Mimmi20\LaminasView\BootstrapForm\FormElementErrors;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
 use function sprintf;
@@ -27,7 +29,11 @@ use const PHP_EOL;
 
 final class FormElementErrorsTest extends TestCase
 {
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     */
     public function testRenderWithoutMessages(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -60,7 +66,11 @@ final class FormElementErrorsTest extends TestCase
         self::assertSame('', $helper->render($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     */
     public function testRenderWithMessages(): void
     {
         $message          = 'too long';
@@ -112,7 +122,11 @@ final class FormElementErrorsTest extends TestCase
         self::assertSame($divMessage, $helper->render($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     */
     public function testRenderWithEmptyMessages(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -145,7 +159,11 @@ final class FormElementErrorsTest extends TestCase
         self::assertSame('', $helper->render($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     */
     public function testRenderWithMessagesAndTranslator(): void
     {
         $message1                  = 'too long';
@@ -222,7 +240,11 @@ final class FormElementErrorsTest extends TestCase
         self::assertSame($divMessage, $helper->render($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     */
     public function testRenderWithMessagesAndTranslatorWithoutEscape(): void
     {
         $message1                  = 'too long';
@@ -294,7 +316,11 @@ final class FormElementErrorsTest extends TestCase
         self::assertSame($divMessage, $helper->render($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     */
     public function testInvokeWithMessagesAndTranslatorWithoutEscape1(): void
     {
         $message1                  = 'too long';
@@ -370,7 +396,11 @@ final class FormElementErrorsTest extends TestCase
         self::assertSame($divMessage, $helperObject->render($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     */
     public function testInvokeWithMessagesAndTranslatorWithoutEscape2(): void
     {
         $message1                  = 'too long';
@@ -442,7 +472,10 @@ final class FormElementErrorsTest extends TestCase
         self::assertSame($divMessage, $helper($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetAttributes(): void
     {
         $attributes = ['class' => 'xyz', 'data-message' => 'void'];
@@ -465,7 +498,11 @@ final class FormElementErrorsTest extends TestCase
         self::assertSame($attributes, $helper->getAttributes());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     */
     public function testInvokeWithMessagesAndTranslatorWithoutEscape3(): void
     {
         $id                        = 'test-id';
@@ -542,7 +579,10 @@ final class FormElementErrorsTest extends TestCase
         self::assertSame($divMessage, $helper($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetInden1(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -563,7 +603,10 @@ final class FormElementErrorsTest extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetInden2(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)

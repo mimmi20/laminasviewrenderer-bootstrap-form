@@ -18,6 +18,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
@@ -41,6 +42,8 @@ final class FormMultiCheckbox3Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     #[Group('test-hidden-field-in-multicheckbox')]
     public function testRenderMultiOptionInlineWithHiddenField1(): void
@@ -335,6 +338,8 @@ final class FormMultiCheckbox3Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     #[Group('test-hidden-field-in-multicheckbox')]
     public function testRenderMultiOptionInlineWithHiddenField2(): void
@@ -621,6 +626,8 @@ final class FormMultiCheckbox3Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     #[Group('test-hidden-field-in-multicheckbox')]
     public function testRenderMultiOptionInlineWithHiddenField3(): void

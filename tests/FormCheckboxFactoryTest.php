@@ -26,6 +26,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormLabelInterface;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 use function assert;
@@ -44,7 +45,10 @@ final class FormCheckboxFactoryTest extends TestCase
         $this->factory = new FormCheckboxFactory();
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithTranslator(): void
     {
         $escapeHtml      = $this->createMock(EscapeHtml::class);
@@ -147,7 +151,10 @@ final class FormCheckboxFactoryTest extends TestCase
         self::assertInstanceOf(FormCheckbox::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithoutTranslator(): void
     {
         $escapeHtml     = $this->createMock(EscapeHtml::class);
@@ -243,7 +250,10 @@ final class FormCheckboxFactoryTest extends TestCase
         self::assertInstanceOf(FormCheckbox::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

@@ -17,8 +17,10 @@ use Laminas\Form\Element\Select as SelectElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\Stdlib\ArrayUtils;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 
 use function array_key_exists;
@@ -119,6 +121,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
@@ -136,6 +140,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function render(ElementInterface $element): string
     {
@@ -229,7 +235,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @param array<int|string, string>                       $selectedOptions Option values that should be marked as selected
      * @phpstan-param array<int|string, array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string> $options
      *
-     * @throws void
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function renderOptions(array $options, array $selectedOptions, int $level): string
     {
@@ -247,7 +254,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @param array<int|string, string>    $selectedOptions
      * @phpstan-param array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string $optionSpec
      *
-     * @throws void
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function renderOption(
         int | string $key,
@@ -345,7 +353,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @param array<string, array<mixed>|bool|int|string> $optgroup
      * @param array<int|string, string>                   $selectedOptions
      *
-     * @throws void
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function renderOptgroup(array $optgroup, array $selectedOptions, int $level): string
     {

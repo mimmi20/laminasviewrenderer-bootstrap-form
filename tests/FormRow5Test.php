@@ -16,9 +16,11 @@ use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Radio;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Renderer\RendererInterface;
 use Mimmi20\LaminasView\BootstrapForm\Form;
@@ -38,6 +40,8 @@ final class FormRow5Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel15(): void
     {
@@ -276,6 +280,8 @@ final class FormRow5Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel16(): void
     {
@@ -530,6 +536,8 @@ final class FormRow5Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel17(): void
     {

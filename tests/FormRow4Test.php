@@ -16,9 +16,11 @@ use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Radio;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Renderer\RendererInterface;
 use Mimmi20\LaminasView\BootstrapForm\Form;
@@ -38,6 +40,8 @@ final class FormRow4Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel11(): void
     {
@@ -243,6 +247,8 @@ final class FormRow4Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel12(): void
     {
@@ -488,6 +494,8 @@ final class FormRow4Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel13(): void
     {
@@ -742,6 +750,8 @@ final class FormRow4Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel14(): void
     {

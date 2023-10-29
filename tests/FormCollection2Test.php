@@ -16,8 +16,11 @@ use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Collection;
 use Laminas\Form\Element\Text;
 use Laminas\Form\ElementInterface;
+use Laminas\Form\Exception\DomainException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\Stdlib\PriorityList;
+use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\EscapeHtml;
 use Mimmi20\LaminasView\BootstrapForm\Form;
 use Mimmi20\LaminasView\BootstrapForm\FormCollection;
@@ -25,12 +28,21 @@ use Mimmi20\LaminasView\BootstrapForm\FormRowInterface;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 use const PHP_EOL;
 
 final class FormCollection2Test extends TestCase
 {
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws RuntimeException
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws \Laminas\I18n\Exception\RuntimeException
+     */
     public function testShouldWrap(): void
     {
         $form               = 'test-form';
