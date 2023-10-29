@@ -14,13 +14,16 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Button;
 use Laminas\Form\Exception\DomainException;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Mimmi20\LaminasView\BootstrapForm\FormButton;
 use Mimmi20Test\LaminasView\BootstrapForm\Compare\AbstractTestCase;
 use PHPUnit\Framework\Exception;
+use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
 use function sprintf;
@@ -371,6 +374,8 @@ final class FormButtonTest extends AbstractTestCase
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithoutLabel(): void
     {
@@ -433,6 +438,8 @@ final class FormButtonTest extends AbstractTestCase
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithTranslator(): void
     {
@@ -511,7 +518,13 @@ final class FormButtonTest extends AbstractTestCase
         self::assertSame($expected, $helper->render($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws DomainException
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
+     */
     public function testInvokeWithTranslator1(): void
     {
         $type                  = 'button';
@@ -592,6 +605,8 @@ final class FormButtonTest extends AbstractTestCase
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithTranslator2(): void
     {
@@ -674,7 +689,10 @@ final class FormButtonTest extends AbstractTestCase
         self::assertSame($expected, $helperObject->render($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetIndent1(): void
     {
         $translator = $this->getMockBuilder(Translate::class)
@@ -707,7 +725,10 @@ final class FormButtonTest extends AbstractTestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetIndent2(): void
     {
         $translator = $this->getMockBuilder(Translate::class)

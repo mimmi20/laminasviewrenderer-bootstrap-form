@@ -15,7 +15,10 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\Radio;
 use Laminas\Form\ElementInterface;
+use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
@@ -28,6 +31,7 @@ use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 use function sprintf;
 
@@ -35,7 +39,14 @@ use const PHP_EOL;
 
 final class FormMultiCheckbox5Test extends TestCase
 {
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     #[Group('test-hidden-field-in-multicheckbox')]
     public function testInvokeMultiOptionInlineWithHiddenField4(): void
     {
@@ -328,7 +339,14 @@ final class FormMultiCheckbox5Test extends TestCase
         self::assertSame($labelPosition, $helper->getLabelPosition());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     #[Group('test-hidden-field-in-multicheckbox')]
     public function testInvokeMultiOptionInlineWithHiddenField5(): void
     {
@@ -652,7 +670,10 @@ final class FormMultiCheckbox5Test extends TestCase
         self::assertSame($labelPosition, $helper->getLabelPosition());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetIndent1(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -707,7 +728,10 @@ final class FormMultiCheckbox5Test extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetIndent2(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)

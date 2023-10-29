@@ -44,6 +44,7 @@ final class FormCollection4Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function testRenderWithFormAndElementsAndOptions(): void
     {
@@ -388,6 +389,7 @@ final class FormCollection4Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function testRenderWithCollectionAndElementsAndOptions(): void
     {

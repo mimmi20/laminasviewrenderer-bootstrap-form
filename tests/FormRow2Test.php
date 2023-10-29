@@ -14,9 +14,11 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Renderer\RendererInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormElementErrorsInterface;
@@ -33,6 +35,8 @@ final class FormRow2Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderPartialWithLabelAndTranslatorWithoutFormOption(): void
     {
@@ -146,6 +150,8 @@ final class FormRow2Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderPartialWithLabelAndTranslatorWithoutFormOption2(): void
     {
@@ -277,6 +283,8 @@ final class FormRow2Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderPartialWithLabelAndTranslatorWithoutFormOption3(): void
     {
@@ -416,6 +424,8 @@ final class FormRow2Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel(): void
     {
@@ -565,6 +575,8 @@ final class FormRow2Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel4(): void
     {
@@ -714,6 +726,8 @@ final class FormRow2Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderTextWithoutFormOptionAndLabel5(): void
     {

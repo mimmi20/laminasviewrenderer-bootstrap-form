@@ -16,6 +16,7 @@ use Laminas\Form\Element\Radio;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
@@ -38,6 +39,8 @@ final class FormMultiCheckbox2Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderPrependWithoutId(): void
     {
@@ -175,6 +178,8 @@ final class FormMultiCheckbox2Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderPrependWithIdAndNoWarp(): void
     {
@@ -319,6 +324,8 @@ final class FormMultiCheckbox2Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithIdAndNoWarpWithoutEscape(): void
     {
@@ -460,6 +467,8 @@ final class FormMultiCheckbox2Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderXhtmlWithTranslator(): void
     {
@@ -615,6 +624,8 @@ final class FormMultiCheckbox2Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderMultiOption(): void
     {

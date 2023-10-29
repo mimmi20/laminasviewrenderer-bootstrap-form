@@ -20,6 +20,7 @@ use Laminas\View\Helper\EscapeHtmlAttr;
 use Mimmi20\LaminasView\BootstrapForm\FormFile;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 use function sprintf;
 
@@ -250,7 +251,10 @@ final class FormFileTest extends TestCase
         self::assertSame($expected, $helper->render($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetIndent1(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -277,7 +281,10 @@ final class FormFileTest extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetIndent2(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)

@@ -22,6 +22,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormMonth;
 use Mimmi20\LaminasView\BootstrapForm\FormMonthFactory;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 use function assert;
@@ -40,7 +41,10 @@ final class FormMonthFactoryTest extends TestCase
         $this->factory = new FormMonthFactory();
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocation(): void
     {
         $escapeHtml     = $this->createMock(EscapeHtml::class);
@@ -99,7 +103,10 @@ final class FormMonthFactoryTest extends TestCase
         self::assertInstanceOf(FormMonth::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

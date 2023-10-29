@@ -18,6 +18,7 @@ use Mimmi20\LaminasView\BootstrapForm\ConfigProvider;
 use Mimmi20\LaminasView\BootstrapForm\Form;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 final class ConfigProviderTest extends TestCase
@@ -34,7 +35,10 @@ final class ConfigProviderTest extends TestCase
         $this->provider = new ConfigProvider();
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testProviderDefinesExpectedFactoryServices(): void
     {
         $viewHelperConfig = $this->provider->getViewHelperConfig();
@@ -51,7 +55,10 @@ final class ConfigProviderTest extends TestCase
         self::assertArrayHasKey('form', $aliases);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testGetDependencyConfig(): void
     {
         $dependencyConfig = $this->provider->getDependencyConfig();
@@ -65,7 +72,10 @@ final class ConfigProviderTest extends TestCase
         self::assertArrayNotHasKey('aliases', $dependencyConfig);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testGetDependencyConfig2(): void
     {
         $dependencyConfig = $this->provider->getDependencyConfig();
@@ -96,7 +106,10 @@ final class ConfigProviderTest extends TestCase
         $callable($container, '', null);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testGetDependencyConfig3(): void
     {
         $dependencyConfig = $this->provider->getDependencyConfig();
@@ -125,7 +138,10 @@ final class ConfigProviderTest extends TestCase
         self::assertInstanceOf(HelperPluginManager::class, $result);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testInvocationReturnsArrayWithDependencies(): void
     {
         $config = ($this->provider)();

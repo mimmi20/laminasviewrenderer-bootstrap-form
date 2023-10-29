@@ -18,6 +18,7 @@ use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
@@ -28,6 +29,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormMultiCheckbox;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 use function sprintf;
 
@@ -35,7 +37,10 @@ use const PHP_EOL;
 
 final class FormMultiCheckbox1Test extends TestCase
 {
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetLabelAttributes(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -94,7 +99,10 @@ final class FormMultiCheckbox1Test extends TestCase
         self::assertSame($labelAttributes, $helper->getLabelAttributes());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetSeperator(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -285,7 +293,10 @@ final class FormMultiCheckbox1Test extends TestCase
         self::assertSame($labelPosition, $helper->getLabelPosition());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetUseHiddenElement(): void
     {
         $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
@@ -345,7 +356,10 @@ final class FormMultiCheckbox1Test extends TestCase
         self::assertTrue($helper->getUseHiddenElement());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetUncheckedValue(): void
     {
         $uncheckedValue = '0';
@@ -411,6 +425,8 @@ final class FormMultiCheckbox1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithWrongElement(): void
     {
@@ -495,6 +511,8 @@ final class FormMultiCheckbox1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithoutName(): void
     {
@@ -589,6 +607,8 @@ final class FormMultiCheckbox1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithoutId(): void
     {
@@ -724,6 +744,8 @@ final class FormMultiCheckbox1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithIdAndNoWarp(): void
     {

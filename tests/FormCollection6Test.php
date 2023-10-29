@@ -43,6 +43,7 @@ final class FormCollection6Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function testRenderWithCollectionAndElementsAndOptionsAndTranslator3(): void
     {
@@ -329,6 +330,7 @@ final class FormCollection6Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function testRenderWithCollectionAndElementsAndOptionsAndTranslator4(): void
     {
@@ -616,6 +618,7 @@ final class FormCollection6Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function testRenderWithCollectionAndElementsAndOptionsAndTranslator5(): void
     {

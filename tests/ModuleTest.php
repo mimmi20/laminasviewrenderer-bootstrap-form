@@ -17,10 +17,14 @@ use Mimmi20\LaminasView\BootstrapForm\Form;
 use Mimmi20\LaminasView\BootstrapForm\Module;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 final class ModuleTest extends TestCase
 {
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testGetConfig(): void
     {
         $module = new Module();
@@ -50,7 +54,10 @@ final class ModuleTest extends TestCase
         self::assertArrayHasKey(HelperPluginManager::class, $factories);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testGetModuleDependencies(): void
     {
         $module = new Module();

@@ -15,12 +15,14 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
 use Mimmi20\LaminasView\BootstrapForm\FormLabel;
 use Mimmi20\LaminasView\BootstrapForm\FormLabelInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
 use function get_debug_type;
@@ -243,6 +245,8 @@ final class FormLabelTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testInvokeWithElementWithoutId(): void
     {
@@ -289,7 +293,14 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helperObject->openTag($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     public function testInvokeWithoutLabel(): void
     {
         $element = $this->getMockBuilder(Text::class)
@@ -333,7 +344,14 @@ final class FormLabelTest extends TestCase
         $helper($element);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     public function testInvokeWithoutLabelButWithPosition(): void
     {
         $for          = 'test-type';
@@ -378,7 +396,14 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     public function testInvokeWithLabelAndPosition1(): void
     {
         $for          = 'test-type';
@@ -437,7 +462,14 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     public function testInvokeWithLabelAndPosition2(): void
     {
         $for          = 'test-type';
@@ -499,7 +531,14 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     public function testInvokeWithLabelAndPosition3(): void
     {
         $for          = 'test-type';
@@ -561,7 +600,14 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     public function testInvokeWithLabelAndPosition4(): void
     {
         $for          = 'test-type';
@@ -617,7 +663,14 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     public function testInvokeWithLabelAndPosition5(): void
     {
         $for          = 'test-type';
@@ -676,7 +729,14 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     public function testInvokeWithLabelAndPositionAndTranslator1(): void
     {
         $for                   = 'test-type';
@@ -750,7 +810,14 @@ final class FormLabelTest extends TestCase
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
     public function testInvokeWithLabelAndPositionAndTranslator2(): void
     {
         $for                   = 'test-type';

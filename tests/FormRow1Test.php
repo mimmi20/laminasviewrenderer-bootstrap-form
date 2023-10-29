@@ -15,9 +15,11 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use AssertionError;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Renderer\RendererInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormElementErrorsInterface;
@@ -34,6 +36,8 @@ final class FormRow1Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithWrongFormOption(): void
     {
@@ -110,6 +114,8 @@ final class FormRow1Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderHiddenWithoutFormOptionAndLabel(): void
     {
@@ -197,6 +203,8 @@ final class FormRow1Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderPartialWithoutFormOptionAndLabel(): void
     {
@@ -295,6 +303,8 @@ final class FormRow1Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderPartialWithoutFormOptionAndLabel2(): void
     {
@@ -411,6 +421,8 @@ final class FormRow1Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderPartialWithoutFormOptionAndLabel3(): void
     {
@@ -535,6 +547,8 @@ final class FormRow1Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderHiddenWithLabelWithoutFormOption(): void
     {
@@ -622,6 +636,8 @@ final class FormRow1Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderPartialWithLabelWithoutFormOption(): void
     {
@@ -720,6 +736,8 @@ final class FormRow1Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderPartialWithLabelWithoutFormOption2(): void
     {
@@ -836,6 +854,8 @@ final class FormRow1Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderPartialWithLabelWithoutFormOption3(): void
     {
@@ -960,6 +980,8 @@ final class FormRow1Test extends TestCase
      * @throws DomainException
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderHiddenWithLabelAndTranslatorWithoutFormOption(): void
     {

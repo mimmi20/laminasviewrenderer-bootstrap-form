@@ -15,6 +15,7 @@ namespace Mimmi20Test\LaminasView\BootstrapForm\Compare;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\Factory;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
@@ -34,6 +35,8 @@ final class FormSelectTest extends AbstractTestCase
      * @throws InvalidArgumentException
      * @throws DomainException
      * @throws ContainerExceptionInterface
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRender(): void
     {

@@ -174,6 +174,7 @@ final class FormDateSelect1Test extends TestCase
 
     /**
      * @throws Exception
+     * @throws InvalidArgumentException
      * @throws DomainException
      */
     public function testInvokeWithoutName2(): void

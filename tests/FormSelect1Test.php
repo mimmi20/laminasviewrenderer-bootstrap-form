@@ -17,6 +17,7 @@ use Laminas\Form\Element\Select as SelectElement;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
 use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
@@ -35,6 +36,8 @@ final class FormSelect1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithWrongElement(): void
     {
@@ -87,6 +90,8 @@ final class FormSelect1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithoutName(): void
     {
@@ -147,6 +152,8 @@ final class FormSelect1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithNameWithoutValue(): void
     {
@@ -231,6 +238,8 @@ final class FormSelect1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithNameWithStringValue(): void
     {
@@ -316,6 +325,8 @@ final class FormSelect1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithNameWithArrayValue(): void
     {
@@ -390,6 +401,8 @@ final class FormSelect1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithNameWithArrayMultipleValue(): void
     {
@@ -479,6 +492,8 @@ final class FormSelect1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderMultipleOptions1(): void
     {
@@ -644,6 +659,8 @@ final class FormSelect1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderMultipleOptions2(): void
     {
@@ -845,6 +862,8 @@ final class FormSelect1Test extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithHiddenElement(): void
     {

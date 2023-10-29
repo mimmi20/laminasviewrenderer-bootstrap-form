@@ -14,6 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\AbstractHelper;
 use Laminas\View\Helper\EscapeHtml;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
@@ -73,6 +74,7 @@ final class FormTextarea extends AbstractHelper
      * Proxies to {@link render()}.
      *
      * @throws Exception\DomainException
+     * @throws InvalidArgumentException
      */
     public function __invoke(ElementInterface | null $element = null): self | string
     {
@@ -87,6 +89,7 @@ final class FormTextarea extends AbstractHelper
      * Render a form <textarea> element from the provided $element
      *
      * @throws Exception\DomainException
+     * @throws InvalidArgumentException
      */
     public function render(ElementInterface $element): string
     {

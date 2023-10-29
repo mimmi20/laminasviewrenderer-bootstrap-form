@@ -13,12 +13,14 @@ declare(strict_types = 1);
 namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use AssertionError;
+use Laminas\Form\Exception\ExtensionNotLoadedException;
 use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\FormMonthSelect;
 use Mimmi20\LaminasView\BootstrapForm\FormMonthSelectFactory;
 use Mimmi20\LaminasView\BootstrapForm\FormSelectInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 
 use function assert;
@@ -37,7 +39,11 @@ final class FormMonthSelectFactoryTest extends TestCase
         $this->factory = new FormMonthSelectFactory();
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws ExtensionNotLoadedException
+     */
     public function testInvocation(): void
     {
         $selectHelper = $this->createMock(FormSelectInterface::class);
@@ -66,7 +72,11 @@ final class FormMonthSelectFactoryTest extends TestCase
         self::assertInstanceOf(FormMonthSelect::class, $helper);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws ExtensionNotLoadedException
+     */
     public function testInvocationWithAssertionError(): void
     {
         $container = $this->getMockBuilder(ContainerInterface::class)

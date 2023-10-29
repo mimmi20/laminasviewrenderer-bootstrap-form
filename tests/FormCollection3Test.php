@@ -45,6 +45,7 @@ final class FormCollection3Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function testRenderWithFormWithoutOptionsAndElements(): void
     {
@@ -227,6 +228,7 @@ final class FormCollection3Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function testRenderWithFormAndElementsWithoutOptions(): void
     {
@@ -512,6 +514,7 @@ final class FormCollection3Test extends TestCase
      * @throws ServiceNotFoundException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function testRenderWithCollectionAndElementsWithoutOptions(): void
     {

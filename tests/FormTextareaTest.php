@@ -14,11 +14,13 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\File;
 use Laminas\Form\Exception\DomainException;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 use Mimmi20\LaminasView\BootstrapForm\FormTextarea;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
 use function sprintf;
@@ -28,6 +30,7 @@ final class FormTextareaTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws InvalidArgumentException
      */
     public function testRenderWithoutName(): void
     {
@@ -67,6 +70,7 @@ final class FormTextareaTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws InvalidArgumentException
      */
     public function testRenderWithName(): void
     {
@@ -116,6 +120,7 @@ final class FormTextareaTest extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws InvalidArgumentException
      */
     public function testInvoke1(): void
     {
@@ -166,7 +171,12 @@ final class FormTextareaTest extends TestCase
         self::assertSame($expected, $helperObject->render($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws DomainException
+     * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
+     */
     public function testInvoke2(): void
     {
         $name         = 'name';
@@ -212,7 +222,10 @@ final class FormTextareaTest extends TestCase
         self::assertSame($expected, $helper($element));
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetIndent1(): void
     {
         $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
@@ -233,7 +246,10 @@ final class FormTextareaTest extends TestCase
         self::assertSame('    ', $helper->getIndent());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws ContainerExceptionInterface
+     */
     public function testSetGetIndent2(): void
     {
         $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)

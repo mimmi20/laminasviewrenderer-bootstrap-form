@@ -26,12 +26,14 @@ use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
+use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\InputFilter\InputFilterInterface;
 use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\InputFilter\InputInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Renderer\RendererInterface;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
@@ -87,6 +89,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
      * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws RuntimeException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
@@ -626,7 +630,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 unset($formAttributes['class']);
             }
 
-            $attributes = array_merge($formAttributes, $attributes);
+            $attributes = [...$formAttributes, ...$attributes];
         }
 
         if ($classes) {
