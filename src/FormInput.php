@@ -24,6 +24,7 @@ use function array_merge;
 use function array_unique;
 use function explode;
 use function implode;
+use function is_scalar;
 use function sprintf;
 use function trim;
 
@@ -79,7 +80,7 @@ abstract class FormInput extends BaseFormInput implements FormInputInterface
         } else {
             $classes = ['form-control'];
 
-            if (array_key_exists('class', $attributes)) {
+            if (array_key_exists('class', $attributes) && is_scalar($attributes['class'])) {
                 $classes = array_merge($classes, explode(' ', (string) $attributes['class']));
             }
         }
