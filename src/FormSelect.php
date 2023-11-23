@@ -395,7 +395,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * a domain issue -- you cannot have multiple options selected unless the
      * multiple attribute is present and enabled.
      *
-     * @param array<string, bool> $attributes
+     * @param array<string, scalar|null> $attributes
      *
      * @return array<int|string, string>
      *
