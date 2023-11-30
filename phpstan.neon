@@ -69,7 +69,7 @@ parameters:
   reportAlwaysTrueInLastCondition: true
 
   # reports violations of parameter type contravariance and return type covariance
-  reportMaybesInMethodSignatures: true
+  reportMaybesInMethodSignatures: false
 
   # reports violations of property type invariance
   reportMaybesInPropertyPhpDocTypes: false

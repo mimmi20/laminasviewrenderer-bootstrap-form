@@ -234,9 +234,9 @@ abstract class AbstractFormMultiCheckbox extends FormInput
     /**
      * Render options
      *
-     * @param array<int|string, array<string, string>|int|string> $options
-     * @param array<int|string, string>                           $selectedOptions
-     * @param array<string, scalar|null>                          $attributes
+     * @param array<int|string, array<string, array<string, scalar|null>|bool|string>|string> $options
+     * @param array<int|string, string>                                                       $selectedOptions
+     * @param array<string, scalar|null>                                                      $attributes
      *
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
