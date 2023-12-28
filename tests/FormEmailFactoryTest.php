@@ -31,11 +31,7 @@ final class FormEmailFactoryTest extends TestCase
 {
     private FormEmailFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormEmailFactory();

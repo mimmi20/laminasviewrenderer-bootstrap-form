@@ -31,11 +31,7 @@ final class FormSearchFactoryTest extends TestCase
 {
     private FormSearchFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormSearchFactory();

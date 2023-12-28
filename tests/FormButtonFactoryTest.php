@@ -32,11 +32,7 @@ final class FormButtonFactoryTest extends TestCase
 {
     private FormButtonFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormButtonFactory();

@@ -56,11 +56,7 @@ final class FormTextarea extends AbstractHelper
         'wrap' => true,
     ];
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     public function __construct(
         private readonly HtmlElementInterface $htmlElement,
         private readonly EscapeHtml $escapeHtml,

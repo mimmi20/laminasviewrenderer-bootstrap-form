@@ -31,11 +31,7 @@ final class FormTelFactoryTest extends TestCase
 {
     private FormTelFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormTelFactory();

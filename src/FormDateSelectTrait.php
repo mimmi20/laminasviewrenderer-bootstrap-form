@@ -25,8 +25,6 @@ trait FormDateSelectTrait
      * @return array<int|string, array<string, string>>
      *
      * @throws void
-     *
-     * @psalm-suppress ReservedWord
      */
     private function getDaysOptions(string $pattern): array
     {

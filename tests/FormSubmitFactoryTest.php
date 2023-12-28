@@ -31,11 +31,7 @@ final class FormSubmitFactoryTest extends TestCase
 {
     private FormSubmitFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormSubmitFactory();

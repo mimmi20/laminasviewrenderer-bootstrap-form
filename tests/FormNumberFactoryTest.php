@@ -31,11 +31,7 @@ final class FormNumberFactoryTest extends TestCase
 {
     private FormNumberFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormNumberFactory();

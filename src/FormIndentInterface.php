@@ -23,7 +23,6 @@ interface FormIndentInterface
      * @throws void
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
-     * @psalm-suppress ReservedWord
      */
     public function setIndent(int | string $indent);
 
@@ -31,8 +30,6 @@ interface FormIndentInterface
      * Returns indentation
      *
      * @throws void
-     *
-     * @psalm-suppress ReservedWord
      */
     public function getIndent(): string;
 }

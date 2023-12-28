@@ -25,11 +25,7 @@ final class ConfigProviderTest extends TestCase
 {
     private ConfigProvider $provider;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->provider = new ConfigProvider();

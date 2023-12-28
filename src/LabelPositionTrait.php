@@ -56,8 +56,6 @@ trait LabelPositionTrait
      * Get position of label
      *
      * @throws void
-     *
-     * @psalm-suppress ReservedWord
      */
     public function getLabelPosition(): string
     {

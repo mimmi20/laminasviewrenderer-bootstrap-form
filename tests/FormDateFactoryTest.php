@@ -31,11 +31,7 @@ final class FormDateFactoryTest extends TestCase
 {
     private FormDateFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormDateFactory();

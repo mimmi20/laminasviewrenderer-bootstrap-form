@@ -31,11 +31,7 @@ final class FormRangeFactoryTest extends TestCase
 {
     private FormRangeFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormRangeFactory();

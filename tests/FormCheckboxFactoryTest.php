@@ -35,11 +35,7 @@ final class FormCheckboxFactoryTest extends TestCase
 {
     private FormCheckboxFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormCheckboxFactory();

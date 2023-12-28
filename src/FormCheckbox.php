@@ -39,17 +39,12 @@ use function trim;
 use const ARRAY_FILTER_USE_KEY;
 use const PHP_EOL;
 
-/** @psalm-suppress ReservedWord */
 final class FormCheckbox extends FormInput
 {
     use LabelPositionTrait;
     use UseHiddenElementTrait;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     public function __construct(
         EscapeHtml $escapeHtml,
         EscapeHtmlAttr $escapeHtmlAttr,

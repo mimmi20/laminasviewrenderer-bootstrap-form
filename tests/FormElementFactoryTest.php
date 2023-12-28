@@ -27,11 +27,7 @@ final class FormElementFactoryTest extends TestCase
 {
     private FormElementFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormElementFactory();

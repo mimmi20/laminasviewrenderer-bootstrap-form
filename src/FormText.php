@@ -21,7 +21,6 @@ final class FormText extends FormInput
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     * @psalm-suppress NonInvariantDocblockPropertyType
      */
     protected $validTagAttributes = [
         'name' => true,
@@ -48,7 +47,6 @@ final class FormText extends FormInput
      * @throws void
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
-     * @psalm-suppress ReservedWord
      */
     protected function getType(ElementInterface $element): string
     {

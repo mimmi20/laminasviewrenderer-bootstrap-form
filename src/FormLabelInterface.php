@@ -51,8 +51,6 @@ interface FormLabelInterface
      * Return a closing label tag
      *
      * @throws void
-     *
-     * @psalm-suppress ReservedWord
      */
     public function closeTag(): string;
 }

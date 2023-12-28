@@ -29,11 +29,7 @@ final class FormLabelFactoryTest extends TestCase
 {
     private FormLabelFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormLabelFactory();

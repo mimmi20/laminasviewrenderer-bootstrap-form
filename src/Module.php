@@ -19,7 +19,6 @@ use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManager;
 use Psr\Container\ContainerInterface;
 
-/** @psalm-suppress ReservedWord */
 final class Module implements ConfigProviderInterface, DependencyIndicatorInterface
 {
     /**

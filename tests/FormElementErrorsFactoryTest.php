@@ -30,11 +30,7 @@ final class FormElementErrorsFactoryTest extends TestCase
 {
     private FormElementErrorsFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormElementErrorsFactory();

@@ -31,11 +31,7 @@ final class FormHiddenFactoryTest extends TestCase
 {
     private FormHiddenFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormHiddenFactory();

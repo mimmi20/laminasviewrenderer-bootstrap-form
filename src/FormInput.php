@@ -28,19 +28,12 @@ use function is_scalar;
 use function sprintf;
 use function trim;
 
-/**
- * @SuppressWarnings(PHPMD.NumberOfChildren)
- * @psalm-suppress ReservedWord
- */
+/** @SuppressWarnings(PHPMD.NumberOfChildren) */
 abstract class FormInput extends BaseFormInput implements FormInputInterface
 {
     use FormTrait;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     public function __construct(
         protected EscapeHtml $escapeHtml,
         protected EscapeHtmlAttr $escapeHtmlAttr,

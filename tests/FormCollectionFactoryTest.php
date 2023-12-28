@@ -31,11 +31,7 @@ final class FormCollectionFactoryTest extends TestCase
 {
     private FormCollectionFactory $factory;
 
-    /**
-     * @throws void
-     *
-     * @psalm-suppress ReservedWord
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormCollectionFactory();

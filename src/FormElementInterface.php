@@ -16,7 +16,6 @@ use Laminas\Form\ElementInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 
-/** @psalm-suppress ReservedWord */
 interface FormElementInterface extends FormIndentInterface
 {
     public const DEFAULT_HELPER = 'formInput';
