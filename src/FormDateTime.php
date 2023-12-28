@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 
-/** @deprecated This element is deprecated as it has been removed from WHATWG HTML, use {@see \Mimmi20\LaminasView\BootstrapForm\FormDateTimeLocal} instead */
+/** @deprecated This element is deprecated as it has been removed from WHATWG HTML, use {@see FormDateTimeLocal} instead */
 final class FormDateTime extends FormInput
 {
     /**
