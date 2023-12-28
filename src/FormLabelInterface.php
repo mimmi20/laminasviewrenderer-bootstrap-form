@@ -51,8 +51,6 @@ interface FormLabelInterface
      * Return a closing label tag
      *
      * @throws void
-     *
-     *
      */
     public function closeTag(): string;
 }

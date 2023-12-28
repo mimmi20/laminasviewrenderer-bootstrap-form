@@ -31,11 +31,7 @@ final class FormResetFactoryTest extends TestCase
 {
     private FormResetFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormResetFactory();

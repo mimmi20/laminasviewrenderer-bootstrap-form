@@ -31,11 +31,7 @@ final class FormImageFactoryTest extends TestCase
 {
     private FormImageFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormImageFactory();

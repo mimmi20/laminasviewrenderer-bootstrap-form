@@ -33,10 +33,7 @@ use const PHP_EOL;
 use const PREG_SPLIT_DELIM_CAPTURE;
 use const PREG_SPLIT_NO_EMPTY;
 
-/**
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- *
- */
+/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
 final class FormDateTimeSelect extends AbstractHelper implements FormIndentInterface, FormRenderInterface
 {
     use FormDateSelectTrait;
@@ -190,11 +187,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
         return $indent . PHP_EOL . implode(PHP_EOL, $markups) . PHP_EOL . $indent;
     }
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     public function setTimeType(int $timeType): self
     {
         // The FULL format uses values that are not used
@@ -207,11 +200,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
         return $this;
     }
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     public function getTimeType(): int
     {
         return $this->timeType;

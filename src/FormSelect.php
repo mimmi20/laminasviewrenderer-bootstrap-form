@@ -38,7 +38,6 @@ use function trim;
 
 use const PHP_EOL;
 
-/**  */
 final class FormSelect extends AbstractHelper implements FormSelectInterface
 {
     use FormTrait;
@@ -50,14 +49,12 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      */
     protected $validTagAttributes;
 
     /**
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      */
     protected $translatableAttributes = ['label' => true];
 
@@ -99,11 +96,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         'label' => true,
     ];
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     public function __construct(
         private readonly EscapeHtml $escaper,
         private readonly FormHiddenInterface $formHidden,

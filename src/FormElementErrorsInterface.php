@@ -52,8 +52,6 @@ interface FormElementErrorsInterface extends FormIndentInterface
      * @param array<string, string> $attributes key value pairs of attributes
      *
      * @throws void
-     *
-     *
      */
     public function setAttributes(array $attributes): self;
 
@@ -63,8 +61,6 @@ interface FormElementErrorsInterface extends FormIndentInterface
      * @return array<string, string>
      *
      * @throws void
-     *
-     *
      */
     public function getAttributes(): array;
 }

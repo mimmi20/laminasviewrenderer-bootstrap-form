@@ -27,7 +27,6 @@ final class FormFile extends FormInput
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      */
     protected $validTagAttributes = [
         'name' => true,
@@ -91,7 +90,6 @@ final class FormFile extends FormInput
      * @throws void
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
-     *
      */
     protected function getType(ElementInterface $element): string
     {

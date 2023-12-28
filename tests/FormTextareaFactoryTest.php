@@ -29,11 +29,7 @@ final class FormTextareaFactoryTest extends TestCase
 {
     private FormTextareaFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormTextareaFactory();

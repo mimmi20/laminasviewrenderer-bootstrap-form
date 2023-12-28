@@ -15,7 +15,6 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 
-/**  */
 interface FormSelectInterface extends FormIndentInterface
 {
     /**

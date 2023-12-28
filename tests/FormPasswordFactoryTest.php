@@ -31,11 +31,7 @@ final class FormPasswordFactoryTest extends TestCase
 {
     private FormPasswordFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormPasswordFactory();

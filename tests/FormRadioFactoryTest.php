@@ -35,11 +35,7 @@ final class FormRadioFactoryTest extends TestCase
 {
     private FormRadioFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormRadioFactory();

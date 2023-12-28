@@ -31,11 +31,7 @@ final class FormTextFactoryTest extends TestCase
 {
     private FormTextFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormTextFactory();

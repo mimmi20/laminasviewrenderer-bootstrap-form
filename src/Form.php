@@ -42,11 +42,7 @@ final class Form extends BaseForm
 
     public const LAYOUT_INLINE = 'inline';
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     public function __construct(
         private readonly FormCollectionInterface $formCollection,
         private readonly FormRowInterface $formRow,

@@ -35,11 +35,7 @@ final class FormMultiCheckboxFactoryTest extends TestCase
 {
     private FormMultiCheckboxFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormMultiCheckboxFactory();

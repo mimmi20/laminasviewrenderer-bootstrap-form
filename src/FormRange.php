@@ -21,7 +21,6 @@ final class FormRange extends FormInput
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      */
     protected $validTagAttributes = [
         'name' => true,
@@ -42,7 +41,6 @@ final class FormRange extends FormInput
      * Determine input type to use
      *
      * @throws void
-     *
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */

@@ -20,7 +20,6 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
 
-/**  */
 interface FormCollectionInterface extends FormIndentInterface, FormRenderInterface
 {
     /**

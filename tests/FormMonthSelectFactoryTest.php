@@ -29,11 +29,7 @@ final class FormMonthSelectFactoryTest extends TestCase
 {
     private FormMonthSelectFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormMonthSelectFactory();

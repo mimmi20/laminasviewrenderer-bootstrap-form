@@ -21,7 +21,6 @@ final class FormTel extends FormInput
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      */
     protected $validTagAttributes = [
         'name' => true,
@@ -47,7 +46,6 @@ final class FormTel extends FormInput
      * @throws void
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
-     *
      */
     protected function getType(ElementInterface $element): string
     {

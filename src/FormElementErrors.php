@@ -27,7 +27,6 @@ use function is_string;
 
 use const PHP_EOL;
 
-/**  */
 final class FormElementErrors extends AbstractHelper implements FormElementErrorsInterface
 {
     use FormTrait;
@@ -35,11 +34,7 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
     /** @var array<string, string> Default attributes for the open format tag */
     private array $attributes = [];
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     public function __construct(
         private readonly HtmlElementInterface $htmlElement,
         private readonly EscapeHtml $escapeHtml,

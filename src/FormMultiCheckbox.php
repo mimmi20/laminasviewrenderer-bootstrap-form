@@ -23,8 +23,6 @@ final class FormMultiCheckbox extends AbstractFormMultiCheckbox
      * Return input type
      *
      * @throws void
-     *
-     *
      */
     protected function getInputType(): string
     {

@@ -28,7 +28,6 @@ use function is_string;
 use function mb_strtolower;
 use function sprintf;
 
-/**  */
 final class FormButton extends FormInput
 {
     /**
@@ -36,7 +35,6 @@ final class FormButton extends FormInput
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      */
     protected $validTagAttributes = [
         'name' => true,
@@ -64,11 +62,7 @@ final class FormButton extends FormInput
         'submit' => true,
     ];
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     public function __construct(
         EscapeHtml $escapeHtml,
         EscapeHtmlAttr $escapeHtmlAttr,

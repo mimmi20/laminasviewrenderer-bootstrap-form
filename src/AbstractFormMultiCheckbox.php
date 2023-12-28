@@ -42,10 +42,7 @@ use function sprintf;
 use const ARRAY_FILTER_USE_KEY;
 use const PHP_EOL;
 
-/**
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- *
- */
+/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
 abstract class AbstractFormMultiCheckbox extends FormInput
 {
     use LabelPositionTrait;
@@ -67,11 +64,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      */
     private string $separator = '';
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     public function __construct(
         EscapeHtml $escapeHtml,
         EscapeHtmlAttr $escapeHtmlAttr,
@@ -165,8 +158,6 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * @param array<int|string, bool|string> $attributes
      *
      * @throws void
-     *
-     *
      */
     public function setLabelAttributes(array $attributes): self
     {
@@ -181,8 +172,6 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * @return array<int|string, bool|string>
      *
      * @throws void
-     *
-     *
      */
     public function getLabelAttributes(): array
     {
@@ -193,8 +182,6 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * Set separator string for checkbox elements
      *
      * @throws void
-     *
-     *
      */
     public function setSeparator(string $separator): self
     {
@@ -207,8 +194,6 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * Get separator for checkbox elements
      *
      * @throws void
-     *
-     *
      */
     public function getSeparator(): string
     {
@@ -219,8 +204,6 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * Return input type
      *
      * @throws void
-     *
-     *
      */
     abstract protected function getInputType(): string;
 
@@ -469,8 +452,6 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * @param array<int|string, string> $classes
      *
      * @throws void
-     *
-     *
      */
     private function combineClasses(array $classes): string
     {

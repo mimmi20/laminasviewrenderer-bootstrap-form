@@ -31,11 +31,7 @@ final class FormTimeFactoryTest extends TestCase
 {
     private FormTimeFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormTimeFactory();

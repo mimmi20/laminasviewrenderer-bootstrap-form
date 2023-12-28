@@ -24,7 +24,6 @@ final class FormHidden extends FormInput implements FormHiddenInterface
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      */
     protected $validTagAttributes = [
         'name' => true,
@@ -77,7 +76,6 @@ final class FormHidden extends FormInput implements FormHiddenInterface
      * @throws void
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
-     *
      */
     protected function getType(ElementInterface $element): string
     {

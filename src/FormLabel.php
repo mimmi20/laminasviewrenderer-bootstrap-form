@@ -26,7 +26,6 @@ use function get_debug_type;
 use function is_array;
 use function sprintf;
 
-/**  */
 final class FormLabel extends AbstractHelper implements FormLabelInterface
 {
     /**
@@ -34,18 +33,13 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
      */
     protected $validTagAttributes = [
         'for' => true,
         'form' => true,
     ];
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     public function __construct(
         private readonly EscapeHtml $escaper,
         private readonly Translate | null $translate = null,

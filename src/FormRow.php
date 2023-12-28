@@ -57,19 +57,12 @@ use function trim;
 
 use const PHP_EOL;
 
-/**
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- *
- */
+/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
 final class FormRow extends BaseFormRow implements FormRowInterface
 {
     use FormTrait;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     public function __construct(
         private readonly FormElementInterface $formElement,
         private readonly FormElementErrorsInterface $formElementErrors,
@@ -564,11 +557,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         return $elementErrors;
     }
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     private function renderFormHelp(ElementInterface $element, string $indent): string
     {
         $helpContent = $element->getOption('help_content');

@@ -24,8 +24,6 @@ trait FormTrait
      * number of spaces to indent with
      *
      * @throws void
-     *
-     *
      */
     public function setIndent(int | string $indent): self
     {
@@ -38,8 +36,6 @@ trait FormTrait
      * Returns indentation
      *
      * @throws void
-     *
-     *
      */
     public function getIndent(): string
     {
@@ -52,8 +48,6 @@ trait FormTrait
      * Retrieve whitespace representation of $indent
      *
      * @throws void
-     *
-     *
      */
     protected function getWhitespace(int | string $indent): string
     {

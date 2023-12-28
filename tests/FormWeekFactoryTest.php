@@ -31,11 +31,7 @@ final class FormWeekFactoryTest extends TestCase
 {
     private FormWeekFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormWeekFactory();

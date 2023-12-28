@@ -33,11 +33,7 @@ final class FormRowFactoryTest extends TestCase
 {
     private FormRowFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormRowFactory();

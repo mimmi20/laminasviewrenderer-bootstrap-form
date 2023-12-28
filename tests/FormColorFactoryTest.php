@@ -31,11 +31,7 @@ final class FormColorFactoryTest extends TestCase
 {
     private FormColorFactory $factory;
 
-    /**
-     * @throws void
-     *
-     *
-     */
+    /** @throws void */
     protected function setUp(): void
     {
         $this->factory = new FormColorFactory();

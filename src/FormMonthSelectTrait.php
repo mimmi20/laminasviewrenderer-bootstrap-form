@@ -26,7 +26,6 @@ use function str_replace;
 use const PREG_SPLIT_DELIM_CAPTURE;
 use const PREG_SPLIT_NO_EMPTY;
 
-/**  */
 trait FormMonthSelectTrait
 {
     /**
