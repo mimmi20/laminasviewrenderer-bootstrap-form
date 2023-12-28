@@ -45,7 +45,7 @@ final class Form extends BaseForm
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function __construct(
         private readonly FormCollectionInterface $formCollection,

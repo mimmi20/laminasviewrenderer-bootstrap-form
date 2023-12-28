@@ -21,7 +21,7 @@ interface FormInputInterface extends FormIndentInterface, FormRenderInterface
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function getInlineClosingBracket(): string;
 }

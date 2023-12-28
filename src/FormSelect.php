@@ -38,7 +38,7 @@ use function trim;
 
 use const PHP_EOL;
 
-/** @psalm-suppress ReservedWord */
+/**  */
 final class FormSelect extends AbstractHelper implements FormSelectInterface
 {
     use FormTrait;
@@ -50,14 +50,14 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     * @psalm-suppress NonInvariantDocblockPropertyType
+     *
      */
     protected $validTagAttributes;
 
     /**
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     * @psalm-suppress NonInvariantDocblockPropertyType
+     *
      */
     protected $translatableAttributes = ['label' => true];
 
@@ -102,7 +102,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function __construct(
         private readonly EscapeHtml $escaper,

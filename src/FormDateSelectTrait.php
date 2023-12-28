@@ -26,7 +26,7 @@ trait FormDateSelectTrait
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     private function getDaysOptions(string $pattern): array
     {

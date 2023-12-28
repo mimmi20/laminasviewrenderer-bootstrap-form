@@ -15,7 +15,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 
-/** @psalm-suppress ReservedWord */
+/**  */
 interface FormSelectInterface extends FormIndentInterface
 {
     /**

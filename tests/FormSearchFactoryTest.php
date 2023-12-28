@@ -34,7 +34,7 @@ final class FormSearchFactoryTest extends TestCase
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     protected function setUp(): void
     {

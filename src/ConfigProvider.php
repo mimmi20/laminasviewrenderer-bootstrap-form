@@ -24,7 +24,7 @@ use Psr\Container\ContainerInterface;
 use function assert;
 use function is_array;
 
-/** @psalm-suppress ReservedWord */
+/**  */
 final class ConfigProvider
 {
     /**
@@ -35,7 +35,7 @@ final class ConfigProvider
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function __invoke(): array
     {
@@ -53,7 +53,7 @@ final class ConfigProvider
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function getDependencyConfig(): array
     {
@@ -79,7 +79,7 @@ final class ConfigProvider
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function getViewHelperConfig(): array
     {

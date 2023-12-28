@@ -59,7 +59,7 @@ final class FormTextarea extends AbstractHelper
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function __construct(
         private readonly HtmlElementInterface $htmlElement,

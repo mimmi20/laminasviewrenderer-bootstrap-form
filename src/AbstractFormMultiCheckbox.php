@@ -44,7 +44,7 @@ use const PHP_EOL;
 
 /**
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- * @psalm-suppress ReservedWord
+ *
  */
 abstract class AbstractFormMultiCheckbox extends FormInput
 {
@@ -70,7 +70,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function __construct(
         EscapeHtml $escapeHtml,
@@ -166,7 +166,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function setLabelAttributes(array $attributes): self
     {
@@ -182,7 +182,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function getLabelAttributes(): array
     {
@@ -194,7 +194,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function setSeparator(string $separator): self
     {
@@ -208,7 +208,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function getSeparator(): string
     {
@@ -220,7 +220,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     abstract protected function getInputType(): string;
 
@@ -470,7 +470,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     private function combineClasses(array $classes): string
     {

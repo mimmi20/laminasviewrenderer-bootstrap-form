@@ -59,7 +59,7 @@ use const PHP_EOL;
 
 /**
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- * @psalm-suppress ReservedWord
+ *
  */
 final class FormRow extends BaseFormRow implements FormRowInterface
 {
@@ -68,7 +68,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function __construct(
         private readonly FormElementInterface $formElement,
@@ -567,7 +567,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     private function renderFormHelp(ElementInterface $element, string $indent): string
     {

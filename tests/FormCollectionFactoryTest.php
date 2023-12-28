@@ -34,7 +34,7 @@ final class FormCollectionFactoryTest extends TestCase
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     protected function setUp(): void
     {

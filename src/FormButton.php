@@ -28,7 +28,7 @@ use function is_string;
 use function mb_strtolower;
 use function sprintf;
 
-/** @psalm-suppress ReservedWord */
+/**  */
 final class FormButton extends FormInput
 {
     /**
@@ -36,7 +36,7 @@ final class FormButton extends FormInput
      *
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     * @psalm-suppress NonInvariantDocblockPropertyType
+     *
      */
     protected $validTagAttributes = [
         'name' => true,
@@ -67,7 +67,7 @@ final class FormButton extends FormInput
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function __construct(
         EscapeHtml $escapeHtml,

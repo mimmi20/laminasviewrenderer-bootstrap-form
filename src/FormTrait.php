@@ -25,7 +25,7 @@ trait FormTrait
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function setIndent(int | string $indent): self
     {
@@ -39,7 +39,7 @@ trait FormTrait
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function getIndent(): string
     {
@@ -53,7 +53,7 @@ trait FormTrait
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     protected function getWhitespace(int | string $indent): string
     {

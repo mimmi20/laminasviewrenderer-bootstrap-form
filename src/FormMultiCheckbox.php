@@ -24,7 +24,7 @@ final class FormMultiCheckbox extends AbstractFormMultiCheckbox
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     protected function getInputType(): string
     {

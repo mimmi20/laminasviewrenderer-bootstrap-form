@@ -35,7 +35,7 @@ use const PREG_SPLIT_NO_EMPTY;
 
 /**
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- * @psalm-suppress ReservedWord
+ *
  */
 final class FormDateTimeSelect extends AbstractHelper implements FormIndentInterface, FormRenderInterface
 {
@@ -193,7 +193,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function setTimeType(int $timeType): self
     {
@@ -210,7 +210,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function getTimeType(): int
     {

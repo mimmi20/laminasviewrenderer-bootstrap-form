@@ -39,7 +39,7 @@ use function trim;
 
 use const PHP_EOL;
 
-/** @psalm-suppress ReservedWord */
+/**  */
 final class FormCollection extends AbstractHelper implements FormCollectionInterface
 {
     use FormTrait;
@@ -52,7 +52,7 @@ final class FormCollection extends AbstractHelper implements FormCollectionInter
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function __construct(
         private readonly FormRowInterface $formRow,

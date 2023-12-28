@@ -53,7 +53,7 @@ interface FormElementErrorsInterface extends FormIndentInterface
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function setAttributes(array $attributes): self;
 
@@ -64,7 +64,7 @@ interface FormElementErrorsInterface extends FormIndentInterface
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function getAttributes(): array;
 }

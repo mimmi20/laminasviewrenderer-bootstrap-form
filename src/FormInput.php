@@ -30,7 +30,7 @@ use function trim;
 
 /**
  * @SuppressWarnings(PHPMD.NumberOfChildren)
- * @psalm-suppress ReservedWord
+ *
  */
 abstract class FormInput extends BaseFormInput implements FormInputInterface
 {
@@ -39,7 +39,7 @@ abstract class FormInput extends BaseFormInput implements FormInputInterface
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function __construct(
         protected EscapeHtml $escapeHtml,

@@ -52,7 +52,7 @@ interface FormLabelInterface
      *
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function closeTag(): string;
 }

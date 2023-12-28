@@ -27,7 +27,7 @@ use function is_string;
 
 use const PHP_EOL;
 
-/** @psalm-suppress ReservedWord */
+/**  */
 final class FormElementErrors extends AbstractHelper implements FormElementErrorsInterface
 {
     use FormTrait;
@@ -38,7 +38,7 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
     /**
      * @throws void
      *
-     * @psalm-suppress ReservedWord
+     *
      */
     public function __construct(
         private readonly HtmlElementInterface $htmlElement,
