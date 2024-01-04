@@ -2,7 +2,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021-2023, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2024, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -384,6 +384,10 @@ final class FormDateSelect1Test extends TestCase
             ->method('setValueOptions')
             ->with(
                 [
+                    2026 => [
+                        'value' => '2026',
+                        'label' => '2026',
+                    ],
                     2025 => [
                         'value' => '2025',
                         'label' => '2025',
@@ -399,10 +403,6 @@ final class FormDateSelect1Test extends TestCase
                     2022 => [
                         'value' => '2022',
                         'label' => '2022',
-                    ],
-                    2021 => [
-                        'value' => '2021',
-                        'label' => '2021',
                     ],
                 ],
             )
@@ -596,6 +596,10 @@ final class FormDateSelect1Test extends TestCase
             ->method('setValueOptions')
             ->with(
                 [
+                    2026 => [
+                        'value' => '2026',
+                        'label' => '2026',
+                    ],
                     2025 => [
                         'value' => '2025',
                         'label' => '2025',
@@ -611,10 +615,6 @@ final class FormDateSelect1Test extends TestCase
                     2022 => [
                         'value' => '2022',
                         'label' => '2022',
-                    ],
-                    2021 => [
-                        'value' => '2021',
-                        'label' => '2021',
                     ],
                 ],
             )
