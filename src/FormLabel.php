@@ -13,7 +13,7 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\AbstractHelper;
@@ -39,21 +39,13 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
         'form' => true,
     ];
 
-    /** @throws void */
-    public function __construct(
-        private readonly EscapeHtml $escaper,
-        private readonly Translate | null $translate = null,
-    ) {
-        // nothing to do
-    }
-
     /**
      * Generate a form label, optionally with content
      *
      * Always generates a "for" statement, as we cannot assume the form input
      * will be provided in the $labelContent.
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @throws InvalidArgumentException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
@@ -73,7 +65,7 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
             $label = $element->getLabel();
 
             if ($labelContent === null && empty($label)) {
-                throw new Exception\DomainException(
+                throw new DomainException(
                     sprintf(
                         '%s expects either label content as the second argument, or that the element provided has a label attribute; neither found',
                         __METHOD__,
@@ -82,15 +74,21 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
             }
 
             if (!empty($label)) {
-                if ($this->translate !== null) {
-                    $label = ($this->translate)($label, $this->getTranslatorTextDomain());
+                $translator       = $this->getTranslator();
+
+                if (null !== $translator) {
+                    $label = $translator->translate(
+                        $label,
+                        $this->getTranslatorTextDomain(),
+                    );
                 }
 
                 if (
                     !$element instanceof LabelAwareInterface
                     || !$element->getLabelOption('disable_html_escape')
                 ) {
-                    $label = ($this->escaper)($label);
+                    $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+                    $label = $escapeHtmlHelper($label);
                 }
 
                 if (
@@ -130,8 +128,8 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
      *
      * @param array<string, bool|string>|ElementInterface|null $attributesOrElement
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws DomainException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
@@ -148,7 +146,7 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
         }
 
         if (!$attributesOrElement instanceof ElementInterface) {
-            throw new Exception\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
                     '%s expects an array or Laminas\Form\ElementInterface instance; received "%s"',
                     __METHOD__,
@@ -160,7 +158,7 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
         $id = $this->getId($attributesOrElement);
 
         if ($id === null) {
-            throw new Exception\DomainException(
+            throw new DomainException(
                 sprintf(
                     '%s expects the Element provided to have either a name or an id present; neither found',
                     __METHOD__,
@@ -180,9 +178,13 @@ final class FormLabel extends AbstractHelper implements FormLabelInterface
             $attributes = array_merge($attributes, $labelAttributes);
         }
 
-        $attributes = $this->createAttributesString($attributes);
+        $attributesString = $this->createAttributesString($attributes);
 
-        return sprintf('<label %s>', $attributes);
+        if (!empty($attributesString)) {
+            $attributesString = ' ' . $attributesString;
+        }
+
+        return sprintf('<label%s>', $attributesString);
     }
 
     /**

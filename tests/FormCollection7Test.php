@@ -24,6 +24,7 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\Stdlib\PriorityList;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\EscapeHtml;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\Form;
 use Mimmi20\LaminasView\BootstrapForm\FormCollection;
 use Mimmi20\LaminasView\BootstrapForm\FormRowInterface;
@@ -56,13 +57,9 @@ final class FormCollection7Test extends TestCase
         $textDomain         = 'test-domain';
         $templateAttributes = ['class' => 'template-class'];
 
-        $element = $this->getMockBuilder(Collection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Collection::class);
 
-        $textElement = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $textElement = $this->createMock(Text::class);
         $matcher     = self::exactly(2);
         $textElement->expects($matcher)
             ->method('getOption')
@@ -118,9 +115,7 @@ final class FormCollection7Test extends TestCase
 
         $templateList = new PriorityList();
 
-        $templateElement = $this->getMockBuilder(Collection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $templateElement = $this->createMock(Collection::class);
         $matcher         = self::exactly(3);
         $templateElement->expects($matcher)
             ->method('getOption')
@@ -170,9 +165,7 @@ final class FormCollection7Test extends TestCase
         $templateElement->expects(self::never())
             ->method('getTemplateElement');
 
-        $buttonElement = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $buttonElement = $this->createMock(Button::class);
         $matcher       = self::exactly(2);
         $buttonElement->expects($matcher)
             ->method('getOption')
@@ -232,9 +225,7 @@ final class FormCollection7Test extends TestCase
 
         $expected = PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent . '    ' . $renderedTemplate . PHP_EOL;
 
-        $formRow = $this->getMockBuilder(FormRowInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formRow = $this->createMock(FormRowInterface::class);
         $formRow->expects(self::exactly(2))
             ->method('setIndent')
             ->with($indent . '    ');
@@ -265,33 +256,34 @@ final class FormCollection7Test extends TestCase
                 },
             );
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $translator = $this->createMock(Translate::class);
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::once())
             ->method('toHtml')
             ->with('template', ['class' => 'template-class'], PHP_EOL . $indent)
             ->willReturn($renderedTemplate);
 
-        $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, $translator);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCollection();
+        $helper->setView($renderer);
 
         $innerList = new PriorityList();
 
-        $collectionElement = $this->getMockBuilder(Collection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $collectionElement = $this->createMock(Collection::class);
         $matcher           = self::exactly(5);
         $collectionElement->expects($matcher)
             ->method('getOption')
@@ -435,13 +427,9 @@ final class FormCollection7Test extends TestCase
         $textDomain         = 'test-domain';
         $templateAttributes = ['class' => 'template-class'];
 
-        $element = $this->getMockBuilder(Collection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Collection::class);
 
-        $textElement = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $textElement = $this->createMock(Text::class);
         $matcher     = self::exactly(2);
         $textElement->expects($matcher)
             ->method('getOption')
@@ -497,9 +485,7 @@ final class FormCollection7Test extends TestCase
 
         $templateList = new PriorityList();
 
-        $templateElement = $this->getMockBuilder(Collection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $templateElement = $this->createMock(Collection::class);
         $matcher         = self::exactly(3);
         $templateElement->expects($matcher)
             ->method('getOption')
@@ -549,9 +535,7 @@ final class FormCollection7Test extends TestCase
         $templateElement->expects(self::never())
             ->method('getTemplateElement');
 
-        $buttonElement = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $buttonElement = $this->createMock(Button::class);
         $matcher       = self::exactly(2);
         $buttonElement->expects($matcher)
             ->method('getOption')
@@ -611,9 +595,7 @@ final class FormCollection7Test extends TestCase
 
         $expected = PHP_EOL . $expectedButton . PHP_EOL . $expectedText . PHP_EOL . $indent . '    ' . $renderedTemplate . PHP_EOL;
 
-        $formRow = $this->getMockBuilder(FormRowInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formRow = $this->createMock(FormRowInterface::class);
         $formRow->expects(self::exactly(2))
             ->method('setIndent')
             ->with($indent . '    ');
@@ -644,33 +626,34 @@ final class FormCollection7Test extends TestCase
                 },
             );
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $translator = $this->createMock(Translate::class);
         $translator->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::once())
             ->method('toHtml')
             ->with('template', ['class' => 'template-class'], PHP_EOL . $indent)
             ->willReturn($renderedTemplate);
 
-        $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, $translator);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCollection();
+        $helper->setView($renderer);
 
         $innerList = new PriorityList();
 
-        $collectionElement = $this->getMockBuilder(Collection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $collectionElement = $this->createMock(Collection::class);
         $matcher           = self::exactly(5);
         $collectionElement->expects($matcher)
             ->method('getOption')

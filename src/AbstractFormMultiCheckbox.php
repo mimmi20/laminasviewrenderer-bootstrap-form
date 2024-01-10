@@ -13,11 +13,13 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element;
+use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\MultiCheckbox as MultiCheckboxElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
+use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
@@ -43,10 +45,13 @@ use const ARRAY_FILTER_USE_KEY;
 use const PHP_EOL;
 
 /** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
-abstract class AbstractFormMultiCheckbox extends FormInput
+abstract class AbstractFormMultiCheckbox extends FormInput implements FormRenderInterface
 {
     use LabelPositionTrait;
     use UseHiddenElementTrait;
+    use HtmlHelperTrait;
+    use LabelHelperTrait;
+    use HiddenHelperTrait;
 
     final public const LABEL_APPEND = 'append';
 
@@ -64,21 +69,6 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      */
     private string $separator = '';
 
-    /** @throws void */
-    public function __construct(
-        EscapeHtml $escapeHtml,
-        EscapeHtmlAttr $escapeHtmlAttr,
-        Doctype $doctype,
-        private readonly FormLabelInterface $formLabel,
-        private readonly HtmlElementInterface $htmlElement,
-        private readonly FormHiddenInterface $formHidden,
-        private readonly Translate | null $translate = null,
-    ) {
-        parent::__construct($escapeHtml, $escapeHtmlAttr, $doctype);
-
-        $this->escapeHtml = $escapeHtml;
-    }
-
     /**
      * Invoke helper as functor
      *
@@ -86,8 +76,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      *
      * @return self|string
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
      *
@@ -109,15 +99,15 @@ abstract class AbstractFormMultiCheckbox extends FormInput
     /**
      * Render a form <input> element from the provided $element
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
      */
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof MultiCheckboxElement) {
-            throw new Exception\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
                     '%s requires that the element is of type %s',
                     __METHOD__,
@@ -139,8 +129,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
         $rendered = $this->renderOptions($element, $options, $selectedOptions, $attributes);
 
         // Render hidden element
-        $useHiddenElement = $element->useHiddenElement()
-            ?: $this->useHiddenElement;
+        $useHiddenElement = $element->useHiddenElement() || $this->useHiddenElement;
 
         if ($useHiddenElement) {
             $indent   = $this->getIndent();
@@ -210,7 +199,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput
     /**
      * Get element name
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      */
     abstract protected static function getName(ElementInterface $element): string;
 
@@ -221,8 +210,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * @param array<int|string, string>                                                       $selectedOptions
      * @param array<string, scalar|null>                                                      $attributes
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
      */
@@ -252,6 +241,29 @@ abstract class AbstractFormMultiCheckbox extends FormInput
         if ($element->getOption('layout') === Form::LAYOUT_INLINE) {
             $groupClasses[] = 'form-check-inline';
         }
+
+        if ($element->getOption('switch')) {
+            $groupClasses[] = 'form-switch';
+        }
+
+        $groupAttributes = $element->getOption('group_attributes') ?? [];
+        assert(is_array($groupAttributes));
+
+        if (array_key_exists('class', $groupAttributes) && is_string($groupAttributes['class'])) {
+            $groupClasses = array_merge(
+                $groupClasses,
+                explode(' ', $groupAttributes['class']),
+            );
+
+            unset($groupAttributes['class']);
+        }
+
+        $groupAttributes['class'] = implode(' ', array_unique($groupClasses));
+
+        $translator       = $this->getTranslator();
+        $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+        $labelHelper      = $this->getLabelHelper();
+        $htmlHelper       = $this->getHtmlHelper();
 
         foreach ($options as $key => $optionSpec) {
             ++$count;
@@ -371,15 +383,15 @@ abstract class AbstractFormMultiCheckbox extends FormInput
 
             assert(is_string($label));
 
-            if ($this->translate !== null) {
-                $label = ($this->translate)(
+            if (null !== $translator) {
+                $label = $translator->translate(
                     $label,
                     $this->getTranslatorTextDomain(),
                 );
             }
 
             if (!$element->getLabelOption('disable_html_escape')) {
-                $label = ($this->escapeHtml)($label);
+                $label = $escapeHtmlHelper($label);
             }
 
             /** @var array<string, bool|string> $filteredAttributes */
@@ -392,25 +404,25 @@ abstract class AbstractFormMultiCheckbox extends FormInput
             if (array_key_exists('id', $inputAttributes) && !$element->getLabelOption('always_wrap')) {
                 $labelOpen  = '';
                 $labelClose = '';
-                $label      = $indent . $this->getWhitespace(8) . $this->formLabel->openTag(
+                $label      = $indent . $this->getWhitespace(8) . $labelHelper->openTag(
                     $filteredAttributes,
-                ) . $label . $this->formLabel->closeTag();
+                ) . $label . $labelHelper->closeTag();
                 $input      = $indent . $this->getWhitespace(8) . $input;
             } else {
-                $labelOpen  = $indent . $this->getWhitespace(4) . $this->formLabel->openTag(
+                $labelOpen  = $indent . $this->getWhitespace(8) . $labelHelper->openTag(
                     $filteredAttributes,
                 ) . PHP_EOL;
                 $labelClose = PHP_EOL . $indent . $this->getWhitespace(
-                    4,
-                ) . $this->formLabel->closeTag();
-                $input      = $indent . $this->getWhitespace(8) . $input;
+                    8,
+                ) . $labelHelper->closeTag();
+                $input      = $indent . $this->getWhitespace(12) . $input;
             }
 
             if (
                 $label !== '' && !array_key_exists('id', $inputAttributes)
                 || $element->getLabelOption('always_wrap')
             ) {
-                $label = '<span>' . $label . '</span>';
+                $label = $this->getWhitespace(4) . '<span>' . $label . '</span>';
 
                 if ($labelClose !== '') {
                     $label = $indent . $this->getWhitespace(8) . $label;
@@ -422,9 +434,9 @@ abstract class AbstractFormMultiCheckbox extends FormInput
                 default => $labelOpen . $input . PHP_EOL . $label . $labelClose,
             };
 
-            $combinedMarkup[] = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+            $combinedMarkup[] = $indent . $this->getWhitespace(4) . $htmlHelper->render(
                 'div',
-                ['class' => $groupClasses],
+                $groupAttributes,
                 PHP_EOL . $markup . PHP_EOL . $indent . $this->getWhitespace(4),
             );
         }
@@ -438,14 +450,16 @@ abstract class AbstractFormMultiCheckbox extends FormInput
      * @throws InvalidArgumentException
      * @throws DomainException
      */
-    private function renderHiddenElement(MultiCheckboxElement $element): string
+    protected function renderHiddenElement(MultiCheckboxElement $element): string
     {
-        $uncheckedValue = $element->getUncheckedValue() ?: $this->uncheckedValue;
+        $uncheckedValue = $element->getUncheckedValue() || $this->uncheckedValue;
 
-        $hiddenElement = new Element\Hidden($element->getName());
+        $hiddenElement = new Hidden($element->getName());
         $hiddenElement->setValue($uncheckedValue);
 
-        return $this->formHidden->render($hiddenElement);
+        $hiddenHelper = $this->getHiddenHelper();
+
+        return $hiddenHelper->render($hiddenElement);
     }
 
     /**

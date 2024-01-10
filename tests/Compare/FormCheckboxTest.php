@@ -20,6 +20,7 @@ use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\HelperPluginManager;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormCheckbox;
 use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormLabelInterface;
@@ -52,50 +53,11 @@ final class FormCheckboxTest extends AbstractTestCase
 
         assert($plugin instanceof HelperPluginManager);
 
-        $escapeHtml     = $plugin->get(EscapeHtml::class);
-        $escapeHtmlAttr = $plugin->get(EscapeHtmlAttr::class);
-        $docType        = $plugin->get(Doctype::class);
-        $label          = $plugin->get(FormLabelInterface::class);
-        $htmlElement    = $this->serviceManager->get(HtmlElementInterface::class);
-        $hidden         = $plugin->get(FormHiddenInterface::class);
+        $renderer = new PhpRenderer();
+        $renderer->setHelperPluginManager($plugin);
 
-        assert(
-            $escapeHtml instanceof EscapeHtml,
-            sprintf(
-                '$escapeHtml should be an Instance of %s, but was %s',
-                EscapeHtml::class,
-                get_debug_type($escapeHtml),
-            ),
-        );
-        assert(
-            $escapeHtmlAttr instanceof EscapeHtmlAttr,
-            sprintf(
-                '$escapeHtmlAttr should be an Instance of %s, but was %s',
-                EscapeHtmlAttr::class,
-                get_debug_type($escapeHtmlAttr),
-            ),
-        );
-        assert(
-            $docType instanceof Doctype,
-            sprintf(
-                '$docType should be an Instance of %s, but was %s',
-                Doctype::class,
-                get_debug_type($docType),
-            ),
-        );
-        assert($label instanceof FormLabelInterface);
-        assert($htmlElement instanceof HtmlElementInterface);
-        assert($hidden instanceof FormHiddenInterface);
-
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $docType,
-            $label,
-            $htmlElement,
-            $hidden,
-            null,
-        );
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
 
         self::assertSame($expected, trim($helper->render($form->get('gridCheck1'))));
     }

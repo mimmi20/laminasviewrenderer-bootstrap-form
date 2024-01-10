@@ -16,6 +16,7 @@ use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\Factory;
 use Laminas\View\HelperPluginManager;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormDateSelect;
 use Mimmi20\LaminasView\BootstrapForm\FormSelectInterface;
 use PHPUnit\Framework\Exception;
@@ -42,11 +43,11 @@ final class FormDateSelectTest extends AbstractTestCase
 
         assert($plugin instanceof HelperPluginManager);
 
-        $select = $plugin->get(FormSelectInterface::class);
+        $renderer = new PhpRenderer();
+        $renderer->setHelperPluginManager($plugin);
 
-        assert($select instanceof FormSelectInterface);
-
-        $helper = new FormDateSelect($select);
+        $helper = new FormDateSelect();
+        $helper->setView($renderer);
 
         self::assertSame($expected, trim($helper->render($form->get('inputDate4'))));
     }

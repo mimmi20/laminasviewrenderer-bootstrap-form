@@ -28,6 +28,9 @@ use function get_debug_type;
 use function sprintf;
 use function trim;
 
+/**
+ * @group form-select
+ */
 final class FormSelectTest extends AbstractTestCase
 {
     /**
@@ -44,24 +47,7 @@ final class FormSelectTest extends AbstractTestCase
 
         $expected = $this->getExpected('form/select.html');
 
-        $plugin = $this->serviceManager->get(HelperPluginManager::class);
-
-        assert($plugin instanceof HelperPluginManager);
-
-        $escapeHtml = $plugin->get(EscapeHtml::class);
-        $hidden     = $plugin->get(FormHiddenInterface::class);
-
-        assert(
-            $escapeHtml instanceof EscapeHtml,
-            sprintf(
-                '$escapeHtml should be an Instance of %s, but was %s',
-                EscapeHtml::class,
-                get_debug_type($escapeHtml),
-            ),
-        );
-        assert($hidden instanceof FormHiddenInterface);
-
-        $helper = new FormSelect($escapeHtml, $hidden, null);
+        $helper = new FormSelect();
 
         self::assertSame($expected, trim($helper->render($form->get('inputState'))));
     }

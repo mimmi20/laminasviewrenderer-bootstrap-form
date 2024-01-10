@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Collection as CollectionElement;
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
@@ -31,10 +31,10 @@ interface FormCollectionInterface extends FormIndentInterface, FormRenderInterfa
      *
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @throws RuntimeException
      * @throws InvalidArgumentException
-     * @throws Exception\InvalidArgumentException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
@@ -45,10 +45,10 @@ interface FormCollectionInterface extends FormIndentInterface, FormRenderInterfa
      *
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @throws RuntimeException
      * @throws InvalidArgumentException
-     * @throws Exception\InvalidArgumentException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function render(ElementInterface $element): string;
 
@@ -57,12 +57,12 @@ interface FormCollectionInterface extends FormIndentInterface, FormRenderInterfa
      *
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @throws RuntimeException
      * @throws InvalidArgumentException
-     * @throws Exception\InvalidArgumentException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
-    public function renderTemplate(CollectionElement $collection): string;
+    public function renderTemplate(CollectionElement $collection, string $indent): string;
 
     /**
      * If set to true, collections are automatically wrapped around a fieldset

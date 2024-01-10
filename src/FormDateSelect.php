@@ -30,6 +30,7 @@ final class FormDateSelect extends AbstractHelper implements FormIndentInterface
     use FormDateSelectTrait;
     use FormMonthSelectTrait;
     use FormTrait;
+    use SelectHelperTrait;
 
     /**
      * Invoke helper as function
@@ -90,6 +91,7 @@ final class FormDateSelect extends AbstractHelper implements FormIndentInterface
             );
         }
 
+        $selectHelper = $this->getSelectHelper();
         $pattern = $this->parsePattern($element->shouldRenderDelimiters());
 
         $daysOptions   = $this->getDaysOptions($pattern['day']);
@@ -107,12 +109,12 @@ final class FormDateSelect extends AbstractHelper implements FormIndentInterface
         }
 
         $indent = $this->getIndent();
-        $this->selectHelper->setIndent($indent);
+        $selectHelper->setIndent($indent);
 
         $data                    = [];
-        $data[$pattern['day']]   = $this->selectHelper->render($dayElement);
-        $data[$pattern['month']] = $this->selectHelper->render($monthElement);
-        $data[$pattern['year']]  = $this->selectHelper->render($yearElement);
+        $data[$pattern['day']]   = $selectHelper->render($dayElement);
+        $data[$pattern['month']] = $selectHelper->render($monthElement);
+        $data[$pattern['year']]  = $selectHelper->render($yearElement);
 
         $markups = [];
 

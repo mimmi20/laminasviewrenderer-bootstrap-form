@@ -13,7 +13,7 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\Form\View\Helper\Form as BaseForm;
@@ -22,6 +22,7 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
 
+use Laminas\View\Renderer\PhpRenderer;
 use function assert;
 use function is_string;
 use function method_exists;
@@ -32,9 +33,10 @@ use const PHP_EOL;
 /**
  * View helper for rendering Form objects
  */
-final class Form extends BaseForm
+final class Form extends BaseForm implements FormIndentInterface
 {
     use FormTrait;
+    use HtmlHelperTrait;
 
     public const LAYOUT_HORIZONTAL = 'horizontal';
 
@@ -42,13 +44,19 @@ final class Form extends BaseForm
 
     public const LAYOUT_INLINE = 'inline';
 
-    /** @throws void */
-    public function __construct(
-        private readonly FormCollectionInterface $formCollection,
-        private readonly FormRowInterface $formRow,
-    ) {
-        // nothing to do
-    }
+    /**
+     * The view helper used to render sub elements.
+     *
+     * @var null|FormRow
+     */
+    protected $elementHelper;
+
+    /**
+     * The view helper used to render sub fieldsets.
+     *
+     * @var null|FormCollection
+     */
+    protected $fieldsetHelper;
 
     /**
      * Render a form from the provided $form
@@ -57,10 +65,11 @@ final class Form extends BaseForm
      *
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @throws RuntimeException
      * @throws InvalidArgumentException
-     * @throws Exception\InvalidArgumentException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws \Laminas\I18n\Exception\RuntimeException
      *
      * @template TFilteredValues of object
      */
@@ -86,7 +95,11 @@ final class Form extends BaseForm
         }
 
         if ($formLayout === self::LAYOUT_VERTICAL) {
-            $class .= ' row';
+            if ($form->getOption('as-card')) {
+                $class .= ' card';
+            } else {
+                $class .= ' row';
+            }
         } elseif ($formLayout === self::LAYOUT_INLINE) {
             $class .= ' row row-cols-lg-auto align-items-center';
         }
@@ -95,6 +108,9 @@ final class Form extends BaseForm
 
         $formContent = '';
         $indent      = $this->getIndent();
+
+        $elementHelper  = $this->getElementHelper();
+        $fieldsetHelper = $this->getFieldsetHelper();
 
         foreach ($form->getIterator() as $element) {
             assert($element instanceof ElementInterface);
@@ -121,13 +137,13 @@ final class Form extends BaseForm
             }
 
             if ($element instanceof FieldsetInterface) {
-                $this->formCollection->setIndent($indent . $this->getWhitespace(4));
-                $this->formCollection->setShouldWrap(true);
+                $fieldsetHelper->setIndent($indent . $this->getWhitespace(4));
+                $fieldsetHelper->setShouldWrap(true);
 
-                $formContent .= $this->formCollection->render($element) . PHP_EOL;
+                $formContent .= $fieldsetHelper->render($element) . PHP_EOL;
             } else {
-                $this->formRow->setIndent($indent . $this->getWhitespace(4));
-                $formContent .= $this->formRow->render($element) . PHP_EOL;
+                $elementHelper->setIndent($indent . $this->getWhitespace(4));
+                $formContent .= $elementHelper->render($element) . PHP_EOL;
             }
         }
 
@@ -135,6 +151,49 @@ final class Form extends BaseForm
             $formContent .= $indent . $this->getWhitespace(4) . $requiredMark . PHP_EOL;
         }
 
-        return $this->openTag($form) . PHP_EOL . $formContent . $this->closeTag() . PHP_EOL;
+        return $this->openTag($form) . PHP_EOL . $formContent . $indent . $this->closeTag() . PHP_EOL;
+    }
+
+    /**
+     * Retrieve the element helper.
+     *
+     * @throws RuntimeException
+     */
+    protected function getElementHelper(): FormRow
+    {
+        if ($this->elementHelper) {
+            return $this->elementHelper;
+        }
+
+        if (method_exists($this->view, 'plugin')) {
+            $this->elementHelper = $this->view->plugin('form_row');
+        }
+
+        if (! $this->elementHelper instanceof FormRow) {
+            $this->elementHelper = new FormRow();
+        }
+
+        return $this->elementHelper;
+    }
+
+    /**
+     * Retrieve the fieldset helper.
+     * @throws void
+     */
+    protected function getFieldsetHelper(): FormCollection
+    {
+        if ($this->fieldsetHelper) {
+            return $this->fieldsetHelper;
+        }
+
+        if (method_exists($this->view, 'plugin')) {
+            $this->fieldsetHelper = $this->view->plugin('form_collection');
+        }
+
+        if (! $this->fieldsetHelper instanceof FormCollection) {
+            $this->fieldsetHelper = new FormCollection();
+        }
+
+        return $this->fieldsetHelper;
     }
 }

@@ -20,6 +20,7 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\EscapeHtml;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormCollection;
 use Mimmi20\LaminasView\BootstrapForm\FormRowInterface;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
@@ -43,31 +44,32 @@ final class FormCollection1Test extends TestCase
      */
     public function testRenderWithWrongElement(): void
     {
-        $formRow = $this->getMockBuilder(FormRowInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formRow = $this->createMock(FormRowInterface::class);
         $formRow->expects(self::never())
             ->method('setIndent');
         $formRow->expects(self::never())
             ->method('render');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormCollection();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::never())
@@ -100,27 +102,30 @@ final class FormCollection1Test extends TestCase
      */
     public function testSetGetIndent1(): void
     {
-        $formRow = $this->getMockBuilder(FormRowInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formRow = $this->createMock(FormRowInterface::class);
         $formRow->expects(self::never())
             ->method('setIndent');
         $formRow->expects(self::never())
             ->method('render');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCollection();
+        $helper->setView($renderer);
 
         self::assertSame($helper, $helper->setIndent(4));
         self::assertSame('    ', $helper->getIndent());
@@ -132,27 +137,30 @@ final class FormCollection1Test extends TestCase
      */
     public function testSetGetIndent2(): void
     {
-        $formRow = $this->getMockBuilder(FormRowInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formRow = $this->createMock(FormRowInterface::class);
         $formRow->expects(self::never())
             ->method('setIndent');
         $formRow->expects(self::never())
             ->method('render');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCollection();
+        $helper->setView($renderer);
 
         self::assertSame($helper, $helper->setIndent('  '));
         self::assertSame('  ', $helper->getIndent());
@@ -164,27 +172,30 @@ final class FormCollection1Test extends TestCase
      */
     public function testSetShouldWrap(): void
     {
-        $formRow = $this->getMockBuilder(FormRowInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formRow = $this->createMock(FormRowInterface::class);
         $formRow->expects(self::never())
             ->method('setIndent');
         $formRow->expects(self::never())
             ->method('render');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $helper = new FormCollection($formRow, $escapeHtml, $htmlElement, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCollection();
+        $helper->setView($renderer);
 
         self::assertTrue($helper->shouldWrap());
 

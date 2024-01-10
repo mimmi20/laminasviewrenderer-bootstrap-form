@@ -13,11 +13,11 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 
 use function sprintf;
 
-final class FormImage extends FormInput
+final class FormImage extends FormInput implements FormRenderInterface
 {
     /**
      * Attributes valid for the input tag type="image"
@@ -45,14 +45,14 @@ final class FormImage extends FormInput
     /**
      * Render a form <input> element from the provided $element
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      */
     public function render(ElementInterface $element): string
     {
         $src = $element->getAttribute('src');
 
         if (empty($src)) {
-            throw new Exception\DomainException(
+            throw new DomainException(
                 sprintf(
                     '%s requires that the element has an assigned src; none discovered',
                     __METHOD__,

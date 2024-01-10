@@ -16,7 +16,9 @@ use DateTime;
 use IntlDateFormatter;
 use Laminas\Form\Element\DateTimeSelect as DateTimeSelectElement;
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\ExtensionNotLoadedException;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\AbstractHelper;
 
 use function extension_loaded;
@@ -39,25 +41,24 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
     use FormDateSelectTrait;
     use FormMonthSelectTrait;
     use FormTrait;
+    use SelectHelperTrait;
 
     /**
      * Time formatter to use
      */
     private int $timeType;
 
-    /** @throws Exception\ExtensionNotLoadedException if ext/intl is not present */
-    public function __construct(FormSelectInterface $selectHelper)
+    /** @throws ExtensionNotLoadedException if ext/intl is not present */
+    public function __construct()
     {
         if (!extension_loaded('intl')) {
-            throw new Exception\ExtensionNotLoadedException(
+            throw new ExtensionNotLoadedException(
                 sprintf(
                     '%s component requires the intl PHP extension',
                     __NAMESPACE__,
                 ),
             );
         }
-
-        $this->selectHelper = $selectHelper;
 
         // Delaying initialization until we know ext/intl is available
         $this->dateType = IntlDateFormatter::LONG;
@@ -73,8 +74,8 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
      *
      * @return self|string
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws DomainException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
@@ -101,13 +102,13 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
     /**
      * Render a date element that is composed of six selects
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws DomainException
      */
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof DateTimeSelectElement) {
-            throw new Exception\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
                     '%s requires that the element is of type %s',
                     __METHOD__,
@@ -119,7 +120,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
         $name = $element->getName();
 
         if ($name === null || $name === '') {
-            throw new Exception\DomainException(
+            throw new DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
                     __METHOD__,
@@ -127,6 +128,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
             );
         }
 
+        $selectHelper = $this->getSelectHelper();
         $shouldRenderDelimiters = $element->shouldRenderDelimiters();
         $pattern                = $this->parsePattern($shouldRenderDelimiters);
 
@@ -151,14 +153,14 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
         }
 
         $indent = $this->getIndent();
-        $this->selectHelper->setIndent($indent);
+        $selectHelper->setIndent($indent);
 
         $data                     = [];
-        $data[$pattern['day']]    = $this->selectHelper->render($dayElement);
-        $data[$pattern['month']]  = $this->selectHelper->render($monthElement);
-        $data[$pattern['year']]   = $this->selectHelper->render($yearElement);
-        $data[$pattern['hour']]   = $this->selectHelper->render($hourElement);
-        $data[$pattern['minute']] = $this->selectHelper->render($minuteElement);
+        $data[$pattern['day']]    = $selectHelper->render($dayElement);
+        $data[$pattern['month']]  = $selectHelper->render($monthElement);
+        $data[$pattern['year']]   = $selectHelper->render($yearElement);
+        $data[$pattern['hour']]   = $selectHelper->render($hourElement);
+        $data[$pattern['minute']] = $selectHelper->render($minuteElement);
 
         if ($element->shouldShowSeconds()) {
             $secondOptions = $this->getSecondsOptions($pattern['second']);
@@ -168,7 +170,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
                 $secondElement->setEmptyOption('');
             }
 
-            $data[$pattern['second']] = $this->selectHelper->render($secondElement);
+            $data[$pattern['second']] = $selectHelper->render($secondElement);
         } else {
             unset($pattern['second']);
 

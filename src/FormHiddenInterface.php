@@ -13,10 +13,10 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\InvalidArgumentException;
 
-interface FormHiddenInterface extends FormIndentInterface
+interface FormHiddenInterface extends FormIndentInterface, FormRenderInterface
 {
     /**
      * Invoke helper as functor
@@ -25,17 +25,10 @@ interface FormHiddenInterface extends FormIndentInterface
      *
      * @return self|string
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws DomainException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
     public function __invoke(ElementInterface | null $element = null);
-
-    /**
-     * Render a form <input> element from the provided $element
-     *
-     * @throws DomainException
-     */
-    public function render(ElementInterface $element): string;
 }

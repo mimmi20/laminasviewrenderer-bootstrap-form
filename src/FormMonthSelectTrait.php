@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use DateTime;
 use IntlDateFormatter;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\ExtensionNotLoadedException;
 use Locale;
 
 use function extension_loaded;
@@ -28,11 +28,6 @@ use const PREG_SPLIT_NO_EMPTY;
 
 trait FormMonthSelectTrait
 {
-    /**
-     * FormSelect helper
-     */
-    private FormSelectInterface $selectHelper;
-
     /**
      * Date formatter to use
      */
@@ -48,19 +43,17 @@ trait FormMonthSelectTrait
      */
     private string | null $locale = null;
 
-    /** @throws Exception\ExtensionNotLoadedException if ext/intl is not present */
-    public function __construct(FormSelectInterface $selectHelper)
+    /** @throws ExtensionNotLoadedException if ext/intl is not present */
+    public function __construct()
     {
         if (!extension_loaded('intl')) {
-            throw new Exception\ExtensionNotLoadedException(
+            throw new ExtensionNotLoadedException(
                 sprintf(
                     '%s component requires the intl PHP extension',
                     __NAMESPACE__,
                 ),
             );
         }
-
-        $this->selectHelper = $selectHelper;
 
         // Delaying initialization until we know ext/intl is available
         $this->dateType = IntlDateFormatter::LONG;

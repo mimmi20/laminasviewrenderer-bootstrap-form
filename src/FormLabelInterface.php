@@ -13,7 +13,7 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 
 interface FormLabelInterface
@@ -28,7 +28,7 @@ interface FormLabelInterface
      * Always generates a "for" statement, as we cannot assume the form input
      * will be provided in the $labelContent.
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @throws InvalidArgumentException
      */
     public function __invoke(
@@ -42,8 +42,8 @@ interface FormLabelInterface
      *
      * @param array<string, bool|string>|ElementInterface|null $attributesOrElement
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws DomainException
      */
     public function openTag(array | ElementInterface | null $attributesOrElement = null): string;
 

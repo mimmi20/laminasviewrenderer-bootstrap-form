@@ -15,6 +15,7 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use Laminas\Form\Element\Checkbox;
 use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\Text;
+use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
@@ -23,6 +24,7 @@ use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\Form;
 use Mimmi20\LaminasView\BootstrapForm\FormCheckbox;
 use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
@@ -47,53 +49,42 @@ final class FormCheckboxTest extends TestCase
     {
         $labelPosition = 'abc';
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -118,53 +109,42 @@ final class FormCheckboxTest extends TestCase
     {
         $labelPosition = BaseFormRow::LABEL_PREPEND;
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
 
         $helper->setLabelPosition($labelPosition);
 
@@ -180,57 +160,44 @@ final class FormCheckboxTest extends TestCase
      */
     public function testRenderWithWrongElement(): void
     {
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
 
@@ -256,57 +223,44 @@ final class FormCheckboxTest extends TestCase
      */
     public function testRenderWithoutName(): void
     {
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(Checkbox::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(Checkbox::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn(null);
@@ -337,36 +291,28 @@ final class FormCheckboxTest extends TestCase
         $label        = 'test-label';
         $escapedLabel = 'escaped-label';
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($label)
             ->willReturn($escapedLabel);
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
 
         $expected = '<input class="form-check-input&#x20;xyz" name="chkbox" type="checkbox" value="" checked="checked">';
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::once())
             ->method('toHtml')
             ->with(
                 'div',
-                ['class' => ['form-check', 'form-check-inline']],
+                ['class' => 'form-check form-check-inline'],
                 PHP_EOL
                 . '<label for="chck-id">' . PHP_EOL
                 . '    <input class="form-check-input&#x20;xyz" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL
@@ -375,9 +321,7 @@ final class FormCheckboxTest extends TestCase
             )
             ->willReturn($expected);
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::once())
             ->method('openTag')
             ->with(['class' => 'form-check-label abc', 'for' => $id])
@@ -388,32 +332,42 @@ final class FormCheckboxTest extends TestCase
             ->method('closeTag')
             ->willReturn('</label>');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(Checkbox::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(Checkbox::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
-        $element->expects(self::once())
+        $matcher = self::exactly(3);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('layout')
-            ->willReturn(Form::LAYOUT_INLINE);
+            ->willReturnCallback(
+                static function (string $option) use ($matcher): string | null {
+                    match ($matcher->numberOfInvocations()) {
+                        2 => self::assertSame('switch', $option),
+                        3 => self::assertSame('group_attributes', $option),
+                        default => self::assertSame('layout', $option),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        2, 3 => null,
+                        default => Form::LAYOUT_INLINE,
+                    };
+                },
+            );
         $element->expects(self::once())
             ->method('getAttribute')
             ->with('id')
@@ -459,36 +413,28 @@ final class FormCheckboxTest extends TestCase
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($tranlatedLabel)
             ->willReturn($escapedTranlatedLabel);
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
 
         $expected = '<input class="form-check-input&#x20;xyz" name="chkbox" type="checkbox" value="" checked="checked">';
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::once())
             ->method('toHtml')
             ->with(
                 'div',
-                ['class' => ['form-check']],
+                ['class' => 'form-check form-check-inline'],
                 PHP_EOL
                 . '<label for="chck-id">' . PHP_EOL
                 . '    <span>test-label-translated-escaped</span>' . PHP_EOL
@@ -497,9 +443,7 @@ final class FormCheckboxTest extends TestCase
             )
             ->willReturn($expected);
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::once())
             ->method('openTag')
             ->with(['class' => 'form-check-label abc', 'for' => $id])
@@ -510,43 +454,52 @@ final class FormCheckboxTest extends TestCase
             ->method('closeTag')
             ->willReturn('</label>');
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $translator = $this->createMock(Translate::class);
         $translator->expects(self::once())
             ->method('__invoke')
             ->with($label, $textDomain)
             ->willReturn($tranlatedLabel);
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            $translator,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
 
         $helper->setTranslatorTextDomain($textDomain);
         $helper->setLabelPosition(BaseFormRow::LABEL_PREPEND);
 
-        $element = $this->getMockBuilder(Checkbox::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Checkbox::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
-        $element->expects(self::once())
+        $matcher = self::exactly(3);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('layout')
-            ->willReturn(Form::LAYOUT_VERTICAL);
+            ->willReturnCallback(
+                static function (string $option) use ($matcher): string | array | null {
+                    match ($matcher->numberOfInvocations()) {
+                        2 => self::assertSame('switch', $option),
+                        3 => self::assertSame('group_attributes', $option),
+                        default => self::assertSame('layout', $option),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        2 => null,
+                        3 => ['class' => true],
+                        default => Form::LAYOUT_INLINE,
+                    };
+                },
+            );
         $element->expects(self::once())
             ->method('getAttribute')
             ->with('id')
@@ -594,45 +547,35 @@ final class FormCheckboxTest extends TestCase
         $wrap                  = false;
         $disableEscape         = false;
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($tranlatedLabel)
             ->willReturn($escapedTranlatedLabel);
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
 
         $expected = '<input class="form-check-input&#x20;xyz" name="chkbox" type="checkbox" value="" checked="checked">';
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::once())
             ->method('toHtml')
             ->with(
                 'div',
-                ['class' => ['form-check']],
+                ['class' => 'form-check form-check-inline'],
                 PHP_EOL
                 . '    <label for="chck-id">test-label-translated-escaped</label>' . PHP_EOL
                 . '    <input class="form-check-input&#x20;xyz" id="chck-id" name="chkbox" type="checkbox" value="" checked="checked">' . PHP_EOL,
             )
             ->willReturn($expected);
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::once())
             ->method('openTag')
             ->with(['class' => 'form-check-label abc', 'for' => $id])
@@ -643,43 +586,52 @@ final class FormCheckboxTest extends TestCase
             ->method('closeTag')
             ->willReturn('</label>');
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $translator = $this->createMock(Translate::class);
         $translator->expects(self::once())
             ->method('__invoke')
             ->with($label, $textDomain)
             ->willReturn($tranlatedLabel);
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            $translator,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
 
         $helper->setTranslatorTextDomain($textDomain);
         $helper->setLabelPosition(BaseFormRow::LABEL_PREPEND);
 
-        $element = $this->getMockBuilder(Checkbox::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Checkbox::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
-        $element->expects(self::once())
+        $matcher = self::exactly(3);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('layout')
-            ->willReturn(Form::LAYOUT_VERTICAL);
+            ->willReturnCallback(
+                static function (string $option) use ($matcher): string | array | null {
+                    match ($matcher->numberOfInvocations()) {
+                        2 => self::assertSame('switch', $option),
+                        3 => self::assertSame('group_attributes', $option),
+                        default => self::assertSame('layout', $option),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        2 => null,
+                        3 => ['class' => 1],
+                        default => Form::LAYOUT_INLINE,
+                    };
+                },
+            );
         $element->expects(self::once())
             ->method('getAttribute')
             ->with('id')
@@ -699,20 +651,12 @@ final class FormCheckboxTest extends TestCase
             ->willReturnCallback(
                 static function (int | string $key) use ($matcher, $disableEscape, $wrap): mixed {
                     match ($matcher->numberOfInvocations()) {
-                        1, 4, 7 => self::assertSame(
-                            'disable_html_escape',
-                            $key,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                        default => self::assertSame(
-                            'always_wrap',
-                            $key,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
+                        1 => self::assertSame('disable_html_escape', $key),
+                        default => self::assertSame('always_wrap', $key),
                     };
 
                     return match ($matcher->numberOfInvocations()) {
-                        1, 4, 7 => $disableEscape,
+                        1 => $disableEscape,
                         default => $wrap,
                     };
                 },
@@ -748,36 +692,28 @@ final class FormCheckboxTest extends TestCase
         $disableEscape         = false;
         $uncheckedValue        = '0';
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($tranlatedLabel)
             ->willReturn($escapedTranlatedLabel);
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
 
         $expected = '<input class="form-check-input&#x20;xyz" name="chkbox" type="checkbox" value="" checked="checked">';
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::once())
             ->method('toHtml')
             ->with(
                 'div',
-                ['class' => ['form-check']],
+                ['class' => 'form-check form-check-inline'],
                 PHP_EOL
                 . sprintf(
                     '    <input type="hidden" name="%s" value="%s"/>',
@@ -789,9 +725,7 @@ final class FormCheckboxTest extends TestCase
             )
             ->willReturn($expected);
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::once())
             ->method('openTag')
             ->with(['class' => 'form-check-label abc', 'for' => $id])
@@ -802,47 +736,65 @@ final class FormCheckboxTest extends TestCase
             ->method('closeTag')
             ->willReturn('</label>');
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $translator = $this->createMock(Translate::class);
         $translator->expects(self::once())
             ->method('__invoke')
             ->with($label, $textDomain)
             ->willReturn($tranlatedLabel);
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::once())
             ->method('render')
-            ->with(new IsInstanceOf(Hidden::class))
-            ->willReturn(
-                sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
+            ->willReturnCallback(
+                static function (ElementInterface $element) use ($name, $uncheckedValue): string {
+                    self::assertInstanceOf(Hidden::class, $element);
+                    self::assertSame($name, $element->getName());
+                    self::assertSame($uncheckedValue, $element->getValue());
+
+                    return sprintf(
+                        '<input type="hidden" name="%s" value="%s"/>',
+                        $name,
+                        $uncheckedValue,
+                    );
+                },
             );
 
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            $translator,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
 
         $helper->setTranslatorTextDomain($textDomain);
         $helper->setLabelPosition(BaseFormRow::LABEL_PREPEND);
 
-        $element = $this->getMockBuilder(Checkbox::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Checkbox::class);
         $element->expects(self::exactly(2))
             ->method('getName')
             ->willReturn($name);
-        $element->expects(self::once())
+        $matcher = self::exactly(3);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('layout')
-            ->willReturn(Form::LAYOUT_VERTICAL);
+            ->willReturnCallback(
+                static function (string $option) use ($matcher): string | array | bool {
+                    match ($matcher->numberOfInvocations()) {
+                        2 => self::assertSame('switch', $option),
+                        3 => self::assertSame('group_attributes', $option),
+                        default => self::assertSame('layout', $option),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        2 => false,
+                        3 => ['class' => 'form-check'],
+                        default => Form::LAYOUT_INLINE,
+                    };
+                },
+            );
         $element->expects(self::once())
             ->method('getAttribute')
             ->with('id')
@@ -862,20 +814,12 @@ final class FormCheckboxTest extends TestCase
             ->willReturnCallback(
                 static function (int | string $key) use ($matcher, $disableEscape, $wrap): mixed {
                     match ($matcher->numberOfInvocations()) {
-                        1, 4, 7 => self::assertSame(
-                            'disable_html_escape',
-                            $key,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                        default => self::assertSame(
-                            'always_wrap',
-                            $key,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
+                        1 => self::assertSame('disable_html_escape', $key),
+                        default => self::assertSame('always_wrap', $key),
                     };
 
                     return match ($matcher->numberOfInvocations()) {
-                        1, 4, 7 => $disableEscape,
+                        1 => $disableEscape,
                         default => $wrap,
                     };
                 },
@@ -914,36 +858,28 @@ final class FormCheckboxTest extends TestCase
         $disableEscape         = false;
         $uncheckedValue        = '0';
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($tranlatedLabel)
             ->willReturn($escapedTranlatedLabel);
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
 
         $expected = '<input class="form-check-input&#x20;xyz" name="chkbox" type="checkbox" value="" checked="checked">';
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::once())
             ->method('toHtml')
             ->with(
                 'div',
-                ['class' => ['form-check']],
+                ['class' => 'form-check form-check-inline form-switch'],
                 PHP_EOL
                 . sprintf(
                     '<input type="hidden" name="%s" value="%s"/>',
@@ -957,9 +893,7 @@ final class FormCheckboxTest extends TestCase
             )
             ->willReturn($expected);
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::once())
             ->method('openTag')
             ->with(['class' => 'form-check-label abc', 'for' => $id])
@@ -970,17 +904,13 @@ final class FormCheckboxTest extends TestCase
             ->method('closeTag')
             ->willReturn('</label>');
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $translator = $this->createMock(Translate::class);
         $translator->expects(self::once())
             ->method('__invoke')
             ->with($label, $textDomain)
             ->willReturn($tranlatedLabel);
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::once())
             ->method('render')
             ->with(new IsInstanceOf(Hidden::class))
@@ -988,29 +918,42 @@ final class FormCheckboxTest extends TestCase
                 sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $uncheckedValue),
             );
 
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            $translator,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
 
         $helper->setTranslatorTextDomain($textDomain);
         $helper->setLabelPosition(BaseFormRow::LABEL_PREPEND);
 
-        $element = $this->getMockBuilder(Checkbox::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Checkbox::class);
         $element->expects(self::exactly(2))
             ->method('getName')
             ->willReturn($name);
-        $element->expects(self::once())
+        $matcher = self::exactly(3);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('layout')
-            ->willReturn(Form::LAYOUT_VERTICAL);
+            ->willReturnCallback(
+                static function (string $option) use ($matcher): string | bool | null {
+                    match ($matcher->numberOfInvocations()) {
+                        2 => self::assertSame('switch', $option),
+                        3 => self::assertSame('group_attributes', $option),
+                        default => self::assertSame('layout', $option),
+                    };
+
+                    return match ($matcher->numberOfInvocations()) {
+                        2 => true,
+                        3 => null,
+                        default => Form::LAYOUT_INLINE,
+                    };
+                },
+            );
         $element->expects(self::once())
             ->method('getAttribute')
             ->with('id')
@@ -1028,22 +971,14 @@ final class FormCheckboxTest extends TestCase
         $element->expects($matcher)
             ->method('getLabelOption')
             ->willReturnCallback(
-                static function (int | string $key) use ($matcher, $disableEscape, $wrap): mixed {
+                static function (string $key) use ($matcher, $disableEscape, $wrap): mixed {
                     match ($matcher->numberOfInvocations()) {
-                        1, 4, 7 => self::assertSame(
-                            'disable_html_escape',
-                            $key,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
-                        default => self::assertSame(
-                            'always_wrap',
-                            $key,
-                            (string) $matcher->numberOfInvocations(),
-                        ),
+                        1 => self::assertSame('disable_html_escape', $key),
+                        default => self::assertSame('always_wrap', $key),
                     };
 
                     return match ($matcher->numberOfInvocations()) {
-                        1, 4, 7 => $disableEscape,
+                        1 => $disableEscape,
                         default => $wrap,
                     };
                 },
@@ -1069,53 +1004,42 @@ final class FormCheckboxTest extends TestCase
      */
     public function testSetGetIndent1(): void
     {
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
 
         self::assertSame($helper, $helper->setIndent(4));
         self::assertSame('    ', $helper->getIndent());
@@ -1127,53 +1051,42 @@ final class FormCheckboxTest extends TestCase
      */
     public function testSetGetIndent2(): void
     {
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormCheckbox(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormCheckbox();
+        $helper->setView($renderer);
 
         self::assertSame($helper, $helper->setIndent('  '));
         self::assertSame('  ', $helper->getIndent());

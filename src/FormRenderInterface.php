@@ -13,14 +13,14 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 
 interface FormRenderInterface
 {
     /**
      * Render a form <input> element from the provided $element
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      */
     public function render(ElementInterface $element): string;
 }

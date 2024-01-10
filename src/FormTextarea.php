@@ -13,9 +13,9 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
+use Laminas\Form\View\Helper\AbstractHelper;
 use Laminas\View\Exception\InvalidArgumentException;
-use Laminas\View\Helper\AbstractHelper;
 use Laminas\View\Helper\EscapeHtml;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 
@@ -29,9 +29,10 @@ use function is_string;
 use function sprintf;
 use function trim;
 
-final class FormTextarea extends AbstractHelper
+final class FormTextarea extends AbstractHelper implements FormRenderInterface, FormIndentInterface
 {
     use FormTrait;
+    use HtmlHelperTrait;
 
     /**
      * Attributes valid for the input tag
@@ -56,20 +57,12 @@ final class FormTextarea extends AbstractHelper
         'wrap' => true,
     ];
 
-    /** @throws void */
-    public function __construct(
-        private readonly HtmlElementInterface $htmlElement,
-        private readonly EscapeHtml $escapeHtml,
-    ) {
-        // nothing to do
-    }
-
     /**
      * Invoke helper as functor
      *
      * Proxies to {@link render()}.
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @throws InvalidArgumentException
      */
     public function __invoke(ElementInterface | null $element = null): self | string
@@ -84,7 +77,7 @@ final class FormTextarea extends AbstractHelper
     /**
      * Render a form <textarea> element from the provided $element
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @throws InvalidArgumentException
      */
     public function render(ElementInterface $element): string
@@ -92,7 +85,7 @@ final class FormTextarea extends AbstractHelper
         $name = $element->getName();
 
         if (empty($name)) {
-            throw new Exception\DomainException(
+            throw new DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
                     __METHOD__,
@@ -112,15 +105,28 @@ final class FormTextarea extends AbstractHelper
 
         $attributes['class'] = trim(implode(' ', array_unique($classes)));
 
-        $value = $element->getValue();
+        $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+
+        $value = $element->getValue() ?? '';
 
         assert(is_string($value));
 
-        $content = ($this->escapeHtml)($value);
+        $content = $escapeHtmlHelper($value);
 
         assert(is_string($content));
 
-        $markup = $this->htmlElement->toHtml('textarea', $attributes, $content);
+        $attributesString = $this->createAttributesString($attributes);
+
+        if (!empty($attributesString)) {
+            $attributesString = ' ' . $attributesString;
+        }
+
+        $markup = sprintf(
+            '<textarea%s>%s</textarea>',
+            $attributesString,
+            $content
+        );
+
         $indent = $this->getIndent();
 
         return $indent . $markup;

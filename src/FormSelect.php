@@ -15,7 +15,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\Select as SelectElement;
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 use Laminas\Form\View\Helper\AbstractHelper;
 use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
@@ -41,6 +41,7 @@ use const PHP_EOL;
 final class FormSelect extends AbstractHelper implements FormSelectInterface
 {
     use FormTrait;
+    use HiddenHelperTrait;
 
     /**
      * Attributes valid for the current tag
@@ -96,15 +97,6 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         'label' => true,
     ];
 
-    /** @throws void */
-    public function __construct(
-        private readonly EscapeHtml $escaper,
-        private readonly FormHiddenInterface $formHidden,
-        private readonly Translate | null $translate = null,
-    ) {
-        // nothing to do
-    }
-
     /**
      * Invoke helper as functor
      *
@@ -112,8 +104,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      *
      * @return self|string
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws DomainException
      * @throws InvalidArgumentException
      * @throws RuntimeException
      *
@@ -131,15 +123,15 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
     /**
      * Render a form <select> element from the provided $element
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws DomainException
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof SelectElement) {
-            throw new Exception\InvalidArgumentException(
+            throw new \Laminas\Form\Exception\InvalidArgumentException(
                 sprintf(
                     '%s requires that the element is of type %s',
                     __METHOD__,
@@ -151,7 +143,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         $name = $element->getName();
 
         if (empty($name)) {
-            throw new Exception\DomainException(
+            throw new DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
                     __METHOD__,
@@ -192,9 +184,15 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
 
         $this->validTagAttributes = $this->validSelectAttributes;
 
+        $attributesString = $this->createAttributesString($attributes);
+
+        if (!empty($attributesString)) {
+            $attributesString = ' ' . $attributesString;
+        }
+
         $rendered = sprintf(
-            '<select %s>%s</select>',
-            $this->createAttributesString($attributes),
+            '<select%s>%s</select>',
+            $attributesString,
             PHP_EOL . implode(PHP_EOL, $optionContent) . PHP_EOL . $indent,
         );
 
@@ -301,12 +299,19 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         );
 
         if ($label !== '') {
-            if ($this->translate !== null) {
-                $label = ($this->translate)($label, $this->getTranslatorTextDomain());
+            $translator       = $this->getTranslator();
+
+            if (null !== $translator) {
+                $label = $translator->translate(
+                    $label,
+                    $this->getTranslatorTextDomain(),
+                );
             }
 
             if (!isset($optionSpec['disable_html_escape'])) {
-                $label = ($this->escaper)($label);
+                $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+
+                $label = $escapeHtmlHelper($label);
 
                 assert(is_string($label));
             }
@@ -392,7 +397,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      *
      * @return array<int|string, string>
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      */
     private function validateMultiValue(mixed $value, array $attributes): array
     {
@@ -409,7 +414,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         }
 
         if (!array_key_exists('multiple', $attributes) || !$attributes['multiple']) {
-            throw new Exception\DomainException(
+            throw new DomainException(
                 sprintf(
                     '%s does not allow specifying multiple selected values when the element does not have a multiple attribute set to a boolean true',
                     self::class,
@@ -421,14 +426,16 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
     }
 
     /**
-     * @throws Exception\DomainException
-     * @throws Exception\InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     private function renderHiddenElement(SelectElement $element): string
     {
         $hiddenElement = new Hidden($element->getName());
         $hiddenElement->setValue($element->getUnselectedValue());
 
-        return $this->formHidden->render($hiddenElement);
+        $hiddenHelper = $this->getHiddenHelper();
+
+        return $hiddenHelper->render($hiddenElement);
     }
 }

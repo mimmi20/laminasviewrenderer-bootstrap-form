@@ -13,7 +13,7 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 
 use function sprintf;
 
@@ -32,14 +32,14 @@ final class FormMultiCheckbox extends AbstractFormMultiCheckbox
     /**
      * Get element name
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      */
     protected static function getName(ElementInterface $element): string
     {
         $name = $element->getName();
 
         if ($name === null || $name === '') {
-            throw new Exception\DomainException(
+            throw new DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
                     __METHOD__,

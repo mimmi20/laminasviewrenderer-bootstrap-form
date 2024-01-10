@@ -47,6 +47,7 @@ use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\HelperPluginManager;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\Form\Links\Element\Links;
 use Mimmi20\Form\Paragraph\Element\Paragraph;
 use Mimmi20\LaminasView\BootstrapForm\FormCollectionInterface;
@@ -67,13 +68,20 @@ final class FormElementTest extends TestCase
      */
     public function testSetGetInden1(): void
     {
-        $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helperPluginManager = $this->createMock(HelperPluginManager::class);
         $helperPluginManager->expects(self::never())
             ->method('get');
 
-        $helper = new FormElement($helperPluginManager);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormElement();
+        $helper->setView($renderer);
 
         self::assertSame($helper, $helper->setIndent(4));
         self::assertSame('    ', $helper->getIndent());
@@ -85,13 +93,20 @@ final class FormElementTest extends TestCase
      */
     public function testSetGetInden2(): void
     {
-        $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helperPluginManager = $this->createMock(HelperPluginManager::class);
         $helperPluginManager->expects(self::never())
             ->method('get');
 
-        $helper = new FormElement($helperPluginManager);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormElement();
+        $helper->setView($renderer);
 
         self::assertSame($helper, $helper->setIndent('  '));
         self::assertSame('  ', $helper->getIndent());
@@ -105,13 +120,20 @@ final class FormElementTest extends TestCase
     {
         $defaultHelper = 'xyz';
 
-        $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helperPluginManager = $this->createMock(HelperPluginManager::class);
         $helperPluginManager->expects(self::never())
             ->method('get');
 
-        $helper = new FormElement($helperPluginManager);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormElement();
+        $helper->setView($renderer);
 
         self::assertSame($helper, $helper->setDefaultHelper($defaultHelper));
         self::assertSame($defaultHelper, $helper->getDefaultHelper());
@@ -123,13 +145,20 @@ final class FormElementTest extends TestCase
      */
     public function testAddType(): void
     {
-        $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helperPluginManager = $this->createMock(HelperPluginManager::class);
         $helperPluginManager->expects(self::never())
             ->method('get');
 
-        $helper = new FormElement($helperPluginManager);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormElement();
+        $helper->setView($renderer);
 
         self::assertSame($helper, $helper->addType('xyz', 'abc'));
     }
@@ -140,13 +169,20 @@ final class FormElementTest extends TestCase
      */
     public function testAddClass(): void
     {
-        $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helperPluginManager = $this->createMock(HelperPluginManager::class);
         $helperPluginManager->expects(self::never())
             ->method('get');
 
-        $helper = new FormElement($helperPluginManager);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormElement();
+        $helper->setView($renderer);
 
         self::assertSame($helper, $helper->addClass('xyz', 'abc'));
     }
@@ -366,9 +402,7 @@ final class FormElementTest extends TestCase
     #[DataProvider('providerRender')]
     public function testRender(ElementInterface $element, string $helperType, string $class, string $rendered): void
     {
-        $subHelper = $this->getMockBuilder($class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $subHelper = $this->createMock($class);
         $subHelper->expects(self::once())
             ->method('setIndent')
             ->with('');
@@ -377,15 +411,22 @@ final class FormElementTest extends TestCase
             ->with($element)
             ->willReturn($rendered);
 
-        $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helperPluginManager = $this->createMock(HelperPluginManager::class);
         $helperPluginManager->expects(self::once())
             ->method('get')
             ->with($helperType)
             ->willReturn($subHelper);
 
-        $helper = new FormElement($helperPluginManager);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormElement();
+        $helper->setView($renderer);
 
         self::assertSame($rendered, $helper->render($element));
     }
@@ -402,9 +443,7 @@ final class FormElementTest extends TestCase
         $helperType = 'formText';
         $rendered   = '<text>';
 
-        $subHelper = $this->getMockBuilder(FormInputInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $subHelper = $this->createMock(FormInputInterface::class);
         $subHelper->expects(self::once())
             ->method('setIndent')
             ->with('');
@@ -413,15 +452,22 @@ final class FormElementTest extends TestCase
             ->with($element)
             ->willReturn($rendered);
 
-        $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helperPluginManager = $this->createMock(HelperPluginManager::class);
         $helperPluginManager->expects(self::once())
             ->method('get')
             ->with($helperType)
             ->willReturn($subHelper);
 
-        $helper = new FormElement($helperPluginManager);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormElement();
+        $helper->setView($renderer);
 
         $helperObject = $helper();
 
@@ -442,9 +488,7 @@ final class FormElementTest extends TestCase
         $helperType = 'formText';
         $rendered   = '<text>';
 
-        $subHelper = $this->getMockBuilder(FormInputInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $subHelper = $this->createMock(FormInputInterface::class);
         $subHelper->expects(self::once())
             ->method('setIndent')
             ->with('');
@@ -453,15 +497,22 @@ final class FormElementTest extends TestCase
             ->with($element)
             ->willReturn($rendered);
 
-        $helperPluginManager = $this->getMockBuilder(HelperPluginManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helperPluginManager = $this->createMock(HelperPluginManager::class);
         $helperPluginManager->expects(self::once())
             ->method('get')
             ->with($helperType)
             ->willReturn($subHelper);
 
-        $helper = new FormElement($helperPluginManager);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormElement();
+        $helper->setView($renderer);
 
         self::assertSame($rendered, $helper($element));
     }

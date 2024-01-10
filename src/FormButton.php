@@ -13,7 +13,7 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
@@ -21,6 +21,8 @@ use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\Form\Element\Button as ButtonElement;
+use Laminas\Form\Element\Submit as SubmitElement;
 
 use function assert;
 use function is_array;
@@ -28,7 +30,7 @@ use function is_string;
 use function mb_strtolower;
 use function sprintf;
 
-final class FormButton extends FormInput
+final class FormButton extends FormInput implements FormRenderInterface
 {
     /**
      * Attributes valid for the button tag
@@ -62,22 +64,12 @@ final class FormButton extends FormInput
         'submit' => true,
     ];
 
-    /** @throws void */
-    public function __construct(
-        EscapeHtml $escapeHtml,
-        EscapeHtmlAttr $escapeHtmlAttr,
-        Doctype $doctype,
-        private readonly Translate | null $translate = null,
-    ) {
-        parent::__construct($escapeHtml, $escapeHtmlAttr, $doctype);
-    }
-
     /**
      * Invoke helper as functor
      *
      * Proxies to {@link render()}.
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
@@ -96,19 +88,28 @@ final class FormButton extends FormInput
      * Render a form <button> element from the provided $element,
      * using content from $buttonContent or the element's "label" attribute
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
     public function render(ElementInterface $element, string | null $buttonContent = null): string
     {
-        $openTag = $this->openTag($element);
+        if (!$element instanceof ButtonElement && !$element instanceof SubmitElement) {
+            throw new \Laminas\Form\Exception\InvalidArgumentException(
+                sprintf(
+                    '%s requires that the element is of type %s or of type %s',
+                    __METHOD__,
+                    ButtonElement::class,
+                    SubmitElement::class,
+                ),
+            );
+        }
 
         if ($buttonContent === null) {
             $buttonContent = $element->getLabel();
 
             if ($buttonContent === null) {
-                throw new Exception\DomainException(
+                throw new DomainException(
                     sprintf(
                         '%s expects either button content as the second argument, or that the element provided has a label value; neither found',
                         __METHOD__,
@@ -117,21 +118,23 @@ final class FormButton extends FormInput
             }
         }
 
-        if ($this->translate !== null) {
-            $buttonContent = ($this->translate)(
+        $translator       = $this->getTranslator();
+
+        if (null !== $translator) {
+            $buttonContent = $translator->translate(
                 $buttonContent,
                 $this->getTranslatorTextDomain(),
             );
         }
 
-        if (
-            !$element instanceof LabelAwareInterface
-            || !$element->getLabelOption('disable_html_escape')
-        ) {
-            $buttonContent = ($this->escapeHtml)($buttonContent);
+        if (!$element->getLabelOption('disable_html_escape')) {
+            $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+            $buttonContent = $escapeHtmlHelper($buttonContent);
         }
 
         $indent = $this->getIndent();
+
+        $openTag = $this->openTag($element);
 
         return $indent . $openTag . $buttonContent . $this->closeTag();
     }
@@ -141,7 +144,7 @@ final class FormButton extends FormInput
      *
      * @param array<string, bool|string>|ElementInterface|null $attributesOrElement
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      */
     public function openTag(array | ElementInterface | null $attributesOrElement = null): string
     {
@@ -150,6 +153,14 @@ final class FormButton extends FormInput
         }
 
         if (is_array($attributesOrElement)) {
+            $classes = ['btn'];
+
+            if (array_key_exists('class', $attributesOrElement) && is_scalar($attributesOrElement['class'])) {
+                $classes = array_merge($classes, explode(' ', (string) $attributesOrElement['class']));
+            }
+
+            $attributesOrElement['class'] = trim(implode(' ', array_unique($classes)));
+
             $attributes = $this->createAttributesString($attributesOrElement);
 
             return sprintf('<button %s>', $attributes);
@@ -159,7 +170,7 @@ final class FormButton extends FormInput
         $name    = $element->getName();
 
         if (empty($name)) {
-            throw new Exception\DomainException(
+            throw new DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
                     __METHOD__,
@@ -172,15 +183,29 @@ final class FormButton extends FormInput
         $attributes['name'] = $name;
         $attributes['type'] = $this->getType($element);
 
+        $classes = ['btn'];
+
+        if (array_key_exists('class', $attributes) && is_scalar($attributes['class'])) {
+            $classes = array_merge($classes, explode(' ', (string) $attributes['class']));
+        }
+
+        $attributes['class'] = trim(implode(' ', array_unique($classes)));
+
         $value = $element->getValue();
 
         if ($value) {
             $attributes['value'] = $value;
         }
 
+        $attributesString = $this->createAttributesString($attributes);
+
+        if (!empty($attributesString)) {
+            $attributesString = ' ' . $attributesString;
+        }
+
         return sprintf(
-            '<button %s>',
-            $this->createAttributesString($attributes),
+            '<button%s>',
+            $attributesString,
         );
     }
 

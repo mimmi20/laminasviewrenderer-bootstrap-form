@@ -12,7 +12,7 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 
 use function in_array;
@@ -29,14 +29,14 @@ trait LabelPositionTrait
     /**
      * Set value for labelPosition
      *
-     * @throws Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setLabelPosition(string $labelPosition): self
     {
         $labelPosition = mb_strtolower($labelPosition);
 
         if (!in_array($labelPosition, [BaseFormRow::LABEL_APPEND, BaseFormRow::LABEL_PREPEND], true)) {
-            throw new Exception\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
                     '%s expects either %s::LABEL_APPEND or %s::LABEL_PREPEND; received "%s"',
                     __METHOD__,

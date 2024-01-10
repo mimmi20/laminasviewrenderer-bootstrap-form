@@ -16,6 +16,7 @@ use Laminas\Form\Element\MonthSelect as MonthSelectElement;
 use Laminas\Form\Element\Select;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormMonthSelect;
 use Mimmi20\LaminasView\BootstrapForm\FormSelectInterface;
 use PHPUnit\Framework\Exception;
@@ -45,9 +46,7 @@ final class FormMonthSelect2Test extends TestCase
 
         $excpected = PHP_EOL . $renderedMonth . PHP_EOL . ' ' . PHP_EOL . $renderedYear . PHP_EOL;
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -108,9 +107,7 @@ final class FormMonthSelect2Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -143,9 +140,7 @@ final class FormMonthSelect2Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -158,11 +153,18 @@ final class FormMonthSelect2Test extends TestCase
                 ],
             );
 
-        $helper = new FormMonthSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(MonthSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormMonthSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(MonthSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -206,9 +208,7 @@ final class FormMonthSelect2Test extends TestCase
 
         $excpected = PHP_EOL . $renderedMonth . PHP_EOL . $renderedYear . PHP_EOL;
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -269,9 +269,7 @@ final class FormMonthSelect2Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -304,9 +302,7 @@ final class FormMonthSelect2Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -319,11 +315,18 @@ final class FormMonthSelect2Test extends TestCase
                 ],
             );
 
-        $helper = new FormMonthSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(MonthSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormMonthSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(MonthSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -367,9 +370,7 @@ final class FormMonthSelect2Test extends TestCase
 
         $excpected = PHP_EOL . $renderedMonth . PHP_EOL . ' ' . PHP_EOL . $renderedYear . PHP_EOL;
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -428,9 +429,7 @@ final class FormMonthSelect2Test extends TestCase
         $monthElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -461,9 +460,7 @@ final class FormMonthSelect2Test extends TestCase
         $yearElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -476,11 +473,18 @@ final class FormMonthSelect2Test extends TestCase
                 ],
             );
 
-        $helper = new FormMonthSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(MonthSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormMonthSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(MonthSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -524,9 +528,7 @@ final class FormMonthSelect2Test extends TestCase
 
         $excpected = PHP_EOL . $renderedMonth . PHP_EOL . $renderedYear . PHP_EOL;
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -585,9 +587,7 @@ final class FormMonthSelect2Test extends TestCase
         $monthElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -618,9 +618,7 @@ final class FormMonthSelect2Test extends TestCase
         $yearElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -633,11 +631,18 @@ final class FormMonthSelect2Test extends TestCase
                 ],
             );
 
-        $helper = new FormMonthSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(MonthSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormMonthSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(MonthSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -681,9 +686,7 @@ final class FormMonthSelect2Test extends TestCase
 
         $excpected = $indent . PHP_EOL . $renderedMonth . PHP_EOL . $renderedYear . PHP_EOL . $indent;
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -742,9 +745,7 @@ final class FormMonthSelect2Test extends TestCase
         $monthElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -775,9 +776,7 @@ final class FormMonthSelect2Test extends TestCase
         $yearElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -790,11 +789,18 @@ final class FormMonthSelect2Test extends TestCase
                 ],
             );
 
-        $helper = new FormMonthSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(MonthSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormMonthSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(MonthSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -840,9 +846,7 @@ final class FormMonthSelect2Test extends TestCase
 
         $excpected = $indent . PHP_EOL . $renderedMonth . PHP_EOL . $indent . ' ' . PHP_EOL . $renderedYear . PHP_EOL . $indent;
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -903,9 +907,7 @@ final class FormMonthSelect2Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -938,9 +940,7 @@ final class FormMonthSelect2Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -953,11 +953,18 @@ final class FormMonthSelect2Test extends TestCase
                 ],
             );
 
-        $helper = new FormMonthSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(MonthSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormMonthSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(MonthSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);

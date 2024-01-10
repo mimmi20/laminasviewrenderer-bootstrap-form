@@ -22,6 +22,7 @@ use Laminas\I18n\Exception\RuntimeException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\Form;
 use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormLabelInterface;
@@ -43,55 +44,44 @@ final class FormRadio1Test extends TestCase
      */
     public function testSetGetLabelAttributes(): void
     {
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
         $doctype->expects(self::never())
             ->method('isXhtml');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormRadio();
+        $helper->setView($renderer);
 
         self::assertSame([], $helper->getLabelAttributes());
 
@@ -107,55 +97,44 @@ final class FormRadio1Test extends TestCase
      */
     public function testSetGetSeperator(): void
     {
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
         $doctype->expects(self::never())
             ->method('isXhtml');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormRadio();
+        $helper->setView($renderer);
 
         self::assertSame('', $helper->getSeparator());
 
@@ -173,55 +152,44 @@ final class FormRadio1Test extends TestCase
     {
         $labelPosition = 'abc';
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
         $doctype->expects(self::never())
             ->method('isXhtml');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormRadio();
+        $helper->setView($renderer);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -246,55 +214,44 @@ final class FormRadio1Test extends TestCase
     {
         $labelPosition = BaseFormRow::LABEL_PREPEND;
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
         $doctype->expects(self::never())
             ->method('isXhtml');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormRadio();
+        $helper->setView($renderer);
 
         self::assertSame(BaseFormRow::LABEL_APPEND, $helper->getLabelPosition());
 
@@ -309,55 +266,44 @@ final class FormRadio1Test extends TestCase
      */
     public function testSetGetUseHiddenElement(): void
     {
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
         $doctype->expects(self::never())
             ->method('isXhtml');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormRadio();
+        $helper->setView($renderer);
 
         self::assertFalse($helper->getUseHiddenElement());
 
@@ -374,55 +320,44 @@ final class FormRadio1Test extends TestCase
     {
         $uncheckedValue = '0';
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
         $doctype->expects(self::never())
             ->method('isXhtml');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormRadio();
+        $helper->setView($renderer);
 
         self::assertSame('', $helper->getUncheckedValue());
 
@@ -440,59 +375,46 @@ final class FormRadio1Test extends TestCase
      */
     public function testRenderWithWrongElement(): void
     {
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
         $doctype->expects(self::never())
             ->method('isXhtml');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormRadio();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::never())
@@ -530,59 +452,46 @@ final class FormRadio1Test extends TestCase
      */
     public function testRenderWithoutName(): void
     {
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
         $doctype->expects(self::never())
             ->method('isXhtml');
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
             ->method('openTag');
         $formLabel->expects(self::never())
             ->method('closeTag');
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(Radio::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormRadio();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(Radio::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn(null);
@@ -653,32 +562,24 @@ final class FormRadio1Test extends TestCase
             . '    ';
         $expected        = '<div></div>';
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($value2)
             ->willReturn($value2Escaped);
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(false);
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::once())
             ->method('openTag')
             ->with(
@@ -691,33 +592,28 @@ final class FormRadio1Test extends TestCase
             ->method('closeTag')
             ->willReturn($labelEnd);
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::once())
             ->method('toHtml')
             ->with('div', ['class' => ['form-check']], $renderedField)
             ->willReturn($expected);
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(Radio::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormRadio();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(Radio::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -791,32 +687,24 @@ final class FormRadio1Test extends TestCase
             . '    ';
         $wrap            = false;
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($value2)
             ->willReturn($value2Escaped);
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
         $escapeHtmlAttr->expects(self::never())
             ->method('__invoke');
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(false);
 
-        $formLabel = $this->getMockBuilder(FormLabelInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::once())
             ->method('openTag')
             ->with(
@@ -830,33 +718,28 @@ final class FormRadio1Test extends TestCase
             ->method('closeTag')
             ->willReturn($labelEnd);
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::once())
             ->method('toHtml')
             ->with('div', ['class' => ['form-check']], $renderedField)
             ->willReturn($expected);
 
-        $formHidden = $this->getMockBuilder(FormHiddenInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
             ->method('render');
 
-        $helper = new FormRadio(
-            $escapeHtml,
-            $escapeHtmlAttr,
-            $doctype,
-            $formLabel,
-            $htmlElement,
-            $formHidden,
-            null,
-        );
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(Radio::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormRadio();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(Radio::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);

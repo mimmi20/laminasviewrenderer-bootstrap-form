@@ -59,17 +59,26 @@ abstract class AbstractTestCase extends TestCase
 
         $sm->setFactory(HtmlElementInterface::class, HtmlElementFactory::class);
 
-        $config = (new ConfigProvider())();
+        $config          = new ConfigProvider();
+        $linksConfig     = new \Mimmi20\Form\Links\ConfigProvider();
+        $paragraphConfig = new \Mimmi20\Form\Paragraph\ConfigProvider();
 
-        $sm->setService('config', $config);
+        $sm->setService('config', $config());
 
         $sm->setFactory(
             HelperPluginManager::class,
             /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
-            static fn (ContainerInterface $container, string $requestedName, array | null $options = null): HelperPluginManager => new HelperPluginManager(
-                $sm,
-                $config['view_helpers'],
-            ),
+            static function (ContainerInterface $container, string $requestedName, array | null $options = null) use ($sm, $config, $linksConfig, $paragraphConfig): HelperPluginManager {
+                $manager = new HelperPluginManager(
+                    $sm,
+                    $config->getViewHelperConfig(),
+                );
+
+                $manager->configure($linksConfig->getViewHelperConfig());
+                $manager->configure($paragraphConfig->getViewHelperConfig());
+
+                return $manager;
+            },
         );
 
         $sm->setFactory(

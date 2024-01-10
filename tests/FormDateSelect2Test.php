@@ -16,6 +16,7 @@ use Laminas\Form\Element\DateSelect as DateSelectElement;
 use Laminas\Form\Element\Select;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormDateSelect;
 use Mimmi20\LaminasView\BootstrapForm\FormSelectInterface;
 use PHPUnit\Framework\Exception;
@@ -46,9 +47,7 @@ final class FormDateSelect2Test extends TestCase
 
         $excpected = PHP_EOL . $renderedDay . PHP_EOL . '. ' . PHP_EOL . $renderedMonth . PHP_EOL . ' ' . PHP_EOL . $renderedYear . PHP_EOL;
 
-        $dayElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $dayElement = $this->createMock(Select::class);
         $dayElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -90,9 +89,7 @@ final class FormDateSelect2Test extends TestCase
         $dayElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -151,9 +148,7 @@ final class FormDateSelect2Test extends TestCase
         $monthElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -184,9 +179,7 @@ final class FormDateSelect2Test extends TestCase
         $yearElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -200,11 +193,18 @@ final class FormDateSelect2Test extends TestCase
                 ],
             );
 
-        $helper = new FormDateSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(DateSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormDateSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(DateSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -252,9 +252,7 @@ final class FormDateSelect2Test extends TestCase
 
         $excpected = PHP_EOL . $renderedDay . PHP_EOL . $renderedMonth . PHP_EOL . $renderedYear . PHP_EOL;
 
-        $dayElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $dayElement = $this->createMock(Select::class);
         $dayElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -296,9 +294,7 @@ final class FormDateSelect2Test extends TestCase
         $dayElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -357,9 +353,7 @@ final class FormDateSelect2Test extends TestCase
         $monthElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -390,9 +384,7 @@ final class FormDateSelect2Test extends TestCase
         $yearElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -406,11 +398,18 @@ final class FormDateSelect2Test extends TestCase
                 ],
             );
 
-        $helper = new FormDateSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(DateSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormDateSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(DateSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -458,9 +457,7 @@ final class FormDateSelect2Test extends TestCase
 
         $excpected = $indent . PHP_EOL . $renderedDay . PHP_EOL . $renderedMonth . PHP_EOL . $renderedYear . PHP_EOL . $indent;
 
-        $dayElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $dayElement = $this->createMock(Select::class);
         $dayElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -502,9 +499,7 @@ final class FormDateSelect2Test extends TestCase
         $dayElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -563,9 +558,7 @@ final class FormDateSelect2Test extends TestCase
         $monthElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -596,9 +589,7 @@ final class FormDateSelect2Test extends TestCase
         $yearElement->expects(self::never())
             ->method('setEmptyOption');
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -612,11 +603,18 @@ final class FormDateSelect2Test extends TestCase
                 ],
             );
 
-        $helper = new FormDateSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(DateSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormDateSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(DateSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -666,9 +664,7 @@ final class FormDateSelect2Test extends TestCase
 
         $excpected = $indent . PHP_EOL . $renderedDay . PHP_EOL . $indent . '. ' . PHP_EOL . $renderedMonth . PHP_EOL . $indent . ' ' . PHP_EOL . $renderedYear . PHP_EOL . $indent;
 
-        $dayElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $dayElement = $this->createMock(Select::class);
         $dayElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -712,9 +708,7 @@ final class FormDateSelect2Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -775,9 +769,7 @@ final class FormDateSelect2Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -810,9 +802,7 @@ final class FormDateSelect2Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -826,11 +816,18 @@ final class FormDateSelect2Test extends TestCase
                 ],
             );
 
-        $helper = new FormDateSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(DateSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormDateSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(DateSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);

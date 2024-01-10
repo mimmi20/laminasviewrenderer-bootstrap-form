@@ -18,6 +18,7 @@ use Laminas\Form\Element\Select;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\ExtensionNotLoadedException;
 use Laminas\Form\Exception\InvalidArgumentException;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormDateTimeSelect;
 use Mimmi20\LaminasView\BootstrapForm\FormSelectInterface;
 use PHPUnit\Framework\Exception;
@@ -51,9 +52,7 @@ final class FormDateTimeSelect4Test extends TestCase
 
         $excpected = PHP_EOL . $renderedDay . PHP_EOL . '. ' . PHP_EOL . $renderedMonth . PHP_EOL . ' ' . PHP_EOL . $renderedYear . PHP_EOL . ' um ' . PHP_EOL . $renderedHour . PHP_EOL . ':' . PHP_EOL . $renderedMinute . PHP_EOL . ':' . PHP_EOL . $renderedSecond . PHP_EOL;
 
-        $dayElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $dayElement = $this->createMock(Select::class);
         $dayElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -97,9 +96,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -160,9 +157,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -195,9 +190,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $hourElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $hourElement = $this->createMock(Select::class);
         $hourElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -234,9 +227,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $minuteElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $minuteElement = $this->createMock(Select::class);
         $minuteElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -309,9 +300,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $secondElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $secondElement = $this->createMock(Select::class);
         $secondElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -384,9 +373,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -403,11 +390,18 @@ final class FormDateTimeSelect4Test extends TestCase
                 ],
             );
 
-        $helper = new FormDateTimeSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(DateTimeSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormDateTimeSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(DateTimeSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -470,9 +464,7 @@ final class FormDateTimeSelect4Test extends TestCase
 
         $excpected = PHP_EOL . $renderedDay . PHP_EOL . $renderedMonth . PHP_EOL . $renderedYear . PHP_EOL . $renderedHour . PHP_EOL . $renderedMinute . PHP_EOL . $renderedSecond . PHP_EOL;
 
-        $dayElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $dayElement = $this->createMock(Select::class);
         $dayElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -516,9 +508,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $monthElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $monthElement = $this->createMock(Select::class);
         $monthElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -579,9 +569,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $yearElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $yearElement = $this->createMock(Select::class);
         $yearElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -614,9 +602,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $hourElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $hourElement = $this->createMock(Select::class);
         $hourElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -653,9 +639,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $minuteElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $minuteElement = $this->createMock(Select::class);
         $minuteElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -728,9 +712,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $secondElement = $this->getMockBuilder(Select::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $secondElement = $this->createMock(Select::class);
         $secondElement->expects(self::once())
             ->method('setValueOptions')
             ->with(
@@ -803,9 +785,7 @@ final class FormDateTimeSelect4Test extends TestCase
             ->with('')
             ->willReturnSelf();
 
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::once())
             ->method('setIndent')
             ->with($indent);
@@ -822,11 +802,18 @@ final class FormDateTimeSelect4Test extends TestCase
                 ],
             );
 
-        $helper = new FormDateTimeSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(DateTimeSelectElement::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $helper = new FormDateTimeSelect();
+        $helper->setView($renderer);
+
+        $element = $this->createMock(DateTimeSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -873,15 +860,22 @@ final class FormDateTimeSelect4Test extends TestCase
      */
     public function testRenderSetGetTimeType(): void
     {
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::never())
             ->method('setIndent');
         $selectHelper->expects(self::never())
             ->method('render');
 
-        $helper = new FormDateTimeSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormDateTimeSelect();
+        $helper->setView($renderer);
 
         $type = IntlDateFormatter::MEDIUM;
 
@@ -895,15 +889,22 @@ final class FormDateTimeSelect4Test extends TestCase
      */
     public function testSetGetIndent1(): void
     {
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::never())
             ->method('setIndent');
         $selectHelper->expects(self::never())
             ->method('render');
 
-        $helper = new FormDateTimeSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormDateTimeSelect();
+        $helper->setView($renderer);
 
         self::assertSame($helper, $helper->setIndent(4));
         self::assertSame('    ', $helper->getIndent());
@@ -915,15 +916,22 @@ final class FormDateTimeSelect4Test extends TestCase
      */
     public function testSetGetIndent2(): void
     {
-        $selectHelper = $this->getMockBuilder(FormSelectInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $selectHelper = $this->createMock(FormSelectInterface::class);
         $selectHelper->expects(self::never())
             ->method('setIndent');
         $selectHelper->expects(self::never())
             ->method('render');
 
-        $helper = new FormDateTimeSelect($selectHelper);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormDateTimeSelect();
+        $helper->setView($renderer);
 
         self::assertSame($helper, $helper->setIndent('  '));
         self::assertSame('  ', $helper->getIndent());

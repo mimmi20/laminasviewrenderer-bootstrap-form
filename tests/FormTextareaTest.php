@@ -15,7 +15,13 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use Laminas\Form\Element\File;
 use Laminas\Form\Exception\DomainException;
 use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
+use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\View\Helper\Escaper\AbstractHelper;
+use Laminas\View\Helper\HelperInterface;
+use Laminas\View\Renderer\PhpRenderer;
+use Mimmi20\LaminasView\BootstrapForm\FormHtmlInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormTextarea;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
@@ -25,8 +31,19 @@ use Psr\Container\ContainerExceptionInterface;
 use function assert;
 use function sprintf;
 
+/**
+ * @group form-textarea
+ */
 final class FormTextareaTest extends TestCase
 {
+    private FormTextarea $helper;
+
+    /** @throws void */
+    protected function setUp(): void
+    {
+        $this->helper = new FormTextarea();
+    }
+
     /**
      * @throws Exception
      * @throws DomainException
@@ -34,23 +51,25 @@ final class FormTextareaTest extends TestCase
      */
     public function testRenderWithoutName(): void
     {
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormTextarea($htmlElement, $escapeHtml);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        $element = $this->getMockBuilder(File::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->helper->setView($renderer);
+
+        $element = $this->createMock(File::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn(null);
@@ -64,7 +83,7 @@ final class FormTextareaTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $helper->render($element);
+        $this->helper->render($element);
     }
 
     /**
@@ -77,33 +96,141 @@ final class FormTextareaTest extends TestCase
         $name         = 'name';
         $value        = 'xyz';
         $escapedValue = 'uvwxyz';
-        $expected     = '<textarea class="form-control abc" name="name">uvwxyz</textarea>';
+        $expected     = '<textarea class-escaped="form-control-escaped abc-escaped" nameEscaped="name-escaped">uvwxyz</textarea>';
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $htmlElement->expects(self::once())
-            ->method('toHtml')
-            ->with(
-                'textarea',
-                ['class' => 'form-control abc', 'name' => $name],
-                $escapedValue,
-            )
-            ->willReturn($expected);
-
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::once())
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher = self::exactly(3);
+        $escapeHtml->expects($matcher)
             ->method('__invoke')
-            ->with($value)
-            ->willReturn($escapedValue);
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $value, $escapedValue): string {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $helper = new FormTextarea($htmlElement, $escapeHtml);
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $value,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'class',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'name',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $element = $this->getMockBuilder(File::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+
+                    return match ($invocation) {
+                        1 => $escapedValue,
+                        2 => 'class-escaped',
+                        3 => 'nameEscaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher = self::exactly(2);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $name, $value): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'form-control abc',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            $name,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+
+                    return match ($invocation) {
+                        1 => 'form-control-escaped abc-escaped',
+                        2 => 'name-escaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
+        $doctype->expects(self::never())
+            ->method('__invoke');
+        $doctype->expects(self::never())
+            ->method('isXhtml');
+
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+
+        $element = $this->createMock(File::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -114,7 +241,7 @@ final class FormTextareaTest extends TestCase
             ->method('getValue')
             ->willReturn($value);
 
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -127,33 +254,141 @@ final class FormTextareaTest extends TestCase
         $name         = 'name';
         $value        = 'xyz';
         $escapedValue = 'uvwxyz';
-        $expected     = '<textarea class="form-control abc" name="name">uvwxyz</textarea>';
+        $expected     = '<textarea class-escaped="form-control-escaped abc-escaped" nameEscaped="name-escaped">uvwxyz</textarea>';
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $htmlElement->expects(self::once())
-            ->method('toHtml')
-            ->with(
-                'textarea',
-                ['class' => 'form-control abc', 'name' => $name],
-                $escapedValue,
-            )
-            ->willReturn($expected);
-
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::once())
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher = self::exactly(3);
+        $escapeHtml->expects($matcher)
             ->method('__invoke')
-            ->with($value)
-            ->willReturn($escapedValue);
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $value, $escapedValue): string {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $helper = new FormTextarea($htmlElement, $escapeHtml);
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $value,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'class',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'name',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $element = $this->getMockBuilder(File::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+
+                    return match ($invocation) {
+                        1 => $escapedValue,
+                        2 => 'class-escaped',
+                        3 => 'nameEscaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher = self::exactly(2);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $name, $value): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'form-control abc',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            $name,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+
+                    return match ($invocation) {
+                        1 => 'form-control-escaped abc-escaped',
+                        2 => 'name-escaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
+        $doctype->expects(self::never())
+            ->method('__invoke');
+        $doctype->expects(self::never())
+            ->method('isXhtml');
+
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+
+        $element = $this->createMock(File::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -164,7 +399,7 @@ final class FormTextareaTest extends TestCase
             ->method('getValue')
             ->willReturn($value);
 
-        $helperObject = $helper();
+        $helperObject = ($this->helper)();
 
         assert($helperObject instanceof FormTextarea);
 
@@ -182,33 +417,141 @@ final class FormTextareaTest extends TestCase
         $name         = 'name';
         $value        = 'xyz';
         $escapedValue = 'uvwxyz';
-        $expected     = '<textarea class="form-control abc" name="name">uvwxyz</textarea>';
+        $expected     = '<textarea class-escaped="form-control-escaped abc-escaped" nameEscaped="name-escaped">uvwxyz</textarea>';
 
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $htmlElement->expects(self::once())
-            ->method('toHtml')
-            ->with(
-                'textarea',
-                ['class' => 'form-control abc', 'name' => $name],
-                $escapedValue,
-            )
-            ->willReturn($expected);
-
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::once())
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher = self::exactly(3);
+        $escapeHtml->expects($matcher)
             ->method('__invoke')
-            ->with($value)
-            ->willReturn($escapedValue);
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $value, $escapedValue): string {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $helper = new FormTextarea($htmlElement, $escapeHtml);
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $value,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'class',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'name',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $element = $this->getMockBuilder(File::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+
+                    return match ($invocation) {
+                        1 => $escapedValue,
+                        2 => 'class-escaped',
+                        3 => 'nameEscaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher = self::exactly(2);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $name, $value): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'form-control abc',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            $name,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+
+                    return match ($invocation) {
+                        1 => 'form-control-escaped abc-escaped',
+                        2 => 'name-escaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
+        $doctype->expects(self::never())
+            ->method('__invoke');
+        $doctype->expects(self::never())
+            ->method('isXhtml');
+
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+
+        $element = $this->createMock(File::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -219,7 +562,7 @@ final class FormTextareaTest extends TestCase
             ->method('getValue')
             ->willReturn($value);
 
-        self::assertSame($expected, $helper($element));
+        self::assertSame($expected, ($this->helper)($element));
     }
 
     /**
@@ -228,22 +571,26 @@ final class FormTextareaTest extends TestCase
      */
     public function testSetGetIndent1(): void
     {
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormTextarea($htmlElement, $escapeHtml);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        self::assertSame($helper, $helper->setIndent(4));
-        self::assertSame('    ', $helper->getIndent());
+        $this->helper->setView($renderer);
+
+        self::assertSame($this->helper, $this->helper->setIndent(4));
+        self::assertSame('    ', $this->helper->getIndent());
     }
 
     /**
@@ -252,21 +599,25 @@ final class FormTextareaTest extends TestCase
      */
     public function testSetGetIndent2(): void
     {
-        $htmlElement = $this->getMockBuilder(HtmlElementInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $htmlElement = $this->createMock(HtmlElementInterface::class);
         $htmlElement->expects(self::never())
             ->method('toHtml');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormTextarea($htmlElement, $escapeHtml);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
 
-        self::assertSame($helper, $helper->setIndent('  '));
-        self::assertSame('  ', $helper->getIndent());
+        $this->helper->setView($renderer);
+
+        self::assertSame($this->helper, $this->helper->setIndent('  '));
+        self::assertSame('  ', $this->helper->getIndent());
     }
 }

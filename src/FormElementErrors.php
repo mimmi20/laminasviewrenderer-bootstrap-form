@@ -19,6 +19,7 @@ use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
+use Laminas\Form\View\Helper\FormElementErrors as BaseFormElementErrors;
 
 use function array_walk_recursive;
 use function assert;
@@ -27,21 +28,10 @@ use function is_string;
 
 use const PHP_EOL;
 
-final class FormElementErrors extends AbstractHelper implements FormElementErrorsInterface
+final class FormElementErrors extends BaseFormElementErrors implements FormRenderInterface, FormIndentInterface
 {
     use FormTrait;
-
-    /** @var array<string, string> Default attributes for the open format tag */
-    private array $attributes = [];
-
-    /** @throws void */
-    public function __construct(
-        private readonly HtmlElementInterface $htmlElement,
-        private readonly EscapeHtml $escapeHtml,
-        private readonly Translate | null $translate = null,
-    ) {
-        // nothing to do
-    }
+    use HtmlHelperTrait;
 
     /**
      * Invoke helper as functor
@@ -90,17 +80,24 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
         $indent  = $this->getIndent();
         $markups = [];
 
+        $htmlHelper       = $this->getHtmlHelper();
+
         foreach ($messages as $message) {
+            if (!is_string($message)) {
+                continue;
+            }
+
             if (
                 !$element instanceof LabelAwareInterface
                 || !$element->getLabelOption('disable_html_escape')
             ) {
-                $message = ($this->escapeHtml)($message);
+                $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+                $message = $escapeHtmlHelper($message);
             }
 
             assert(is_string($message));
 
-            $markups[] = $indent . $this->getWhitespace(8) . $this->htmlElement->toHtml(
+            $markups[] = $indent . $this->getWhitespace(8) . $htmlHelper->render(
                 'li',
                 [],
                 $message,
@@ -115,39 +112,17 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
             $errorAttributes['id'] = $element->getAttribute('id') . 'Feedback';
         }
 
-        $ul = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+        $ul = $htmlHelper->render(
             'ul',
             $attributes,
-            implode(PHP_EOL, $markups) . PHP_EOL . $indent . $this->getWhitespace(4),
+            PHP_EOL . implode(PHP_EOL, $markups) . PHP_EOL . $indent . $this->getWhitespace(4),
         );
 
-        return $indent . $this->htmlElement->toHtml('div', $errorAttributes, $ul);
-    }
-
-    /**
-     * Set the attributes that will go on the message open format
-     *
-     * @param array<string, string> $attributes key value pairs of attributes
-     *
-     * @throws void
-     */
-    public function setAttributes(array $attributes): self
-    {
-        $this->attributes = $attributes;
-
-        return $this;
-    }
-
-    /**
-     * Get the attributes that will go on the message open format
-     *
-     * @return array<string, string>
-     *
-     * @throws void
-     */
-    public function getAttributes(): array
-    {
-        return $this->attributes;
+        return PHP_EOL . $indent . $htmlHelper->render(
+            'div',
+            $errorAttributes,
+            PHP_EOL . $indent . $this->getWhitespace(4) . $ul . PHP_EOL . $indent,
+        );
     }
 
     /**
@@ -160,8 +135,9 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
     private function flattenMessages(array $messages): array
     {
         $messagesToPrint = [];
+        $translator      = $this->getTranslator();
 
-        if (!$this->translate instanceof Translate) {
+        if (!$translator instanceof Translate) {
             $messageCallback = static function ($message) use (&$messagesToPrint): void {
                 if ($message === '') {
                     return;
@@ -170,7 +146,6 @@ final class FormElementErrors extends AbstractHelper implements FormElementError
                 $messagesToPrint[] = $message;
             };
         } else {
-            $translator      = $this->translate;
             $textDomain      = $this->getTranslatorTextDomain();
             $messageCallback = static function ($message) use (&$messagesToPrint, $translator, $textDomain): void {
                 if ($message === '') {

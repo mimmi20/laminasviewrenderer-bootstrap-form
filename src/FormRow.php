@@ -17,10 +17,9 @@ use Laminas\Form\Element\Captcha;
 use Laminas\Form\Element\Checkbox;
 use Laminas\Form\Element\MonthSelect;
 use Laminas\Form\Element\MultiCheckbox;
-use Laminas\Form\Element\Radio;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Fieldset;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
@@ -45,6 +44,7 @@ use function assert;
 use function explode;
 use function get_debug_type;
 use function implode;
+use function in_array;
 use function is_array;
 use function is_string;
 use function mb_strlen;
@@ -61,18 +61,16 @@ use const PHP_EOL;
 final class FormRow extends BaseFormRow implements FormRowInterface
 {
     use FormTrait;
+    use HtmlHelperTrait;
+    use HiddenHelperTrait;
 
-    /** @throws void */
-    public function __construct(
-        private readonly FormElementInterface $formElement,
-        private readonly FormElementErrorsInterface $formElementErrors,
-        private readonly HtmlElementInterface $htmlElement,
-        private readonly EscapeHtml $escapeHtml,
-        private readonly RendererInterface $renderer,
-        private readonly Translate | null $translate = null,
-    ) {
-        // nothing to do
-    }
+    /**
+     * The class that is added to element that have errors
+     *
+     * @var string
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     */
+    protected $inputErrorClass = 'is-invalid';
 
     /**
      * Utility form helper that renders a label (if it exists), an element and errors
@@ -81,9 +79,10 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      *
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
-     * @throws Exception\DomainException
+     * @throws DomainException
      * @throws InvalidArgumentException
      * @throws RuntimeException
+     * @throws \Laminas\View\Exception\RuntimeException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
@@ -128,23 +127,44 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $type = $element->getAttribute('type');
 
         // Translate the label
-        if ($label !== '' && $this->translate !== null && $type !== 'hidden') {
-            $label = ($this->translate)($label, $this->getTranslatorTextDomain());
+        if ($label !== '' && $type !== 'hidden') {
+            $translator = $this->getTranslator();
+
+            if (null !== $translator) {
+                $label = $translator->translate(
+                    $label,
+                    $this->getTranslatorTextDomain(),
+                );
+            }
         }
 
         // Does this element have errors ?
         if ($element->getMessages()) {
-            $classAttributes  = $element->hasAttribute('class')
-                ? $element->getAttribute('class') . ' '
-                : '';
-            $classAttributes .= 'is-invalid';
+            $inputErrorClass = $this->getInputErrorClass();
+            $errorClass      = $element->getOption('error-class');
+            $classAttributes = [];
 
-            $element->setAttribute('class', $classAttributes);
+            if ($element->hasAttribute('class')) {
+                $classAttributes = array_merge(
+                    $classAttributes,
+                    explode(' ', (string) $element->getAttribute('class')),
+                );
+            }
+
+            if ($inputErrorClass) {
+                $classAttributes[] = $inputErrorClass;
+            }
+
+            if ($errorClass) {
+                $classAttributes[] = $errorClass;
+            }
+
+            $element->setAttribute('class', implode(' ', array_unique($classAttributes)));
         }
 
         $indent = $this->getIndent();
 
-        if ($this->partial) {
+        if ($this->view !== null && $this->partial) {
             $vars = [
                 'element' => $element,
                 'label' => $label,
@@ -154,12 +174,14 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 'indent' => $indent,
             ];
 
-            return $this->renderer->render($this->partial, $vars);
+            return $this->view->render($this->partial, $vars);
         }
 
         if ($type === 'hidden') {
-            $this->formElement->setIndent($indent);
-            $markup = $this->formElement->render($element);
+            $hiddenHelper = $this->getHiddenHelper();
+            $hiddenHelper->setIndent($indent);
+
+            $markup = $hiddenHelper->render($element);
 
             if ($this->renderErrors) {
                 $markup .= $this->renderFormErrors($element, $indent . $this->getWhitespace(4));
@@ -175,9 +197,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 || !$element->getLabelOption('disable_html_escape')
             )
         ) {
-            $label = ($this->escapeHtml)($label);
-
-            assert(is_string($label));
+            $escapeHtmlHelper = $this->getEscapeHtmlHelper();
+            $label = $escapeHtmlHelper($label);
         }
 
         if ($element->getAttribute('required') && $element->getOption('show-required-mark')) {
@@ -188,131 +209,187 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             return $this->renderHorizontalRow($element, $label);
         }
 
-        if ($label !== '') {
-            return $this->renderVerticalRow($element, $label, $labelPosition);
-        }
-
-        $errorContent = '';
-        $helpContent  = '';
-
-        if ($this->renderErrors) {
-            $errorContent = $this->renderFormErrors($element, $indent . $this->getWhitespace(4));
-        }
-
-        if ($element->getOption('help_content')) {
-            $helpContent = $this->renderFormHelp($element, $indent . $this->getWhitespace(4));
-        }
-
-        $this->formElement->setIndent($indent . $this->getWhitespace(4));
-        $markup = $this->formElement->render($element);
-
-        return $markup . $errorContent . $helpContent;
+        return $this->renderVerticalRow($element, $label, $labelPosition);
     }
 
     /**
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
-     * @throws Exception\DomainException
+     * @throws DomainException
      */
     private function renderHorizontalRow(ElementInterface $element, string $label): string
     {
-        $labelClasses       = [];
         $rowAttributes      = $this->mergeAttributes($element, 'row_attributes', ['row']);
         $colAttributes      = $this->mergeAttributes($element, 'col_attributes', []);
-        $labelAttributes    = $this->mergeAttributes($element, 'label_attributes', ['col-form-label']);
-        $labelColAttributes = $this->mergeAttributes($element, 'label_col_attributes', []);
-
-        if (array_key_exists('class', $labelAttributes)) {
-            $labelClasses = array_merge($labelClasses, explode(' ', $labelAttributes['class']));
-
-            unset($labelAttributes['class']);
-        }
-
-        if (array_key_exists('class', $labelColAttributes)) {
-            $labelClasses = array_merge($labelClasses, explode(' ', $labelColAttributes['class']));
-
-            unset($labelColAttributes['class']);
-        }
-
-        $labelAttributes          = [...$labelColAttributes, ...$labelAttributes];
-        $labelAttributes['class'] = trim(implode(' ', array_unique($labelClasses)));
+        $labelColAttributes = $this->mergeAttributes(
+            $element,
+            'label_col_attributes',
+            ['col-form-label'],
+        );
 
         $indent = $this->getIndent();
+        $type   = $element->getAttribute('type');
+        $htmlHelper       = $this->getHtmlHelper();
+
+        $elementHelper = $this->getElementHelper();
+        assert($elementHelper instanceof FormElement);
 
         // Multicheckbox elements have to be handled differently as the HTML standard does not allow nested
         // labels. The semantic way is to group them inside a fieldset
         if (
-            $element instanceof Radio
-            || $element instanceof MultiCheckbox
+            $element instanceof MultiCheckbox
             || $element instanceof MonthSelect
             || $element instanceof Captcha
+            || in_array($type, ['multi_checkbox', 'radio'], true)
         ) {
-            $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+            $baseIndent = $indent;
+            $lf1Indent  = $indent . $this->getWhitespace(4);
+            $lf2Indent  = $lf1Indent . $this->getWhitespace(4);
+            $lf3Indent  = $lf2Indent . $this->getWhitespace(4);
+
+            $legend = $lf1Indent . $htmlHelper->render(
                 'legend',
-                $labelAttributes,
+                $labelColAttributes,
                 $label,
             ) . PHP_EOL;
 
-            $errorContent = '';
-            $helpContent  = '';
+            $errorContent   = '';
+            $helpContent    = '';
+            $messageContent = '';
 
             if ($this->renderErrors) {
-                $errorContent = $this->renderFormErrors($element, $indent . $this->getWhitespace(4));
+                $errorContent = $this->renderFormErrors($element, $lf2Indent);
+            }
+
+            if ($element->getOption('messages')) {
+                $messageContent = $this->renderMessages($element, $lf2Indent);
             }
 
             if ($element->getOption('help_content')) {
-                $helpContent = $this->renderFormHelp($element, $indent . $this->getWhitespace(4));
+                $helpContent = $this->renderFormHelp($element, $lf1Indent);
             }
 
-            $this->formElement->setIndent($indent . $this->getWhitespace(4));
-            $elementString  = $this->formElement->render($element);
-            $elementString .= $errorContent . $helpContent;
+            $elementHelper->setIndent($lf3Indent);
+            $elementString = $elementHelper->render($element);
 
-            $outerDiv = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+            $controlClasses = ['card', 'has-validation'];
+
+            if ($element->getAttribute('required')) {
+                $controlClasses[] = 'required';
+            }
+
+            $elementString = $lf3Indent . $htmlHelper->render(
                 'div',
-                $colAttributes,
-                PHP_EOL . $elementString . PHP_EOL . $indent . $this->getWhitespace(4),
+                ['class' => 'card-body'],
+                PHP_EOL . $elementString . PHP_EOL . $lf3Indent,
             );
 
-            return $indent . $this->htmlElement->toHtml(
+            $elementString = $lf2Indent . $htmlHelper->render(
+                'div',
+                ['class' => implode(' ', $controlClasses)],
+                PHP_EOL . $elementString . PHP_EOL . $lf2Indent,
+            );
+
+            $elementString .= $errorContent . $messageContent;
+
+            $outerDiv = $lf1Indent . $htmlHelper->render(
+                'div',
+                $colAttributes,
+                PHP_EOL . $elementString . PHP_EOL . $lf1Indent,
+            );
+
+            return $baseIndent . $htmlHelper->render(
                 'fieldset',
                 $rowAttributes,
-                PHP_EOL . $legend . $outerDiv . PHP_EOL . $indent,
+                PHP_EOL . $legend . $outerDiv . $helpContent . PHP_EOL . $baseIndent,
+            );
+        }
+
+        if ($element instanceof Checkbox || $type === 'checkbox') {
+            // this is a special case, because label is always rendered inside it
+            $errorContent   = '';
+            $helpContent    = '';
+            $messageContent = '';
+            $baseIndent     = $indent;
+            $lf1Indent      = $indent . $this->getWhitespace(4);
+            $lf2Indent      = $lf1Indent . $this->getWhitespace(4);
+            $lf3Indent      = $lf2Indent . $this->getWhitespace(4);
+            $lf4Indent      = $lf3Indent . $this->getWhitespace(4);
+
+            $legend = $lf1Indent . $htmlHelper->render('div', $labelColAttributes, '') . PHP_EOL;
+
+            if ($this->renderErrors) {
+                $errorContent = $this->renderFormErrors($element, $lf2Indent);
+            }
+
+            if ($element->getOption('messages')) {
+                $messageContent = $this->renderMessages($element, $lf2Indent);
+            }
+
+            if ($element->getOption('help_content')) {
+                $helpContent = $this->renderFormHelp($element, $lf1Indent);
+            }
+
+            $elementHelper->setIndent($lf4Indent);
+            $elementString = $elementHelper->render($element);
+
+            $controlClasses = ['card', 'has-validation'];
+
+            if ($element->getAttribute('required')) {
+                $controlClasses[] = 'required';
+            }
+
+            $elementString = $lf3Indent . $htmlHelper->render(
+                'div',
+                ['class' => 'card-body'],
+                PHP_EOL . $elementString . PHP_EOL . $lf3Indent,
+            );
+
+            $elementString = $lf2Indent . $htmlHelper->render(
+                'div',
+                ['class' => implode(' ', $controlClasses)],
+                PHP_EOL . $elementString . PHP_EOL . $lf2Indent,
+            );
+
+            $elementString .= $errorContent . $messageContent;
+
+            $outerDiv = $lf1Indent . $htmlHelper->render(
+                'div',
+                $colAttributes,
+                PHP_EOL . $elementString . PHP_EOL . $lf1Indent,
+            );
+
+            return $baseIndent . $htmlHelper->render(
+                'div',
+                $rowAttributes,
+                PHP_EOL . $legend . $outerDiv . $helpContent . PHP_EOL . $baseIndent,
             );
         }
 
         if (
             $element instanceof Button
             || $element instanceof Submit
-            || $element instanceof Checkbox
             || $element instanceof Fieldset
+            || in_array($type, ['button', 'submit', 'reset'], true)
         ) {
             // this is a special case, because label is always rendered inside it
-            $errorContent = '';
-            $helpContent  = '';
+            $baseIndent = $indent;
+            $lf1Indent  = $indent . $this->getWhitespace(4);
+            $lf2Indent  = $lf1Indent . $this->getWhitespace(4);
 
-            if ($this->renderErrors) {
-                $errorContent = $this->renderFormErrors($element, $indent . $this->getWhitespace(8));
-            }
+            $elementHelper->setIndent($lf2Indent);
+            $elementString = $elementHelper->render($element);
 
-            if ($element->getOption('help_content')) {
-                $helpContent = $this->renderFormHelp($element, $indent . $this->getWhitespace(8));
-            }
-
-            $this->formElement->setIndent($indent . $this->getWhitespace(8));
-            $elementString  = $this->formElement->render($element);
-            $elementString .= $errorContent . $helpContent;
-
-            $outerDiv = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+            $outerDiv = $lf1Indent . $htmlHelper->render(
                 'div',
                 $colAttributes,
-                PHP_EOL . $elementString . PHP_EOL . $indent . $this->getWhitespace(4),
+                PHP_EOL . $elementString . PHP_EOL . $lf1Indent,
             );
 
-            return $indent . $this->htmlElement->toHtml(
+            return $baseIndent . $htmlHelper->render(
                 'div',
                 $rowAttributes,
-                PHP_EOL . $outerDiv . PHP_EOL . $indent,
+                PHP_EOL . $outerDiv . PHP_EOL . $baseIndent,
             );
         }
 
@@ -321,47 +398,73 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
             assert(is_string($id));
 
-            $labelAttributes['for'] = $id;
+            $labelColAttributes['for'] = $id;
         }
 
-        $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
-            'label',
-            $labelAttributes,
-            $label,
-        ) . PHP_EOL;
+        $errorContent   = '';
+        $helpContent    = '';
+        $messageContent = '';
+        $baseIndent     = $indent;
+        $lf1Indent      = $indent . $this->getWhitespace(4);
+        $lf2Indent      = $lf1Indent . $this->getWhitespace(4);
+        $lf3Indent      = $lf2Indent . $this->getWhitespace(4);
 
-        $errorContent = '';
-        $helpContent  = '';
+        $labelHelper      = $this->getLabelHelper();
+
+        $legend = $lf1Indent . $labelHelper->openTag($labelColAttributes) . $label . $labelHelper->closeTag();
 
         if ($this->renderErrors) {
-            $errorContent = $this->renderFormErrors($element, $indent . $this->getWhitespace(8));
+            $errorContent = $this->renderFormErrors($element, $lf2Indent);
+        }
+
+        if ($element->getOption('messages')) {
+            $messageContent = $this->renderMessages($element, $lf2Indent);
         }
 
         if ($element->getOption('help_content')) {
-            $helpContent = $this->renderFormHelp($element, $indent . $this->getWhitespace(8));
+            $helpContent = $this->renderFormHelp($element, $lf1Indent);
         }
 
-        $this->formElement->setIndent($indent . $this->getWhitespace(8));
-        $elementString  = $this->formElement->render($element);
-        $elementString .= $errorContent . $helpContent;
+        $elementHelper->setIndent($lf3Indent);
+        $elementString = $elementHelper->render($element);
 
-        $outerDiv = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+        $controlClasses = ['card', 'has-validation'];
+
+        if ($element->getAttribute('required')) {
+            $controlClasses[] = 'required';
+        }
+
+        $elementString = $lf3Indent . $htmlHelper->render(
             'div',
-            $colAttributes,
-            PHP_EOL . $elementString . PHP_EOL . $indent . $this->getWhitespace(4),
+            ['class' => 'card-body'],
+            PHP_EOL . $elementString . PHP_EOL . $lf3Indent,
         );
 
-        return $indent . $this->htmlElement->toHtml(
+        $elementString = $lf2Indent . $htmlHelper->render(
+            'div',
+            ['class' => implode(' ', $controlClasses)],
+            PHP_EOL . $elementString . PHP_EOL . $lf2Indent,
+        );
+
+        $elementString .= $errorContent . $messageContent;
+
+        $outerDiv = $lf1Indent . $htmlHelper->render(
+            'div',
+            $colAttributes,
+            PHP_EOL . $elementString . PHP_EOL . $lf1Indent,
+        );
+
+        return $baseIndent . $htmlHelper->render(
             'div',
             $rowAttributes,
-            PHP_EOL . $legend . $outerDiv . PHP_EOL . $indent,
+            PHP_EOL . $legend . PHP_EOL . $outerDiv . $helpContent . PHP_EOL . $baseIndent,
         );
     }
 
     /**
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
-     * @throws Exception\DomainException
+     * @throws DomainException
      */
     private function renderVerticalRow(
         ElementInterface $element,
@@ -380,17 +483,20 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         $indent = $this->getIndent();
+        $htmlHelper       = $this->getHtmlHelper();
+
+        $elementHelper = $this->getElementHelper();
+        assert($elementHelper instanceof FormElement);
 
         // Multicheckbox elements have to be handled differently as the HTML standard does not allow nested
         // labels. The semantic way is to group them inside a fieldset
         if (
-            $element instanceof Radio
-            || $element instanceof MultiCheckbox
+            $element instanceof MultiCheckbox
             || $element instanceof MonthSelect
             || $element instanceof Captcha
         ) {
             $legendClasses    = [];
-            $legendAttributes = $this->mergeAttributes($element, 'legend_attributes', []);
+            $legendAttributes = $this->mergeAttributes($element, 'legend_attributes', ['form-label']);
 
             if (array_key_exists('class', $legendAttributes)) {
                 $legendClasses = array_merge($legendClasses, explode(' ', $legendAttributes['class']));
@@ -400,82 +506,152 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
             $legendAttributes['class'] = trim(implode(' ', array_unique($legendClasses)));
 
-            $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
+            $legend = $indent . $this->getWhitespace(4) . $htmlHelper->render(
                 'legend',
                 $legendAttributes,
                 $label,
-            ) . PHP_EOL;
+            );
 
-            $errorContent = '';
-            $helpContent  = '';
+            $errorContent   = '';
+            $helpContent    = '';
+            $messageContent = '';
+            $floating       = $element->getOption('floating');
 
-            if ($this->renderErrors) {
-                $errorContent = $this->renderFormErrors($element, $indent . $this->getWhitespace(8));
-            }
-
-            if ($element->getOption('help_content')) {
-                $helpContent = $this->renderFormHelp($element, $indent . $this->getWhitespace(8));
-            }
-
-            $floating   = $element->getOption('floating');
             $baseIndent = $indent;
 
             if ($floating) {
                 $indent .= $this->getWhitespace(4);
             }
 
-            $this->formElement->setIndent($indent . $this->getWhitespace(4));
-            $elementString  = $indent . $this->getWhitespace(4) . $this->formElement->render($element);
-            $elementString .= $errorContent . $helpContent;
+            $lf1Indent = $indent . $this->getWhitespace(4);
+            $lf2Indent = $lf1Indent . $this->getWhitespace(4);
 
-            if ($floating) {
-                $elementString = $this->htmlElement->toHtml(
-                    'div',
-                    ['class' => 'form-control'],
-                    PHP_EOL . $elementString . PHP_EOL . $indent,
-                ) . PHP_EOL . $legend;
-                $elementString = $indent . $this->htmlElement->toHtml(
-                    'div',
-                    ['class' => 'form-floating'],
-                    PHP_EOL . $elementString . $indent,
-                );
-            } else {
-                $elementString = $legend . $elementString;
+            if ($this->renderErrors) {
+                $errorContent = $this->renderFormErrors($element, $lf1Indent);
             }
 
-            return $baseIndent . $this->htmlElement->toHtml(
+            if ($element->getOption('messages')) {
+                $messageContent = $this->renderMessages($element, $lf1Indent);
+            }
+
+            if ($element->getOption('help_content')) {
+                $helpContent = $this->renderFormHelp($element, $floating ? $indent : $lf1Indent);
+            }
+
+            $elementHelper->setIndent($lf2Indent);
+            $elementString = $elementHelper->render($element);
+
+            $controlClasses = ['card', 'has-validation'];
+
+            if ($element->getAttribute('required')) {
+                $controlClasses[] = 'required';
+            }
+
+            $elementString = $lf2Indent . $htmlHelper->render(
+                'div',
+                ['class' => 'card-body'],
+                PHP_EOL . $elementString . PHP_EOL . $lf2Indent,
+            );
+
+            $elementString = $htmlHelper->render(
+                'div',
+                ['class' => implode(' ', $controlClasses)],
+                PHP_EOL . $elementString . PHP_EOL . $lf1Indent,
+            );
+
+            $elementString .= $errorContent . $messageContent;
+
+            if ($floating) {
+                $elementString = PHP_EOL . $lf1Indent . $elementString . PHP_EOL . '    ' . $legend . PHP_EOL . $indent;
+
+                $elementString  = $indent . $htmlHelper->render(
+                    'div',
+                    ['class' => 'form-floating'],
+                    $elementString,
+                );
+                $elementString .= $helpContent;
+            } else {
+                $elementString = $legend . PHP_EOL . $lf1Indent . $elementString . $helpContent;
+            }
+
+            return $baseIndent . $htmlHelper->render(
                 'fieldset',
                 $colAttributes,
                 PHP_EOL . $elementString . PHP_EOL . $baseIndent,
             );
         }
 
-        if (
-            $element instanceof Button
-            || $element instanceof Submit
-            || $element instanceof Checkbox
-            || $element instanceof Fieldset
-        ) {
+        if ($element instanceof Checkbox) {
             // this is a special case, because label is always rendered inside it
-            $errorContent = '';
-            $helpContent  = '';
+            $errorContent   = '';
+            $helpContent    = '';
+            $messageContent = '';
+            $baseIndent     = $indent;
+            $lf1Indent      = $indent . $this->getWhitespace(4);
+            $lf2Indent      = $lf1Indent . $this->getWhitespace(4);
+            $lf3Indent      = $lf2Indent . $this->getWhitespace(4);
 
             if ($this->renderErrors) {
-                $errorContent = $this->renderFormErrors($element, $indent . $this->getWhitespace(4));
+                $errorContent = $this->renderFormErrors($element, $lf1Indent);
+            }
+
+            if ($element->getOption('messages')) {
+                $messageContent = $this->renderMessages($element, $lf1Indent);
             }
 
             if ($element->getOption('help_content')) {
-                $helpContent = $this->renderFormHelp($element, $indent . $this->getWhitespace(4));
+                $helpContent = $this->renderFormHelp($element, $lf1Indent);
             }
 
-            $this->formElement->setIndent($indent . $this->getWhitespace(4));
-            $elementString  = $this->formElement->render($element);
-            $elementString .= $errorContent . $helpContent;
+            $elementHelper->setIndent($lf3Indent);
+            $elementString = $elementHelper->render($element);
 
-            return $indent . $this->htmlElement->toHtml(
+            $controlClasses = ['card', 'has-validation'];
+
+            if ($element->getAttribute('required')) {
+                $controlClasses[] = 'required';
+            }
+
+            $elementString = $lf2Indent . $htmlHelper->render(
+                'div',
+                ['class' => 'card-body'],
+                PHP_EOL . $elementString . PHP_EOL . $lf2Indent,
+            );
+
+            $elementString = $htmlHelper->render(
+                'div',
+                ['class' => implode(' ', $controlClasses)],
+                PHP_EOL . $elementString . PHP_EOL . $lf1Indent,
+            );
+
+            $elementString .= $errorContent . $messageContent;
+
+            return $baseIndent . $htmlHelper->render(
                 'div',
                 $colAttributes,
-                PHP_EOL . $elementString . PHP_EOL . $indent,
+                PHP_EOL . $lf1Indent . $elementString . $helpContent . PHP_EOL . $baseIndent,
+            );
+        }
+
+        $type = $element->getAttribute('type');
+
+        if (
+            $element instanceof Button
+            || $element instanceof Submit
+            || $element instanceof Fieldset
+            || in_array($type, ['button', 'submit', 'reset'], true)
+        ) {
+            // this is a special case, because label is always rendered inside it
+            $baseIndent = $indent;
+            $lf1Indent  = $indent . $this->getWhitespace(4);
+
+            $elementHelper->setIndent($lf1Indent);
+            $elementString = $elementHelper->render($element);
+
+            return $baseIndent . $htmlHelper->render(
+                'div',
+                $colAttributes,
+                PHP_EOL . $elementString . PHP_EOL . $baseIndent,
             );
         }
 
@@ -486,63 +662,76 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $indent .= $this->getWhitespace(4);
         }
 
-        if ($element instanceof LabelAwareInterface) {
-            if ($floating) {
-                $labelPosition = BaseFormRow::LABEL_APPEND;
-            } elseif ($element->hasLabelOption('label_position')) {
-                $labelPosition = $element->getLabelOption('label_position');
-            } else {
-                $labelPosition = BaseFormRow::LABEL_PREPEND;
-            }
-        }
+        $lf1Indent = $indent . $this->getWhitespace(4);
 
-        $legend = $indent . $this->getWhitespace(4) . $this->htmlElement->toHtml(
-            'label',
-            $labelAttributes,
-            $label,
-        );
-
-        $errorContent = '';
-        $helpContent  = '';
+        $errorContent   = '';
+        $helpContent    = '';
+        $messageContent = '';
 
         if ($this->renderErrors) {
-            $errorContent = $this->renderFormErrors($element, $indent . $this->getWhitespace(4));
+            $errorContent = $this->renderFormErrors($element, $lf1Indent);
+        }
+
+        if ($element->getOption('messages')) {
+            $messageContent = $this->renderMessages($element, $lf1Indent);
         }
 
         if ($element->getOption('help_content')) {
-            $helpContent = $this->renderFormHelp($element, $indent . $this->getWhitespace(4));
+            $helpContent = $this->renderFormHelp($element, $floating ? $indent : $lf1Indent);
         }
 
-        $this->formElement->setIndent($indent . $this->getWhitespace(4));
-        $elementString = $this->formElement->render($element);
+        $elementHelper->setIndent($lf1Indent);
+        $elementString  = $elementHelper->render($element);
+        $elementString .= $errorContent . $messageContent;
 
-        $rendered = match ($labelPosition) {
-            BaseFormRow::LABEL_PREPEND => $legend . PHP_EOL . $elementString,
-            default => $elementString . PHP_EOL . $legend,
-        };
+        $rendered = $elementString;
 
-        $rendered .= $errorContent . $helpContent;
+        $labelHelper      = $this->getLabelHelper();
+
+        if ($label !== '') {
+            if ($element instanceof LabelAwareInterface) {
+                if ($floating) {
+                    $labelPosition = BaseFormRow::LABEL_APPEND;
+                } elseif ($element->hasLabelOption('label_position')) {
+                    $labelPosition = $element->getLabelOption('label_position');
+                } else {
+                    $labelPosition = BaseFormRow::LABEL_PREPEND;
+                }
+            }
+
+            $legend = $lf1Indent . $labelHelper->openTag($labelAttributes) . $label . $labelHelper->closeTag();
+
+            $rendered = match ($labelPosition) {
+                BaseFormRow::LABEL_PREPEND => $legend . PHP_EOL . $elementString,
+                default => $elementString . PHP_EOL . $legend,
+            };
+        }
 
         if ($floating) {
-            $rendered = $indent . $this->htmlElement->toHtml(
+            $rendered = $indent . $htmlHelper->render(
                 'div',
                 ['class' => 'form-floating'],
                 PHP_EOL . $rendered . PHP_EOL . $indent,
             );
         }
 
-        return $baseIndent . $this->htmlElement->toHtml(
+        $rendered .= $helpContent;
+
+        return $baseIndent . $htmlHelper->render(
             'div',
             $colAttributes,
             PHP_EOL . $rendered . PHP_EOL . $baseIndent,
         );
     }
 
-    /** @throws Exception\DomainException */
+    /** @throws DomainException */
     private function renderFormErrors(ElementInterface $element, string $indent): string
     {
-        $this->formElementErrors->setIndent($indent);
-        $elementErrors = $this->formElementErrors->render($element);
+        $elementErrorsHelper = $this->getElementErrorsHelper();
+        assert($elementErrorsHelper instanceof FormElementErrors);
+
+        $elementErrorsHelper->setIndent($indent);
+        $elementErrors = $elementErrorsHelper->render($element);
 
         if ($elementErrors && $element->hasAttribute('id')) {
             $ariaDesc = $element->hasAttribute('aria-describedby')
@@ -577,7 +766,52 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $element->setAttribute('aria-describedby', $ariaDesc);
         }
 
-        return PHP_EOL . $indent . $this->htmlElement->toHtml('div', $attributes, $helpContent);
+        $htmlHelper       = $this->getHtmlHelper();
+
+        return PHP_EOL . $indent . $htmlHelper->render('div', $attributes, $helpContent);
+    }
+
+    /** @throws void */
+    private function renderMessages(ElementInterface $element, string $indent): string
+    {
+        $messages = $element->getOption('messages');
+
+        if (!is_array($messages)) {
+            return '';
+        }
+
+        $messageContent = '';
+        $htmlHelper       = $this->getHtmlHelper();
+
+        foreach ($messages as $message) {
+            assert(is_array($message));
+
+            $content = $message['content'] ?? '';
+
+            if ($content === '') {
+                continue;
+            }
+
+            $attributes = $message['attributes'] ?? [];
+
+            if (array_key_exists('id', $attributes)) {
+                $ariaDesc = $element->hasAttribute('aria-describedby')
+                    ? $element->getAttribute('aria-describedby') . ' '
+                    : '';
+
+                $ariaDesc .= $attributes['id'];
+
+                $element->setAttribute('aria-describedby', $ariaDesc);
+            }
+
+            $messageContent .= PHP_EOL . $indent . $htmlHelper->render(
+                'div',
+                $attributes,
+                $content,
+            );
+        }
+
+        return $messageContent;
     }
 
     /**
@@ -728,5 +962,46 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         return null;
+    }
+
+    /**
+     * Retrieve the FormElementErrors helper
+     * @throws void
+     */
+    protected function getElementErrorsHelper(): FormElementErrors
+    {
+        if ($this->elementErrorsHelper) {
+            return $this->elementErrorsHelper;
+        }
+
+        if ($this->view !== null && method_exists($this->view, 'plugin')) {
+            $this->elementErrorsHelper = $this->view->plugin('form_element_errors');
+        }
+
+        if (! $this->elementErrorsHelper instanceof FormElementErrors) {
+            $this->elementErrorsHelper = new FormElementErrors();
+        }
+
+        return $this->elementErrorsHelper;
+    }
+
+    /**
+     * Retrieve the FormElement helper
+     */
+    protected function getElementHelper(): FormElement
+    {
+        if ($this->elementHelper) {
+            return $this->elementHelper;
+        }
+
+        if ($this->view !== null && method_exists($this->view, 'plugin')) {
+            $this->elementHelper = $this->view->plugin('form_element');
+        }
+
+        if (! $this->elementHelper instanceof FormElement) {
+            $this->elementHelper = new FormElement();
+        }
+
+        return $this->elementHelper;
     }
 }

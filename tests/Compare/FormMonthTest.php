@@ -27,6 +27,9 @@ use function get_debug_type;
 use function sprintf;
 use function trim;
 
+/**
+ * @group form-month
+ */
 final class FormMonthTest extends AbstractTestCase
 {
     /**
@@ -40,40 +43,7 @@ final class FormMonthTest extends AbstractTestCase
 
         $expected = $this->getExpected('form/month.html');
 
-        $plugin = $this->serviceManager->get(HelperPluginManager::class);
-
-        assert($plugin instanceof HelperPluginManager);
-
-        $escapeHtml     = $plugin->get(EscapeHtml::class);
-        $escapeHtmlAttr = $plugin->get(EscapeHtmlAttr::class);
-        $docType        = $plugin->get(Doctype::class);
-
-        assert(
-            $escapeHtml instanceof EscapeHtml,
-            sprintf(
-                '$escapeHtml should be an Instance of %s, but was %s',
-                EscapeHtml::class,
-                get_debug_type($escapeHtml),
-            ),
-        );
-        assert(
-            $escapeHtmlAttr instanceof EscapeHtmlAttr,
-            sprintf(
-                '$escapeHtmlAttr should be an Instance of %s, but was %s',
-                EscapeHtmlAttr::class,
-                get_debug_type($escapeHtmlAttr),
-            ),
-        );
-        assert(
-            $docType instanceof Doctype,
-            sprintf(
-                '$docType should be an Instance of %s, but was %s',
-                Doctype::class,
-                get_debug_type($docType),
-            ),
-        );
-
-        $helper = new FormMonth($escapeHtml, $escapeHtmlAttr, $docType);
+        $helper = new FormMonth();
 
         self::assertSame($expected, trim($helper->render($form->get('inputMonth'))));
     }

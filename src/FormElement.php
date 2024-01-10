@@ -20,14 +20,16 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManager;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\Form\Links\Element\Links;
 use Mimmi20\Form\Paragraph\Element\Paragraph;
+use Laminas\Form\View\Helper\FormElement as BaseFormElement;
 
 use function assert;
 use function is_object;
 use function method_exists;
 
-final class FormElement extends AbstractHelper implements FormElementInterface
+final class FormElement extends BaseFormElement implements FormIndentInterface, FormRenderInterface
 {
     use FormTrait;
 
@@ -36,7 +38,7 @@ final class FormElement extends AbstractHelper implements FormElementInterface
      *
      * @var array<string, string>
      */
-    private array $classMap = [
+    protected $classMap = [
         Element\Button::class => 'formButton',
         Element\Captcha::class => 'formCaptcha',
         Element\Csrf::class => 'formHidden',
@@ -44,6 +46,7 @@ final class FormElement extends AbstractHelper implements FormElementInterface
         Element\DateTimeSelect::class => 'formDateTimeSelect',
         Element\DateSelect::class => 'formDateSelect',
         Element\MonthSelect::class => 'formMonthSelect',
+        Element\Submit::class => 'formSubmit',
         Links::class => 'formLinks',
         Paragraph::class => 'formParagraph',
     ];
@@ -53,7 +56,7 @@ final class FormElement extends AbstractHelper implements FormElementInterface
      *
      * @var array<string, string>
      */
-    private array $typeMap = [
+    protected $typeMap = [
         'checkbox' => 'formCheckbox',
         'color' => 'formColor',
         'date' => 'formDate',
@@ -82,84 +85,6 @@ final class FormElement extends AbstractHelper implements FormElementInterface
     ];
 
     /**
-     * Default helper name
-     */
-    private string $defaultHelper = FormElementInterface::DEFAULT_HELPER;
-
-    /**
-     * @phpstan-param HelperPluginManager<HelperInterface> $helperPluginManager
-     *
-     * @throws void
-     */
-    public function __construct(
-        /** @phpstan-param HelperPluginManager<HelperInterface> $helperPluginManager */
-        private readonly HelperPluginManager $helperPluginManager,
-    ) {
-        // nothing to do
-    }
-
-    /**
-     * Invoke helper as function
-     *
-     * Proxies to {@link render()}.
-     *
-     * @return self|string
-     *
-     * @throws InvalidServiceException
-     * @throws ServiceNotFoundException
-     * @throws InvalidArgumentException
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
-     */
-    public function __invoke(ElementInterface | null $element = null)
-    {
-        if (!$element) {
-            return $this;
-        }
-
-        return $this->render($element);
-    }
-
-    /**
-     * Render an element
-     *
-     * Introspects the element type and attributes to determine which
-     * helper to utilize when rendering.
-     *
-     * @throws InvalidServiceException
-     * @throws ServiceNotFoundException
-     * @throws InvalidArgumentException
-     */
-    public function render(ElementInterface $element): string
-    {
-        $renderedInstance = $this->renderInstance($element);
-
-        if ($renderedInstance !== null) {
-            return $renderedInstance;
-        }
-
-        $renderedType = $this->renderType($element);
-
-        if ($renderedType !== null) {
-            return $renderedType;
-        }
-
-        return $this->renderHelper($this->defaultHelper, $element);
-    }
-
-    /**
-     * Set default helper name
-     *
-     * @throws void
-     */
-    public function setDefaultHelper(string $name): self
-    {
-        $this->defaultHelper = $name;
-
-        return $this;
-    }
-
-    /**
      * Set default helper name
      *
      * @throws void
@@ -182,29 +107,26 @@ final class FormElement extends AbstractHelper implements FormElementInterface
     }
 
     /**
-     * Add instance class to plugin map
-     *
-     * @throws void
-     */
-    public function addClass(string $class, string $plugin): self
-    {
-        $this->classMap[$class] = $plugin;
-
-        return $this;
-    }
-
-    /**
      * Render element by helper name
      *
      * @throws InvalidServiceException
      * @throws ServiceNotFoundException
      * @throws InvalidArgumentException
      */
-    private function renderHelper(string $name, ElementInterface $element): string
+    protected function renderHelper(string $name, ElementInterface $element): string
     {
-        $helper = $this->helperPluginManager->get($name);
+        $renderer = $this->view;
+        assert(
+            $renderer instanceof PhpRenderer,
+            sprintf(
+                '$renderer should be an Instance of %s or null, but was %s',
+                PhpRenderer::class,
+                get_debug_type($renderer),
+            ),
+        );
 
-        assert(is_object($helper));
+        $helper = $renderer->getHelperPluginManager()->get($name);
+        assert($helper instanceof HelperInterface);
 
         if ($helper instanceof FormIndentInterface || method_exists($helper, 'setIndent')) {
             $helper->setIndent($this->getIndent());
@@ -214,42 +136,10 @@ final class FormElement extends AbstractHelper implements FormElementInterface
             return $helper->render($element);
         }
 
+        if (is_callable($helper)) {
+            return $helper($element);
+        }
+
         throw new InvalidArgumentException('the element does not support the render function');
-    }
-
-    /**
-     * Render element by instance map
-     *
-     * @throws InvalidServiceException
-     * @throws ServiceNotFoundException
-     * @throws InvalidArgumentException
-     */
-    private function renderInstance(ElementInterface $element): string | null
-    {
-        foreach ($this->classMap as $class => $pluginName) {
-            if ($element instanceof $class) {
-                return $this->renderHelper($pluginName, $element);
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Render element by type map
-     *
-     * @throws InvalidServiceException
-     * @throws ServiceNotFoundException
-     * @throws InvalidArgumentException
-     */
-    private function renderType(ElementInterface $element): string | null
-    {
-        $type = $element->getAttribute('type');
-
-        if (isset($this->typeMap[$type])) {
-            return $this->renderHelper($this->typeMap[$type], $element);
-        }
-
-        return null;
     }
 }

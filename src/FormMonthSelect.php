@@ -30,6 +30,7 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
 {
     use FormMonthSelectTrait;
     use FormTrait;
+    use SelectHelperTrait;
 
     /**
      * Invoke helper as function
@@ -64,13 +65,13 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
     /**
      * Render a month element that is composed of two selects
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws DomainException
      */
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof MonthSelectElement) {
-            throw new Exception\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
                     '%s requires that the element is of type %s',
                     __METHOD__,
@@ -82,7 +83,7 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
         $name = $element->getName();
 
         if ($name === null || $name === '') {
-            throw new Exception\DomainException(
+            throw new DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
                     __METHOD__,
@@ -90,6 +91,7 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
             );
         }
 
+        $selectHelper = $this->getSelectHelper();
         $pattern = $this->parsePattern($element->shouldRenderDelimiters());
 
         // The pattern always contains "day" part and the first separator, so we have to remove it
@@ -107,11 +109,11 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
         }
 
         $indent = $this->getIndent();
-        $this->selectHelper->setIndent($indent);
+        $selectHelper->setIndent($indent);
 
         $data                    = [];
-        $data[$pattern['month']] = $this->selectHelper->render($monthElement);
-        $data[$pattern['year']]  = $this->selectHelper->render($yearElement);
+        $data[$pattern['month']] = $selectHelper->render($monthElement);
+        $data[$pattern['year']]  = $selectHelper->render($yearElement);
 
         $markups = [];
 

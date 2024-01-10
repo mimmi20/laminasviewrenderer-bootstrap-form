@@ -18,6 +18,7 @@ use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\EscapeHtml;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormLabel;
 use Mimmi20\LaminasView\BootstrapForm\FormLabelInterface;
 use PHPUnit\Framework\Exception;
@@ -39,13 +40,20 @@ final class FormLabelTest extends TestCase
     {
         $expected = '<label>';
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         self::assertSame($expected, $helper->openTag());
     }
@@ -61,13 +69,20 @@ final class FormLabelTest extends TestCase
         $attributes = ['for' => $for];
         $expected   = sprintf('<label for="%s">', $for);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         self::assertSame($expected, $helper->openTag($attributes));
     }
@@ -81,13 +96,20 @@ final class FormLabelTest extends TestCase
     {
         $value = 1;
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -108,9 +130,7 @@ final class FormLabelTest extends TestCase
      */
     public function testRenderOpenTagWithElementWithoutNameAndId(): void
     {
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn(null);
@@ -131,13 +151,20 @@ final class FormLabelTest extends TestCase
         $element->expects(self::never())
             ->method('getLabelAttributes');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
@@ -161,9 +188,7 @@ final class FormLabelTest extends TestCase
         $class    = 'xyz';
         $expected = sprintf('<label for="%s" class="%s">', $for, $class);
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::never())
@@ -184,13 +209,20 @@ final class FormLabelTest extends TestCase
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         self::assertSame($expected, $helper->openTag($element));
     }
@@ -206,9 +238,7 @@ final class FormLabelTest extends TestCase
         $class    = 'xyz';
         $expected = sprintf('<label for="%s" class="%s">', $for, $class);
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($for);
@@ -230,13 +260,20 @@ final class FormLabelTest extends TestCase
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         self::assertSame($expected, $helper->openTag($element));
     }
@@ -254,9 +291,7 @@ final class FormLabelTest extends TestCase
         $class    = 'xyz';
         $expected = sprintf('<label for="%s" class="%s">', $for, $class);
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($for);
@@ -278,13 +313,20 @@ final class FormLabelTest extends TestCase
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         $helperObject = $helper();
 
@@ -303,9 +345,7 @@ final class FormLabelTest extends TestCase
      */
     public function testInvokeWithoutLabel(): void
     {
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::never())
@@ -324,13 +364,20 @@ final class FormLabelTest extends TestCase
         $element->expects(self::never())
             ->method('getLabelAttributes');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
@@ -360,9 +407,7 @@ final class FormLabelTest extends TestCase
         $expected     = sprintf('<label for="%s" class="%s">%s</label>', $for, $class, $labelContent);
         $position     = FormLabelInterface::APPEND;
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($for);
@@ -385,13 +430,20 @@ final class FormLabelTest extends TestCase
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
@@ -420,9 +472,7 @@ final class FormLabelTest extends TestCase
         );
         $position     = FormLabelInterface::APPEND;
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($for);
@@ -449,15 +499,22 @@ final class FormLabelTest extends TestCase
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($label)
             ->willReturn($escaledLabel);
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
@@ -486,9 +543,7 @@ final class FormLabelTest extends TestCase
         );
         $position     = FormLabelInterface::PREPEND;
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::never())
@@ -518,15 +573,22 @@ final class FormLabelTest extends TestCase
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($label)
             ->willReturn($escaledLabel);
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
@@ -555,9 +617,7 @@ final class FormLabelTest extends TestCase
         );
         $position     = FormLabelInterface::PREPEND;
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::never())
@@ -587,15 +647,22 @@ final class FormLabelTest extends TestCase
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($label)
             ->willReturn($escaledLabel);
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
@@ -623,9 +690,7 @@ final class FormLabelTest extends TestCase
         );
         $position     = FormLabelInterface::APPEND;
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($for);
@@ -652,13 +717,20 @@ final class FormLabelTest extends TestCase
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
@@ -686,9 +758,7 @@ final class FormLabelTest extends TestCase
         );
         $position     = FormLabelInterface::PREPEND;
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::never())
@@ -718,13 +788,20 @@ final class FormLabelTest extends TestCase
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $helper = new FormLabel($escapeHtml, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         self::assertSame($expected, $helper($element, $labelContent, $position));
     }
@@ -755,9 +832,7 @@ final class FormLabelTest extends TestCase
         );
         $position              = FormLabelInterface::PREPEND;
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::never())
@@ -787,23 +862,28 @@ final class FormLabelTest extends TestCase
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($tranlatedLabel)
             ->willReturn($escapedTranlatedLabel);
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $translator = $this->createMock(Translate::class);
         $translator->expects(self::once())
             ->method('__invoke')
             ->with($label, $textDomain)
             ->willReturn($tranlatedLabel);
 
-        $helper = new FormLabel($escapeHtml, $translator);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         $helper->setTranslatorTextDomain($textDomain);
 
@@ -834,9 +914,7 @@ final class FormLabelTest extends TestCase
         );
         $position              = FormLabelInterface::PREPEND;
 
-        $element = $this->getMockBuilder(Text::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
         $element->expects(self::never())
@@ -866,23 +944,28 @@ final class FormLabelTest extends TestCase
             ->method('getLabelAttributes')
             ->willReturn(['class' => $class]);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $escapeHtml = $this->createMock(EscapeHtml::class);
         $escapeHtml->expects(self::once())
             ->method('__invoke')
             ->with($tranlatedLabel)
             ->willReturn($escapedTranlatedLabel);
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $translator = $this->createMock(Translate::class);
         $translator->expects(self::once())
             ->method('__invoke')
             ->with($label, $textDomain)
             ->willReturn($tranlatedLabel);
 
-        $helper = new FormLabel($escapeHtml, $translator);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $helper = new FormLabel();
+        $helper->setView($renderer);
 
         $helper->setTranslatorTextDomain($textDomain);
 
