@@ -267,8 +267,11 @@ final class FormMultiCheckbox1Test extends TestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::once())
+            ->method('isHtml5')
+            ->willReturn(false);
 
         $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
@@ -321,8 +324,11 @@ final class FormMultiCheckbox1Test extends TestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::once())
+            ->method('isHtml5')
+            ->willReturn(false);
 
         $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
@@ -449,8 +455,11 @@ final class FormMultiCheckbox1Test extends TestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::once())
+            ->method('isHtml5')
+            ->willReturn(false);
 
         $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::never())
@@ -563,6 +572,9 @@ final class FormMultiCheckbox1Test extends TestCase
             ->method('__invoke');
         $doctype->expects(self::once())
             ->method('isXhtml')
+            ->willReturn(false);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
             ->willReturn(false);
 
         $formLabel = $this->createMock(FormLabelInterface::class);
@@ -688,6 +700,9 @@ final class FormMultiCheckbox1Test extends TestCase
             ->method('__invoke');
         $doctype->expects(self::once())
             ->method('isXhtml')
+            ->willReturn(false);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
             ->willReturn(false);
 
         $formLabel = $this->createMock(FormLabelInterface::class);

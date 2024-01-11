@@ -27,6 +27,9 @@ use function get_debug_type;
 use function sprintf;
 use function trim;
 
+/**
+ * @group form-search
+ */
 final class FormSearchTest extends AbstractTestCase
 {
     /**

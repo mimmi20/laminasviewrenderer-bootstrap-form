@@ -53,30 +53,7 @@ final class FormButtonTest extends AbstractTestCase
     {
         $expected = '<button>';
 
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormButton();
-        $helper->setView($renderer);
-
-        self::assertSame($expected, $helper->openTag());
+        self::assertSame($expected, $this->helper->openTag());
     }
 
     /**
@@ -116,7 +93,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'typeEscaped',
@@ -152,7 +129,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $typeEscaped,
@@ -165,8 +142,10 @@ final class FormButtonTest extends AbstractTestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -214,10 +193,9 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormButton();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
 
-        self::assertSame($expected, $helper->openTag($attributes));
+        self::assertSame($expected, $this->helper->openTag($attributes));
     }
 
     /**
@@ -241,29 +219,6 @@ final class FormButtonTest extends AbstractTestCase
         $element->expects(self::never())
             ->method('getLabelOption');
 
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormButton();
-        $helper->setView($renderer);
-
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
             sprintf(
@@ -272,7 +227,7 @@ final class FormButtonTest extends AbstractTestCase
             ),
         );
         $this->expectExceptionCode(0);
-        $helper->openTag($element);
+        $this->helper->openTag($element);
     }
 
     /**
@@ -338,7 +293,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'typeEscaped',
@@ -380,7 +335,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $typeEscaped,
@@ -394,8 +349,10 @@ final class FormButtonTest extends AbstractTestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -443,10 +400,9 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormButton();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
 
-        self::assertSame($expected, $helper->openTag($element));
+        self::assertSame($expected, $this->helper->openTag($element));
     }
 
     /**
@@ -519,7 +475,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'typeEscaped',
@@ -567,7 +523,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $typeEscaped,
@@ -582,8 +538,10 @@ final class FormButtonTest extends AbstractTestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -631,10 +589,9 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormButton();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
 
-        self::assertSame($expected, $helper->openTag($element));
+        self::assertSame($expected, $this->helper->openTag($element));
     }
 
     /**
@@ -707,7 +664,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'nameEscaped',
@@ -755,7 +712,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $nameEscaped,
@@ -770,8 +727,10 @@ final class FormButtonTest extends AbstractTestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -819,10 +778,9 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormButton();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
 
-        self::assertSame($expected, $helper->openTag($element));
+        self::assertSame($expected, $this->helper->openTag($element));
     }
 
     /**
@@ -895,7 +853,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'nameEscaped',
@@ -943,7 +901,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $nameEscaped,
@@ -958,8 +916,10 @@ final class FormButtonTest extends AbstractTestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -1007,10 +967,9 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormButton();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
 
-        self::assertSame($expected, $helper->openTag($element));
+        self::assertSame($expected, $this->helper->openTag($element));
     }
 
     /**
@@ -1036,29 +995,6 @@ final class FormButtonTest extends AbstractTestCase
         $element->expects(self::never())
             ->method('getLabelOption');
 
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormButton();
-        $helper->setView($renderer);
-
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
             sprintf(
@@ -1067,7 +1003,7 @@ final class FormButtonTest extends AbstractTestCase
             ),
         );
         $this->expectExceptionCode(0);
-        $helper->render($element);
+        $this->helper->render($element);
     }
 
     /**
@@ -1166,7 +1102,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $escapedTranlatedLabel,
@@ -1215,7 +1151,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $typeEscaped,
@@ -1230,8 +1166,10 @@ final class FormButtonTest extends AbstractTestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -1279,13 +1217,12 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormButton();
-        $helper->setView($renderer);
-        $helper->setTranslator($translator);
+        $this->helper->setView($renderer);
+        $this->helper->setTranslator($translator);
 
-        $helper->setTranslatorTextDomain($textDomain);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -1385,7 +1322,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $escapedTranlatedLabel,
@@ -1434,7 +1371,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $typeEscaped,
@@ -1449,8 +1386,10 @@ final class FormButtonTest extends AbstractTestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -1498,12 +1437,11 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormButton();
-        $helper->setView($renderer);
-        $helper->setTranslator($translator);
-        $helper->setTranslatorTextDomain($textDomain);
+        $this->helper->setView($renderer);
+        $this->helper->setTranslator($translator);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($expected, $helper($element));
+        self::assertSame($expected, ($this->helper)($element));
     }
 
     /**
@@ -1602,7 +1540,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $escapedTranlatedLabel,
@@ -1651,7 +1589,7 @@ final class FormButtonTest extends AbstractTestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $typeEscaped,
@@ -1666,8 +1604,10 @@ final class FormButtonTest extends AbstractTestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -1715,12 +1655,11 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormButton();
-        $helper->setView($renderer);
-        $helper->setTranslator($translator);
-        $helper->setTranslatorTextDomain($textDomain);
+        $this->helper->setView($renderer);
+        $this->helper->setTranslator($translator);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $helperObject = $helper();
+        $helperObject = ($this->helper)();
 
         assert($helperObject instanceof FormButton);
 
@@ -1733,35 +1672,8 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testSetGetIndent1(): void
     {
-        $translator = $this->createMock(Translate::class);
-        $translator->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormButton();
-        $helper->setView($renderer);
-
-        self::assertSame($helper, $helper->setIndent(4));
-        self::assertSame('    ', $helper->getIndent());
+        self::assertSame($this->helper, $this->helper->setIndent(4));
+        self::assertSame('    ', $this->helper->getIndent());
     }
 
     /**
@@ -1770,34 +1682,7 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testSetGetIndent2(): void
     {
-        $translator = $this->createMock(Translate::class);
-        $translator->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormButton();
-        $helper->setView($renderer);
-
-        self::assertSame($helper, $helper->setIndent('  '));
-        self::assertSame('  ', $helper->getIndent());
+        self::assertSame($this->helper, $this->helper->setIndent('  '));
+        self::assertSame('  ', $this->helper->getIndent());
     }
 }

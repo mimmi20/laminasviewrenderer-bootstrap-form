@@ -57,7 +57,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @var array<string, bool>
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
-    protected $translatableAttributes = ['label' => true];
+    protected $translatableAttributes = ['label' => true, 'aria-label' => true];
 
     /**
      * Attributes valid for select

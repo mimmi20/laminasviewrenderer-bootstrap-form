@@ -19,16 +19,16 @@ trait HiddenHelperTrait
     /**
      * Form label helper instance
      *
-     * @var null|FormHidden
+     * @var null|FormHiddenInterface
      */
-    private null|FormHidden $hiddenHelper = null;
+    private null|FormHiddenInterface $hiddenHelper = null;
 
     /**
      * Retrieve the FormLabel helper
      *
      * @throws void
      */
-    private function getHiddenHelper(): FormHidden
+    private function getHiddenHelper(): FormHiddenInterface
     {
         if ($this->hiddenHelper) {
             return $this->hiddenHelper;
@@ -38,7 +38,7 @@ trait HiddenHelperTrait
             $this->hiddenHelper = $this->view->plugin('form_hidden');
         }
 
-        if (! $this->hiddenHelper instanceof FormHidden) {
+        if (! $this->hiddenHelper instanceof FormHiddenInterface) {
             $this->hiddenHelper = new FormHidden();
         }
 

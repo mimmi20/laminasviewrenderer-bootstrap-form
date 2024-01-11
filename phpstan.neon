@@ -98,7 +98,7 @@ parameters:
       tooWideThrowType: true
 
   ignoreErrors:
-#    - '~is not subtype of Throwable~'
+    - '~Call to deprecated method setView\(\)~'
     - '~Fetching class constant class of deprecated class~'
     - '~Instantiation of deprecated class~'
     -

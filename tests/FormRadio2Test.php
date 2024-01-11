@@ -88,6 +88,9 @@ final class FormRadio2Test extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(false);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
+            ->willReturn(false);
 
         $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::once())
@@ -214,6 +217,9 @@ final class FormRadio2Test extends TestCase
             ->method('__invoke');
         $doctype->expects(self::once())
             ->method('isXhtml')
+            ->willReturn(false);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
             ->willReturn(false);
 
         $formLabel = $this->createMock(FormLabelInterface::class);
@@ -344,6 +350,9 @@ final class FormRadio2Test extends TestCase
             ->method('__invoke');
         $doctype->expects(self::once())
             ->method('isXhtml')
+            ->willReturn(false);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
             ->willReturn(false);
 
         $formLabel = $this->createMock(FormLabelInterface::class);
@@ -480,6 +489,9 @@ final class FormRadio2Test extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(true);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
+            ->willReturn(false);
 
         $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::once())
@@ -689,6 +701,9 @@ final class FormRadio2Test extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(true);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
+            ->willReturn(false);
 
         $formLabel = $this->createMock(FormLabelInterface::class);
         $formLabel->expects(self::exactly(3))

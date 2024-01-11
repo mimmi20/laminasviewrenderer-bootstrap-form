@@ -15,8 +15,9 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
+use Laminas\View\Helper\HelperInterface;
 
-interface FormHiddenInterface extends FormIndentInterface, FormRenderInterface
+interface FormHiddenInterface extends FormIndentInterface, FormRenderInterface, HelperInterface
 {
     /**
      * Invoke helper as functor

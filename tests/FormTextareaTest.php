@@ -51,24 +51,6 @@ final class FormTextareaTest extends TestCase
      */
     public function testRenderWithoutName(): void
     {
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $this->helper->setView($renderer);
-
         $element = $this->createMock(File::class);
         $element->expects(self::once())
             ->method('getName')
@@ -129,7 +111,7 @@ final class FormTextareaTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $escapedValue,
@@ -166,7 +148,7 @@ final class FormTextareaTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'form-control-escaped abc-escaped',
@@ -179,8 +161,10 @@ final class FormTextareaTest extends TestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -287,7 +271,7 @@ final class FormTextareaTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $escapedValue,
@@ -324,7 +308,7 @@ final class FormTextareaTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'form-control-escaped abc-escaped',
@@ -337,8 +321,10 @@ final class FormTextareaTest extends TestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -450,7 +436,7 @@ final class FormTextareaTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $escapedValue,
@@ -487,7 +473,7 @@ final class FormTextareaTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'form-control-escaped abc-escaped',
@@ -500,8 +486,10 @@ final class FormTextareaTest extends TestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -571,24 +559,6 @@ final class FormTextareaTest extends TestCase
      */
     public function testSetGetIndent1(): void
     {
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $this->helper->setView($renderer);
-
         self::assertSame($this->helper, $this->helper->setIndent(4));
         self::assertSame('    ', $this->helper->getIndent());
     }
@@ -599,24 +569,6 @@ final class FormTextareaTest extends TestCase
      */
     public function testSetGetIndent2(): void
     {
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $this->helper->setView($renderer);
-
         self::assertSame($this->helper, $this->helper->setIndent('  '));
         self::assertSame('  ', $this->helper->getIndent());
     }

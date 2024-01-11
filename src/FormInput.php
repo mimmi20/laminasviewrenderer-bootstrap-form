@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
+use Laminas\Form\Element\Range;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
@@ -63,6 +64,12 @@ abstract class FormInput extends BaseFormInput implements FormInputInterface
 
         if ($element instanceof Submit || in_array($type, ['submit', 'reset', 'button'], true)) {
             $classes = ['btn'];
+
+            if (array_key_exists('class', $attributes) && is_scalar($attributes['class'])) {
+                $classes = array_merge($classes, explode(' ', (string) $attributes['class']));
+            }
+        } elseif ($element instanceof Range || $type === 'range') {
+            $classes = ['form-range'];
 
             if (array_key_exists('class', $attributes) && is_scalar($attributes['class'])) {
                 $classes = array_merge($classes, explode(' ', (string) $attributes['class']));

@@ -63,30 +63,6 @@ final class FormRangeTest extends TestCase
         $element->expects(self::never())
             ->method('getOption');
 
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-        $doctype->expects(self::never())
-            ->method('isXhtml');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $this->helper->setView($renderer);
-
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
             sprintf(
@@ -107,7 +83,7 @@ final class FormRangeTest extends TestCase
         $name  = 'test-name';
         $class = 'test-class';
         $value = 'test-value';
-        $classEscaped = sprintf('form-control&#x20%s-escaped', $class);
+        $classEscaped = sprintf('form-range&#x20%s-escaped', $class);
         $nameEscaped = 'test-name-escaped';
         $valueEscaped = 'test-value-escaped';
 
@@ -173,7 +149,7 @@ final class FormRangeTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'class-escaped',
@@ -195,7 +171,7 @@ final class FormRangeTest extends TestCase
 
                     match ($invocation) {
                         1 => self::assertSame(
-                            'form-control ' . $class,
+                            'form-range ' . $class,
                             $valueParam,
                             (string) $invocation,
                         ),
@@ -221,7 +197,7 @@ final class FormRangeTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $classEscaped,
@@ -239,6 +215,8 @@ final class FormRangeTest extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(false);
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -300,7 +278,7 @@ final class FormRangeTest extends TestCase
         $name  = 'test-name';
         $class = 'test-class';
         $value = 'test-value';
-        $classEscaped = sprintf('form-control&#x20%s-escaped', $class);
+        $classEscaped = sprintf('form-range&#x20%s-escaped', $class);
         $nameEscaped = 'test-name-escaped';
         $valueEscaped = 'test-value-escaped';
 
@@ -366,7 +344,7 @@ final class FormRangeTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'class-escaped',
@@ -388,7 +366,7 @@ final class FormRangeTest extends TestCase
 
                     match ($invocation) {
                         1 => self::assertSame(
-                            'form-control ' . $class,
+                            'form-range ' . $class,
                             $valueParam,
                             (string) $invocation,
                         ),
@@ -414,7 +392,7 @@ final class FormRangeTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $classEscaped,
@@ -432,6 +410,8 @@ final class FormRangeTest extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(true);
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -488,17 +468,17 @@ final class FormRangeTest extends TestCase
      * @throws Exception
      * @throws DomainException
      */
-    public function testRenderReadonlyXHtml(): void
+    public function testRenderDisabledXHtml(): void
     {
         $name  = 'test-name';
         $class = 'test-class';
         $value = 'test-value';
-        $classEscaped = 'form-control-plaintext-escaped';
+        $classEscaped = 'form-range';
         $nameEscaped = 'test-name-escaped';
         $valueEscaped = 'test-value-escaped';
 
         $expected = sprintf(
-            '<input class-escaped="%s" nameEscaped="%s" typeEscaped="range-escaped" valueEscaped="%s"/>',
+            '<input class-escaped="%s" disabledEscaped="disabled-escaped" nameEscaped="%s" typeEscaped="range-escaped" valueEscaped="%s"/>',
             $classEscaped,
             $nameEscaped,
             $valueEscaped,
@@ -513,20 +493,18 @@ final class FormRangeTest extends TestCase
             ->willReturn($value);
         $element->expects(self::once())
             ->method('getAttributes')
-            ->willReturn(['class' => $class, 'readonly' => true]);
+            ->willReturn(['class' => $class, 'readonly' => true, 'disabled' => true]);
         $element->expects(self::never())
             ->method('getAttribute');
         $element->expects(self::never())
             ->method('getLabel');
         $element->expects(self::never())
             ->method('getLabelOption');
-        $element->expects(self::once())
-            ->method('getOption')
-            ->with('plain')
-            ->willReturn(true);
+        $element->expects(self::never())
+            ->method('getOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher = self::exactly(5);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -540,16 +518,21 @@ final class FormRangeTest extends TestCase
                             (string) $invocation,
                         ),
                         2 => self::assertSame(
-                            'name',
+                            'disabled',
                             $value,
                             (string) $invocation,
                         ),
                         3 => self::assertSame(
-                            'type',
+                            'name',
                             $value,
                             (string) $invocation,
                         ),
                         4 => self::assertSame(
+                            'type',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        5 => self::assertSame(
                             'value',
                             $value,
                             (string) $invocation,
@@ -561,43 +544,49 @@ final class FormRangeTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'class-escaped',
-                        2 => 'nameEscaped',
-                        3 => 'typeEscaped',
-                        4 => 'valueEscaped',
+                        2 => 'disabledEscaped',
+                        3 => 'nameEscaped',
+                        4 => 'typeEscaped',
+                        5 => 'valueEscaped',
                         default => '',
                     };
                 },
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher = self::exactly(5);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
-                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $classEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
                         1 => self::assertSame(
-                            'form-control-plaintext',
+                            'form-range ' . $class,
                             $valueParam,
                             (string) $invocation,
                         ),
                         2 => self::assertSame(
-                            $name,
+                            'disabled',
                             $valueParam,
                             (string) $invocation,
                         ),
                         3 => self::assertSame(
-                            'range',
+                            $name,
                             $valueParam,
                             (string) $invocation,
                         ),
                         4 => self::assertSame(
+                            'range',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        5 => self::assertSame(
                             $value,
                             $valueParam,
                             (string) $invocation,
@@ -609,13 +598,14 @@ final class FormRangeTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $classEscaped,
-                        2 => $nameEscaped,
-                        3 => 'range-escaped',
-                        4 => $valueEscaped,
+                        2 => 'disabled-escaped',
+                        3 => $nameEscaped,
+                        4 => 'range-escaped',
+                        5 => $valueEscaped,
                         default => '',
                     };
                 },
@@ -627,6 +617,9 @@ final class FormRangeTest extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(true);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
+            ->willReturn(false);
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -685,16 +678,6 @@ final class FormRangeTest extends TestCase
      */
     public function testSetGetIndent1(): void
     {
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $this->helper->setView($renderer);
-
         self::assertSame($this->helper, $this->helper->setIndent(4));
         self::assertSame('    ', $this->helper->getIndent());
     }
@@ -705,16 +688,6 @@ final class FormRangeTest extends TestCase
      */
     public function testSetGetIndent2(): void
     {
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $this->helper->setView($renderer);
-
         self::assertSame($this->helper, $this->helper->setIndent('  '));
         self::assertSame('  ', $this->helper->getIndent());
     }

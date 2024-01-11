@@ -25,8 +25,19 @@ use Psr\Container\ContainerExceptionInterface;
 
 use function sprintf;
 
+/**
+ * @group form-search
+ */
 final class FormSearchTest extends TestCase
 {
+    private FormSearch $helper;
+
+    /** @throws void */
+    protected function setUp(): void
+    {
+        $this->helper = new FormSearch();
+    }
+
     /**
      * @throws Exception
      * @throws DomainException
@@ -50,20 +61,6 @@ final class FormSearchTest extends TestCase
         $element->expects(self::never())
             ->method('getOption');
 
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-        $doctype->expects(self::never())
-            ->method('isXhtml');
-
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
             ->method('getHelperPluginManager');
@@ -72,8 +69,7 @@ final class FormSearchTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormSearch();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
@@ -83,7 +79,7 @@ final class FormSearchTest extends TestCase
             ),
         );
         $this->expectExceptionCode(0);
-        $helper->render($element);
+        $this->helper->render($element);
     }
 
     /**
@@ -136,6 +132,9 @@ final class FormSearchTest extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(false);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
+            ->willReturn(false);
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -145,10 +144,9 @@ final class FormSearchTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormSearch();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
 
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -201,6 +199,9 @@ final class FormSearchTest extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(true);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
+            ->willReturn(false);
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -210,10 +211,9 @@ final class FormSearchTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormSearch();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
 
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -253,33 +253,7 @@ final class FormSearchTest extends TestCase
             ->with('plain')
             ->willReturn(true);
 
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-        $doctype->expects(self::once())
-            ->method('isXhtml')
-            ->willReturn(true);
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormSearch();
-        $helper->setView($renderer);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -288,33 +262,8 @@ final class FormSearchTest extends TestCase
      */
     public function testSetGetIndent1(): void
     {
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-        $doctype->expects(self::never())
-            ->method('isXhtml');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormSearch();
-        $helper->setView($renderer);
-
-        self::assertSame($helper, $helper->setIndent(4));
-        self::assertSame('    ', $helper->getIndent());
+        self::assertSame($this->helper, $this->helper->setIndent(4));
+        self::assertSame('    ', $this->helper->getIndent());
     }
 
     /**
@@ -323,32 +272,7 @@ final class FormSearchTest extends TestCase
      */
     public function testSetGetIndent2(): void
     {
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-        $doctype->expects(self::never())
-            ->method('isXhtml');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormSearch();
-        $helper->setView($renderer);
-
-        self::assertSame($helper, $helper->setIndent('  '));
-        self::assertSame('  ', $helper->getIndent());
+        self::assertSame($this->helper, $this->helper->setIndent('  '));
+        self::assertSame('  ', $this->helper->getIndent());
     }
 }

@@ -49,32 +49,6 @@ final class FormCheckboxTest extends TestCase
     {
         $labelPosition = 'abc';
 
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $formLabel = $this->createMock(FormLabelInterface::class);
-        $formLabel->expects(self::never())
-            ->method('openTag');
-        $formLabel->expects(self::never())
-            ->method('closeTag');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $formHidden = $this->createMock(FormHiddenInterface::class);
-        $formHidden->expects(self::never())
-            ->method('render');
-
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
             ->method('getHelperPluginManager');
@@ -109,32 +83,6 @@ final class FormCheckboxTest extends TestCase
     {
         $labelPosition = BaseFormRow::LABEL_PREPEND;
 
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $formLabel = $this->createMock(FormLabelInterface::class);
-        $formLabel->expects(self::never())
-            ->method('openTag');
-        $formLabel->expects(self::never())
-            ->method('closeTag');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $formHidden = $this->createMock(FormHiddenInterface::class);
-        $formHidden->expects(self::never())
-            ->method('render');
-
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
             ->method('getHelperPluginManager');
@@ -160,32 +108,6 @@ final class FormCheckboxTest extends TestCase
      */
     public function testRenderWithWrongElement(): void
     {
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $formLabel = $this->createMock(FormLabelInterface::class);
-        $formLabel->expects(self::never())
-            ->method('openTag');
-        $formLabel->expects(self::never())
-            ->method('closeTag');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $formHidden = $this->createMock(FormHiddenInterface::class);
-        $formHidden->expects(self::never())
-            ->method('render');
-
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
             ->method('getHelperPluginManager');
@@ -223,32 +145,6 @@ final class FormCheckboxTest extends TestCase
      */
     public function testRenderWithoutName(): void
     {
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $formLabel = $this->createMock(FormLabelInterface::class);
-        $formLabel->expects(self::never())
-            ->method('openTag');
-        $formLabel->expects(self::never())
-            ->method('closeTag');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $formHidden = $this->createMock(FormHiddenInterface::class);
-        $formHidden->expects(self::never())
-            ->method('render');
-
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
             ->method('getHelperPluginManager');

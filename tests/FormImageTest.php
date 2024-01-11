@@ -83,8 +83,10 @@ final class FormImageTest extends TestCase
             ->getMock();
         $doctype->expects(self::never())
             ->method('__invoke');
-        $doctype->expects(self::never())
+       $doctype->expects(self::never())
             ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
@@ -123,30 +125,6 @@ final class FormImageTest extends TestCase
             ->method('getLabelOption');
         $element->expects(self::never())
             ->method('getOption');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->createMock(Doctype::class);
-        $doctype->expects(self::never())
-            ->method('__invoke');
-        $doctype->expects(self::never())
-            ->method('isXhtml');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $this->helper->setView($renderer);
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
@@ -239,7 +217,7 @@ final class FormImageTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'class-escaped',
@@ -287,7 +265,7 @@ final class FormImageTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $classEscaped,
@@ -305,6 +283,8 @@ final class FormImageTest extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(false);
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -437,7 +417,7 @@ final class FormImageTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'class-escaped',
@@ -485,7 +465,7 @@ final class FormImageTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $classEscaped,
@@ -503,6 +483,8 @@ final class FormImageTest extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(true);
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -571,7 +553,7 @@ final class FormImageTest extends TestCase
         $valueEscaped = 'test-value-escaped';
 
         $expected = sprintf(
-            '<input class-escaped="%s" src-escaped="%s" nameEscaped="%s" typeEscaped="image-escaped"/>',
+            '<input class-escaped="%s" src-escaped="%s" autofocusEscaped="autofocus-escaped" nameEscaped="%s" typeEscaped="image-escaped"/>',
             $classEscaped,
             $srcEscaped,
             $nameEscaped,
@@ -587,7 +569,7 @@ final class FormImageTest extends TestCase
             ->willReturn($value);
         $element->expects(self::once())
             ->method('getAttributes')
-            ->willReturn(['class' => $class, 'src' => $src, 'readonly' => true]);
+            ->willReturn(['class' => $class, 'src' => $src, 'readonly' => true, 'autofocus' => true]);
         $element->expects(self::once())
             ->method('getAttribute')
             ->with('src')
@@ -602,7 +584,7 @@ final class FormImageTest extends TestCase
             ->willReturn(true);
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher = self::exactly(5);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -621,11 +603,16 @@ final class FormImageTest extends TestCase
                             (string) $invocation,
                         ),
                         3 => self::assertSame(
-                            'name',
+                            'autofocus',
                             $value,
                             (string) $invocation,
                         ),
                         4 => self::assertSame(
+                            'name',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        5 => self::assertSame(
                             'type',
                             $value,
                             (string) $invocation,
@@ -637,20 +624,21 @@ final class FormImageTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => 'class-escaped',
                         2 => 'src-escaped',
-                        3 => 'nameEscaped',
-                        4 => 'typeEscaped',
+                        3 => 'autofocusEscaped',
+                        4 => 'nameEscaped',
+                        5 => 'typeEscaped',
                         default => '',
                     };
                 },
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher = self::exactly(5);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -669,11 +657,16 @@ final class FormImageTest extends TestCase
                             (string) $invocation,
                         ),
                         3 => self::assertSame(
-                            $name,
+                            'autofocus',
                             $valueParam,
                             (string) $invocation,
                         ),
                         4 => self::assertSame(
+                            $name,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        5 => self::assertSame(
                             'image',
                             $valueParam,
                             (string) $invocation,
@@ -685,13 +678,14 @@ final class FormImageTest extends TestCase
                         ),
                     };
 
-                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse);
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
 
                     return match ($invocation) {
                         1 => $classEscaped,
                         2 => $srcEscaped,
-                        3 => $nameEscaped,
-                        4 => 'image-escaped',
+                        3 => 'autofocus-escaped',
+                        4 => $nameEscaped,
+                        5 => 'image-escaped',
                         default => '',
                     };
                 },
@@ -703,6 +697,9 @@ final class FormImageTest extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(true);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
+            ->willReturn(false);
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -761,16 +758,6 @@ final class FormImageTest extends TestCase
      */
     public function testSetGetIndent1(): void
     {
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $this->helper->setView($renderer);
-
         self::assertSame($this->helper, $this->helper->setIndent(4));
         self::assertSame('    ', $this->helper->getIndent());
     }
@@ -781,16 +768,6 @@ final class FormImageTest extends TestCase
      */
     public function testSetGetIndent2(): void
     {
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $this->helper->setView($renderer);
-
         self::assertSame($this->helper, $this->helper->setIndent('  '));
         self::assertSame('  ', $this->helper->getIndent());
     }
