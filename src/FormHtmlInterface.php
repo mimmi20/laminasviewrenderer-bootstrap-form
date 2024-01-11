@@ -10,12 +10,13 @@ use Laminas\Form\Exception;
 use Laminas\Form\View\Helper\AbstractHelper;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\HelperInterface;
+use Laminas\View\Renderer\RendererInterface;
 use stdClass;
 use function is_string;
 use function sprintf;
 use function strtolower;
 
-interface FormHtmlInterface extends HelperInterface
+interface FormHtmlInterface extends HelperInterface, FormIndentInterface
 {
     /**
      * Invoke helper as functor

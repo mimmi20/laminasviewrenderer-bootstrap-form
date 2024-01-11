@@ -15,8 +15,9 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\ElementInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\View\Helper\HelperInterface;
 
-interface FormElementInterface extends FormIndentInterface
+interface FormElementInterface extends FormIndentInterface, FormRenderInterface, HelperInterface
 {
     public const DEFAULT_HELPER = 'formInput';
 

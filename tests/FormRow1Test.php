@@ -25,13 +25,25 @@ use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Renderer\RendererInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormElementErrorsInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormElementInterface;
+use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormRow;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group form-row
+ */
 final class FormRow1Test extends TestCase
 {
+    private FormRow $helper;
+
+    /** @throws void */
+    protected function setUp(): void
+    {
+        $this->helper = new FormRow();
+    }
+
     /**
      * @throws Exception
      * @throws DomainException
@@ -42,41 +54,6 @@ final class FormRow1Test extends TestCase
      */
     public function testRenderWithWrongFormOption(): void
     {
-        $formElement = $this->createMock(FormElementInterface::class);
-        $formElement->expects(self::never())
-            ->method('setIndent');
-        $formElement->expects(self::never())
-            ->method('render');
-
-        $formElementErrors = $this->createMock(FormElementErrorsInterface::class);
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormRow();
-        $helper->setView($renderer);
-
         $element = $this->createMock(ElementInterface::class);
         $element->expects(self::once())
             ->method('getOption')
@@ -104,7 +81,7 @@ final class FormRow1Test extends TestCase
             '$form should be an Instance of Laminas\Form\FormInterface or null, but was bool',
         );
 
-        $helper->render($element);
+        $this->helper->render($element);
     }
 
     /**
@@ -149,48 +126,30 @@ final class FormRow1Test extends TestCase
             ->method('getMessages')
             ->willReturn($messages);
 
-        $formElement = $this->createMock(FormElementInterface::class);
-        $formElement->expects(self::once())
+        $formHidden = $this->createMock(FormHiddenInterface::class);
+        $formHidden->expects(self::once())
             ->method('setIndent')
             ->with($indent);
-        $formElement->expects(self::once())
+        $formHidden->expects(self::once())
             ->method('render')
             ->with($element)
             ->willReturn($expected);
 
-        $formElementErrors = $this->createMock(FormElementErrorsInterface::class);
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
             ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
+        $renderer->expects(self::once())
+            ->method('plugin')
+            ->with('form_hidden', null)
+            ->willReturn($formHidden);
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
 
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -236,27 +195,11 @@ final class FormRow1Test extends TestCase
             ->method('getMessages')
             ->willReturn($messages);
 
-        $formElement = $this->createMock(FormElementInterface::class);
-        $formElement->expects(self::never())
-            ->method('setIndent');
-        $formElement->expects(self::never())
-            ->method('render');
-
-        $formElementErrors = $this->createMock(FormElementErrorsInterface::class);
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(RendererInterface::class);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
         $renderer->expects(self::once())
             ->method('render')
             ->with(
@@ -272,22 +215,12 @@ final class FormRow1Test extends TestCase
             )
             ->willReturn($expected);
 
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setPartial($partial);
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setPartial($partial);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -309,10 +242,30 @@ final class FormRow1Test extends TestCase
         $renderErrors = false;
 
         $element = $this->createMock(ElementInterface::class);
-        $element->expects(self::once())
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('form')
-            ->willReturn(null);
+            ->willReturnCallback(
+                function (string $option) use ($matcher): mixed
+                {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'error-class',
+                            $option,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    return null;
+                }
+            );
         $element->expects(self::once())
             ->method('getName')
             ->willReturn('element-name');
@@ -321,16 +274,18 @@ final class FormRow1Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
@@ -351,27 +306,11 @@ final class FormRow1Test extends TestCase
             ->method('getMessages')
             ->willReturn($messages);
 
-        $formElement = $this->createMock(FormElementInterface::class);
-        $formElement->expects(self::never())
-            ->method('setIndent');
-        $formElement->expects(self::never())
-            ->method('render');
-
-        $formElementErrors = $this->createMock(FormElementErrorsInterface::class);
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(RendererInterface::class);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
         $renderer->expects(self::once())
             ->method('render')
             ->with(
@@ -387,22 +326,12 @@ final class FormRow1Test extends TestCase
             )
             ->willReturn($expected);
 
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setPartial($partial);
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setPartial($partial);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -425,10 +354,30 @@ final class FormRow1Test extends TestCase
         $renderErrors = false;
 
         $element = $this->createMock(ElementInterface::class);
-        $element->expects(self::once())
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('form')
-            ->willReturn(null);
+            ->willReturnCallback(
+                function (string $option) use ($matcher): mixed
+                {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'error-class',
+                            $option,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    return null;
+                }
+            );
         $element->expects(self::once())
             ->method('getName')
             ->willReturn('element-name');
@@ -437,20 +386,22 @@ final class FormRow1Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => false,
                         default => true,
                     };
@@ -474,27 +425,11 @@ final class FormRow1Test extends TestCase
             ->method('getMessages')
             ->willReturn($messages);
 
-        $formElement = $this->createMock(FormElementInterface::class);
-        $formElement->expects(self::never())
-            ->method('setIndent');
-        $formElement->expects(self::never())
-            ->method('render');
-
-        $formElementErrors = $this->createMock(FormElementErrorsInterface::class);
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(RendererInterface::class);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
         $renderer->expects(self::once())
             ->method('render')
             ->with(
@@ -510,22 +445,12 @@ final class FormRow1Test extends TestCase
             )
             ->willReturn($expected);
 
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setPartial($partial);
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setPartial($partial);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -570,48 +495,30 @@ final class FormRow1Test extends TestCase
             ->method('getMessages')
             ->willReturn($messages);
 
-        $formElement = $this->createMock(FormElementInterface::class);
-        $formElement->expects(self::once())
+        $formHidden = $this->createMock(FormHiddenInterface::class);
+        $formHidden->expects(self::once())
             ->method('setIndent')
             ->with($indent);
-        $formElement->expects(self::once())
+        $formHidden->expects(self::once())
             ->method('render')
             ->with($element)
             ->willReturn($expected);
 
-        $formElementErrors = $this->createMock(FormElementErrorsInterface::class);
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
             ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
+        $renderer->expects(self::once())
+            ->method('plugin')
+            ->with('form_hidden', null)
+            ->willReturn($formHidden);
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
 
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -657,27 +564,11 @@ final class FormRow1Test extends TestCase
             ->method('getMessages')
             ->willReturn($messages);
 
-        $formElement = $this->createMock(FormElementInterface::class);
-        $formElement->expects(self::never())
-            ->method('setIndent');
-        $formElement->expects(self::never())
-            ->method('render');
-
-        $formElementErrors = $this->createMock(FormElementErrorsInterface::class);
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(RendererInterface::class);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
         $renderer->expects(self::once())
             ->method('render')
             ->with(
@@ -693,22 +584,12 @@ final class FormRow1Test extends TestCase
             )
             ->willReturn($expected);
 
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setPartial($partial);
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setPartial($partial);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -730,10 +611,30 @@ final class FormRow1Test extends TestCase
         $renderErrors = false;
 
         $element = $this->createMock(ElementInterface::class);
-        $element->expects(self::once())
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('form')
-            ->willReturn(null);
+            ->willReturnCallback(
+                function (string $option) use ($matcher): mixed
+                {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'error-class',
+                            $option,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    return null;
+                }
+            );
         $element->expects(self::once())
             ->method('getName')
             ->willReturn('element-name');
@@ -742,16 +643,18 @@ final class FormRow1Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
@@ -772,27 +675,11 @@ final class FormRow1Test extends TestCase
             ->method('getMessages')
             ->willReturn($messages);
 
-        $formElement = $this->createMock(FormElementInterface::class);
-        $formElement->expects(self::never())
-            ->method('setIndent');
-        $formElement->expects(self::never())
-            ->method('render');
-
-        $formElementErrors = $this->createMock(FormElementErrorsInterface::class);
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(RendererInterface::class);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
         $renderer->expects(self::once())
             ->method('render')
             ->with(
@@ -808,22 +695,12 @@ final class FormRow1Test extends TestCase
             )
             ->willReturn($expected);
 
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setPartial($partial);
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setPartial($partial);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -846,10 +723,30 @@ final class FormRow1Test extends TestCase
         $renderErrors = false;
 
         $element = $this->createMock(ElementInterface::class);
-        $element->expects(self::once())
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('form')
-            ->willReturn(null);
+            ->willReturnCallback(
+                function (string $option) use ($matcher): mixed
+                {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'error-class',
+                            $option,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    return null;
+                }
+            );
         $element->expects(self::once())
             ->method('getName')
             ->willReturn('element-name');
@@ -858,20 +755,22 @@ final class FormRow1Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => false,
                         default => true,
                     };
@@ -895,27 +794,11 @@ final class FormRow1Test extends TestCase
             ->method('getMessages')
             ->willReturn($messages);
 
-        $formElement = $this->createMock(FormElementInterface::class);
-        $formElement->expects(self::never())
-            ->method('setIndent');
-        $formElement->expects(self::never())
-            ->method('render');
-
-        $formElementErrors = $this->createMock(FormElementErrorsInterface::class);
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(RendererInterface::class);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
         $renderer->expects(self::once())
             ->method('render')
             ->with(
@@ -931,22 +814,12 @@ final class FormRow1Test extends TestCase
             )
             ->willReturn($expected);
 
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setPartial($partial);
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setPartial($partial);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -992,52 +865,30 @@ final class FormRow1Test extends TestCase
             ->method('getMessages')
             ->willReturn($messages);
 
-        $formElement = $this->createMock(FormElementInterface::class);
-        $formElement->expects(self::once())
+        $formHidden = $this->createMock(FormHiddenInterface::class);
+        $formHidden->expects(self::once())
             ->method('setIndent')
             ->with($indent);
-        $formElement->expects(self::once())
+        $formHidden->expects(self::once())
             ->method('render')
             ->with($element)
             ->willReturn($expected);
 
-        $formElementErrors = $this->createMock(FormElementErrorsInterface::class);
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $translator = $this->createMock(Translate::class);
-        $translator->expects(self::never())
-            ->method('__invoke');
-
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
             ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
+        $renderer->expects(self::once())
+            ->method('plugin')
+            ->with('form_hidden', null)
+            ->willReturn($formHidden);
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 }

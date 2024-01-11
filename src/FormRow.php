@@ -15,6 +15,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
 use Laminas\Form\Element\Checkbox;
+use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\MonthSelect;
 use Laminas\Form\Element\MultiCheckbox;
 use Laminas\Form\Element\Submit;
@@ -141,7 +142,6 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         // Does this element have errors ?
         if ($element->getMessages()) {
             $inputErrorClass = $this->getInputErrorClass();
-            $errorClass      = $element->getOption('error-class');
             $classAttributes = [];
 
             if ($element->hasAttribute('class')) {
@@ -154,6 +154,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             if ($inputErrorClass) {
                 $classAttributes[] = $inputErrorClass;
             }
+
+            $errorClass = $element->getOption('error-class');
 
             if ($errorClass) {
                 $classAttributes[] = $errorClass;
@@ -181,13 +183,15 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $hiddenHelper = $this->getHiddenHelper();
             $hiddenHelper->setIndent($indent);
 
-            $markup = $hiddenHelper->render($element);
+            $errorContent = '';
 
             if ($this->renderErrors) {
-                $markup .= $this->renderFormErrors($element, $indent . $this->getWhitespace(4));
+                $errorContent = $this->renderFormErrors($element, $indent . $this->getWhitespace(4));
             }
 
-            return $markup;
+            $markup = $hiddenHelper->render($element);
+
+            return $markup . $errorContent;
         }
 
         if (
@@ -232,7 +236,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $htmlHelper       = $this->getHtmlHelper();
 
         $elementHelper = $this->getElementHelper();
-        assert($elementHelper instanceof FormElement);
+        assert($elementHelper instanceof \Laminas\Form\View\Helper\FormElement);
 
         // Multicheckbox elements have to be handled differently as the HTML standard does not allow nested
         // labels. The semantic way is to group them inside a fieldset
@@ -269,7 +273,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 $helpContent = $this->renderFormHelp($element, $lf1Indent);
             }
 
-            $elementHelper->setIndent($lf3Indent);
+            if ($elementHelper instanceof FormIndentInterface) {
+                $elementHelper->setIndent($lf3Indent);
+            }
             $elementString = $elementHelper->render($element);
 
             $controlClasses = ['card', 'has-validation'];
@@ -330,7 +336,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 $helpContent = $this->renderFormHelp($element, $lf1Indent);
             }
 
-            $elementHelper->setIndent($lf4Indent);
+            if ($elementHelper instanceof FormIndentInterface) {
+                $elementHelper->setIndent($lf4Indent);
+            }
             $elementString = $elementHelper->render($element);
 
             $controlClasses = ['card', 'has-validation'];
@@ -377,7 +385,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $lf1Indent  = $indent . $this->getWhitespace(4);
             $lf2Indent  = $lf1Indent . $this->getWhitespace(4);
 
-            $elementHelper->setIndent($lf2Indent);
+            if ($elementHelper instanceof FormIndentInterface) {
+                $elementHelper->setIndent($lf2Indent);
+            }
             $elementString = $elementHelper->render($element);
 
             $outerDiv = $lf1Indent . $htmlHelper->render(
@@ -425,7 +435,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $helpContent = $this->renderFormHelp($element, $lf1Indent);
         }
 
-        $elementHelper->setIndent($lf3Indent);
+        if ($elementHelper instanceof FormIndentInterface) {
+            $elementHelper->setIndent($lf3Indent);
+        }
         $elementString = $elementHelper->render($element);
 
         $controlClasses = ['card', 'has-validation'];
@@ -486,7 +498,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $htmlHelper       = $this->getHtmlHelper();
 
         $elementHelper = $this->getElementHelper();
-        assert($elementHelper instanceof FormElement);
+        assert($elementHelper instanceof \Laminas\Form\View\Helper\FormElement);
 
         // Multicheckbox elements have to be handled differently as the HTML standard does not allow nested
         // labels. The semantic way is to group them inside a fieldset
@@ -538,7 +550,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 $helpContent = $this->renderFormHelp($element, $floating ? $indent : $lf1Indent);
             }
 
-            $elementHelper->setIndent($lf2Indent);
+            if ($elementHelper instanceof FormIndentInterface) {
+                $elementHelper->setIndent($lf2Indent);
+            }
             $elementString = $elementHelper->render($element);
 
             $controlClasses = ['card', 'has-validation'];
@@ -603,7 +617,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 $helpContent = $this->renderFormHelp($element, $lf1Indent);
             }
 
-            $elementHelper->setIndent($lf3Indent);
+            if ($elementHelper instanceof FormIndentInterface) {
+                $elementHelper->setIndent($lf3Indent);
+            }
             $elementString = $elementHelper->render($element);
 
             $controlClasses = ['card', 'has-validation'];
@@ -645,7 +661,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $baseIndent = $indent;
             $lf1Indent  = $indent . $this->getWhitespace(4);
 
-            $elementHelper->setIndent($lf1Indent);
+            if ($elementHelper instanceof FormIndentInterface) {
+                $elementHelper->setIndent($lf1Indent);
+            }
             $elementString = $elementHelper->render($element);
 
             return $baseIndent . $htmlHelper->render(
@@ -680,13 +698,13 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $helpContent = $this->renderFormHelp($element, $floating ? $indent : $lf1Indent);
         }
 
-        $elementHelper->setIndent($lf1Indent);
+        if ($elementHelper instanceof FormIndentInterface) {
+            $elementHelper->setIndent($lf1Indent);
+        }
         $elementString  = $elementHelper->render($element);
         $elementString .= $errorContent . $messageContent;
 
         $rendered = $elementString;
-
-        $labelHelper      = $this->getLabelHelper();
 
         if ($label !== '') {
             if ($element instanceof LabelAwareInterface) {
@@ -698,6 +716,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                     $labelPosition = BaseFormRow::LABEL_PREPEND;
                 }
             }
+
+            $labelHelper      = $this->getLabelHelper();
 
             $legend = $lf1Indent . $labelHelper->openTag($labelAttributes) . $label . $labelHelper->closeTag();
 
@@ -962,46 +982,5 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         return null;
-    }
-
-    /**
-     * Retrieve the FormElementErrors helper
-     * @throws void
-     */
-    protected function getElementErrorsHelper(): FormElementErrors
-    {
-        if ($this->elementErrorsHelper) {
-            return $this->elementErrorsHelper;
-        }
-
-        if ($this->view !== null && method_exists($this->view, 'plugin')) {
-            $this->elementErrorsHelper = $this->view->plugin('form_element_errors');
-        }
-
-        if (! $this->elementErrorsHelper instanceof FormElementErrors) {
-            $this->elementErrorsHelper = new FormElementErrors();
-        }
-
-        return $this->elementErrorsHelper;
-    }
-
-    /**
-     * Retrieve the FormElement helper
-     */
-    protected function getElementHelper(): FormElement
-    {
-        if ($this->elementHelper) {
-            return $this->elementHelper;
-        }
-
-        if ($this->view !== null && method_exists($this->view, 'plugin')) {
-            $this->elementHelper = $this->view->plugin('form_element');
-        }
-
-        if (! $this->elementHelper instanceof FormElement) {
-            $this->elementHelper = new FormElement();
-        }
-
-        return $this->elementHelper;
     }
 }

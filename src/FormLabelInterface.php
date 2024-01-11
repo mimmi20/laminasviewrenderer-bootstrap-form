@@ -18,39 +18,5 @@ use Laminas\Form\Exception\InvalidArgumentException;
 
 interface FormLabelInterface
 {
-    public const APPEND = 'append';
 
-    public const PREPEND = 'prepend';
-
-    /**
-     * Generate a form label, optionally with content
-     *
-     * Always generates a "for" statement, as we cannot assume the form input
-     * will be provided in the $labelContent.
-     *
-     * @throws DomainException
-     * @throws InvalidArgumentException
-     */
-    public function __invoke(
-        ElementInterface | null $element = null,
-        string | null $labelContent = null,
-        string | null $position = null,
-    ): FormLabel | string;
-
-    /**
-     * Generate an opening label tag
-     *
-     * @param array<string, bool|string>|ElementInterface|null $attributesOrElement
-     *
-     * @throws InvalidArgumentException
-     * @throws DomainException
-     */
-    public function openTag(array | ElementInterface | null $attributesOrElement = null): string;
-
-    /**
-     * Return a closing label tag
-     *
-     * @throws void
-     */
-    public function closeTag(): string;
 }

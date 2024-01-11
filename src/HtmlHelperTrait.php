@@ -28,7 +28,7 @@ trait HtmlHelperTrait
      *
      * @throws void
      */
-    private function getHtmlHelper(): FormHtml
+    private function getHtmlHelper(): FormHtmlInterface
     {
         if ($this->htmlHelper) {
             return $this->htmlHelper;
@@ -38,7 +38,7 @@ trait HtmlHelperTrait
             $this->htmlHelper = $this->view->plugin('form_html');
         }
 
-        if (! $this->htmlHelper instanceof FormHtml) {
+        if (! $this->htmlHelper instanceof FormHtmlInterface) {
             $this->htmlHelper = new FormHtml();
         }
 

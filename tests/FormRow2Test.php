@@ -14,23 +14,38 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\View\Helper\FormElement;
+use Laminas\Form\View\Helper\FormLabel;
 use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\View\Helper\Translate;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
+use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Renderer\RendererInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormElementErrorsInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormElementInterface;
+use Mimmi20\LaminasView\BootstrapForm\FormHtmlInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormRow;
 use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group form-row
+ */
 final class FormRow2Test extends TestCase
 {
+    private FormRow $helper;
+
+    /** @throws void */
+    protected function setUp(): void
+    {
+        $this->helper = new FormRow();
+    }
+
     /**
      * @throws Exception
      * @throws DomainException
@@ -95,7 +110,15 @@ final class FormRow2Test extends TestCase
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $renderer = $this->createMock(RendererInterface::class);
+        $translator = $this->createMock(Translate::class);
+        $translator->expects(self::never())
+            ->method('__invoke');
+
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
         $renderer->expects(self::once())
             ->method('render')
             ->with(
@@ -111,27 +134,13 @@ final class FormRow2Test extends TestCase
             )
             ->willReturn($expected);
 
-        $translator = $this->createMock(Translate::class);
-        $translator->expects(self::never())
-            ->method('__invoke');
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setPartial($partial);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormRow();
-        $helper->setView($renderer);
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setPartial($partial);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -154,10 +163,30 @@ final class FormRow2Test extends TestCase
         $textDomain   = 'text-domain';
 
         $element = $this->createMock(ElementInterface::class);
-        $element->expects(self::once())
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('form')
-            ->willReturn(null);
+            ->willReturnCallback(
+                function (string $option) use ($matcher): mixed
+                {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'error-class',
+                            $option,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    return null;
+                }
+            );
         $element->expects(self::once())
             ->method('getName')
             ->willReturn('element-name');
@@ -166,16 +195,18 @@ final class FormRow2Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
@@ -216,7 +247,15 @@ final class FormRow2Test extends TestCase
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $renderer = $this->createMock(RendererInterface::class);
+        $translator = $this->createMock(Translate::class);
+        $translator->expects(self::never())
+            ->method('__invoke');
+
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
         $renderer->expects(self::once())
             ->method('render')
             ->with(
@@ -232,27 +271,13 @@ final class FormRow2Test extends TestCase
             )
             ->willReturn($expected);
 
-        $translator = $this->createMock(Translate::class);
-        $translator->expects(self::never())
-            ->method('__invoke');
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setPartial($partial);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormRow();
-        $helper->setView($renderer);
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setPartial($partial);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -276,10 +301,30 @@ final class FormRow2Test extends TestCase
         $textDomain   = 'text-domain';
 
         $element = $this->createMock(ElementInterface::class);
-        $element->expects(self::once())
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('form')
-            ->willReturn(null);
+            ->willReturnCallback(
+                function (string $option) use ($matcher): mixed
+                {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'error-class',
+                            $option,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    return null;
+                }
+            );
         $element->expects(self::once())
             ->method('getName')
             ->willReturn('element-name');
@@ -288,20 +333,22 @@ final class FormRow2Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => false,
                         default => true,
                     };
@@ -345,7 +392,15 @@ final class FormRow2Test extends TestCase
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $renderer = $this->createMock(RendererInterface::class);
+        $translator = $this->createMock(Translate::class);
+        $translator->expects(self::never())
+            ->method('__invoke');
+
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $renderer->expects(self::never())
+            ->method('plugin');
         $renderer->expects(self::once())
             ->method('render')
             ->with(
@@ -361,27 +416,13 @@ final class FormRow2Test extends TestCase
             )
             ->willReturn($expected);
 
-        $translator = $this->createMock(Translate::class);
-        $translator->expects(self::never())
-            ->method('__invoke');
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setPartial($partial);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormRow();
-        $helper->setView($renderer);
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setPartial($partial);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -398,7 +439,8 @@ final class FormRow2Test extends TestCase
         $messages         = [];
         $type             = 'text';
         $indent           = '<!-- -->  ';
-        $expected         = '<hidden></hidden>';
+        $expectedElement         = '<text></text>';
+        $expectedRow = '<div></div>';
         $renderErrors     = false;
         $required         = true;
         $showRequiredMark = false;
@@ -408,44 +450,67 @@ final class FormRow2Test extends TestCase
         $textDomain       = 'text-domain';
 
         $element = $this->createMock(ElementInterface::class);
-        $matcher = self::exactly(4);
+        $matcher = self::exactly(10);
         $element->expects($matcher)
             ->method('getOption')
             ->willReturnCallback(
-                static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent): mixed {
-                    match ($matcher->numberOfInvocations()) {
-                        1 => self::assertSame(
+                static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent): bool|null {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1, 5, 7 => self::assertSame(
                             'form',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         2 => self::assertSame(
                             'show-required-mark',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         3 => self::assertSame(
                             'layout',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         4 => self::assertSame(
+                            'col_attributes',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        6 => self::assertSame(
+                            'label_attributes',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        8 => self::assertSame(
+                            'floating',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        9 => self::assertSame(
+                            'messages',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        10 => self::assertSame(
                             'help_content',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'fieldset',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
-                        1 => $form,
+                    return match ($invocation) {
+                        1, 5, 7 => $form,
                         2 => $showRequiredMark,
                         3 => $layout,
-                        4 => $helpContent,
+                        8 => false,
+                        9 => $helpContent,
                         default => null,
                     };
                 },
@@ -453,13 +518,32 @@ final class FormRow2Test extends TestCase
         $element->expects(self::once())
             ->method('getName')
             ->willReturn('element-name');
-        $element->expects(self::once())
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('hasAttribute')
-            ->with('required')
-            ->willReturn(false);
+            ->willReturnCallback(
+                static function (string $key) use ($matcher): bool {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'required',
+                            $key,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'id',
+                            $key,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    return false;
+                },
+            );
         $element->expects(self::never())
             ->method('setAttribute');
-        $element->expects(self::exactly(2))
+        $element->expects(self::exactly(3))
             ->method('getAttribute')
             ->willReturnMap(
                 [
@@ -474,53 +558,68 @@ final class FormRow2Test extends TestCase
             ->method('getMessages')
             ->willReturn($messages);
 
-        $formElement = $this->createMock(FormElementInterface::class);
-        $formElement->expects(self::once())
-            ->method('setIndent')
-            ->with($indent . '    ');
+        $formHtml = $this->createMock(FormHtmlInterface::class);
+        $formHtml->expects(self::never())
+            ->method('setIndent');
+        $formHtml->expects(self::once())
+            ->method('render')
+            ->with('div', [], PHP_EOL . $expectedElement . PHP_EOL . $indent)
+            ->willReturn($expectedRow);
+
+        $formElement = $this->createMock(FormElement::class);
         $formElement->expects(self::once())
             ->method('render')
             ->with($element)
-            ->willReturn($expected);
-
-        $formElementErrors = $this->createMock(FormElementErrorsInterface::class);
-        $formElementErrors->expects(self::never())
-            ->method('setIndent');
-        $formElementErrors->expects(self::never())
-            ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $translator = $this->createMock(Translate::class);
-        $translator->expects(self::never())
+            ->willReturn($expectedElement);
+        $formElement->expects(self::never())
             ->method('__invoke');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
             ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
+        $matcher = self::exactly(2);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, ?array $options = null) use ($matcher, $formHtml, $formElement): HelperInterface|null {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'form_html',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'form_element',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $formHtml,
+                        2 => $formElement,
+                        default => null,
+                    };
+                }
+            );
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($indent . $expectedRow, $this->helper->render($element));
     }
 
     /**
@@ -552,35 +651,37 @@ final class FormRow2Test extends TestCase
             ->method('getOption')
             ->willReturnCallback(
                 static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent): mixed {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'form',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         2 => self::assertSame(
                             'show-required-mark',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         3 => self::assertSame(
                             'layout',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         4 => self::assertSame(
                             'help_content',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'fieldset',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => $form,
                         2 => $showRequiredMark,
                         3 => $layout,
@@ -636,10 +737,6 @@ final class FormRow2Test extends TestCase
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
         $translator = $this->createMock(Translate::class);
         $translator->expects(self::never())
             ->method('__invoke');
@@ -652,14 +749,12 @@ final class FormRow2Test extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -691,35 +786,37 @@ final class FormRow2Test extends TestCase
             ->method('getOption')
             ->willReturnCallback(
                 static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent): mixed {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'form',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         2 => self::assertSame(
                             'show-required-mark',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         3 => self::assertSame(
                             'layout',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         4 => self::assertSame(
                             'help_content',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'fieldset',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => $form,
                         2 => $showRequiredMark,
                         3 => $layout,
@@ -736,16 +833,18 @@ final class FormRow2Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
@@ -793,10 +892,6 @@ final class FormRow2Test extends TestCase
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
         $translator = $this->createMock(Translate::class);
         $translator->expects(self::never())
             ->method('__invoke');
@@ -809,13 +904,11 @@ final class FormRow2Test extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 }

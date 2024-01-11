@@ -31,8 +31,19 @@ use PHPUnit\Framework\TestCase;
 
 use const PHP_EOL;
 
+/**
+ * @group form-row
+ */
 final class FormRow3Test extends TestCase
 {
+    private FormRow $helper;
+
+    /** @throws void */
+    protected function setUp(): void
+    {
+        $this->helper = new FormRow();
+    }
+
     /**
      * @throws Exception
      * @throws DomainException
@@ -63,35 +74,37 @@ final class FormRow3Test extends TestCase
             ->method('getOption')
             ->willReturnCallback(
                 static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent): mixed {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'form',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         2 => self::assertSame(
                             'show-required-mark',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         3 => self::assertSame(
                             'layout',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         4 => self::assertSame(
                             'help_content',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'fieldset',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => $form,
                         2 => $showRequiredMark,
                         3 => $layout,
@@ -108,20 +121,22 @@ final class FormRow3Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => false,
                         default => true,
                     };
@@ -169,10 +184,6 @@ final class FormRow3Test extends TestCase
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
         $translator = $this->createMock(Translate::class);
         $translator->expects(self::never())
             ->method('__invoke');
@@ -185,14 +196,12 @@ final class FormRow3Test extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected, $helper->render($element));
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -227,35 +236,37 @@ final class FormRow3Test extends TestCase
             ->method('getOption')
             ->willReturnCallback(
                 static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent): mixed {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'form',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         2 => self::assertSame(
                             'show-required-mark',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         3 => self::assertSame(
                             'layout',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         4 => self::assertSame(
                             'help_content',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'fieldset',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => $form,
                         2 => $showRequiredMark,
                         3 => $layout,
@@ -272,26 +283,28 @@ final class FormRow3Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
-                        3 => self::assertSame('id', $key, (string) $matcher->numberOfInvocations()),
+                        3 => self::assertSame('id', $key, (string) $invocation),
                         4 => self::assertSame(
                             'aria-describedby',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1, 4 => false,
                         default => true,
                     };
@@ -348,10 +361,6 @@ final class FormRow3Test extends TestCase
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
         $translator = $this->createMock(Translate::class);
         $translator->expects(self::never())
             ->method('__invoke');
@@ -364,14 +373,12 @@ final class FormRow3Test extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected . $expectedErrors, $helper->render($element));
+        self::assertSame($expected . $expectedErrors, $this->helper->render($element));
     }
 
     /**
@@ -405,35 +412,37 @@ final class FormRow3Test extends TestCase
             ->method('getOption')
             ->willReturnCallback(
                 static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent): mixed {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'form',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         2 => self::assertSame(
                             'show-required-mark',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         3 => self::assertSame(
                             'layout',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         4 => self::assertSame(
                             'help_content',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'fieldset',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => $form,
                         2 => $showRequiredMark,
                         3 => $layout,
@@ -450,21 +459,23 @@ final class FormRow3Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
-                        3 => self::assertSame('id', $key, (string) $matcher->numberOfInvocations()),
+                        3 => self::assertSame('id', $key, (string) $invocation),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1, 3 => false,
                         default => true,
                     };
@@ -478,21 +489,23 @@ final class FormRow3Test extends TestCase
             ->method('getAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher, $type, $class, $required): mixed {
-                    match ($matcher->numberOfInvocations()) {
-                        1 => self::assertSame('type', $key, (string) $matcher->numberOfInvocations()),
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame('type', $key, (string) $invocation),
                         3 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => $type,
                         3 => $required,
                         default => $class,
@@ -532,10 +545,6 @@ final class FormRow3Test extends TestCase
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
         $translator = $this->createMock(Translate::class);
         $translator->expects(self::never())
             ->method('__invoke');
@@ -548,14 +557,12 @@ final class FormRow3Test extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected . $expectedErrors, $helper->render($element));
+        self::assertSame($expected . $expectedErrors, $this->helper->render($element));
     }
 
     /**
@@ -591,35 +598,37 @@ final class FormRow3Test extends TestCase
             ->method('getOption')
             ->willReturnCallback(
                 static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent): mixed {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'form',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         2 => self::assertSame(
                             'show-required-mark',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         3 => self::assertSame(
                             'layout',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         4 => self::assertSame(
                             'help_content',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'fieldset',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => $form,
                         2 => $showRequiredMark,
                         3 => $layout,
@@ -636,26 +645,28 @@ final class FormRow3Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
-                        3 => self::assertSame('id', $key, (string) $matcher->numberOfInvocations()),
+                        3 => self::assertSame('id', $key, (string) $invocation),
                         4 => self::assertSame(
                             'aria-describedby',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => false,
                         default => true,
                     };
@@ -713,10 +724,6 @@ final class FormRow3Test extends TestCase
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
         $translator = $this->createMock(Translate::class);
         $translator->expects(self::never())
             ->method('__invoke');
@@ -729,14 +736,12 @@ final class FormRow3Test extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
-
-        self::assertSame($expected . $expectedErrors, $helper->render($element));
+        self::assertSame($expected . $expectedErrors, $this->helper->render($element));
     }
 
     /**
@@ -773,40 +778,42 @@ final class FormRow3Test extends TestCase
             ->method('getOption')
             ->willReturnCallback(
                 static function (string $option) use ($matcher, $form, $showRequiredMark, $layout, $helpContent, $helpAttributes): mixed {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1, 7 => self::assertSame(
                             'form',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         2 => self::assertSame(
                             'show-required-mark',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         3 => self::assertSame(
                             'layout',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         4, 5 => self::assertSame(
                             'help_content',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         6 => self::assertSame(
                             'help_attributes',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'fieldset',
                             $option,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1, 7 => $form,
                         2 => $showRequiredMark,
                         3 => $layout,
@@ -824,26 +831,28 @@ final class FormRow3Test extends TestCase
             ->method('hasAttribute')
             ->willReturnCallback(
                 static function (string $key) use ($matcher): bool {
-                    match ($matcher->numberOfInvocations()) {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
                         1 => self::assertSame(
                             'required',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
-                        3 => self::assertSame('id', $key, (string) $matcher->numberOfInvocations()),
+                        3 => self::assertSame('id', $key, (string) $invocation),
                         4 => self::assertSame(
                             'aria-describedby',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                         default => self::assertSame(
                             'class',
                             $key,
-                            (string) $matcher->numberOfInvocations(),
+                            (string) $invocation,
                         ),
                     };
 
-                    return match ($matcher->numberOfInvocations()) {
+                    return match ($invocation) {
                         1 => false,
                         default => true,
                     };
@@ -900,10 +909,6 @@ final class FormRow3Test extends TestCase
         $escapeHtml->expects(self::never())
             ->method('__invoke');
 
-        $renderer = $this->createMock(RendererInterface::class);
-        $renderer->expects(self::never())
-            ->method('render');
-
         $translator = $this->createMock(Translate::class);
         $translator->expects(self::never())
             ->method('__invoke');
@@ -916,16 +921,14 @@ final class FormRow3Test extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $helper = new FormRow();
-        $helper->setView($renderer);
-
-        $helper->setIndent($indent);
-        $helper->setRenderErrors($renderErrors);
-        $helper->setTranslatorTextDomain($textDomain);
+        $this->helper->setView($renderer);
+        $this->helper->setIndent($indent);
+        $this->helper->setRenderErrors($renderErrors);
+        $this->helper->setTranslatorTextDomain($textDomain);
 
         self::assertSame(
             $expected . PHP_EOL . $indent . '    ' . $expectedHelp,
-            $helper->render($element),
+            $this->helper->render($element),
         );
     }
 }

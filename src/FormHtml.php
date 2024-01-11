@@ -16,6 +16,8 @@ use function strtolower;
 
 final class FormHtml extends AbstractHelper implements FormHtmlInterface
 {
+    use FormTrait;
+
     /**
      * Invoke helper as functor
      *
