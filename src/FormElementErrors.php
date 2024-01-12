@@ -13,43 +13,15 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\LabelAwareInterface;
-use Laminas\Form\View\Helper\AbstractHelper;
-use Laminas\I18n\View\Helper\Translate;
-use Laminas\View\Exception\InvalidArgumentException;
-use Laminas\View\Helper\EscapeHtml;
-use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
+use Laminas\Form\Exception\DomainException;
 use Laminas\Form\View\Helper\FormElementErrors as BaseFormElementErrors;
-
-use function array_walk_recursive;
-use function assert;
-use function implode;
-use function is_string;
 
 use const PHP_EOL;
 
-final class FormElementErrors extends BaseFormElementErrors implements FormRenderInterface, FormIndentInterface
+final class FormElementErrors extends BaseFormElementErrors implements FormIndentInterface, FormRenderInterface
 {
     use FormTrait;
     use HtmlHelperTrait;
-
-    /**
-     * Invoke helper as functor
-     *
-     * Proxies to {@link render()} if an element is passed.
-     *
-     * @param array<string, string> $attributes
-     *
-     * @throws InvalidArgumentException
-     */
-    public function __invoke(ElementInterface | null $element = null, array $attributes = []): self | string
-    {
-        if (!$element) {
-            return $this;
-        }
-
-        return $this->render($element, $attributes);
-    }
 
     /**
      * Render validation errors for the provided $element
@@ -60,104 +32,35 @@ final class FormElementErrors extends BaseFormElementErrors implements FormRende
      *
      * @param array<string, string> $attributes
      *
-     * @throws InvalidArgumentException
+     * @throws DomainException
      */
     public function render(ElementInterface $element, array $attributes = []): string
     {
-        $messages = $element->getMessages();
+        $indent = $this->getIndent();
 
-        if ($messages === []) {
+        $this->setMessageOpenFormat('<ul%s>' . PHP_EOL . $indent . $this->getWhitespace(8) . '<li>');
+        $this->setMessageSeparatorString(
+            '</li>' . PHP_EOL . $indent . $this->getWhitespace(8) . '<li>',
+        );
+        $this->setMessageCloseString('</li>' . PHP_EOL . $indent . $this->getWhitespace(4) . '</ul>');
+
+        $markup = parent::render($element, $attributes);
+
+        if ($markup === '') {
             return '';
         }
 
-        // Flatten message array
-        $messages = $this->flattenMessages($messages);
-
-        if ($messages === []) {
-            return '';
-        }
-
-        $indent  = $this->getIndent();
-        $markups = [];
-
-        $htmlHelper       = $this->getHtmlHelper();
-
-        foreach ($messages as $message) {
-            if (!is_string($message)) {
-                continue;
-            }
-
-            if (
-                !$element instanceof LabelAwareInterface
-                || !$element->getLabelOption('disable_html_escape')
-            ) {
-                $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-                $message = $escapeHtmlHelper($message);
-            }
-
-            assert(is_string($message));
-
-            $markups[] = $indent . $this->getWhitespace(8) . $htmlHelper->render(
-                'li',
-                [],
-                $message,
-            );
-        }
-
-        // Prepare attributes for opening tag
-        $attributes      = [...$this->attributes, ...$attributes];
+        $htmlHelper      = $this->getHtmlHelper();
         $errorAttributes = ['class' => 'invalid-feedback'];
 
         if ($element->hasAttribute('id')) {
             $errorAttributes['id'] = $element->getAttribute('id') . 'Feedback';
         }
 
-        $ul = $htmlHelper->render(
-            'ul',
-            $attributes,
-            PHP_EOL . implode(PHP_EOL, $markups) . PHP_EOL . $indent . $this->getWhitespace(4),
-        );
-
         return PHP_EOL . $indent . $htmlHelper->render(
             'div',
             $errorAttributes,
-            PHP_EOL . $indent . $this->getWhitespace(4) . $ul . PHP_EOL . $indent,
+            PHP_EOL . $indent . $this->getWhitespace(4) . $markup . PHP_EOL . $indent,
         );
-    }
-
-    /**
-     * @param array<int|string, string> $messages
-     *
-     * @return array<int, string>
-     *
-     * @throws void
-     */
-    private function flattenMessages(array $messages): array
-    {
-        $messagesToPrint = [];
-        $translator      = $this->getTranslator();
-
-        if (!$translator instanceof Translate) {
-            $messageCallback = static function ($message) use (&$messagesToPrint): void {
-                if ($message === '') {
-                    return;
-                }
-
-                $messagesToPrint[] = $message;
-            };
-        } else {
-            $textDomain      = $this->getTranslatorTextDomain();
-            $messageCallback = static function ($message) use (&$messagesToPrint, $translator, $textDomain): void {
-                if ($message === '') {
-                    return;
-                }
-
-                $messagesToPrint[] = ($translator)($message, $textDomain);
-            };
-        }
-
-        array_walk_recursive($messages, $messageCallback);
-
-        return $messagesToPrint;
     }
 }

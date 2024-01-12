@@ -18,10 +18,8 @@ use Laminas\Form\Element\Text;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
-use Laminas\Form\View\Helper\FormHidden;
 use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
-use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
@@ -30,21 +28,16 @@ use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormSelect;
-use PHPUnit\Framework\Constraint\IsInstanceOf;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 
+use function assert;
 use function sprintf;
 
 use const PHP_EOL;
 
-use Psr\Container\ContainerExceptionInterface;
-
-use function assert;
-
-/**
- * @group form-select
- */
+#[Group('form-select')]
 final class FormSelectTest extends TestCase
 {
     private FormSelect $helper;
@@ -149,9 +142,9 @@ final class FormSelectTest extends TestCase
     public function testRenderWithNameWithoutValue(): void
     {
         $name               = 'test-name';
-        $nameEscaped               = 'test-name-escaped';
+        $nameEscaped        = 'test-name-escaped';
         $id                 = 'test-id';
-        $idEscaped                 = 'test-id-escaped';
+        $idEscaped          = 'test-id-escaped';
         $value2             = 'def';
         $value2Escaped      = 'def-escaped';
         $value3             = 'abc';
@@ -159,7 +152,7 @@ final class FormSelectTest extends TestCase
         $class              = 'test-class';
         $classEscaped       = 'test-class-escaped';
         $ariaLabel          = 'test';
-        $ariaLabelEscaped          = 'test-escaped';
+        $ariaLabelEscaped   = 'test-escaped';
         $valueOptions       = [$value3 => $value2];
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id];
         $emptyOption        = '0';
@@ -172,11 +165,15 @@ final class FormSelectTest extends TestCase
             $nameEscaped,
         ) . PHP_EOL
             . sprintf('    <option valueEscaped="">%s</option>', $emptyOptionEscaped) . PHP_EOL
-            . sprintf('    <option valueEscaped="%s">%s</option>', $value3Escaped, $value2Escaped) . PHP_EOL
+            . sprintf(
+                '    <option valueEscaped="%s">%s</option>',
+                $value3Escaped,
+                $value2Escaped,
+            ) . PHP_EOL
             . '</select>';
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(8);
+        $matcher    = self::exactly(8);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -242,7 +239,7 @@ final class FormSelectTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(6);
+        $matcher        = self::exactly(6);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -304,7 +301,7 @@ final class FormSelectTest extends TestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -319,7 +316,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -403,9 +400,9 @@ final class FormSelectTest extends TestCase
     public function testRenderWithNameWithStringValue(): void
     {
         $name               = 'test-name';
-        $nameEscaped               = 'test-name-escaped';
+        $nameEscaped        = 'test-name-escaped';
         $id                 = 'test-id';
-        $idEscaped                 = 'test-id-escaped';
+        $idEscaped          = 'test-id-escaped';
         $value1             = 'xyz';
         $value2             = 'def';
         $value2Escaped      = 'def-escaped';
@@ -414,7 +411,7 @@ final class FormSelectTest extends TestCase
         $class              = 'test-class';
         $classEscaped       = 'test-class-escaped';
         $ariaLabel          = 'test';
-        $ariaLabelEscaped          = 'test-escaped';
+        $ariaLabelEscaped   = 'test-escaped';
         $valueOptions       = [$value3 => $value2];
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id];
         $emptyOption        = '0';
@@ -427,11 +424,15 @@ final class FormSelectTest extends TestCase
             $nameEscaped,
         ) . PHP_EOL
             . sprintf('    <option valueEscaped="">%s</option>', $emptyOptionEscaped) . PHP_EOL
-            . sprintf('    <option valueEscaped="%s">%s</option>', $value3Escaped, $value2Escaped) . PHP_EOL
+            . sprintf(
+                '    <option valueEscaped="%s">%s</option>',
+                $value3Escaped,
+                $value2Escaped,
+            ) . PHP_EOL
             . '</select>';
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(8);
+        $matcher    = self::exactly(8);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -497,7 +498,7 @@ final class FormSelectTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(6);
+        $matcher        = self::exactly(6);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -559,7 +560,7 @@ final class FormSelectTest extends TestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -574,7 +575,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -718,9 +719,9 @@ final class FormSelectTest extends TestCase
     public function testRenderWithNameWithArrayMultipleValue(): void
     {
         $name               = 'test-name';
-        $nameEscaped               = 'test-name-escaped';
+        $nameEscaped        = 'test-name-escaped';
         $id                 = 'test-id';
-        $idEscaped                 = 'test-id-escaped';
+        $idEscaped          = 'test-id-escaped';
         $value1             = 'xyz';
         $value2             = 'def';
         $value2Escaped      = 'def-escaped';
@@ -729,7 +730,7 @@ final class FormSelectTest extends TestCase
         $class              = 'test-class';
         $classEscaped       = 'test-class-escaped';
         $ariaLabel          = 'test';
-        $ariaLabelEscaped          = 'test-escaped';
+        $ariaLabelEscaped   = 'test-escaped';
         $valueOptions       = [$value3 => $value2];
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id, 'multiple' => true];
         $emptyOption        = '0';
@@ -750,7 +751,7 @@ final class FormSelectTest extends TestCase
             . '</select>';
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(10);
+        $matcher    = self::exactly(10);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -828,7 +829,7 @@ final class FormSelectTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(8);
+        $matcher        = self::exactly(8);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -902,7 +903,7 @@ final class FormSelectTest extends TestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::exactly(2))
             ->method('isHtml5')
             ->willReturn(false);
@@ -918,7 +919,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -1001,44 +1002,42 @@ final class FormSelectTest extends TestCase
      */
     public function testRenderMultipleOptions1(): void
     {
-        $name               = 'test-name';
-        $nameEscaped               = 'test-name-escaped';
-        $id                 = 'test-id';
-        $idEscaped                 = 'test-id-escaped';
-        $value1        = 'xyz';
-        $value1Escaped        = 'xyz-escaped';
-        $label1        = 'def1';
-        $label1Escaped = 'def1-escaped';
-        $value2             = '1';
-        $value2Escaped      = '1-escaped';
-        $label2        = '...2';
-        $label2Escaped = '...2-escaped';
-        $value3             = 'abc';
-        $value3Escaped      = 'abc-escaped';
-        $label3        = 'group3';
-        $label3Escaped        = 'group3-escaped';
-        $value4        = '2';
-        $value4Escaped        = '2-escaped';
-        $label4        = 'Choose...4';
-        $label4Escaped = 'Choose...4-escaped';
-        $value5        = '3';
-        $value5Escaped        = '3-escaped';
-        $label5        = '...5';
-        $label5Escaped = '...5-escaped';
-        $label6        = 'group6';
-        $label6Escaped        = 'group6-escaped';
-        $value7        = '4';
-        $value7Escaped        = '4-escaped';
-        $label7        = 'Choose...7';
-        $label7Escaped = 'Choose...7-escaped';
-        $value8        = '5';
-        $value8Escaped        = '5-escaped';
-        $label8        = '...8';
-        $label8Escaped = '...8-escaped';
-        $class              = 'test-class';
-        $classEscaped       = 'test-class-escaped';
-        $ariaLabel          = 'test';
-        $ariaLabelEscaped          = 'test-escaped';
+        $name             = 'test-name';
+        $nameEscaped      = 'test-name-escaped';
+        $id               = 'test-id';
+        $idEscaped        = 'test-id-escaped';
+        $value1           = 'xyz';
+        $value1Escaped    = 'xyz-escaped';
+        $label1           = 'def1';
+        $label1Escaped    = 'def1-escaped';
+        $value2           = '1';
+        $value2Escaped    = '1-escaped';
+        $label2           = '...2';
+        $label2Escaped    = '...2-escaped';
+        $label3           = 'group3';
+        $label3Escaped    = 'group3-escaped';
+        $value4           = '2';
+        $value4Escaped    = '2-escaped';
+        $label4           = 'Choose...4';
+        $label4Escaped    = 'Choose...4-escaped';
+        $value5           = '3';
+        $value5Escaped    = '3-escaped';
+        $label5           = '...5';
+        $label5Escaped    = '...5-escaped';
+        $label6           = 'group6';
+        $label6Escaped    = 'group6-escaped';
+        $value7           = '4';
+        $value7Escaped    = '4-escaped';
+        $label7           = 'Choose...7';
+        $label7Escaped    = 'Choose...7-escaped';
+        $value8           = '5';
+        $value8Escaped    = '5-escaped';
+        $label8           = '...8';
+        $label8Escaped    = '...8-escaped';
+        $class            = 'test-class';
+        $classEscaped     = 'test-class-escaped';
+        $ariaLabel        = 'test';
+        $ariaLabelEscaped = 'test-escaped';
 
         $valueOptions       = [
             [
@@ -1094,10 +1093,22 @@ final class FormSelectTest extends TestCase
                 $value1Escaped,
                 $label1Escaped,
             ) . PHP_EOL
-            . sprintf('    <option valueEscaped="%s">%s</option>', $value2Escaped, $label2Escaped) . PHP_EOL
+            . sprintf(
+                '    <option valueEscaped="%s">%s</option>',
+                $value2Escaped,
+                $label2Escaped,
+            ) . PHP_EOL
             . sprintf('    <optgroup labelEscaped="%s">', $label3Escaped) . PHP_EOL
-            . sprintf('        <option valueEscaped="%s">%s</option>', $value4Escaped, $label4Escaped) . PHP_EOL
-            . sprintf('        <option valueEscaped="%s">%s</option>', $value5Escaped, $label5Escaped) . PHP_EOL
+            . sprintf(
+                '        <option valueEscaped="%s">%s</option>',
+                $value4Escaped,
+                $label4Escaped,
+            ) . PHP_EOL
+            . sprintf(
+                '        <option valueEscaped="%s">%s</option>',
+                $value5Escaped,
+                $label5Escaped,
+            ) . PHP_EOL
             . sprintf('        <optgroup labelEscaped="%s">', $label6Escaped) . PHP_EOL
             . sprintf(
                 '            <option valueEscaped="%s" selectedEscaped="selected-escaped">%s</option>',
@@ -1114,11 +1125,11 @@ final class FormSelectTest extends TestCase
             . '</select>';
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(25);
+        $matcher    = self::exactly(25);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
-                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $emptyOption, $emptyOptionEscaped, $label1, $label1Escaped, $label2, $label2Escaped, $label3, $label3Escaped, $label4, $label4Escaped, $label5, $label5Escaped, $label7, $label7Escaped, $label8, $label8Escaped): string {
+                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $emptyOption, $emptyOptionEscaped, $label1, $label1Escaped, $label2, $label2Escaped, $label4, $label4Escaped, $label5, $label5Escaped, $label7, $label7Escaped, $label8, $label8Escaped): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -1234,7 +1245,7 @@ final class FormSelectTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(18);
+        $matcher        = self::exactly(18);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -1356,7 +1367,7 @@ final class FormSelectTest extends TestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::exactly(5))
             ->method('isHtml5')
             ->willReturn(false);
@@ -1372,7 +1383,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -1455,52 +1466,50 @@ final class FormSelectTest extends TestCase
      */
     public function testRenderMultipleOptions2(): void
     {
-        $name               = 'test-name';
-        $nameEscaped               = 'test-name-escaped';
-        $id                 = 'test-id';
-        $idEscaped                 = 'test-id-escaped';
-        $value1                  = 'xyz';
-        $value1Escaped                  = 'xyz-escaped';
-        $label1                  = 'def1';
-        $label1Translated        = 'def1-translated';
-        $label1TranslatedEscaped = 'def1-translated-escaped';
-        $value2             = 'def';
-        $value2Escaped      = 'def-escaped';
-        $value3             = 'abc';
-        $value3Escaped      = 'abc-escaped';
-        $label2                  = '...2';
-        $label2Translated        = '...2-translated';
-        $label2TranslatedEscaped = '...2-translated-escaped';
-        $label3                  = 'group3';
-        $label3Translated                  = 'group3-translated';
-        $label3TranslatedEscaped                  = 'group3-translated-escaped';
-        $value4                  = '2';
-        $value4Escaped                  = '2-escaped';
-        $label4                  = 'Choose...4';
-        $label4Translated        = 'Choose...4-translated';
-        $label4TranslatedEscaped = 'Choose...4-translated-escaped';
-        $value5                  = '3';
-        $value5Escaped                  = '3-escaped';
-        $label5                  = '...5';
-        $label5Translated        = '...5-translated';
-        $label5TranslatedEscaped = '...5-translated-escaped';
-        $label6                  = 'group6';
-        $label6Translated                  = 'group6-translated';
-        $label6TranslatedEscaped = 'group6-translated-escaped';
-        $value7                  = '4';
-        $value7Escaped                  = '4-escaped';
-        $label7                  = 'Choose...7';
-        $label7Translated        = 'Choose...7-translated';
-        $label7TranslatedEscaped = 'Choose...7-translated-escaped';
-        $value8                  = '5';
-        $value8Escaped                  = '5-escaped';
-        $label8                  = '...8';
-        $label8Translated        = '...8-translated';
-        $class              = 'test-class';
-        $classEscaped       = 'test-class-escaped';
-        $ariaLabel          = 'test';
+        $name                         = 'test-name';
+        $nameEscaped                  = 'test-name-escaped';
+        $id                           = 'test-id';
+        $idEscaped                    = 'test-id-escaped';
+        $value1                       = 'xyz';
+        $value1Escaped                = 'xyz-escaped';
+        $label1                       = 'def1';
+        $label1Translated             = 'def1-translated';
+        $label1TranslatedEscaped      = 'def1-translated-escaped';
+        $value2                       = 'def';
+        $value2Escaped                = 'def-escaped';
+        $label2                       = '...2';
+        $label2Translated             = '...2-translated';
+        $label2TranslatedEscaped      = '...2-translated-escaped';
+        $label3                       = 'group3';
+        $label3Translated             = 'group3-translated';
+        $label3TranslatedEscaped      = 'group3-translated-escaped';
+        $value4                       = '2';
+        $value4Escaped                = '2-escaped';
+        $label4                       = 'Choose...4';
+        $label4Translated             = 'Choose...4-translated';
+        $label4TranslatedEscaped      = 'Choose...4-translated-escaped';
+        $value5                       = '3';
+        $value5Escaped                = '3-escaped';
+        $label5                       = '...5';
+        $label5Translated             = '...5-translated';
+        $label5TranslatedEscaped      = '...5-translated-escaped';
+        $label6                       = 'group6';
+        $label6Translated             = 'group6-translated';
+        $label6TranslatedEscaped      = 'group6-translated-escaped';
+        $value7                       = '4';
+        $value7Escaped                = '4-escaped';
+        $label7                       = 'Choose...7';
+        $label7Translated             = 'Choose...7-translated';
+        $label7TranslatedEscaped      = 'Choose...7-translated-escaped';
+        $value8                       = '5';
+        $value8Escaped                = '5-escaped';
+        $label8                       = '...8';
+        $label8Translated             = '...8-translated';
+        $class                        = 'test-class';
+        $classEscaped                 = 'test-class-escaped';
+        $ariaLabel                    = 'test';
         $ariaLabelTranslated          = 'test-translated';
-        $ariaLabelTranslatedEscaped          = 'test-translated-escaped';
+        $ariaLabelTranslatedEscaped   = 'test-translated-escaped';
         $valueOptions                 = [
             [
                 'value' => $value1,
@@ -1553,13 +1562,20 @@ final class FormSelectTest extends TestCase
             $idEscaped,
             $nameEscaped,
         ) . PHP_EOL
-            . sprintf('    <option valueEscaped="">%s</option>', $emptyOptionTranslatedEscaped) . PHP_EOL
+            . sprintf(
+                '    <option valueEscaped="">%s</option>',
+                $emptyOptionTranslatedEscaped,
+            ) . PHP_EOL
             . sprintf(
                 '    <option valueEscaped="%s" selectedEscaped>%s</option>',
                 $value1Escaped,
                 $label1TranslatedEscaped,
             ) . PHP_EOL
-            . sprintf('    <option valueEscaped="%s">%s</option>', $value2Escaped, $label2TranslatedEscaped) . PHP_EOL
+            . sprintf(
+                '    <option valueEscaped="%s">%s</option>',
+                $value2Escaped,
+                $label2TranslatedEscaped,
+            ) . PHP_EOL
             . sprintf('    <optgroup labelEscaped="%s">', $label3TranslatedEscaped) . PHP_EOL
             . sprintf(
                 '        <option valueEscaped="%s">%s</option>',
@@ -1588,7 +1604,7 @@ final class FormSelectTest extends TestCase
         $textDomain = 'test-domain';
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(23);
+        $matcher    = self::exactly(23);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -1702,7 +1718,7 @@ final class FormSelectTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(13);
+        $matcher        = self::exactly(13);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -1817,12 +1833,11 @@ final class FormSelectTest extends TestCase
             ->method('render');
 
         $translator = $this->createMock(Translator::class);
-        $matcher = self::exactly(10);
+        $matcher    = self::exactly(10);
         $translator->expects($matcher)
             ->method('translate')
             ->willReturnCallback(
-                function (string $message, string $textDomainParam = 'default', string|null $locale = null) use ($matcher, $textDomain, $emptyOption, $emptyOptionTranslated, $label1, $label1Translated, $label2, $label2Translated, $label3, $label3Translated, $label4, $label4Translated, $label5, $label5Translated, $label6, $label6Translated, $label7, $label7Translated, $label8, $label8Translated, $ariaLabel, $ariaLabelTranslated): string
-                {
+                static function (string $message, string $textDomainParam = 'default', string | null $locale = null) use ($matcher, $textDomain, $emptyOption, $emptyOptionTranslated, $label1, $label1Translated, $label2, $label2Translated, $label3, $label3Translated, $label4, $label4Translated, $label5, $label5Translated, $label6, $label6Translated, $label7, $label7Translated, $label8, $label8Translated, $ariaLabel, $ariaLabelTranslated): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -1855,7 +1870,7 @@ final class FormSelectTest extends TestCase
                         10 => $ariaLabelTranslated,
                         default => '',
                     };
-                }
+                },
             );
 
         $renderer = $this->createMock(PhpRenderer::class);
@@ -1865,7 +1880,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -1952,9 +1967,9 @@ final class FormSelectTest extends TestCase
     public function testRenderWithHiddenElement(): void
     {
         $name               = 'test-name';
-        $nameEscaped               = 'test-name-escaped';
+        $nameEscaped        = 'test-name-escaped';
         $id                 = 'test-id';
-        $idEscaped                 = 'test-id-escaped';
+        $idEscaped          = 'test-id-escaped';
         $value1             = 'xyz';
         $value2             = 'def';
         $value2Escaped      = 'def-escaped';
@@ -1963,7 +1978,7 @@ final class FormSelectTest extends TestCase
         $class              = 'test-class';
         $classEscaped       = 'test-class-escaped';
         $ariaLabel          = 'test';
-        $ariaLabelEscaped          = 'test-escaped';
+        $ariaLabelEscaped   = 'test-escaped';
         $valueOptions       = [$value3 => $value2];
         $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id, 'multiple' => true];
         $emptyOption        = '0';
@@ -1990,7 +2005,7 @@ final class FormSelectTest extends TestCase
             . '</select>';
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(10);
+        $matcher    = self::exactly(10);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -2068,7 +2083,7 @@ final class FormSelectTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(6);
+        $matcher        = self::exactly(6);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -2140,8 +2155,7 @@ final class FormSelectTest extends TestCase
         $formHidden->expects(self::once())
             ->method('render')
             ->willReturnCallback(
-                function(ElementInterface $element) use ($name, $unselectedValue) : string
-                {
+                static function (ElementInterface $element) use ($name, $unselectedValue): string {
                     self::assertInstanceOf(Hidden::class, $element);
 
                     assert($element instanceof Hidden);
@@ -2149,8 +2163,12 @@ final class FormSelectTest extends TestCase
                     self::assertSame($name, $element->getName());
                     self::assertSame($unselectedValue, $element->getValue());
 
-                    return sprintf('<input type="hidden" name="%s" value="%s"/>', $name, $unselectedValue);
-                }
+                    return sprintf(
+                        '<input type="hidden" name="%s" value="%s"/>',
+                        $name,
+                        $unselectedValue,
+                    );
+                },
             );
 
         $renderer = $this->createMock(PhpRenderer::class);
@@ -2160,7 +2178,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype, $formHidden): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype, $formHidden): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -2241,20 +2259,14 @@ final class FormSelectTest extends TestCase
         self::assertSame($expected, $this->helper->render($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent(4));
         self::assertSame('    ', $this->helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent('  '));

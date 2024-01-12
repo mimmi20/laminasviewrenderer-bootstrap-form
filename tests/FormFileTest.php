@@ -21,15 +21,13 @@ use Laminas\View\Helper\Escaper\AbstractHelper;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormFile;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerExceptionInterface;
 
 use function sprintf;
 
-/**
- * @group form-file
- */
+#[Group('form-file')]
 final class FormFileTest extends TestCase
 {
     private FormFile $helper;
@@ -80,12 +78,11 @@ final class FormFileTest extends TestCase
      */
     public function testRenderMultipleFilesHtml(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
-        $value = 'test-value';
+        $name         = 'test-name';
+        $class        = 'test-class';
+        $value        = 'test-value';
         $classEscaped = sprintf('%s-escaped', $class);
-        $nameEscaped = 'test-name-escaped';
-        $valueEscaped = 'test-value-escaped';
+        $nameEscaped  = 'test-name-escaped';
 
         $expected = sprintf(
             '<input class-escaped="%s" multipleEscaped="multiple-escaped" typeEscaped="file-escaped" nameEscaped="%s">',
@@ -113,7 +110,7 @@ final class FormFileTest extends TestCase
             ->method('getOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher    = self::exactly(4);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -161,11 +158,11 @@ final class FormFileTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
-                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -225,7 +222,7 @@ final class FormFileTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -275,18 +272,16 @@ final class FormFileTest extends TestCase
      */
     public function testRenderSingleFileHtml(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
-        $value = 'test-value';
+        $name         = 'test-name';
+        $class        = 'test-class';
+        $value        = 'test-value';
         $classEscaped = sprintf('%s-escaped', $class);
-        $nameEscaped = 'test-name-escaped';
-        $valueEscaped = 'test-value-escaped';
+        $nameEscaped  = 'test-name-escaped';
 
         $expected = sprintf(
             '<input class-escaped="%s" typeEscaped="file-escaped" nameEscaped="%s">',
             $classEscaped,
             $nameEscaped,
-            $valueEscaped,
         );
 
         $element = $this->createMock(File::class);
@@ -309,7 +304,7 @@ final class FormFileTest extends TestCase
             ->method('getOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(3);
+        $matcher    = self::exactly(3);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -351,11 +346,11 @@ final class FormFileTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(3);
+        $matcher        = self::exactly(3);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
-                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -408,7 +403,7 @@ final class FormFileTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -458,12 +453,11 @@ final class FormFileTest extends TestCase
      */
     public function testRenderMultipleFiles2(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
-        $value = 'test-value';
+        $name         = 'test-name';
+        $class        = 'test-class';
+        $value        = 'test-value';
         $classEscaped = sprintf('%s-escaped', $class);
-        $nameEscaped = 'test-name-escaped';
-        $valueEscaped = 'test-value-escaped';
+        $nameEscaped  = 'test-name-escaped';
 
         $expected = sprintf(
             '<input class-escaped="%s" multipleEscaped="multiple-escaped" typeEscaped="file-escaped" nameEscaped="%s">',
@@ -491,7 +485,7 @@ final class FormFileTest extends TestCase
             ->method('getOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher    = self::exactly(4);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -539,11 +533,11 @@ final class FormFileTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
-                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -603,7 +597,7 @@ final class FormFileTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -653,12 +647,11 @@ final class FormFileTest extends TestCase
      */
     public function testRenderMultipleFiles3(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
-        $value = 'test-value';
+        $name         = 'test-name';
+        $class        = 'test-class';
+        $value        = 'test-value';
         $classEscaped = sprintf('%s-escaped', $class);
-        $nameEscaped = 'test-name-escaped';
-        $valueEscaped = 'test-value-escaped';
+        $nameEscaped  = 'test-name-escaped';
 
         $expected = sprintf(
             '<input class-escaped="%s" multipleEscaped="multiple-escaped" typeEscaped="file-escaped" nameEscaped="%s">',
@@ -686,7 +679,7 @@ final class FormFileTest extends TestCase
             ->method('getOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher    = self::exactly(4);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -734,11 +727,11 @@ final class FormFileTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
-                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -798,7 +791,7 @@ final class FormFileTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -848,12 +841,11 @@ final class FormFileTest extends TestCase
      */
     public function testRenderMultipleFilesXHtml(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
-        $value = 'test-value';
+        $name         = 'test-name';
+        $class        = 'test-class';
+        $value        = 'test-value';
         $classEscaped = sprintf('%s-escaped', $class);
-        $nameEscaped = 'test-name-escaped';
-        $valueEscaped = 'test-value-escaped';
+        $nameEscaped  = 'test-name-escaped';
 
         $expected = sprintf(
             '<input class-escaped="%s" multipleEscaped="multiple-escaped" typeEscaped="file-escaped" nameEscaped="%s"/>',
@@ -881,7 +873,7 @@ final class FormFileTest extends TestCase
             ->method('getOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher    = self::exactly(4);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -929,11 +921,11 @@ final class FormFileTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
-                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -993,7 +985,7 @@ final class FormFileTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -1043,18 +1035,16 @@ final class FormFileTest extends TestCase
      */
     public function testRenderSingleFileXHtml(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
-        $value = 'test-value';
+        $name         = 'test-name';
+        $class        = 'test-class';
+        $value        = 'test-value';
         $classEscaped = sprintf('%s-escaped', $class);
-        $nameEscaped = 'test-name-escaped';
-        $valueEscaped = 'test-value-escaped';
+        $nameEscaped  = 'test-name-escaped';
 
         $expected = sprintf(
             '<input class-escaped="%s" typeEscaped="file-escaped" nameEscaped="%s"/>',
             $classEscaped,
             $nameEscaped,
-            $valueEscaped,
         );
 
         $element = $this->createMock(File::class);
@@ -1077,7 +1067,7 @@ final class FormFileTest extends TestCase
             ->method('getOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(3);
+        $matcher    = self::exactly(3);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -1119,11 +1109,11 @@ final class FormFileTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(3);
+        $matcher        = self::exactly(3);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
-                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $name, $nameEscaped): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -1176,7 +1166,7 @@ final class FormFileTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -1220,20 +1210,14 @@ final class FormFileTest extends TestCase
         self::assertSame($expected, $this->helper->render($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent(4));
         self::assertSame('    ', $this->helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent('  '));

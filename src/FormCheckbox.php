@@ -15,17 +15,9 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\Element\Checkbox as CheckboxElement;
 use Laminas\Form\Element\Hidden;
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
-use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
-use Laminas\I18n\Exception\RuntimeException;
-use Laminas\I18n\View\Helper\Translate;
-use Laminas\View\Helper\Doctype;
-use Laminas\View\Helper\EscapeHtml;
-use Laminas\View\Helper\EscapeHtmlAttr;
-use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 
 use function array_filter;
 use function array_key_exists;
@@ -33,6 +25,7 @@ use function array_merge;
 use function array_unique;
 use function assert;
 use function explode;
+use function get_debug_type;
 use function implode;
 use function is_array;
 use function is_string;
@@ -44,11 +37,11 @@ use const PHP_EOL;
 
 final class FormCheckbox extends FormInput implements FormRenderInterface
 {
-    use LabelPositionTrait;
-    use UseHiddenElementTrait;
-    use LabelHelperTrait;
     use HiddenHelperTrait;
     use HtmlHelperTrait;
+    use LabelHelperTrait;
+    use LabelPositionTrait;
+    use UseHiddenElementTrait;
 
     /**
      * Render a form <input> element from the provided $element
@@ -56,16 +49,16 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
      * @throws InvalidArgumentException
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
-     * @throws RuntimeException
      */
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof CheckboxElement) {
             throw new InvalidArgumentException(
                 sprintf(
-                    '%s requires that the element is of type %s',
+                    '%s requires that the element is of type %s, but was %s',
                     __METHOD__,
                     CheckboxElement::class,
+                    get_debug_type($element),
                 ),
             );
         }
@@ -84,9 +77,9 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
         $label = $element->getLabel() ?? '';
 
         if ($label !== '') {
-            $translator       = $this->getTranslator();
+            $translator = $this->getTranslator();
 
-            if (null !== $translator) {
+            if ($translator !== null) {
                 $label = $translator->translate(
                     $label,
                     $this->getTranslatorTextDomain(),
@@ -95,7 +88,7 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
 
             if (!$element->getLabelOption('disable_html_escape')) {
                 $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-                $label = $escapeHtmlHelper($label);
+                $label            = $escapeHtmlHelper($label);
             }
         }
 
@@ -170,11 +163,7 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
             $attributesString = ' ' . $attributesString;
         }
 
-        $rendered = sprintf(
-            '<input%s%s',
-            $attributesString,
-            $closingBracket,
-        );
+        $rendered = sprintf('<input%s%s', $attributesString, $closingBracket);
 
         $hidden = '';
 
@@ -185,8 +174,8 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
             $hidden = $this->renderHiddenElement($element);
         }
 
-        $labelHelper      = $this->getLabelHelper();
-        $htmlHelper       = $this->getHtmlHelper();
+        $labelHelper = $this->getLabelHelper();
+        $htmlHelper  = $this->getHtmlHelper();
 
         if (array_key_exists('id', $attributes) && !$element->getLabelOption('always_wrap')) {
             $labelOpen  = '';

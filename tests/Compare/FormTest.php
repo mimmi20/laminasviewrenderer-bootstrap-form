@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the mimmi20/mezzio-form-laminasviewrenderer-bootstrap package.
+ * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
  * Copyright (c) 2021-2024, Thomas Mueller <mimmi20@live.de>
  *
@@ -21,8 +21,6 @@ use Laminas\View\Exception\RuntimeException;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\Form;
-use Mimmi20\LaminasView\BootstrapForm\FormCollectionInterface;
-use Mimmi20\LaminasView\BootstrapForm\FormRowInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
@@ -255,7 +253,7 @@ final class FormTest extends AbstractTestCase
      * @throws \Laminas\I18n\Exception\RuntimeException
      */
     #[DataProvider('providerTests')]
-    public function testForm(string $config, string $template, string $indent, array $messages): void
+    public function testRender(string $config, string $template, string $indent, array $messages): void
     {
         $file = 'form/' . $template;
 

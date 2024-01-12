@@ -18,41 +18,35 @@ use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\ExtensionNotLoadedException;
 use Laminas\Form\Exception\InvalidArgumentException;
-use Laminas\View\Renderer\PhpRenderer;
+use Laminas\I18n\Exception\RuntimeException;
 use Mimmi20\LaminasView\BootstrapForm\FormMonthSelect;
-use Mimmi20\LaminasView\BootstrapForm\FormSelectInterface;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 
 use function assert;
 use function sprintf;
 
-final class FormMonthSelect1Test extends TestCase
+#[Group('form-month-select')]
+final class FormMonthSelectTest extends TestCase
 {
+    private FormMonthSelect $helper;
+
+    /** @throws ExtensionNotLoadedException */
+    protected function setUp(): void
+    {
+        $this->helper = new FormMonthSelect();
+    }
+
     /**
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithWrongElement(): void
     {
-        $selectHelper = $this->createMock(FormSelectInterface::class);
-        $selectHelper->expects(self::never())
-            ->method('setIndent');
-        $selectHelper->expects(self::never())
-            ->method('render');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormMonthSelect();
-        $helper->setView($renderer);
-
         $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
@@ -67,33 +61,18 @@ final class FormMonthSelect1Test extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $helper->render($element);
+        $this->helper->render($element);
     }
 
     /**
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testRenderWithoutName(): void
     {
-        $selectHelper = $this->createMock(FormSelectInterface::class);
-        $selectHelper->expects(self::never())
-            ->method('setIndent');
-        $selectHelper->expects(self::never())
-            ->method('render');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormMonthSelect();
-        $helper->setView($renderer);
-
         $element = $this->createMock(MonthSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
@@ -120,33 +99,18 @@ final class FormMonthSelect1Test extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $helper->render($element);
+        $this->helper->render($element);
     }
 
     /**
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testInvokeWithoutName1(): void
     {
-        $selectHelper = $this->createMock(FormSelectInterface::class);
-        $selectHelper->expects(self::never())
-            ->method('setIndent');
-        $selectHelper->expects(self::never())
-            ->method('render');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormMonthSelect();
-        $helper->setView($renderer);
-
         $element = $this->createMock(MonthSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
@@ -164,7 +128,7 @@ final class FormMonthSelect1Test extends TestCase
         $element->expects(self::never())
             ->method('shouldCreateEmptyOption');
 
-        $helperObject = $helper();
+        $helperObject = ($this->helper)();
 
         assert($helperObject instanceof FormMonthSelect);
 
@@ -183,27 +147,11 @@ final class FormMonthSelect1Test extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
-     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function testInvokeWithoutName2(): void
     {
-        $selectHelper = $this->createMock(FormSelectInterface::class);
-        $selectHelper->expects(self::never())
-            ->method('setIndent');
-        $selectHelper->expects(self::never())
-            ->method('render');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormMonthSelect();
-        $helper->setView($renderer);
-
         $element = $this->createMock(MonthSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
@@ -224,65 +172,25 @@ final class FormMonthSelect1Test extends TestCase
         $locale = 'de_DE';
 
         try {
-            $helper($element, IntlDateFormatter::FULL, $locale);
+            ($this->helper)($element, IntlDateFormatter::FULL, $locale);
             self::fail('expecting throwing an exception');
         } catch (DomainException) {
-            self::assertSame(IntlDateFormatter::LONG, $helper->getDateType());
-            self::assertSame($locale, $helper->getLocale());
+            self::assertSame(IntlDateFormatter::LONG, $this->helper->getDateType());
+            self::assertSame($locale, $this->helper->getLocale());
         }
     }
 
-    /**
-     * @throws Exception
-     * @throws ExtensionNotLoadedException
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
-        $selectHelper = $this->createMock(FormSelectInterface::class);
-        $selectHelper->expects(self::never())
-            ->method('setIndent');
-        $selectHelper->expects(self::never())
-            ->method('render');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormMonthSelect();
-        $helper->setView($renderer);
-
-        self::assertSame($helper, $helper->setIndent(4));
-        self::assertSame('    ', $helper->getIndent());
+        self::assertSame($this->helper, $this->helper->setIndent(4));
+        self::assertSame('    ', $this->helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws ExtensionNotLoadedException
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
-        $selectHelper = $this->createMock(FormSelectInterface::class);
-        $selectHelper->expects(self::never())
-            ->method('setIndent');
-        $selectHelper->expects(self::never())
-            ->method('render');
-
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::never())
-            ->method('getHelperPluginManager');
-        $renderer->expects(self::never())
-            ->method('plugin');
-        $renderer->expects(self::never())
-            ->method('render');
-
-        $helper = new FormMonthSelect();
-        $helper->setView($renderer);
-
-        self::assertSame($helper, $helper->setIndent('  '));
-        self::assertSame('  ', $helper->getIndent());
+        self::assertSame($this->helper, $this->helper->setIndent('  '));
+        self::assertSame('  ', $this->helper->getIndent());
     }
 }

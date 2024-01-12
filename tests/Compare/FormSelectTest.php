@@ -16,38 +16,75 @@ use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\Factory;
 use Laminas\I18n\Exception\RuntimeException;
-use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\HelperPluginManager;
-use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormSelect;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
-use function get_debug_type;
-use function sprintf;
 use function trim;
 
-/**
- * @group form-select
- */
+#[Group('form-select')]
 final class FormSelectTest extends AbstractTestCase
 {
     /**
+     * @return array<string, array{config: string, template: string, indent: string, messages: array<string, array<int, string>>}>
+     *
+     * @throws void
+     */
+    public static function providerTests(): array
+    {
+        return [
+            'select' => [
+                'config' => 'select.config.php',
+                'template' => 'select.html',
+                'indent' => '',
+                'messages' => [],
+            ],
+        ];
+    }
+
+    /**
+     * @param array<string, array<int, string>> $messages
+     *
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      * @throws ContainerExceptionInterface
+     * @throws InvalidArgumentException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
      */
-    public function testRender(): void
+    #[DataProvider('providerTests')]
+    public function testRender(string $config, string $template, string $indent, array $messages): void
     {
-        $form = (new Factory())->createForm(require '_files/config/select.config.php');
+        $file = 'form/' . $template;
 
-        $expected = $this->getExpected('form/select.html');
+        $form = (new Factory())->createForm(require '_files/config/' . $config);
+
+        $expected = $this->getExpected($file);
+
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $renderer = new PhpRenderer();
+        $renderer->setHelperPluginManager($plugin);
 
         $helper = new FormSelect();
+        $helper->setView($renderer);
+
+        if ($indent !== '') {
+            $helper->setIndent($indent);
+        }
+
+        if ($messages !== []) {
+            $form->setMessages($messages);
+        }
+
+        // file_put_contents($this->files . '/expected/' . $file, trim($helper->render($form->get('inputState'))));
 
         self::assertSame($expected, trim($helper->render($form->get('inputState'))));
     }

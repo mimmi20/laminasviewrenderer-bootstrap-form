@@ -18,16 +18,10 @@ use Laminas\Form\Exception\DomainException;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\Form\LabelAwareInterface;
-use Laminas\Form\View\Helper\AbstractHelper;
-use Laminas\I18n\View\Helper\Translate;
-use Laminas\ServiceManager\Exception\InvalidServiceException;
-use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\Form\View\Helper\FormCollection as BaseFormCollection;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
-use Laminas\View\Helper\EscapeHtml;
-use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
-
-use Laminas\Form\View\Helper\FormCollection as BaseFormCollection;
+use Laminas\View\Helper\HelperInterface;
 
 use function array_key_exists;
 use function array_merge;
@@ -51,22 +45,20 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
     /**
      * Render a collection by iterating through all fieldsets and elements
      *
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws DomainException
      * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws \Laminas\Form\Exception\InvalidArgumentException
-     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof FieldsetInterface) {
             throw new \Laminas\Form\Exception\InvalidArgumentException(
                 sprintf(
-                    '%s requires that the element is of type %s',
+                    '%s requires that the element is of type %s, but was %s',
                     __METHOD__,
                     FieldsetInterface::class,
+                    get_debug_type($element),
                 ),
             );
         }
@@ -89,7 +81,12 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
         $layout   = $element->getOption('layout');
         $floating = $element->getOption('floating');
 
-        $elementHelper  = $this->getElementHelper();
+        try {
+            $elementHelper = $this->getElementHelper();
+        } catch (\RuntimeException $e) {
+            throw new RuntimeException($e->getMessage(), 0, $e);
+        }
+
         $fieldsetHelper = $this->getFieldsetHelper();
 
         foreach ($element->getIterator() as $elementOrFieldset) {
@@ -119,14 +116,25 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
             }
 
             if ($elementOrFieldset instanceof FieldsetInterface) {
-                $fieldsetHelper->setIndent($indent . $this->getWhitespace(4));
+                if ($fieldsetHelper instanceof FormIndentInterface) {
+                    $fieldsetHelper->setIndent($indent . $this->getWhitespace(4));
+                }
 
-                $markup .= $fieldsetHelper->render($elementOrFieldset, $this->shouldWrap()) . PHP_EOL;
+                if ($fieldsetHelper instanceof \Laminas\Form\View\Helper\FormCollection) {
+                    $fieldsetHelper->setShouldWrap($this->shouldWrap());
+
+                    $markup .= $fieldsetHelper->render($elementOrFieldset) . PHP_EOL;
+                }
             } else {
                 $elementOrFieldset->setOption('fieldset', $element);
 
-                $elementHelper->setIndent($indent . $this->getWhitespace(4));
-                $markup .= $elementHelper->render($elementOrFieldset) . PHP_EOL;
+                if ($elementHelper instanceof FormIndentInterface) {
+                    $elementHelper->setIndent($indent . $this->getWhitespace(4));
+                }
+
+                if ($elementHelper instanceof FormRenderInterface) {
+                    $markup .= $elementHelper->render($elementOrFieldset) . PHP_EOL;
+                }
             }
         }
 
@@ -139,14 +147,14 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
 
         unset($attributes['name']);
 
-        $label  = $element->getLabel();
-        $legend = '';
-        $htmlHelper       = $this->getHtmlHelper();
+        $label      = $element->getLabel() ?? '';
+        $legend     = '';
+        $htmlHelper = $this->getHtmlHelper();
 
-        if (!empty($label)) {
-            $translator       = $this->getTranslator();
+        if ($label !== '') {
+            $translator = $this->getTranslator();
 
-            if (null !== $translator) {
+            if ($translator !== null) {
                 $label = $translator->translate(
                     $label,
                     $this->getTranslatorTextDomain(),
@@ -158,8 +166,10 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
                 || !$element->getLabelOption('disable_html_escape')
             ) {
                 $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-                $label = $escapeHtmlHelper($label);
+                $label            = $escapeHtmlHelper($label);
             }
+
+            assert(is_string($label));
 
             if (
                 $label !== '' && !$element->hasAttribute('id')
@@ -238,13 +248,8 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
     /**
      * Only render a template
      *
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws DomainException
      * @throws RuntimeException
-     * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
-     * @throws \Laminas\I18n\Exception\RuntimeException
      */
     public function renderTemplate(CollectionElement $collection, string $indent = ''): string
     {
@@ -254,23 +259,44 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
             return '';
         }
 
-        $elementHelper  = $this->getElementHelper();
-        $fieldsetHelper = $this->getFieldsetHelper();
+        $templateMarkup = '';
 
         if ($elementOrFieldset instanceof FieldsetInterface) {
-            $fieldsetHelper->setIndent($indent . $this->getWhitespace(4));
+            $fieldsetHelper = $this->getFieldsetHelper();
+            assert($fieldsetHelper instanceof HelperInterface);
 
-            $templateMarkup = $fieldsetHelper->render($elementOrFieldset, $this->shouldWrap()) . PHP_EOL;
+            if ($fieldsetHelper instanceof FormIndentInterface) {
+                $fieldsetHelper->setIndent($indent . $this->getWhitespace(4));
+            }
+
+            if ($fieldsetHelper instanceof \Laminas\Form\View\Helper\FormCollection) {
+                $fieldsetHelper->setShouldWrap($this->shouldWrap());
+
+                $templateMarkup = $fieldsetHelper->render($elementOrFieldset) . PHP_EOL;
+            }
         } else {
-            $elementHelper->setIndent($indent . $this->getWhitespace(4));
-            $templateMarkup = $elementHelper->render($elementOrFieldset) . PHP_EOL;
+            try {
+                $elementHelper = $this->getElementHelper();
+            } catch (\RuntimeException $e) {
+                throw new RuntimeException($e->getMessage(), 0, $e);
+            }
+
+            assert($elementHelper instanceof HelperInterface);
+
+            if ($elementHelper instanceof FormIndentInterface) {
+                $elementHelper->setIndent($indent . $this->getWhitespace(4));
+            }
+
+            if ($elementHelper instanceof FormRenderInterface) {
+                $templateMarkup = $elementHelper->render($elementOrFieldset) . PHP_EOL;
+            }
         }
 
         $templateAttrbutes = $collection->getOption('template_attributes') ?? [];
 
         assert(is_array($templateAttrbutes));
 
-        $htmlHelper       = $this->getHtmlHelper();
+        $htmlHelper = $this->getHtmlHelper();
 
         return $indent . $this->getWhitespace(4) . $htmlHelper->render(
             'template',

@@ -21,9 +21,8 @@ use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\Escaper\AbstractHelper;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
-use Mimmi20\LaminasView\BootstrapForm\FormHtmlInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormTextarea;
-use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
@@ -31,9 +30,7 @@ use Psr\Container\ContainerExceptionInterface;
 use function assert;
 use function sprintf;
 
-/**
- * @group form-textarea
- */
+#[Group('form-textarea')]
 final class FormTextareaTest extends TestCase
 {
     private FormTextarea $helper;
@@ -81,7 +78,7 @@ final class FormTextareaTest extends TestCase
         $expected     = '<textarea class-escaped="form-control-escaped abc-escaped" nameEscaped="name-escaped">uvwxyz</textarea>';
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(3);
+        $matcher    = self::exactly(3);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -123,11 +120,11 @@ final class FormTextareaTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(2);
+        $matcher        = self::exactly(2);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
-                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $name, $value): string {
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $name): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -162,7 +159,7 @@ final class FormTextareaTest extends TestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -173,7 +170,7 @@ final class FormTextareaTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -241,7 +238,7 @@ final class FormTextareaTest extends TestCase
         $expected     = '<textarea class-escaped="form-control-escaped abc-escaped" nameEscaped="name-escaped">uvwxyz</textarea>';
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(3);
+        $matcher    = self::exactly(3);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -283,11 +280,11 @@ final class FormTextareaTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(2);
+        $matcher        = self::exactly(2);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
-                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $name, $value): string {
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $name): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -322,7 +319,7 @@ final class FormTextareaTest extends TestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -333,7 +330,7 @@ final class FormTextareaTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -406,7 +403,7 @@ final class FormTextareaTest extends TestCase
         $expected     = '<textarea class-escaped="form-control-escaped abc-escaped" nameEscaped="name-escaped">uvwxyz</textarea>';
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(3);
+        $matcher    = self::exactly(3);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -448,11 +445,11 @@ final class FormTextareaTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(2);
+        $matcher        = self::exactly(2);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
-                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $name, $value): string {
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $name): string {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -487,7 +484,7 @@ final class FormTextareaTest extends TestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -498,7 +495,7 @@ final class FormTextareaTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -553,20 +550,14 @@ final class FormTextareaTest extends TestCase
         self::assertSame($expected, ($this->helper)($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent(4));
         self::assertSame('    ', $this->helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent('  '));

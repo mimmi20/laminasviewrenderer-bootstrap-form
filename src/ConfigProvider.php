@@ -16,10 +16,6 @@ use Closure;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManager;
-use Mimmi20\Form\Links\View\Helper\FormLinks;
-use Mimmi20\Form\Links\View\Helper\FormLinksFactory;
-use Mimmi20\Form\Paragraph\View\Helper\FormParagraph;
-use Mimmi20\Form\Paragraph\View\Helper\FormParagraphFactory;
 use Psr\Container\ContainerInterface;
 
 use function assert;
@@ -31,7 +27,7 @@ final class ConfigProvider
      * Return general-purpose laminas-form configuration.
      *
      * @return array<string, array<string, array<string, Closure|string>>>
-     * @phpstan-return array{dependencies: array{factories: array<class-string, (Closure(ContainerInterface, string, array<mixed>|null):HelperPluginManager<(callable(): HelperInterface)|HelperInterface>)>}, view_helpers: array{aliases: array<string, class-string>, factories: array<class-string, class-string>}}
+     * @phpstan-return array{dependencies: array{factories: array<string, (Closure(ContainerInterface, string, array<mixed>|null):HelperPluginManager<(callable(): HelperInterface)|HelperInterface>)>}, view_helpers: array{aliases: array<string, class-string>, factories: array<class-string, class-string>}}
      *
      * @throws void
      */
@@ -155,7 +151,6 @@ final class ConfigProvider
                 'form_input' => FormInput::class,
                 'formInput' => FormInput::class,
                 'FormInput' => FormInput::class,
-                FormLabelInterface::class => FormLabel::class,
                 'formlabel' => FormLabel::class,
                 'form_label' => FormLabel::class,
                 'formLabel' => FormLabel::class,

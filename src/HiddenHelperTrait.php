@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the mimmi20/mezzio-form-laminasviewrenderer-bootstrap package.
+ * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
  * Copyright (c) 2021-2024, Thomas Mueller <mimmi20@live.de>
  *
@@ -12,16 +12,16 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
+use Laminas\View\Renderer\RendererInterface;
+
 use function method_exists;
 
 trait HiddenHelperTrait
 {
     /**
      * Form label helper instance
-     *
-     * @var null|FormHiddenInterface
      */
-    private null|FormHiddenInterface $hiddenHelper = null;
+    private FormHiddenInterface | null $hiddenHelper = null;
 
     /**
      * Retrieve the FormLabel helper
@@ -34,11 +34,11 @@ trait HiddenHelperTrait
             return $this->hiddenHelper;
         }
 
-        if (method_exists($this->view, 'plugin')) {
+        if ($this->view instanceof RendererInterface && method_exists($this->view, 'plugin')) {
             $this->hiddenHelper = $this->view->plugin('form_hidden');
         }
 
-        if (! $this->hiddenHelper instanceof FormHiddenInterface) {
+        if (!$this->hiddenHelper instanceof FormHiddenInterface) {
             $this->hiddenHelper = new FormHidden();
         }
 

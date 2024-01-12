@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of the mimmi20/mezzio-form-laminasviewrenderer-bootstrap package.
+ * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
  * Copyright (c) 2021-2024, Thomas Mueller <mimmi20@live.de>
  *

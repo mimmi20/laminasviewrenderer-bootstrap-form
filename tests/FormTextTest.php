@@ -21,15 +21,13 @@ use Laminas\View\Helper\Escaper\AbstractHelper;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormText;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerExceptionInterface;
 
 use function sprintf;
 
-/**
- * @group form-text
- */
+#[Group('form-text')]
 final class FormTextTest extends TestCase
 {
     private FormText $helper;
@@ -80,11 +78,11 @@ final class FormTextTest extends TestCase
      */
     public function testRenderHtml(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
-        $value = 'test-value';
+        $name         = 'test-name';
+        $class        = 'test-class';
+        $value        = 'test-value';
         $classEscaped = sprintf('form-control&#x20%s-escaped', $class);
-        $nameEscaped = 'test-name-escaped';
+        $nameEscaped  = 'test-name-escaped';
         $valueEscaped = 'test-value-escaped';
 
         $expected = sprintf(
@@ -114,7 +112,7 @@ final class FormTextTest extends TestCase
             ->method('getOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher    = self::exactly(4);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -162,7 +160,7 @@ final class FormTextTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -225,7 +223,7 @@ final class FormTextTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -275,11 +273,11 @@ final class FormTextTest extends TestCase
      */
     public function testRenderXHtml(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
-        $value = 'test-value';
+        $name         = 'test-name';
+        $class        = 'test-class';
+        $value        = 'test-value';
         $classEscaped = sprintf('form-control&#x20%s-escaped', $class);
-        $nameEscaped = 'test-name-escaped';
+        $nameEscaped  = 'test-name-escaped';
         $valueEscaped = 'test-value-escaped';
 
         $expected = sprintf(
@@ -309,7 +307,7 @@ final class FormTextTest extends TestCase
             ->method('getOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher    = self::exactly(4);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -357,7 +355,7 @@ final class FormTextTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -420,7 +418,7 @@ final class FormTextTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -470,11 +468,11 @@ final class FormTextTest extends TestCase
      */
     public function testRenderReadonlyXHtml(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
-        $value = 'test-value';
+        $name         = 'test-name';
+        $class        = 'test-class';
+        $value        = 'test-value';
         $classEscaped = 'form-control-plaintext-escaped';
-        $nameEscaped = 'test-name-escaped';
+        $nameEscaped  = 'test-name-escaped';
         $valueEscaped = 'test-value-escaped';
 
         $expected = sprintf(
@@ -506,7 +504,7 @@ final class FormTextTest extends TestCase
             ->willReturn(true);
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(5);
+        $matcher    = self::exactly(5);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -560,7 +558,7 @@ final class FormTextTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(5);
+        $matcher        = self::exactly(5);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -630,7 +628,7 @@ final class FormTextTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -674,20 +672,14 @@ final class FormTextTest extends TestCase
         self::assertSame($expected, $this->helper->render($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent(4));
         self::assertSame('    ', $this->helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent('  '));

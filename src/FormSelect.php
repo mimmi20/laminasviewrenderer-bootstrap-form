@@ -18,16 +18,15 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\View\Helper\AbstractHelper;
 use Laminas\I18n\Exception\RuntimeException;
-use Laminas\I18n\View\Helper\Translate;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Exception\InvalidArgumentException;
-use Laminas\View\Helper\EscapeHtml;
 
 use function array_key_exists;
 use function array_merge;
 use function array_unique;
 use function assert;
 use function explode;
+use function get_debug_type;
 use function gettype;
 use function implode;
 use function is_array;
@@ -133,9 +132,10 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         if (!$element instanceof SelectElement) {
             throw new \Laminas\Form\Exception\InvalidArgumentException(
                 sprintf(
-                    '%s requires that the element is of type %s',
+                    '%s requires that the element is of type %s, but was %s',
                     __METHOD__,
                     SelectElement::class,
+                    get_debug_type($element),
                 ),
             );
         }
@@ -299,9 +299,9 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         );
 
         if ($label !== '') {
-            $translator       = $this->getTranslator();
+            $translator = $this->getTranslator();
 
-            if (null !== $translator) {
+            if ($translator !== null) {
                 $label = $translator->translate(
                     $label,
                     $this->getTranslatorTextDomain(),

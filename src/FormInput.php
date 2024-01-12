@@ -17,9 +17,6 @@ use Laminas\Form\Element\Submit;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\View\Helper\FormInput as BaseFormInput;
-use Laminas\View\Helper\Doctype;
-use Laminas\View\Helper\EscapeHtml;
-use Laminas\View\Helper\EscapeHtmlAttr;
 
 use function array_key_exists;
 use function array_merge;

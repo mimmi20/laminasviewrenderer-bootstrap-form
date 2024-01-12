@@ -18,7 +18,9 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\I18n\Exception\RuntimeException;
 
+use function get_debug_type;
 use function implode;
 use function is_numeric;
 use function sprintf;
@@ -39,8 +41,10 @@ final class FormDateSelect extends AbstractHelper implements FormIndentInterface
      *
      * @return self|string
      *
-     * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
@@ -67,15 +71,18 @@ final class FormDateSelect extends AbstractHelper implements FormIndentInterface
      *
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof DateSelectElement) {
             throw new InvalidArgumentException(
                 sprintf(
-                    '%s requires that the element is of type %s',
+                    '%s requires that the element is of type %s, but was %s',
                     __METHOD__,
                     DateSelectElement::class,
+                    get_debug_type($element),
                 ),
             );
         }
@@ -92,7 +99,7 @@ final class FormDateSelect extends AbstractHelper implements FormIndentInterface
         }
 
         $selectHelper = $this->getSelectHelper();
-        $pattern = $this->parsePattern($element->shouldRenderDelimiters());
+        $pattern      = $this->parsePattern($element->shouldRenderDelimiters());
 
         $daysOptions   = $this->getDaysOptions($pattern['day']);
         $monthsOptions = $this->getMonthsOptions($pattern['month']);

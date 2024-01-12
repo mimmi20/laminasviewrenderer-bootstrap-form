@@ -17,12 +17,10 @@ use Laminas\Form\Exception\DomainException;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\Form\View\Helper\Form as BaseForm;
-use Laminas\ServiceManager\Exception\InvalidServiceException;
-use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
+use Laminas\View\Renderer\RendererInterface;
 
-use Laminas\View\Renderer\PhpRenderer;
 use function assert;
 use function is_string;
 use function method_exists;
@@ -46,30 +44,23 @@ final class Form extends BaseForm implements FormIndentInterface
 
     /**
      * The view helper used to render sub elements.
-     *
-     * @var null|FormRow
      */
-    protected $elementHelper;
+    protected FormRow | null $elementHelper = null;
 
     /**
      * The view helper used to render sub fieldsets.
-     *
-     * @var null|FormCollection
      */
-    protected $fieldsetHelper;
+    protected FormCollection | null $fieldsetHelper = null;
 
     /**
      * Render a form from the provided $form
      *
      * @param FormInterface<TFilteredValues> $form
      *
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws DomainException
      * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws \Laminas\Form\Exception\InvalidArgumentException
-     * @throws \Laminas\I18n\Exception\RuntimeException
      *
      * @template TFilteredValues of object
      */
@@ -157,7 +148,7 @@ final class Form extends BaseForm implements FormIndentInterface
     /**
      * Retrieve the element helper.
      *
-     * @throws RuntimeException
+     * @throws void
      */
     protected function getElementHelper(): FormRow
     {
@@ -165,11 +156,11 @@ final class Form extends BaseForm implements FormIndentInterface
             return $this->elementHelper;
         }
 
-        if (method_exists($this->view, 'plugin')) {
+        if ($this->view instanceof RendererInterface && method_exists($this->view, 'plugin')) {
             $this->elementHelper = $this->view->plugin('form_row');
         }
 
-        if (! $this->elementHelper instanceof FormRow) {
+        if (!$this->elementHelper instanceof FormRow) {
             $this->elementHelper = new FormRow();
         }
 
@@ -178,6 +169,7 @@ final class Form extends BaseForm implements FormIndentInterface
 
     /**
      * Retrieve the fieldset helper.
+     *
      * @throws void
      */
     protected function getFieldsetHelper(): FormCollection
@@ -186,11 +178,11 @@ final class Form extends BaseForm implements FormIndentInterface
             return $this->fieldsetHelper;
         }
 
-        if (method_exists($this->view, 'plugin')) {
+        if ($this->view instanceof RendererInterface && method_exists($this->view, 'plugin')) {
             $this->fieldsetHelper = $this->view->plugin('form_collection');
         }
 
-        if (! $this->fieldsetHelper instanceof FormCollection) {
+        if (!$this->fieldsetHelper instanceof FormCollection) {
             $this->fieldsetHelper = new FormCollection();
         }
 

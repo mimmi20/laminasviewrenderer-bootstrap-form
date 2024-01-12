@@ -15,7 +15,6 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\Element\Button;
 use Laminas\Form\Element\Captcha;
 use Laminas\Form\Element\Checkbox;
-use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\MonthSelect;
 use Laminas\Form\Element\MultiCheckbox;
 use Laminas\Form\Element\Submit;
@@ -25,18 +24,12 @@ use Laminas\Form\Fieldset;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\Form\LabelAwareInterface;
+use Laminas\Form\View\Helper\FormElement;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
-use Laminas\I18n\Exception\RuntimeException;
-use Laminas\I18n\View\Helper\Translate;
 use Laminas\InputFilter\InputFilterInterface;
 use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\InputFilter\InputInterface;
-use Laminas\ServiceManager\Exception\InvalidServiceException;
-use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
-use Laminas\View\Helper\EscapeHtml;
-use Laminas\View\Renderer\RendererInterface;
-use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 
 use function array_key_exists;
 use function array_merge;
@@ -62,8 +55,8 @@ use const PHP_EOL;
 final class FormRow extends BaseFormRow implements FormRowInterface
 {
     use FormTrait;
-    use HtmlHelperTrait;
     use HiddenHelperTrait;
+    use HtmlHelperTrait;
 
     /**
      * The class that is added to element that have errors
@@ -78,12 +71,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      *
      * @param string|null $labelPosition
      *
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
-     * @throws \Laminas\View\Exception\RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
@@ -131,7 +121,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         if ($label !== '' && $type !== 'hidden') {
             $translator = $this->getTranslator();
 
-            if (null !== $translator) {
+            if ($translator !== null) {
                 $label = $translator->translate(
                     $label,
                     $this->getTranslatorTextDomain(),
@@ -202,11 +192,17 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             )
         ) {
             $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-            $label = $escapeHtmlHelper($label);
+            $label            = $escapeHtmlHelper($label);
         }
 
+        assert(is_string($label));
+
         if ($element->getAttribute('required') && $element->getOption('show-required-mark')) {
-            $label .= $element->getOption('field-required-mark');
+            $requiredMark = $element->getOption('field-required-mark');
+
+            if (is_string($requiredMark)) {
+                $label .= $requiredMark;
+            }
         }
 
         if ($element->getOption('layout') === Form::LAYOUT_HORIZONTAL) {
@@ -217,9 +213,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     }
 
     /**
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws DomainException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     private function renderHorizontalRow(ElementInterface $element, string $label): string
     {
@@ -231,12 +226,12 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             ['col-form-label'],
         );
 
-        $indent = $this->getIndent();
-        $type   = $element->getAttribute('type');
-        $htmlHelper       = $this->getHtmlHelper();
+        $indent     = $this->getIndent();
+        $type       = $element->getAttribute('type');
+        $htmlHelper = $this->getHtmlHelper();
 
         $elementHelper = $this->getElementHelper();
-        assert($elementHelper instanceof \Laminas\Form\View\Helper\FormElement);
+        assert($elementHelper instanceof FormElement);
 
         // Multicheckbox elements have to be handled differently as the HTML standard does not allow nested
         // labels. The semantic way is to group them inside a fieldset
@@ -250,12 +245,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $lf1Indent  = $indent . $this->getWhitespace(4);
             $lf2Indent  = $lf1Indent . $this->getWhitespace(4);
             $lf3Indent  = $lf2Indent . $this->getWhitespace(4);
+            $lf4Indent  = $lf3Indent . $this->getWhitespace(4);
 
-            $legend = $lf1Indent . $htmlHelper->render(
-                'legend',
-                $labelColAttributes,
-                $label,
-            ) . PHP_EOL;
+            $legend = $lf1Indent . $htmlHelper->render('legend', $labelColAttributes, $label) . PHP_EOL;
 
             $errorContent   = '';
             $helpContent    = '';
@@ -274,8 +266,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             if ($elementHelper instanceof FormIndentInterface) {
-                $elementHelper->setIndent($lf3Indent);
+                $elementHelper->setIndent($lf4Indent);
             }
+
             $elementString = $elementHelper->render($element);
 
             $controlClasses = ['card', 'has-validation'];
@@ -339,6 +332,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             if ($elementHelper instanceof FormIndentInterface) {
                 $elementHelper->setIndent($lf4Indent);
             }
+
             $elementString = $elementHelper->render($element);
 
             $controlClasses = ['card', 'has-validation'];
@@ -388,6 +382,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             if ($elementHelper instanceof FormIndentInterface) {
                 $elementHelper->setIndent($lf2Indent);
             }
+
             $elementString = $elementHelper->render($element);
 
             $outerDiv = $lf1Indent . $htmlHelper->render(
@@ -419,9 +414,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $lf2Indent      = $lf1Indent . $this->getWhitespace(4);
         $lf3Indent      = $lf2Indent . $this->getWhitespace(4);
 
-        $labelHelper      = $this->getLabelHelper();
+        $labelHelper = $this->getLabelHelper();
 
-        $legend = $lf1Indent . $labelHelper->openTag($labelColAttributes) . $label . $labelHelper->closeTag();
+        $legend = $lf1Indent . $labelHelper->openTag(
+            $labelColAttributes,
+        ) . $label . $labelHelper->closeTag();
 
         if ($this->renderErrors) {
             $errorContent = $this->renderFormErrors($element, $lf2Indent);
@@ -438,6 +435,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         if ($elementHelper instanceof FormIndentInterface) {
             $elementHelper->setIndent($lf3Indent);
         }
+
         $elementString = $elementHelper->render($element);
 
         $controlClasses = ['card', 'has-validation'];
@@ -474,9 +472,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     }
 
     /**
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws DomainException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     private function renderVerticalRow(
         ElementInterface $element,
@@ -494,11 +491,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $labelAttributes['for'] = $id;
         }
 
-        $indent = $this->getIndent();
-        $htmlHelper       = $this->getHtmlHelper();
+        $indent     = $this->getIndent();
+        $htmlHelper = $this->getHtmlHelper();
 
         $elementHelper = $this->getElementHelper();
-        assert($elementHelper instanceof \Laminas\Form\View\Helper\FormElement);
+        assert($elementHelper instanceof FormElement);
 
         // Multicheckbox elements have to be handled differently as the HTML standard does not allow nested
         // labels. The semantic way is to group them inside a fieldset
@@ -537,6 +534,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
             $lf1Indent = $indent . $this->getWhitespace(4);
             $lf2Indent = $lf1Indent . $this->getWhitespace(4);
+            $lf3Indent = $lf2Indent . $this->getWhitespace(4);
 
             if ($this->renderErrors) {
                 $errorContent = $this->renderFormErrors($element, $lf1Indent);
@@ -551,8 +549,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             if ($elementHelper instanceof FormIndentInterface) {
-                $elementHelper->setIndent($lf2Indent);
+                $elementHelper->setIndent($lf3Indent);
             }
+
             $elementString = $elementHelper->render($element);
 
             $controlClasses = ['card', 'has-validation'];
@@ -620,6 +619,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             if ($elementHelper instanceof FormIndentInterface) {
                 $elementHelper->setIndent($lf3Indent);
             }
+
             $elementString = $elementHelper->render($element);
 
             $controlClasses = ['card', 'has-validation'];
@@ -664,6 +664,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             if ($elementHelper instanceof FormIndentInterface) {
                 $elementHelper->setIndent($lf1Indent);
             }
+
             $elementString = $elementHelper->render($element);
 
             return $baseIndent . $htmlHelper->render(
@@ -701,6 +702,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         if ($elementHelper instanceof FormIndentInterface) {
             $elementHelper->setIndent($lf1Indent);
         }
+
         $elementString  = $elementHelper->render($element);
         $elementString .= $errorContent . $messageContent;
 
@@ -717,9 +719,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 }
             }
 
-            $labelHelper      = $this->getLabelHelper();
+            $labelHelper = $this->getLabelHelper();
 
-            $legend = $lf1Indent . $labelHelper->openTag($labelAttributes) . $label . $labelHelper->closeTag();
+            $legend = $lf1Indent . $labelHelper->openTag(
+                $labelAttributes,
+            ) . $label . $labelHelper->closeTag();
 
             $rendered = match ($labelPosition) {
                 BaseFormRow::LABEL_PREPEND => $legend . PHP_EOL . $elementString,
@@ -786,7 +790,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $element->setAttribute('aria-describedby', $ariaDesc);
         }
 
-        $htmlHelper       = $this->getHtmlHelper();
+        $htmlHelper = $this->getHtmlHelper();
 
         return PHP_EOL . $indent . $htmlHelper->render('div', $attributes, $helpContent);
     }
@@ -801,7 +805,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         $messageContent = '';
-        $htmlHelper       = $this->getHtmlHelper();
+        $htmlHelper     = $this->getHtmlHelper();
 
         foreach ($messages as $message) {
             assert(is_array($message));
@@ -824,11 +828,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 $element->setAttribute('aria-describedby', $ariaDesc);
             }
 
-            $messageContent .= PHP_EOL . $indent . $htmlHelper->render(
-                'div',
-                $attributes,
-                $content,
-            );
+            $messageContent .= PHP_EOL . $indent . $htmlHelper->render('div', $attributes, $content);
         }
 
         return $messageContent;

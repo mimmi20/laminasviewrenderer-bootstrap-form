@@ -15,19 +15,17 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\Element;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\InvalidArgumentException;
-use Laminas\Form\View\Helper\AbstractHelper;
-use Laminas\ServiceManager\Exception\InvalidServiceException;
-use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\Form\View\Helper\FormElement as BaseFormElement;
 use Laminas\View\Helper\HelperInterface;
-use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\Form\Links\Element\Links;
 use Mimmi20\Form\Paragraph\Element\Paragraph;
-use Laminas\Form\View\Helper\FormElement as BaseFormElement;
 
 use function assert;
-use function is_object;
+use function get_debug_type;
+use function is_callable;
 use function method_exists;
+use function sprintf;
 
 final class FormElement extends BaseFormElement implements FormIndentInterface, FormRenderInterface
 {
@@ -36,7 +34,8 @@ final class FormElement extends BaseFormElement implements FormIndentInterface, 
     /**
      * Instance map to view helper
      *
-     * @var array<string, string>
+     * @var array<class-string<ElementInterface>, string>
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected $classMap = [
         Element\Button::class => 'formButton',
@@ -52,40 +51,7 @@ final class FormElement extends BaseFormElement implements FormIndentInterface, 
     ];
 
     /**
-     * Type map to view helper
-     *
-     * @var array<string, string>
-     */
-    protected $typeMap = [
-        'checkbox' => 'formCheckbox',
-        'color' => 'formColor',
-        'date' => 'formDate',
-        'datetime' => 'formDatetime',
-        'datetime-local' => 'formDatetimeLocal',
-        'email' => 'formEmail',
-        'file' => 'formFile',
-        'hidden' => 'formHidden',
-        'image' => 'formImage',
-        'month' => 'formMonth',
-        'multi_checkbox' => 'formMultiCheckbox',
-        'number' => 'formNumber',
-        'password' => 'formPassword',
-        'radio' => 'formRadio',
-        'range' => 'formRange',
-        'reset' => 'formReset',
-        'search' => 'formSearch',
-        'select' => 'formSelect',
-        'submit' => 'formSubmit',
-        'tel' => 'formTel',
-        'text' => 'formText',
-        'textarea' => 'formTextarea',
-        'time' => 'formTime',
-        'url' => 'formUrl',
-        'week' => 'formWeek',
-    ];
-
-    /**
-     * Set default helper name
+     * Get default helper name
      *
      * @throws void
      */
@@ -95,45 +61,40 @@ final class FormElement extends BaseFormElement implements FormIndentInterface, 
     }
 
     /**
-     * Add form element type to plugin map
-     *
-     * @throws void
-     */
-    public function addType(string $type, string $plugin): self
-    {
-        $this->typeMap[$type] = $plugin;
-
-        return $this;
-    }
-
-    /**
      * Render element by helper name
      *
-     * @throws InvalidServiceException
-     * @throws ServiceNotFoundException
      * @throws InvalidArgumentException
      */
     protected function renderHelper(string $name, ElementInterface $element): string
     {
-        $renderer = $this->view;
+        $renderer = $this->getView();
         assert(
             $renderer instanceof PhpRenderer,
             sprintf(
-                '$renderer should be an Instance of %s or null, but was %s',
+                '$renderer should be an Instance of %s, but was %s',
                 PhpRenderer::class,
                 get_debug_type($renderer),
             ),
         );
 
-        $helper = $renderer->getHelperPluginManager()->get($name);
-        assert($helper instanceof HelperInterface);
+        $helper = $renderer->plugin($name);
+        assert(
+            $helper instanceof HelperInterface || is_callable($helper),
+            sprintf(
+                '$helper should be an Instance of %s or a Callable, but was %s',
+                HelperInterface::class,
+                get_debug_type($helper),
+            ),
+        );
 
-        if ($helper instanceof FormIndentInterface || method_exists($helper, 'setIndent')) {
-            $helper->setIndent($this->getIndent());
-        }
+        if ($helper instanceof HelperInterface) {
+            if ($helper instanceof FormIndentInterface || method_exists($helper, 'setIndent')) {
+                $helper->setIndent($this->getIndent());
+            }
 
-        if ($helper instanceof FormRenderInterface || method_exists($helper, 'render')) {
-            return $helper->render($element);
+            if ($helper instanceof FormRenderInterface || method_exists($helper, 'render')) {
+                return $helper->render($element);
+            }
         }
 
         if (is_callable($helper)) {

@@ -15,25 +15,15 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use AssertionError;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
-use Laminas\I18n\Exception\RuntimeException;
-use Laminas\I18n\View\Helper\Translate;
-use Laminas\ServiceManager\Exception\InvalidServiceException;
-use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
-use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Renderer\PhpRenderer;
-use Laminas\View\Renderer\RendererInterface;
-use Mimmi20\LaminasView\BootstrapForm\FormElementErrorsInterface;
-use Mimmi20\LaminasView\BootstrapForm\FormElementInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormRow;
-use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group form-row
- */
+#[Group('form-row')]
 final class FormRow1Test extends TestCase
 {
     private FormRow $helper;
@@ -47,10 +37,8 @@ final class FormRow1Test extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderWithWrongFormOption(): void
     {
@@ -87,10 +75,8 @@ final class FormRow1Test extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderHiddenWithoutFormOptionAndLabel(): void
     {
@@ -155,10 +141,8 @@ final class FormRow1Test extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithoutFormOptionAndLabel(): void
     {
@@ -226,10 +210,8 @@ final class FormRow1Test extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithoutFormOptionAndLabel2(): void
     {
@@ -246,8 +228,7 @@ final class FormRow1Test extends TestCase
         $element->expects($matcher)
             ->method('getOption')
             ->willReturnCallback(
-                function (string $option) use ($matcher): mixed
-                {
+                static function (string $option) use ($matcher): mixed {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -264,7 +245,7 @@ final class FormRow1Test extends TestCase
                     };
 
                     return null;
-                }
+                },
             );
         $element->expects(self::once())
             ->method('getName')
@@ -337,10 +318,8 @@ final class FormRow1Test extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithoutFormOptionAndLabel3(): void
     {
@@ -358,8 +337,7 @@ final class FormRow1Test extends TestCase
         $element->expects($matcher)
             ->method('getOption')
             ->willReturnCallback(
-                function (string $option) use ($matcher): mixed
-                {
+                static function (string $option) use ($matcher): mixed {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -376,7 +354,7 @@ final class FormRow1Test extends TestCase
                     };
 
                     return null;
-                }
+                },
             );
         $element->expects(self::once())
             ->method('getName')
@@ -456,10 +434,8 @@ final class FormRow1Test extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderHiddenWithLabelWithoutFormOption(): void
     {
@@ -524,10 +500,8 @@ final class FormRow1Test extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithLabelWithoutFormOption(): void
     {
@@ -595,10 +569,8 @@ final class FormRow1Test extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithLabelWithoutFormOption2(): void
     {
@@ -615,8 +587,7 @@ final class FormRow1Test extends TestCase
         $element->expects($matcher)
             ->method('getOption')
             ->willReturnCallback(
-                function (string $option) use ($matcher): mixed
-                {
+                static function (string $option) use ($matcher): mixed {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -633,7 +604,7 @@ final class FormRow1Test extends TestCase
                     };
 
                     return null;
-                }
+                },
             );
         $element->expects(self::once())
             ->method('getName')
@@ -706,10 +677,8 @@ final class FormRow1Test extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithLabelWithoutFormOption3(): void
     {
@@ -727,8 +696,7 @@ final class FormRow1Test extends TestCase
         $element->expects($matcher)
             ->method('getOption')
             ->willReturnCallback(
-                function (string $option) use ($matcher): mixed
-                {
+                static function (string $option) use ($matcher): mixed {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -745,7 +713,7 @@ final class FormRow1Test extends TestCase
                     };
 
                     return null;
-                }
+                },
             );
         $element->expects(self::once())
             ->method('getName')
@@ -825,10 +793,8 @@ final class FormRow1Test extends TestCase
     /**
      * @throws Exception
      * @throws DomainException
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderHiddenWithLabelAndTranslatorWithoutFormOption(): void
     {

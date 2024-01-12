@@ -16,8 +16,6 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\View\Helper\AbstractHelper;
 use Laminas\View\Exception\InvalidArgumentException;
-use Laminas\View\Helper\EscapeHtml;
-use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 
 use function array_key_exists;
 use function array_merge;
@@ -29,7 +27,7 @@ use function is_string;
 use function sprintf;
 use function trim;
 
-final class FormTextarea extends AbstractHelper implements FormRenderInterface, FormIndentInterface
+final class FormTextarea extends AbstractHelper implements FormIndentInterface, FormRenderInterface
 {
     use FormTrait;
     use HtmlHelperTrait;
@@ -121,11 +119,7 @@ final class FormTextarea extends AbstractHelper implements FormRenderInterface, 
             $attributesString = ' ' . $attributesString;
         }
 
-        $markup = sprintf(
-            '<textarea%s>%s</textarea>',
-            $attributesString,
-            $content
-        );
+        $markup = sprintf('<textarea%s>%s</textarea>', $attributesString, $content);
 
         $indent = $this->getIndent();
 

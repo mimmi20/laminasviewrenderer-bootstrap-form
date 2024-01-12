@@ -12,23 +12,25 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
-use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception\DomainException;
-use Laminas\Form\LabelAwareInterface;
-use Laminas\I18n\Exception\RuntimeException;
-use Laminas\I18n\View\Helper\Translate;
-use Laminas\View\Exception\InvalidArgumentException;
-use Laminas\View\Helper\Doctype;
-use Laminas\View\Helper\EscapeHtml;
-use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\Form\Element\Button as ButtonElement;
 use Laminas\Form\Element\Submit as SubmitElement;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\Exception\DomainException;
+use Laminas\View\Exception\InvalidArgumentException;
 
+use function array_key_exists;
+use function array_merge;
+use function array_unique;
 use function assert;
+use function explode;
+use function get_debug_type;
+use function implode;
 use function is_array;
+use function is_scalar;
 use function is_string;
 use function mb_strtolower;
 use function sprintf;
+use function trim;
 
 final class FormButton extends FormInput implements FormRenderInterface
 {
@@ -71,7 +73,7 @@ final class FormButton extends FormInput implements FormRenderInterface
      *
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function __invoke(
         ElementInterface | null $element = null,
@@ -90,17 +92,18 @@ final class FormButton extends FormInput implements FormRenderInterface
      *
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function render(ElementInterface $element, string | null $buttonContent = null): string
     {
         if (!$element instanceof ButtonElement && !$element instanceof SubmitElement) {
             throw new \Laminas\Form\Exception\InvalidArgumentException(
                 sprintf(
-                    '%s requires that the element is of type %s or of type %s',
+                    '%s requires that the element is of type %s or of type %s, but was %s',
                     __METHOD__,
                     ButtonElement::class,
                     SubmitElement::class,
+                    get_debug_type($element),
                 ),
             );
         }
@@ -118,9 +121,9 @@ final class FormButton extends FormInput implements FormRenderInterface
             }
         }
 
-        $translator       = $this->getTranslator();
+        $translator = $this->getTranslator();
 
-        if (null !== $translator) {
+        if ($translator !== null) {
             $buttonContent = $translator->translate(
                 $buttonContent,
                 $this->getTranslatorTextDomain(),
@@ -129,7 +132,7 @@ final class FormButton extends FormInput implements FormRenderInterface
 
         if (!$element->getLabelOption('disable_html_escape')) {
             $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-            $buttonContent = $escapeHtmlHelper($buttonContent);
+            $buttonContent    = $escapeHtmlHelper($buttonContent);
         }
 
         $indent = $this->getIndent();
@@ -155,7 +158,10 @@ final class FormButton extends FormInput implements FormRenderInterface
         if (is_array($attributesOrElement)) {
             $classes = ['btn'];
 
-            if (array_key_exists('class', $attributesOrElement) && is_scalar($attributesOrElement['class'])) {
+            if (
+                array_key_exists('class', $attributesOrElement)
+                && is_scalar($attributesOrElement['class'])
+            ) {
                 $classes = array_merge($classes, explode(' ', (string) $attributesOrElement['class']));
             }
 
@@ -203,10 +209,7 @@ final class FormButton extends FormInput implements FormRenderInterface
             $attributesString = ' ' . $attributesString;
         }
 
-        return sprintf(
-            '<button%s>',
-            $attributesString,
-        );
+        return sprintf('<button%s>', $attributesString);
     }
 
     /**

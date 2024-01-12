@@ -12,20 +12,7 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
-use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception\DomainException;
-use Laminas\Form\Exception\InvalidArgumentException;
-use Laminas\Form\LabelAwareInterface;
-use Laminas\Form\View\Helper\AbstractHelper;
-use Laminas\I18n\Exception\RuntimeException;
-use Laminas\I18n\View\Helper\Translate;
-use Laminas\View\Helper\EscapeHtml;
 use Laminas\Form\View\Helper\FormLabel as BaseFormLabel;
-
-use function array_merge;
-use function get_debug_type;
-use function is_array;
-use function sprintf;
 
 final class FormLabel extends BaseFormLabel
 {

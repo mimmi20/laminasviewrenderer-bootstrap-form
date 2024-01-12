@@ -20,8 +20,10 @@ use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\ExtensionNotLoadedException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\I18n\Exception\RuntimeException;
 
 use function extension_loaded;
+use function get_debug_type;
 use function implode;
 use function is_numeric;
 use function mb_stripos;
@@ -76,6 +78,8 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
      *
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
@@ -104,15 +108,18 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
      *
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof DateTimeSelectElement) {
             throw new InvalidArgumentException(
                 sprintf(
-                    '%s requires that the element is of type %s',
+                    '%s requires that the element is of type %s, but was %s',
                     __METHOD__,
                     DateTimeSelectElement::class,
+                    get_debug_type($element),
                 ),
             );
         }
@@ -128,7 +135,7 @@ final class FormDateTimeSelect extends AbstractHelper implements FormIndentInter
             );
         }
 
-        $selectHelper = $this->getSelectHelper();
+        $selectHelper           = $this->getSelectHelper();
         $shouldRenderDelimiters = $element->shouldRenderDelimiters();
         $pattern                = $this->parsePattern($shouldRenderDelimiters);
 

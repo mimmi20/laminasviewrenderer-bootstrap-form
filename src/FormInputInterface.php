@@ -12,7 +12,9 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
-interface FormInputInterface extends FormIndentInterface, FormRenderInterface
+use Laminas\View\Helper\HelperInterface;
+
+interface FormInputInterface extends FormIndentInterface, FormRenderInterface, HelperInterface
 {
     /**
      * Get the closing bracket for an inline tag

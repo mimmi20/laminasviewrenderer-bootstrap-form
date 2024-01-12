@@ -21,15 +21,13 @@ use Laminas\View\Helper\Escaper\AbstractHelper;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormPassword;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerExceptionInterface;
 
 use function sprintf;
 
-/**
- * @group form-password
- */
+#[Group('form-password')]
 final class FormPasswordTest extends TestCase
 {
     private FormPassword $helper;
@@ -80,10 +78,10 @@ final class FormPasswordTest extends TestCase
      */
     public function testRenderHtml(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
+        $name         = 'test-name';
+        $class        = 'test-class';
         $classEscaped = sprintf('form-control&#x20%s-escaped', $class);
-        $nameEscaped = 'test-name-escaped';
+        $nameEscaped  = 'test-name-escaped';
         $valueEscaped = 'test-value-escaped';
 
         $expected = sprintf(
@@ -112,7 +110,7 @@ final class FormPasswordTest extends TestCase
             ->method('getOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher    = self::exactly(4);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -160,7 +158,7 @@ final class FormPasswordTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -213,9 +211,8 @@ final class FormPasswordTest extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(false);
-        $doctype->expects(self::once())
-            ->method('isHtml5')
-            ->willReturn(false);
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -224,7 +221,7 @@ final class FormPasswordTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -274,10 +271,10 @@ final class FormPasswordTest extends TestCase
      */
     public function testRenderXHtml(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
+        $name         = 'test-name';
+        $class        = 'test-class';
         $classEscaped = sprintf('form-control&#x20%s-escaped', $class);
-        $nameEscaped = 'test-name-escaped';
+        $nameEscaped  = 'test-name-escaped';
         $valueEscaped = 'test-value-escaped';
 
         $expected = sprintf(
@@ -306,7 +303,7 @@ final class FormPasswordTest extends TestCase
             ->method('getOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher    = self::exactly(4);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -354,7 +351,7 @@ final class FormPasswordTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -407,9 +404,8 @@ final class FormPasswordTest extends TestCase
         $doctype->expects(self::once())
             ->method('isXhtml')
             ->willReturn(true);
-        $doctype->expects(self::once())
-            ->method('isHtml5')
-            ->willReturn(false);
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -418,7 +414,7 @@ final class FormPasswordTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -468,10 +464,10 @@ final class FormPasswordTest extends TestCase
      */
     public function testRenderReadonlyXHtml(): void
     {
-        $name  = 'test-name';
-        $class = 'test-class';
+        $name         = 'test-name';
+        $class        = 'test-class';
         $classEscaped = 'form-control-plaintext-escaped';
-        $nameEscaped = 'test-name-escaped';
+        $nameEscaped  = 'test-name-escaped';
         $valueEscaped = 'test-value-escaped';
 
         $expected = sprintf(
@@ -502,7 +498,7 @@ final class FormPasswordTest extends TestCase
             ->willReturn(true);
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(5);
+        $matcher    = self::exactly(5);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -556,7 +552,7 @@ final class FormPasswordTest extends TestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(5);
+        $matcher        = self::exactly(5);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -626,7 +622,7 @@ final class FormPasswordTest extends TestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -670,20 +666,14 @@ final class FormPasswordTest extends TestCase
         self::assertSame($expected, $this->helper->render($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent(4));
         self::assertSame('    ', $this->helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent('  '));

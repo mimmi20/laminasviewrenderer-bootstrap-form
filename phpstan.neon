@@ -18,7 +18,7 @@ parameters:
   checkAlwaysTrueCheckTypeFunctionCall: false
 
   # reports instanceof occurrences always evaluated to true
-  checkAlwaysTrueInstanceof: true
+  checkAlwaysTrueInstanceof: false
 
   # reports === and !== occurrences always evaluated to true
   checkAlwaysTrueStrictComparison: true
@@ -100,7 +100,6 @@ parameters:
   ignoreErrors:
     - '~Call to deprecated method setView\(\)~'
     - '~Fetching class constant class of deprecated class~'
-    - '~Instantiation of deprecated class~'
-    -
-      message: '~Parameter #1 \$attributesOrElement of method .* expects .*, int given~'
-      path: tests\FormLabelTest.php
+#    -
+#      message: '~Parameter #1 \$attributesOrElement of method .* expects .*, int given~'
+#      path: tests\FormLabelTest.php

@@ -15,11 +15,12 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use IntlDateFormatter;
 use Laminas\Form\Element\MonthSelect as MonthSelectElement;
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\I18n\Exception\RuntimeException;
 
+use function get_debug_type;
 use function implode;
 use function is_numeric;
 use function sprintf;
@@ -41,6 +42,8 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
      *
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
@@ -67,15 +70,18 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
      *
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
      */
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof MonthSelectElement) {
             throw new InvalidArgumentException(
                 sprintf(
-                    '%s requires that the element is of type %s',
+                    '%s requires that the element is of type %s, but was %s',
                     __METHOD__,
                     MonthSelectElement::class,
+                    get_debug_type($element),
                 ),
             );
         }
@@ -92,7 +98,7 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
         }
 
         $selectHelper = $this->getSelectHelper();
-        $pattern = $this->parsePattern($element->shouldRenderDelimiters());
+        $pattern      = $this->parsePattern($element->shouldRenderDelimiters());
 
         // The pattern always contains "day" part and the first separator, so we have to remove it
         unset($pattern['day'], $pattern[0]);

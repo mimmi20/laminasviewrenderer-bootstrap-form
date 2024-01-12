@@ -15,40 +15,74 @@ namespace Mimmi20Test\LaminasView\BootstrapForm\Compare;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\Factory;
-use Laminas\I18n\Exception\RuntimeException;
-use Laminas\View\Helper\Doctype;
-use Laminas\View\Helper\EscapeHtml;
-use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\HelperPluginManager;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormButton;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
-use function get_debug_type;
-use function sprintf;
 use function trim;
 
-/**
- * @group form-button
- */
+#[Group('form-button')]
 final class FormButtonTest extends AbstractTestCase
 {
     /**
+     * @return array<string, array{config: string, template: string, indent: string, messages: array<string, array<int, string>>}>
+     *
+     * @throws void
+     */
+    public static function providerTests(): array
+    {
+        return [
+            'button' => [
+                'config' => 'button.config.php',
+                'template' => 'button.html',
+                'indent' => '',
+                'messages' => [],
+            ],
+        ];
+    }
+
+    /**
+     * @param array<string, array<int, string>> $messages
+     *
      * @throws Exception
-     * @throws InvalidArgumentException
      * @throws DomainException
      * @throws ContainerExceptionInterface
      * @throws \Laminas\View\Exception\InvalidArgumentException
-     * @throws RuntimeException
+     * @throws InvalidArgumentException
      */
-    public function testRender(): void
+    #[DataProvider('providerTests')]
+    public function testRender(string $config, string $template, string $indent, array $messages): void
     {
-        $form = (new Factory())->createForm(require '_files/config/button.config.php');
+        $file = 'form/' . $template;
 
-        $expected = $this->getExpected('form/button.html');
+        $form = (new Factory())->createForm(require '_files/config/' . $config);
+
+        $expected = $this->getExpected($file);
+
+        $plugin = $this->serviceManager->get(HelperPluginManager::class);
+
+        assert($plugin instanceof HelperPluginManager);
+
+        $renderer = new PhpRenderer();
+        $renderer->setHelperPluginManager($plugin);
 
         $helper = new FormButton();
+        $helper->setView($renderer);
+
+        if ($indent !== '') {
+            $helper->setIndent($indent);
+        }
+
+        if ($messages !== []) {
+            $form->setMessages($messages);
+        }
+
+        // file_put_contents($this->files . '/expected/' . $file, trim($helper->render($form->get('button'))));
 
         self::assertSame($expected, trim($helper->render($form->get('button'))));
     }

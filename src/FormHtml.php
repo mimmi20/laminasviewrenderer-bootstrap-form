@@ -1,18 +1,21 @@
 <?php
+/**
+ * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
+ *
+ * Copyright (c) 2021-2024, Thomas Mueller <mimmi20@live.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
-use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
-
 use Laminas\Form\View\Helper\AbstractHelper;
-use Laminas\View\Exception\InvalidArgumentException;
 use stdClass;
-use function is_string;
+
 use function sprintf;
-use function strtolower;
 
 final class FormHtml extends AbstractHelper implements FormHtmlInterface
 {
@@ -23,12 +26,13 @@ final class FormHtml extends AbstractHelper implements FormHtmlInterface
      *
      * Proxies to {@link render()}.
      *
+     * @phpstan-param array<int|string, (array<int, string>|bool|float|int|iterable<int, string>|stdClass|string|null)> $attribs
+     *
      * @throws void
-     * @return string|self
      */
-    public function __invoke(string|null $element = null, array $attribs = [], string $content = ''): string|self
+    public function __invoke(string | null $element = null, array $attribs = [], string $content = ''): string | self
     {
-        if (! $element) {
+        if (!$element) {
             return $this;
         }
 

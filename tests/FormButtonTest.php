@@ -14,9 +14,7 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Button;
 use Laminas\Form\Exception\DomainException;
-use Laminas\I18n\Exception\RuntimeException;
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
-use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
@@ -25,17 +23,16 @@ use Laminas\View\Helper\Escaper\AbstractHelper;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormButton;
-use Mimmi20Test\LaminasView\BootstrapForm\Compare\AbstractTestCase;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
 use function sprintf;
 
-/**
- * @group form-button
- */
-final class FormButtonTest extends AbstractTestCase
+#[Group('form-button')]
+final class FormButtonTest extends TestCase
 {
     private FormButton $helper;
 
@@ -68,7 +65,7 @@ final class FormButtonTest extends AbstractTestCase
         $expected    = sprintf('<button typeEscaped="%s" class-escaped="btn-escaped">', $typeEscaped);
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(2);
+        $matcher    = self::exactly(2);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -104,7 +101,7 @@ final class FormButtonTest extends AbstractTestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(2);
+        $matcher        = self::exactly(2);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -143,7 +140,7 @@ final class FormButtonTest extends AbstractTestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -154,7 +151,7 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -236,12 +233,16 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testRenderOpenTagWithElementWithoutValue(): void
     {
-        $type = 'button';
-        $name = 'test-button';
+        $type        = 'button';
+        $name        = 'test-button';
         $typeEscaped = 'button-escaped';
         $nameEscaped = 'test-button-escaped';
 
-        $expected = sprintf('<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped">', $typeEscaped, $nameEscaped);
+        $expected = sprintf(
+            '<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped">',
+            $typeEscaped,
+            $nameEscaped,
+        );
 
         $element = $this->createMock(Button::class);
         $element->expects(self::once())
@@ -263,7 +264,7 @@ final class FormButtonTest extends AbstractTestCase
             ->method('getLabelOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(3);
+        $matcher    = self::exactly(3);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -305,7 +306,7 @@ final class FormButtonTest extends AbstractTestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(3);
+        $matcher        = self::exactly(3);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -350,7 +351,7 @@ final class FormButtonTest extends AbstractTestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -361,7 +362,7 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -411,14 +412,19 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testRenderOpenTagWithElementWithValue(): void
     {
-        $type = 'button';
-        $name = 'test-button';
-        $value = 'test-value';
-        $typeEscaped = 'button-escaped';
-        $nameEscaped = 'test-button-escaped';
+        $type         = 'button';
+        $name         = 'test-button';
+        $value        = 'test-value';
+        $typeEscaped  = 'button-escaped';
+        $nameEscaped  = 'test-button-escaped';
         $valueEscaped = 'test-value-escaped';
 
-        $expected = sprintf('<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">', $typeEscaped, $nameEscaped, $valueEscaped);
+        $expected = sprintf(
+            '<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">',
+            $typeEscaped,
+            $nameEscaped,
+            $valueEscaped,
+        );
 
         $element = $this->createMock(Button::class);
         $element->expects(self::once())
@@ -440,7 +446,7 @@ final class FormButtonTest extends AbstractTestCase
             ->method('getLabelOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher    = self::exactly(4);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -488,7 +494,7 @@ final class FormButtonTest extends AbstractTestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -539,7 +545,7 @@ final class FormButtonTest extends AbstractTestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -550,7 +556,7 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -600,14 +606,19 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testRenderOpenTagWithElementWithoutType(): void
     {
-        $type = 'submit';
-        $name = 'test-button';
-        $value = 'test-value';
-        $typeEscaped = 'button-escaped';
-        $nameEscaped = 'test-button-escaped';
+        $type         = 'submit';
+        $name         = 'test-button';
+        $value        = 'test-value';
+        $typeEscaped  = 'button-escaped';
+        $nameEscaped  = 'test-button-escaped';
         $valueEscaped = 'test-value-escaped';
 
-        $expected = sprintf('<button nameEscaped="%s" typeEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">', $nameEscaped, $typeEscaped, $valueEscaped);
+        $expected = sprintf(
+            '<button nameEscaped="%s" typeEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">',
+            $nameEscaped,
+            $typeEscaped,
+            $valueEscaped,
+        );
 
         $element = $this->createMock(Button::class);
         $element->expects(self::once())
@@ -629,7 +640,7 @@ final class FormButtonTest extends AbstractTestCase
             ->method('getLabelOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher    = self::exactly(4);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -677,7 +688,7 @@ final class FormButtonTest extends AbstractTestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -728,7 +739,7 @@ final class FormButtonTest extends AbstractTestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -739,7 +750,7 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -789,14 +800,19 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testRenderOpenTagWithElementWithWrongType(): void
     {
-        $type = 'submit';
-        $name = 'test-button';
-        $value = 'test-value';
-        $typeEscaped = 'button-escaped';
-        $nameEscaped = 'test-button-escaped';
+        $type         = 'submit';
+        $name         = 'test-button';
+        $value        = 'test-value';
+        $typeEscaped  = 'button-escaped';
+        $nameEscaped  = 'test-button-escaped';
         $valueEscaped = 'test-value-escaped';
 
-        $expected = sprintf('<button nameEscaped="%s" typeEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">', $nameEscaped, $typeEscaped, $valueEscaped);
+        $expected = sprintf(
+            '<button nameEscaped="%s" typeEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">',
+            $nameEscaped,
+            $typeEscaped,
+            $valueEscaped,
+        );
 
         $element = $this->createMock(Button::class);
         $element->expects(self::once())
@@ -818,7 +834,7 @@ final class FormButtonTest extends AbstractTestCase
             ->method('getLabelOption');
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(4);
+        $matcher    = self::exactly(4);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -866,7 +882,7 @@ final class FormButtonTest extends AbstractTestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -917,7 +933,7 @@ final class FormButtonTest extends AbstractTestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -928,7 +944,7 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -976,7 +992,7 @@ final class FormButtonTest extends AbstractTestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderWithoutLabel(): void
     {
@@ -1010,7 +1026,7 @@ final class FormButtonTest extends AbstractTestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderWithTranslator(): void
     {
@@ -1021,9 +1037,9 @@ final class FormButtonTest extends AbstractTestCase
         $label                 = 'test-label';
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
-        $typeEscaped = 'button-escaped';
-        $nameEscaped = 'test-button-escaped';
-        $valueEscaped = 'test-value-escaped';
+        $typeEscaped           = 'button-escaped';
+        $nameEscaped           = 'test-button-escaped';
+        $valueEscaped          = 'test-value-escaped';
 
         $expected = sprintf(
             '<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">%s</button>',
@@ -1062,7 +1078,7 @@ final class FormButtonTest extends AbstractTestCase
             ->willReturn($tranlatedLabel);
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(5);
+        $matcher    = self::exactly(5);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -1116,7 +1132,7 @@ final class FormButtonTest extends AbstractTestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -1167,7 +1183,7 @@ final class FormButtonTest extends AbstractTestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -1178,7 +1194,7 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -1230,7 +1246,7 @@ final class FormButtonTest extends AbstractTestCase
      * @throws DomainException
      * @throws ContainerExceptionInterface
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testInvokeWithTranslator1(): void
     {
@@ -1241,9 +1257,9 @@ final class FormButtonTest extends AbstractTestCase
         $label                 = 'test-label';
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
-        $typeEscaped = 'button-escaped';
-        $nameEscaped = 'test-button-escaped';
-        $valueEscaped = 'test-value-escaped';
+        $typeEscaped           = 'button-escaped';
+        $nameEscaped           = 'test-button-escaped';
+        $valueEscaped          = 'test-value-escaped';
 
         $expected = sprintf(
             '<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">%s</button>',
@@ -1282,7 +1298,7 @@ final class FormButtonTest extends AbstractTestCase
             ->willReturn($tranlatedLabel);
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(5);
+        $matcher    = self::exactly(5);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -1336,7 +1352,7 @@ final class FormButtonTest extends AbstractTestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -1387,7 +1403,7 @@ final class FormButtonTest extends AbstractTestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -1398,7 +1414,7 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -1448,7 +1464,7 @@ final class FormButtonTest extends AbstractTestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
+     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderWithTranslator2(): void
     {
@@ -1459,9 +1475,9 @@ final class FormButtonTest extends AbstractTestCase
         $label                 = 'test-label';
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
-        $typeEscaped = 'button-escaped';
-        $nameEscaped = 'test-button-escaped';
-        $valueEscaped = 'test-value-escaped';
+        $typeEscaped           = 'button-escaped';
+        $nameEscaped           = 'test-button-escaped';
+        $valueEscaped          = 'test-value-escaped';
 
         $expected = sprintf(
             '<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">%s</button>',
@@ -1500,7 +1516,7 @@ final class FormButtonTest extends AbstractTestCase
             ->willReturn($tranlatedLabel);
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
-        $matcher = self::exactly(5);
+        $matcher    = self::exactly(5);
         $escapeHtml->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -1554,7 +1570,7 @@ final class FormButtonTest extends AbstractTestCase
             );
 
         $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
-        $matcher = self::exactly(4);
+        $matcher        = self::exactly(4);
         $escapeHtmlAttr->expects($matcher)
             ->method('__invoke')
             ->willReturnCallback(
@@ -1605,7 +1621,7 @@ final class FormButtonTest extends AbstractTestCase
         $doctype->expects(self::never())
             ->method('__invoke');
        $doctype->expects(self::never())
-            ->method('isXhtml');
+           ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
@@ -1616,7 +1632,7 @@ final class FormButtonTest extends AbstractTestCase
         $renderer->expects($matcher)
             ->method('plugin')
             ->willReturnCallback(
-                static function (string $name, ?array $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface|null {
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
                     $invocation = $matcher->numberOfInvocations();
 
                     match ($invocation) {
@@ -1666,20 +1682,14 @@ final class FormButtonTest extends AbstractTestCase
         self::assertSame($expected, $helperObject->render($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent(4));
         self::assertSame('    ', $this->helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
         self::assertSame($this->helper, $this->helper->setIndent('  '));
