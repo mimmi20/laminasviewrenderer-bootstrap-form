@@ -12,69 +12,38 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
-use IntlDateFormatter;
 use Laminas\Form\Element\MonthSelect as MonthSelectElement;
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
-use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\Form\View\Helper\FormMonthSelect as BaseFormMonthSelect;
 
+use function get_debug_type;
 use function implode;
 use function is_numeric;
 use function sprintf;
 
 use const PHP_EOL;
 
-final class FormMonthSelect extends AbstractHelper implements FormIndentInterface, FormRenderInterface
+final class FormMonthSelect extends BaseFormMonthSelect implements FormIndentInterface, FormRenderInterface
 {
-    use FormMonthSelectTrait;
     use FormTrait;
-
-    /**
-     * Invoke helper as function
-     *
-     * Proxies to {@link render()}.
-     *
-     * @return self|string
-     *
-     * @throws DomainException
-     * @throws InvalidArgumentException
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
-     */
-    public function __invoke(
-        ElementInterface | null $element = null,
-        int $dateType = IntlDateFormatter::LONG,
-        string | null $locale = null,
-    ) {
-        if (!$element) {
-            return $this;
-        }
-
-        $this->setDateType($dateType);
-
-        if ($locale !== null) {
-            $this->setLocale($locale);
-        }
-
-        return $this->render($element);
-    }
 
     /**
      * Render a month element that is composed of two selects
      *
-     * @throws Exception\InvalidArgumentException
-     * @throws Exception\DomainException
+     * @throws InvalidArgumentException
+     * @throws DomainException
      */
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof MonthSelectElement) {
-            throw new Exception\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
-                    '%s requires that the element is of type %s',
+                    '%s requires that the element is of type %s, but was %s',
                     __METHOD__,
                     MonthSelectElement::class,
+                    get_debug_type($element),
                 ),
             );
         }
@@ -82,7 +51,7 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
         $name = $element->getName();
 
         if ($name === null || $name === '') {
-            throw new Exception\DomainException(
+            throw new DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
                     __METHOD__,
@@ -90,7 +59,8 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
             );
         }
 
-        $pattern = $this->parsePattern($element->shouldRenderDelimiters());
+        $selectHelper = $this->getSelectElementHelper();
+        $pattern      = $this->parsePattern($element->shouldRenderDelimiters());
 
         // The pattern always contains "day" part and the first separator, so we have to remove it
         unset($pattern['day'], $pattern[0]);
@@ -107,11 +77,14 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
         }
 
         $indent = $this->getIndent();
-        $this->selectHelper->setIndent($indent);
+
+        if ($selectHelper instanceof FormIndentInterface) {
+            $selectHelper->setIndent($indent);
+        }
 
         $data                    = [];
-        $data[$pattern['month']] = $this->selectHelper->render($monthElement);
-        $data[$pattern['year']]  = $this->selectHelper->render($yearElement);
+        $data[$pattern['month']] = $selectHelper->render($monthElement);
+        $data[$pattern['year']]  = $selectHelper->render($yearElement);
 
         $markups = [];
 

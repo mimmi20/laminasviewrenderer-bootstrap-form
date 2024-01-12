@@ -1,0 +1,77 @@
+<form action="" method="POST" name="form" class="g-3&#x20;card" role="form" id="form">
+    <div class="col-md-6">
+        <div class="form-floating">
+            <input type="email" name="inputEmail4" id="inputEmail4" required="required" value="" class="form-control">
+            <label class="form-label" for="inputEmail4">Email</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating">
+            <input type="password" name="inputPassword4" id="inputPassword4" value="" class="form-control">
+            <label class="form-label" for="inputPassword4">Password</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-floating">
+            <input type="text" name="inputAddress" id="inputAddress" placeholder="1234&#x20;Main&#x20;St" value="" class="form-control">
+            <label class="form-label" for="inputAddress">Address</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-floating">
+            <input type="text" name="inputAddress2" id="inputAddress2" placeholder="Apartment,&#x20;studio,&#x20;or&#x20;floor" value="" class="form-control">
+            <label class="form-label" for="inputAddress2">Address 2</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating">
+            <input type="text" name="inputCity" id="inputCity" value="" class="form-control">
+            <label class="form-label" for="inputCity">City</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-floating">
+            <select name="inputState" id="inputState" required="required" class="form-select">
+                <option value="0" selected="selected">Choose...</option>
+                <option value="1">...</option>
+            </select>
+            <label class="form-label" for="inputState">State</label>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-floating">
+            <input type="text" name="inputZip" id="inputZip" value="" class="form-control">
+            <label class="form-label" for="inputZip">Zip</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card&#x20;has-validation&#x20;required">
+            <div class="card-body">
+                <div class="form-check">
+                    <input type="checkbox" name="gridCheck" id="gridCheck" required="required" value="1" class="form-check-input">
+                    <label for="gridCheck" class="form-check-label">Check me out</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <fieldset>
+        <div class="form-floating">
+            <div class="card&#x20;has-validation&#x20;required">
+                <div class="card-body">
+                    <div class="form-check">
+                        <input type="radio" name="zusatzfragen" id="zusatzfragen_nein" required="required" data-event-type="click" data-event-category="versicherung" data-event-action="no&#x20;additional&#x20;questions" data-event-label="hr" value="nein" class="form-check-input&#x20;form-radio-input&#x20;js-gtm-event">
+                        <label class="form-check-label" for="zusatzfragen_nein">Ich verzichte auf die Beantwortung weiterer Fragen und wähle aus dem Vergleich einen Tarif, der meinen Bedarf erfüllt.</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="zusatzfragen" required="required" id="zusatzfragen_ja" data-event-type="click" data-event-category="versicherung" data-event-action="additional&#x20;questions&#x20;requested" data-event-label="hr" value="ja" class="form-check-input&#x20;form-radio-input&#x20;js-gtm-event">
+                        <label class="form-check-label" for="zusatzfragen_ja">Ich möchte weitere Angaben zum gewünschten Versicherungsschutz machen. Es werden dann nur Tarife angezeigt, welche die Vorgaben erfüllen.</label>
+                    </div>
+                </div>
+            </div>
+            <legend class="form-label">weitere Fragen</legend>
+        </div>
+    </fieldset>
+    <div class="col-12">
+        <button type="submit" name="button" class="btn&#x20;btn-primary">Sign in</button>
+    </div>
+</form>

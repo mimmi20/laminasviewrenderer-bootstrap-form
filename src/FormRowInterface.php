@@ -13,11 +13,11 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 
-interface FormRowInterface extends FormIndentInterface
+interface FormRowInterface extends FormIndentInterface, FormRenderInterface
 {
     /**
      * Invoke helper as functor
@@ -28,7 +28,7 @@ interface FormRowInterface extends FormIndentInterface
      *
      * @throws ServiceNotFoundException
      * @throws InvalidServiceException
-     * @throws Exception\DomainException
+     * @throws DomainException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
@@ -38,18 +38,4 @@ interface FormRowInterface extends FormIndentInterface
         bool | null $renderErrors = null,
         string | null $partial = null,
     );
-
-    /**
-     * Utility form helper that renders a label (if it exists), an element and errors
-     *
-     * @param string|null $labelPosition
-     *
-     * @throws ServiceNotFoundException
-     * @throws InvalidServiceException
-     * @throws Exception\DomainException
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
-     */
-    public function render(ElementInterface $element, $labelPosition = null): string;
 }

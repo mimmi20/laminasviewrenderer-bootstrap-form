@@ -14,22 +14,34 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Button;
 use Laminas\Form\Exception\DomainException;
-use Laminas\I18n\Exception\RuntimeException;
-use Laminas\I18n\View\Helper\Translate;
-use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\Form\Exception\InvalidArgumentException;
+use Laminas\I18n\Translator\TranslatorInterface as Translator;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\View\Helper\Escaper\AbstractHelper;
+use Laminas\View\Helper\HelperInterface;
+use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormButton;
-use Mimmi20Test\LaminasView\BootstrapForm\Compare\AbstractTestCase;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
 use function sprintf;
 
-final class FormButtonTest extends AbstractTestCase
+#[Group('form-button')]
+final class FormButtonTest extends TestCase
 {
+    private FormButton $helper;
+
+    /** @throws void */
+    protected function setUp(): void
+    {
+        $this->helper = new FormButton();
+    }
+
     /**
      * @throws Exception
      * @throws DomainException
@@ -38,27 +50,7 @@ final class FormButtonTest extends AbstractTestCase
     {
         $expected = '<button>';
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, null);
-
-        self::assertSame($expected, $helper->openTag());
+        self::assertSame($expected, $this->helper->openTag());
     }
 
     /**
@@ -67,31 +59,140 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testRenderOpenTagWithArray(): void
     {
-        $type       = 'test-type';
-        $attributes = ['type' => $type];
-        $expected   = sprintf('<button type="%s">', $type);
+        $type        = 'test-type';
+        $attributes  = ['type' => $type];
+        $typeEscaped = 'test-type-escaped';
+        $expected    = sprintf('<button typeEscaped="%s" class-escaped="btn-escaped">', $typeEscaped);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher    = self::exactly(2);
+        $escapeHtml->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher): string {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'type',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'class',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $value,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => 'typeEscaped',
+                        2 => 'class-escaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher        = self::exactly(2);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $type, $typeEscaped): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $type,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'btn',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $typeEscaped,
+                        2 => 'btn-escaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
+       $doctype->expects(self::never())
+           ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
+                    $invocation = $matcher->numberOfInvocations();
 
-        self::assertSame($expected, $helper->openTag($attributes));
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+
+        self::assertSame($expected, $this->helper->openTag($attributes));
     }
 
     /**
@@ -100,9 +201,7 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testRenderOpenTagWithElementWithoutName(): void
     {
-        $element = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Button::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn(null);
@@ -117,26 +216,6 @@ final class FormButtonTest extends AbstractTestCase
         $element->expects(self::never())
             ->method('getLabelOption');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, null);
-
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
             sprintf(
@@ -145,7 +224,7 @@ final class FormButtonTest extends AbstractTestCase
             ),
         );
         $this->expectExceptionCode(0);
-        $helper->openTag($element);
+        $this->helper->openTag($element);
     }
 
     /**
@@ -154,14 +233,18 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testRenderOpenTagWithElementWithoutValue(): void
     {
-        $type = 'button';
-        $name = 'test-button';
+        $type        = 'button';
+        $name        = 'test-button';
+        $typeEscaped = 'button-escaped';
+        $nameEscaped = 'test-button-escaped';
 
-        $expected = sprintf('<button type="%s" name="%s">', $type, $name);
+        $expected = sprintf(
+            '<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped">',
+            $typeEscaped,
+            $nameEscaped,
+        );
 
-        $element = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Button::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -180,27 +263,147 @@ final class FormButtonTest extends AbstractTestCase
         $element->expects(self::never())
             ->method('getLabelOption');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher    = self::exactly(3);
+        $escapeHtml->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher): string {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'type',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'name',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'class',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $value,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => 'typeEscaped',
+                        2 => 'nameEscaped',
+                        3 => 'class-escaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher        = self::exactly(3);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $type, $typeEscaped, $name, $nameEscaped): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $type,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            $name,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'btn',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $typeEscaped,
+                        2 => $nameEscaped,
+                        3 => 'btn-escaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
+       $doctype->expects(self::never())
+           ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
+                    $invocation = $matcher->numberOfInvocations();
 
-        self::assertSame($expected, $helper->openTag($element));
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+
+        self::assertSame($expected, $this->helper->openTag($element));
     }
 
     /**
@@ -209,15 +412,21 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testRenderOpenTagWithElementWithValue(): void
     {
-        $type  = 'button';
-        $name  = 'test-button';
-        $value = 'test-value';
+        $type         = 'button';
+        $name         = 'test-button';
+        $value        = 'test-value';
+        $typeEscaped  = 'button-escaped';
+        $nameEscaped  = 'test-button-escaped';
+        $valueEscaped = 'test-value-escaped';
 
-        $expected = sprintf('<button type="%s" name="%s" value="%s">', $type, $name, $value);
+        $expected = sprintf(
+            '<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">',
+            $typeEscaped,
+            $nameEscaped,
+            $valueEscaped,
+        );
 
-        $element = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Button::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -236,27 +445,159 @@ final class FormButtonTest extends AbstractTestCase
         $element->expects(self::never())
             ->method('getLabelOption');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher    = self::exactly(4);
+        $escapeHtml->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher): string {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'type',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'name',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'class',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            'value',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $value,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => 'typeEscaped',
+                        2 => 'nameEscaped',
+                        3 => 'class-escaped',
+                        4 => 'valueEscaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher        = self::exactly(4);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $type, $typeEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $type,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            $name,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'btn',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            $value,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $typeEscaped,
+                        2 => $nameEscaped,
+                        3 => 'btn-escaped',
+                        4 => $valueEscaped,
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
+       $doctype->expects(self::never())
+           ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
+                    $invocation = $matcher->numberOfInvocations();
 
-        self::assertSame($expected, $helper->openTag($element));
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+
+        self::assertSame($expected, $this->helper->openTag($element));
     }
 
     /**
@@ -265,15 +606,21 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testRenderOpenTagWithElementWithoutType(): void
     {
-        $type  = 'submit';
-        $name  = 'test-button';
-        $value = 'test-value';
+        $type         = 'submit';
+        $name         = 'test-button';
+        $value        = 'test-value';
+        $typeEscaped  = 'button-escaped';
+        $nameEscaped  = 'test-button-escaped';
+        $valueEscaped = 'test-value-escaped';
 
-        $expected = sprintf('<button name="%s" type="%s" value="%s">', $name, $type, $value);
+        $expected = sprintf(
+            '<button nameEscaped="%s" typeEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">',
+            $nameEscaped,
+            $typeEscaped,
+            $valueEscaped,
+        );
 
-        $element = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Button::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -292,27 +639,159 @@ final class FormButtonTest extends AbstractTestCase
         $element->expects(self::never())
             ->method('getLabelOption');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher    = self::exactly(4);
+        $escapeHtml->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher): string {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'name',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'type',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'class',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            'value',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $value,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => 'nameEscaped',
+                        2 => 'typeEscaped',
+                        3 => 'class-escaped',
+                        4 => 'valueEscaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher        = self::exactly(4);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $type, $typeEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $name,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            $type,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'btn',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            $value,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $nameEscaped,
+                        2 => $typeEscaped,
+                        3 => 'btn-escaped',
+                        4 => $valueEscaped,
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
+       $doctype->expects(self::never())
+           ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
+                    $invocation = $matcher->numberOfInvocations();
 
-        self::assertSame($expected, $helper->openTag($element));
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+
+        self::assertSame($expected, $this->helper->openTag($element));
     }
 
     /**
@@ -321,15 +800,21 @@ final class FormButtonTest extends AbstractTestCase
      */
     public function testRenderOpenTagWithElementWithWrongType(): void
     {
-        $type  = 'submit';
-        $name  = 'test-button';
-        $value = 'test-value';
+        $type         = 'submit';
+        $name         = 'test-button';
+        $value        = 'test-value';
+        $typeEscaped  = 'button-escaped';
+        $nameEscaped  = 'test-button-escaped';
+        $valueEscaped = 'test-value-escaped';
 
-        $expected = sprintf('<button name="%s" type="%s" value="%s">', $name, $type, $value);
+        $expected = sprintf(
+            '<button nameEscaped="%s" typeEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">',
+            $nameEscaped,
+            $typeEscaped,
+            $valueEscaped,
+        );
 
-        $element = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Button::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -348,81 +833,182 @@ final class FormButtonTest extends AbstractTestCase
         $element->expects(self::never())
             ->method('getLabelOption');
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher    = self::exactly(4);
+        $escapeHtml->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher): string {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'name',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'type',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'class',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            'value',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $value,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => 'nameEscaped',
+                        2 => 'typeEscaped',
+                        3 => 'class-escaped',
+                        4 => 'valueEscaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher        = self::exactly(4);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $type, $typeEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $name,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            $type,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'btn',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            $value,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $nameEscaped,
+                        2 => $typeEscaped,
+                        3 => 'btn-escaped',
+                        4 => $valueEscaped,
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
+       $doctype->expects(self::never())
+           ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, null);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
+                    $invocation = $matcher->numberOfInvocations();
 
-        self::assertSame($expected, $helper->openTag($element));
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+
+        self::assertSame($expected, $this->helper->openTag($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
      */
     public function testRenderWithoutLabel(): void
     {
-        $name  = 'test-button';
-        $value = 'test-value';
-
-        $element = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $element->expects(self::once())
-            ->method('getName')
-            ->willReturn($name);
-        $element->expects(self::once())
-            ->method('getValue')
-            ->willReturn($value);
-        $element->expects(self::once())
-            ->method('getAttributes')
-            ->willReturn([]);
-        $element->expects(self::once())
-            ->method('getAttribute')
-            ->with('type')
-            ->willReturn('does-not-exist');
+        $element = $this->createMock(Button::class);
+        $element->expects(self::never())
+            ->method('getName');
+        $element->expects(self::never())
+            ->method('getValue');
+        $element->expects(self::never())
+            ->method('getAttributes');
+        $element->expects(self::never())
+            ->method('getAttribute');
         $element->expects(self::once())
             ->method('getLabel')
             ->willReturn(null);
         $element->expects(self::never())
             ->method('getLabelOption');
-
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, null);
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage(
@@ -432,14 +1018,13 @@ final class FormButtonTest extends AbstractTestCase
             ),
         );
         $this->expectExceptionCode(0);
-        $helper->render($element);
+        $this->helper->render($element);
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
      */
     public function testRenderWithTranslator(): void
     {
@@ -450,18 +1035,19 @@ final class FormButtonTest extends AbstractTestCase
         $label                 = 'test-label';
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
+        $typeEscaped           = 'button-escaped';
+        $nameEscaped           = 'test-button-escaped';
+        $valueEscaped          = 'test-value-escaped';
 
         $expected = sprintf(
-            '<button type="%s" name="%s" value="%s">%s</button>',
-            $type,
-            $name,
-            $value,
+            '<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">%s</button>',
+            $typeEscaped,
+            $nameEscaped,
+            $valueEscaped,
             $escapedTranlatedLabel,
         );
 
-        $element = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Button::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -483,39 +1069,174 @@ final class FormButtonTest extends AbstractTestCase
             ->with('disable_html_escape')
             ->willReturn(false);
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $translator = $this->createMock(Translator::class);
         $translator->expects(self::once())
-            ->method('__invoke')
+            ->method('translate')
             ->with($label, $textDomain)
             ->willReturn($tranlatedLabel);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::once())
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher    = self::exactly(5);
+        $escapeHtml->expects($matcher)
             ->method('__invoke')
-            ->with($tranlatedLabel)
-            ->willReturn($escapedTranlatedLabel);
+            ->willReturnCallback(
+                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $tranlatedLabel, $escapedTranlatedLabel): string {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $tranlatedLabel,
+                            $value,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'type',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'name',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            'class',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        5 => self::assertSame(
+                            'value',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $value,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $escapedTranlatedLabel,
+                        2 => 'typeEscaped',
+                        3 => 'nameEscaped',
+                        4 => 'class-escaped',
+                        5 => 'valueEscaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher        = self::exactly(4);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $type, $typeEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $type,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            $name,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'btn',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            $value,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $typeEscaped,
+                        2 => $nameEscaped,
+                        3 => 'btn-escaped',
+                        4 => $valueEscaped,
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
+       $doctype->expects(self::never())
+           ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, $translator);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $helper->setTranslatorTextDomain($textDomain);
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
 
-        self::assertSame($expected, $helper->render($element));
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+        $this->helper->setTranslator($translator);
+
+        $this->helper->setTranslatorTextDomain($textDomain);
+
+        self::assertSame($expected, $this->helper->render($element));
     }
 
     /**
@@ -523,7 +1244,6 @@ final class FormButtonTest extends AbstractTestCase
      * @throws DomainException
      * @throws ContainerExceptionInterface
      * @throws InvalidArgumentException
-     * @throws RuntimeException
      */
     public function testInvokeWithTranslator1(): void
     {
@@ -534,18 +1254,19 @@ final class FormButtonTest extends AbstractTestCase
         $label                 = 'test-label';
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
+        $typeEscaped           = 'button-escaped';
+        $nameEscaped           = 'test-button-escaped';
+        $valueEscaped          = 'test-value-escaped';
 
         $expected = sprintf(
-            '<button type="%s" name="%s" value="%s">%s</button>',
-            $type,
-            $name,
-            $value,
+            '<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">%s</button>',
+            $typeEscaped,
+            $nameEscaped,
+            $valueEscaped,
             $escapedTranlatedLabel,
         );
 
-        $element = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Button::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -567,46 +1288,179 @@ final class FormButtonTest extends AbstractTestCase
             ->with('disable_html_escape')
             ->willReturn(false);
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $translator = $this->createMock(Translator::class);
         $translator->expects(self::once())
-            ->method('__invoke')
+            ->method('translate')
             ->with($label, $textDomain)
             ->willReturn($tranlatedLabel);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::once())
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher    = self::exactly(5);
+        $escapeHtml->expects($matcher)
             ->method('__invoke')
-            ->with($tranlatedLabel)
-            ->willReturn($escapedTranlatedLabel);
+            ->willReturnCallback(
+                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $tranlatedLabel, $escapedTranlatedLabel): string {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $tranlatedLabel,
+                            $value,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'type',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'name',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            'class',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        5 => self::assertSame(
+                            'value',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $value,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $escapedTranlatedLabel,
+                        2 => 'typeEscaped',
+                        3 => 'nameEscaped',
+                        4 => 'class-escaped',
+                        5 => 'valueEscaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher        = self::exactly(4);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $type, $typeEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $type,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            $name,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'btn',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            $value,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $typeEscaped,
+                        2 => $nameEscaped,
+                        3 => 'btn-escaped',
+                        4 => $valueEscaped,
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
+       $doctype->expects(self::never())
+           ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, $translator);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $helper->setTranslatorTextDomain($textDomain);
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
 
-        self::assertSame($expected, $helper($element));
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+        $this->helper->setTranslator($translator);
+        $this->helper->setTranslatorTextDomain($textDomain);
+
+        self::assertSame($expected, ($this->helper)($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws RuntimeException
      */
     public function testRenderWithTranslator2(): void
     {
@@ -617,18 +1471,19 @@ final class FormButtonTest extends AbstractTestCase
         $label                 = 'test-label';
         $tranlatedLabel        = 'test-label-translated';
         $escapedTranlatedLabel = 'test-label-translated-escaped';
+        $typeEscaped           = 'button-escaped';
+        $nameEscaped           = 'test-button-escaped';
+        $valueEscaped          = 'test-value-escaped';
 
         $expected = sprintf(
-            '<button type="%s" name="%s" value="%s">%s</button>',
-            $type,
-            $name,
-            $value,
+            '<button typeEscaped="%s" nameEscaped="%s" class-escaped="btn-escaped" valueEscaped="%s">%s</button>',
+            $typeEscaped,
+            $nameEscaped,
+            $valueEscaped,
             $escapedTranlatedLabel,
         );
 
-        $element = $this->getMockBuilder(Button::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $element = $this->createMock(Button::class);
         $element->expects(self::once())
             ->method('getName')
             ->willReturn($name);
@@ -650,114 +1505,190 @@ final class FormButtonTest extends AbstractTestCase
             ->with('disable_html_escape')
             ->willReturn(false);
 
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $translator = $this->createMock(Translator::class);
         $translator->expects(self::once())
-            ->method('__invoke')
+            ->method('translate')
             ->with($label, $textDomain)
             ->willReturn($tranlatedLabel);
 
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::once())
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher    = self::exactly(5);
+        $escapeHtml->expects($matcher)
             ->method('__invoke')
-            ->with($tranlatedLabel)
-            ->willReturn($escapedTranlatedLabel);
+            ->willReturnCallback(
+                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $tranlatedLabel, $escapedTranlatedLabel): string {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $tranlatedLabel,
+                            $value,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'type',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'name',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            'class',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        5 => self::assertSame(
+                            'value',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $value,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $escapedTranlatedLabel,
+                        2 => 'typeEscaped',
+                        3 => 'nameEscaped',
+                        4 => 'class-escaped',
+                        5 => 'valueEscaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher        = self::exactly(4);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $type, $typeEscaped, $name, $nameEscaped, $value, $valueEscaped): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $type,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            $name,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'btn',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            $value,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $typeEscaped,
+                        2 => $nameEscaped,
+                        3 => 'btn-escaped',
+                        4 => $valueEscaped,
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
+       $doctype->expects(self::never())
+           ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
 
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, $translator);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
+                    $invocation = $matcher->numberOfInvocations();
 
-        $helper->setTranslatorTextDomain($textDomain);
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
 
-        $helperObject = $helper();
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+        $this->helper->setTranslator($translator);
+        $this->helper->setTranslatorTextDomain($textDomain);
+
+        $helperObject = ($this->helper)();
 
         assert($helperObject instanceof FormButton);
 
         self::assertSame($expected, $helperObject->render($element));
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent1(): void
     {
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $translator->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, $translator);
-
-        self::assertSame($helper, $helper->setIndent(4));
-        self::assertSame('    ', $helper->getIndent());
+        self::assertSame($this->helper, $this->helper->setIndent(4));
+        self::assertSame('    ', $this->helper->getIndent());
     }
 
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
+    /** @throws Exception */
     public function testSetGetIndent2(): void
     {
-        $translator = $this->getMockBuilder(Translate::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $translator->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtml = $this->getMockBuilder(EscapeHtml::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $escapeHtmlAttr = $this->getMockBuilder(EscapeHtmlAttr::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $escapeHtmlAttr->expects(self::never())
-            ->method('__invoke');
-
-        $doctype = $this->getMockBuilder(Doctype::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $doctype->expects(self::never())
-            ->method('__invoke');
-
-        $helper = new FormButton($escapeHtml, $escapeHtmlAttr, $doctype, $translator);
-
-        self::assertSame($helper, $helper->setIndent('  '));
-        self::assertSame('  ', $helper->getIndent());
+        self::assertSame($this->helper, $this->helper->setIndent('  '));
+        self::assertSame('  ', $this->helper->getIndent());
     }
 }

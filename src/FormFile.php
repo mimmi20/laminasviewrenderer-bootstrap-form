@@ -13,14 +13,14 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
+use Laminas\Form\Exception\DomainException;
 
 use function array_key_exists;
 use function is_array;
 use function is_string;
 use function sprintf;
 
-final class FormFile extends FormInput
+final class FormFile extends FormInput implements FormRenderInterface
 {
     /**
      * Attributes valid for the input tag type="file"
@@ -42,14 +42,14 @@ final class FormFile extends FormInput
     /**
      * Render a form <input> element from the provided $element
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      */
     public function render(ElementInterface $element): string
     {
         $name = $element->getName();
 
         if ($name === null || $name === '') {
-            throw new Exception\DomainException(
+            throw new DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
                     __METHOD__,
@@ -74,10 +74,16 @@ final class FormFile extends FormInput
             $attributes['value'] = $value;
         }
 
+        $attributesString = $this->createAttributesString($attributes);
+
+        if (!empty($attributesString)) {
+            $attributesString = ' ' . $attributesString;
+        }
+
         $indent = $this->getIndent();
         $markup = sprintf(
-            '<input %s%s',
-            $this->createAttributesString($attributes),
+            '<input%s%s',
+            $attributesString,
             $this->getInlineClosingBracket(),
         );
 

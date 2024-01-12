@@ -13,12 +13,9 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Closure;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManager;
-use Mimmi20\Form\Links\View\Helper\FormLinks;
-use Mimmi20\Form\Links\View\Helper\FormLinksFactory;
-use Mimmi20\Form\Paragraph\View\Helper\FormParagraph;
-use Mimmi20\Form\Paragraph\View\Helper\FormParagraphFactory;
 use Psr\Container\ContainerInterface;
 
 use function assert;
@@ -27,10 +24,10 @@ use function is_array;
 final class ConfigProvider
 {
     /**
-     * Return general-purpose laminas-navigation configuration.
+     * Return general-purpose laminas-form configuration.
      *
      * @return array<string, array<string, array<string, Closure|string>>>
-     * @phpstan-return array{dependencies: array{factories: array<class-string, (Closure(ContainerInterface, string, array<mixed>|null):HelperPluginManager<(callable(): HelperInterface)|HelperInterface>)>}, view_helpers: array{aliases: array<string, class-string>, factories: array<class-string, class-string>}}
+     * @phpstan-return array{dependencies: array{factories: array<string, (Closure(ContainerInterface, string, array<mixed>|null):HelperPluginManager<(callable(): HelperInterface)|HelperInterface>)>}, view_helpers: array{aliases: array<string, class-string>, factories: array<class-string, class-string>}}
      *
      * @throws void
      */
@@ -141,6 +138,11 @@ final class ConfigProvider
                 'form_hidden' => FormHidden::class,
                 'formHidden' => FormHidden::class,
                 'FormHidden' => FormHidden::class,
+                FormHtmlInterface::class => FormHtml::class,
+                'formhtml' => FormHtml::class,
+                'form_html' => FormHtml::class,
+                'formHtml' => FormHtml::class,
+                'FormHtml' => FormHtml::class,
                 'formimage' => FormImage::class,
                 'form_image' => FormImage::class,
                 'formImage' => FormImage::class,
@@ -149,15 +151,10 @@ final class ConfigProvider
                 'form_input' => FormInput::class,
                 'formInput' => FormInput::class,
                 'FormInput' => FormInput::class,
-                FormLabelInterface::class => FormLabel::class,
                 'formlabel' => FormLabel::class,
                 'form_label' => FormLabel::class,
                 'formLabel' => FormLabel::class,
                 'FormLabel' => FormLabel::class,
-                'formlinks' => FormLinks::class,
-                'form_links' => FormLinks::class,
-                'formLinks' => FormLinks::class,
-                'FormLinks' => FormLinks::class,
                 'formmonth' => FormMonth::class,
                 'form_month' => FormMonth::class,
                 'formMonth' => FormMonth::class,
@@ -174,10 +171,6 @@ final class ConfigProvider
                 'form_number' => FormNumber::class,
                 'formNumber' => FormNumber::class,
                 'FormNumber' => FormNumber::class,
-                'formparagraph' => FormParagraph::class,
-                'form_paragraph' => FormParagraph::class,
-                'formParagraph' => FormParagraph::class,
-                'FormParagraph' => FormParagraph::class,
                 'formpassword' => FormPassword::class,
                 'form_password' => FormPassword::class,
                 'formPassword' => FormPassword::class,
@@ -239,43 +232,42 @@ final class ConfigProvider
                 'FormWeek' => FormWeek::class,
             ],
             'factories' => [
-                Form::class => FormFactory::class,
-                FormButton::class => FormButtonFactory::class,
-                FormCollection::class => FormCollectionFactory::class,
-                FormCheckbox::class => FormCheckboxFactory::class,
-                FormColor::class => FormColorFactory::class,
-                FormDate::class => FormDateFactory::class,
-                FormDateSelect::class => FormDateSelectFactory::class,
-                FormDateTime::class => FormDateTimeFactory::class,
-                FormDateTimeLocal::class => FormDateTimeLocalFactory::class,
-                FormDateTimeSelect::class => FormDateTimeSelectFactory::class,
-                FormElement::class => FormElementFactory::class,
-                FormElementErrors::class => FormElementErrorsFactory::class,
-                FormEmail::class => FormEmailFactory::class,
-                FormFile::class => FormFileFactory::class,
-                FormHidden::class => FormHiddenFactory::class,
-                FormImage::class => FormImageFactory::class,
-                FormLabel::class => FormLabelFactory::class,
-                FormLinks::class => FormLinksFactory::class,
-                FormMonth::class => FormMonthFactory::class,
-                FormMonthSelect::class => FormMonthSelectFactory::class,
-                FormMultiCheckbox::class => FormMultiCheckboxFactory::class,
-                FormNumber::class => FormNumberFactory::class,
-                FormParagraph::class => FormParagraphFactory::class,
-                FormPassword::class => FormPasswordFactory::class,
-                FormRadio::class => FormRadioFactory::class,
-                FormRange::class => FormRangeFactory::class,
-                FormReset::class => FormResetFactory::class,
-                FormRow::class => FormRowFactory::class,
-                FormSearch::class => FormSearchFactory::class,
-                FormSelect::class => FormSelectFactory::class,
-                FormSubmit::class => FormSubmitFactory::class,
-                FormTel::class => FormTelFactory::class,
-                FormText::class => FormTextFactory::class,
-                FormTextarea::class => FormTextareaFactory::class,
-                FormTime::class => FormTimeFactory::class,
-                FormUrl::class => FormUrlFactory::class,
-                FormWeek::class => FormWeekFactory::class,
+                Form::class => InvokableFactory::class,
+                FormButton::class => InvokableFactory::class,
+                FormCollection::class => InvokableFactory::class,
+                FormCheckbox::class => InvokableFactory::class,
+                FormColor::class => InvokableFactory::class,
+                FormDate::class => InvokableFactory::class,
+                FormDateSelect::class => InvokableFactory::class,
+                FormDateTime::class => InvokableFactory::class,
+                FormDateTimeLocal::class => InvokableFactory::class,
+                FormDateTimeSelect::class => InvokableFactory::class,
+                FormElement::class => InvokableFactory::class,
+                FormElementErrors::class => InvokableFactory::class,
+                FormEmail::class => InvokableFactory::class,
+                FormFile::class => InvokableFactory::class,
+                FormHidden::class => InvokableFactory::class,
+                FormHtml::class => InvokableFactory::class,
+                FormImage::class => InvokableFactory::class,
+                FormLabel::class => InvokableFactory::class,
+                FormMonth::class => InvokableFactory::class,
+                FormMonthSelect::class => InvokableFactory::class,
+                FormMultiCheckbox::class => InvokableFactory::class,
+                FormNumber::class => InvokableFactory::class,
+                FormPassword::class => InvokableFactory::class,
+                FormRadio::class => InvokableFactory::class,
+                FormRange::class => InvokableFactory::class,
+                FormReset::class => InvokableFactory::class,
+                FormRow::class => InvokableFactory::class,
+                FormSearch::class => InvokableFactory::class,
+                FormSelect::class => InvokableFactory::class,
+                FormSubmit::class => InvokableFactory::class,
+                FormTel::class => InvokableFactory::class,
+                FormText::class => InvokableFactory::class,
+                FormTextarea::class => InvokableFactory::class,
+                FormTime::class => InvokableFactory::class,
+                FormUrl::class => InvokableFactory::class,
+                FormWeek::class => InvokableFactory::class,
             ],
         ];
     }

@@ -18,7 +18,7 @@ parameters:
   checkAlwaysTrueCheckTypeFunctionCall: false
 
   # reports instanceof occurrences always evaluated to true
-  checkAlwaysTrueInstanceof: true
+  checkAlwaysTrueInstanceof: false
 
   # reports === and !== occurrences always evaluated to true
   checkAlwaysTrueStrictComparison: true
@@ -98,9 +98,9 @@ parameters:
       tooWideThrowType: true
 
   ignoreErrors:
-#    - '~is not subtype of Throwable~'
+    - '~Call to deprecated method setView\(\)~'
     - '~Fetching class constant class of deprecated class~'
-    - '~Instantiation of deprecated class~'
-    -
-      message: '~Parameter #1 \$attributesOrElement of method .* expects .*, int given~'
-      path: tests\FormLabelTest.php
+#    - '~Call to deprecated method setView\(\) of class Laminas\\I18n\\View\\Helper\\AbstractTranslatorHelper~'
+#    -
+#      message: '~Parameter #1 \$attributesOrElement of method .* expects .*, int given~'
+#      path: tests\FormLabelTest.php

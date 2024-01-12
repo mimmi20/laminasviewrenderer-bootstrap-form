@@ -59,9 +59,15 @@ final class FormHidden extends FormInput implements FormHiddenInterface
         $attributes['type']  = $type;
         $attributes['value'] = $element->getValue();
 
+        $attributesString = $this->createAttributesString($attributes);
+
+        if (!empty($attributesString)) {
+            $attributesString = ' ' . $attributesString;
+        }
+
         $markup = sprintf(
-            '<input %s%s',
-            $this->createAttributesString($attributes),
+            '<input%s%s',
+            $attributesString,
             $this->getInlineClosingBracket(),
         );
 
