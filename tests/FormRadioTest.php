@@ -119,7 +119,6 @@ final class FormRadioTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
      */
     public function testRenderWithWrongElement(): void
     {
@@ -156,7 +155,6 @@ final class FormRadioTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
      */
     public function testRenderWithoutName(): void
     {

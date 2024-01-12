@@ -20,6 +20,7 @@ use Laminas\Form\Element\MultiCheckbox;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\Fieldset;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
@@ -29,7 +30,6 @@ use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Laminas\InputFilter\InputFilterInterface;
 use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\InputFilter\InputInterface;
-use Laminas\View\Exception\InvalidArgumentException;
 
 use function array_key_exists;
 use function array_merge;
@@ -73,7 +73,6 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      *
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
@@ -119,14 +118,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
         // Translate the label
         if ($label !== '' && $type !== 'hidden') {
-            $translator = $this->getTranslator();
-
-            if ($translator !== null) {
-                $label = $translator->translate(
-                    $label,
-                    $this->getTranslatorTextDomain(),
-                );
-            }
+            $label = $this->translateLabel($label);
         }
 
         // Does this element have errors ?
@@ -184,16 +176,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             return $markup . $errorContent;
         }
 
-        if (
-            $label !== ''
-            && (
-                !$element instanceof LabelAwareInterface
-                || !$element->getLabelOption('disable_html_escape')
-            )
-        ) {
-            $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-            $label            = $escapeHtmlHelper($label);
-        }
+        $label = $this->escapeLabel($element, $label);
 
         assert(is_string($label));
 
@@ -214,7 +197,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
     /**
      * @throws DomainException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function renderHorizontalRow(ElementInterface $element, string $label): string
     {
@@ -473,7 +456,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
     /**
      * @throws DomainException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function renderVerticalRow(
         ElementInterface $element,

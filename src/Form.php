@@ -14,10 +14,10 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\Form\View\Helper\Form as BaseForm;
-use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Renderer\RendererInterface;
 
@@ -60,7 +60,6 @@ final class Form extends BaseForm implements FormIndentInterface
      * @throws DomainException
      * @throws RuntimeException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      *
      * @template TFilteredValues of object
      */

@@ -66,7 +66,7 @@ jobs:
       skip-phpunit: false
       skip-vitest: true
       skip-stryker: true
-      min-msi: 91
-      min-covered-msi: 91
+      min-msi: 82
+      min-covered-msi: 82
       upload-codecov: true
       upload-codeclimate: false

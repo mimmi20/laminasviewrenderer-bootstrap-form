@@ -15,7 +15,7 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use AssertionError;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
-use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormRow;
@@ -38,7 +38,6 @@ final class FormRow1Test extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderWithWrongFormOption(): void
     {
@@ -76,7 +75,6 @@ final class FormRow1Test extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderHiddenWithoutFormOptionAndLabel(): void
     {
@@ -142,7 +140,6 @@ final class FormRow1Test extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithoutFormOptionAndLabel(): void
     {
@@ -211,7 +208,6 @@ final class FormRow1Test extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithoutFormOptionAndLabel2(): void
     {
@@ -319,7 +315,6 @@ final class FormRow1Test extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithoutFormOptionAndLabel3(): void
     {
@@ -435,7 +430,6 @@ final class FormRow1Test extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderHiddenWithLabelWithoutFormOption(): void
     {
@@ -501,7 +495,6 @@ final class FormRow1Test extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithLabelWithoutFormOption(): void
     {
@@ -570,7 +563,6 @@ final class FormRow1Test extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithLabelWithoutFormOption2(): void
     {
@@ -678,7 +670,6 @@ final class FormRow1Test extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderPartialWithLabelWithoutFormOption3(): void
     {
@@ -794,7 +785,6 @@ final class FormRow1Test extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderHiddenWithLabelAndTranslatorWithoutFormOption(): void
     {

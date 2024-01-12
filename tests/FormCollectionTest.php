@@ -39,7 +39,6 @@ final class FormCollectionTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
      */
     public function testRenderWithWrongElement(): void

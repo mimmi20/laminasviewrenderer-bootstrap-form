@@ -16,7 +16,7 @@ use Laminas\Form\Element\Button as ButtonElement;
 use Laminas\Form\Element\Submit as SubmitElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
-use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\Form\Exception\InvalidArgumentException;
 
 use function array_key_exists;
 use function array_merge;
@@ -73,7 +73,6 @@ final class FormButton extends FormInput implements FormRenderInterface
      *
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function __invoke(
         ElementInterface | null $element = null,
@@ -92,12 +91,11 @@ final class FormButton extends FormInput implements FormRenderInterface
      *
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function render(ElementInterface $element, string | null $buttonContent = null): string
     {
         if (!$element instanceof ButtonElement && !$element instanceof SubmitElement) {
-            throw new \Laminas\Form\Exception\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
                     '%s requires that the element is of type %s or of type %s, but was %s',
                     __METHOD__,
@@ -121,19 +119,8 @@ final class FormButton extends FormInput implements FormRenderInterface
             }
         }
 
-        $translator = $this->getTranslator();
-
-        if ($translator !== null) {
-            $buttonContent = $translator->translate(
-                $buttonContent,
-                $this->getTranslatorTextDomain(),
-            );
-        }
-
-        if (!$element->getLabelOption('disable_html_escape')) {
-            $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-            $buttonContent    = $escapeHtmlHelper($buttonContent);
-        }
+        $buttonContent = $this->translateLabel($buttonContent);
+        $buttonContent = $this->escapeLabel($element, $buttonContent);
 
         $indent = $this->getIndent();
 

@@ -70,7 +70,6 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
      *
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
@@ -92,7 +91,6 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
      *
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
      */
     public function render(ElementInterface $element): string
     {
@@ -219,7 +217,6 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
      *
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
      */
     private function renderOptions(
         MultiCheckboxElement $element,
@@ -266,10 +263,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
 
         $groupAttributes['class'] = implode(' ', array_unique($groupClasses));
 
-        $translator       = $this->getTranslator();
-        $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-        $labelHelper      = $this->getLabelHelper();
-        $htmlHelper       = $this->getHtmlHelper();
+        $labelHelper = $this->getLabelHelper();
+        $htmlHelper  = $this->getHtmlHelper();
 
         foreach ($options as $key => $optionSpec) {
             ++$count;
@@ -389,16 +384,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
 
             assert(is_string($label));
 
-            if ($translator !== null) {
-                $label = $translator->translate(
-                    $label,
-                    $this->getTranslatorTextDomain(),
-                );
-            }
-
-            if (!$element->getLabelOption('disable_html_escape')) {
-                $label = $escapeHtmlHelper($label);
-            }
+            $label = $this->translateLabel($label);
+            $label = $this->escapeLabel($element, $label);
 
             /** @var array<string, bool|string> $filteredAttributes */
             $filteredAttributes = array_filter(

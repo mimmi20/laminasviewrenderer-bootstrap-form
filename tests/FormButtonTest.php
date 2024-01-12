@@ -14,8 +14,8 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Button;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
-use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
@@ -992,7 +992,6 @@ final class FormButtonTest extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderWithoutLabel(): void
     {
@@ -1026,7 +1025,6 @@ final class FormButtonTest extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderWithTranslator(): void
     {
@@ -1246,7 +1244,6 @@ final class FormButtonTest extends TestCase
      * @throws DomainException
      * @throws ContainerExceptionInterface
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testInvokeWithTranslator1(): void
     {
@@ -1464,7 +1461,6 @@ final class FormButtonTest extends TestCase
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function testRenderWithTranslator2(): void
     {

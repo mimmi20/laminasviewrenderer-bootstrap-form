@@ -77,14 +77,7 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
         $label = $element->getLabel() ?? '';
 
         if ($label !== '') {
-            $translator = $this->getTranslator();
-
-            if ($translator !== null) {
-                $label = $translator->translate(
-                    $label,
-                    $this->getTranslatorTextDomain(),
-                );
-            }
+            $label = $this->translateLabel($label);
 
             if (!$element->getLabelOption('disable_html_escape')) {
                 $escapeHtmlHelper = $this->getEscapeHtmlHelper();

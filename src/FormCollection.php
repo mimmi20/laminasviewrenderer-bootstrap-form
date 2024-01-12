@@ -15,11 +15,11 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\Element\Collection as CollectionElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormCollection as BaseFormCollection;
-use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\HelperInterface;
 
@@ -48,12 +48,11 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
      * @throws DomainException
      * @throws RuntimeException
      * @throws InvalidArgumentException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof FieldsetInterface) {
-            throw new \Laminas\Form\Exception\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
                     '%s requires that the element is of type %s, but was %s',
                     __METHOD__,
@@ -145,29 +144,21 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
         // Every collection is wrapped by a fieldset if needed
         $attributes = $element->getAttributes();
 
-        unset($attributes['name']);
+        if (!$this->getDoctypeHelper()->isHtml5()) {
+            unset(
+                $attributes['name'],
+                $attributes['disabled'],
+                $attributes['form'],
+            );
+        }
 
         $label      = $element->getLabel() ?? '';
         $legend     = '';
         $htmlHelper = $this->getHtmlHelper();
 
         if ($label !== '') {
-            $translator = $this->getTranslator();
-
-            if ($translator !== null) {
-                $label = $translator->translate(
-                    $label,
-                    $this->getTranslatorTextDomain(),
-                );
-            }
-
-            if (
-                !$element instanceof LabelAwareInterface
-                || !$element->getLabelOption('disable_html_escape')
-            ) {
-                $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-                $label            = $escapeHtmlHelper($label);
-            }
+            $label = $this->translateLabel($label);
+            $label = $this->escapeLabel($element, $label);
 
             assert(is_string($label));
 
