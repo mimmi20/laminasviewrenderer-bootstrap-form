@@ -12,11 +12,10 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
-use Laminas\Form\Element\Hidden;
 use Laminas\Form\Element\Select as SelectElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
-use Laminas\Form\View\Helper\AbstractHelper;
+use Laminas\Form\View\Helper\FormSelect as BaseFormSelect;
 use Laminas\I18n\Exception\RuntimeException;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Exception\InvalidArgumentException;
@@ -27,17 +26,15 @@ use function array_unique;
 use function assert;
 use function explode;
 use function get_debug_type;
-use function gettype;
 use function implode;
 use function is_array;
 use function is_scalar;
-use function is_string;
 use function sprintf;
 use function trim;
 
 use const PHP_EOL;
 
-final class FormSelect extends AbstractHelper implements FormSelectInterface
+final class FormSelect extends BaseFormSelect implements FormSelectInterface
 {
     use FormTrait;
     use HiddenHelperTrait;
@@ -57,67 +54,6 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      */
     protected $translatableAttributes = ['label' => true, 'aria-label' => true];
-
-    /**
-     * Attributes valid for select
-     *
-     * @var array<string, bool>
-     */
-    private array $validSelectAttributes = [
-        'name' => true,
-        'autocomplete' => true,
-        'autofocus' => true,
-        'disabled' => true,
-        'form' => true,
-        'multiple' => true,
-        'required' => true,
-        'size' => true,
-    ];
-
-    /**
-     * Attributes valid for options
-     *
-     * @var array<string, bool>
-     */
-    private array $validOptionAttributes = [
-        'disabled' => true,
-        'selected' => true,
-        'label' => true,
-        'value' => true,
-    ];
-
-    /**
-     * Attributes valid for option groups
-     *
-     * @var array<string, bool>
-     */
-    private array $validOptgroupAttributes = [
-        'disabled' => true,
-        'label' => true,
-    ];
-
-    /**
-     * Invoke helper as functor
-     *
-     * Proxies to {@link render()}.
-     *
-     * @return self|string
-     *
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
-     * @throws DomainException
-     * @throws InvalidArgumentException
-     * @throws RuntimeException
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
-     */
-    public function __invoke(ElementInterface | null $element = null)
-    {
-        if (!$element) {
-            return $this;
-        }
-
-        return $this->render($element);
-    }
 
     /**
      * Render a form <select> element from the provided $element
@@ -142,7 +78,7 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
 
         $name = $element->getName();
 
-        if (empty($name)) {
+        if ($name === null || $name === '') {
             throw new DomainException(
                 sprintf(
                     '%s requires that the element has an assigned name; none discovered',
@@ -223,13 +159,13 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * </code>
      *
      * @param array<int|string, array<string, string>|string> $options
-     * @param array<int|string, string>                       $selectedOptions Option values that should be marked as selected
+     * @param array<int|string, bool|float|int|string>        $selectedOptions Option values that should be marked as selected
      * @phpstan-param array<int|string, array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string> $options
      *
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    public function renderOptions(array $options, array $selectedOptions, int $level): string
+    public function renderOptions(array $options, array $selectedOptions = [], int $level = 0): string
     {
         $optionStrings = [];
 
@@ -241,8 +177,8 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
     }
 
     /**
-     * @param array<string, string>|string $optionSpec
-     * @param array<int|string, string>    $selectedOptions
+     * @param array<string, string>|string             $optionSpec
+     * @param array<int|string, bool|float|int|string> $selectedOptions
      * @phpstan-param array{options?: array<mixed>, value?: string, label?: string, selected?: bool, disabled?: bool, disable_html_escape?: bool, attributes?: array<string, string>}|string $optionSpec
      *
      * @throws InvalidArgumentException
@@ -286,35 +222,17 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
             $disabled = $optionSpec['disabled'];
         }
 
-        if (ArrayUtils::inArray($value, $selectedOptions)) {
+        if (ArrayUtils::inArray((string) $value, $selectedOptions, true)) {
             $selected = true;
         }
 
-        assert(
-            is_string($label),
-            sprintf(
-                '$label should be a string, but was %s',
-                gettype($label),
-            ),
-        );
+        if (is_scalar($label)) {
+            $label = $this->translateLabel($label);
 
-        if ($label !== '') {
-            $translator = $this->getTranslator();
+            $escapeHtml = $this->getEscapeHtmlHelper();
+            $label      = $escapeHtml($label);
 
-            if ($translator !== null) {
-                $label = $translator->translate(
-                    $label,
-                    $this->getTranslatorTextDomain(),
-                );
-            }
-
-            if (!isset($optionSpec['disable_html_escape'])) {
-                $escapeHtmlHelper = $this->getEscapeHtmlHelper();
-
-                $label = $escapeHtmlHelper($label);
-
-                assert(is_string($label));
-            }
+            assert(is_scalar($label));
         }
 
         $attributes = [
@@ -349,12 +267,12 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * with an array following the specification for renderOptions().
      *
      * @param array<string, array<mixed>|bool|int|string> $optgroup
-     * @param array<int|string, string>                   $selectedOptions
+     * @param array<int|string, bool|float|int|string>    $selectedOptions
      *
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
-    public function renderOptgroup(array $optgroup, array $selectedOptions, int $level): string
+    public function renderOptgroup(array $optgroup, array $selectedOptions = [], int $level = 0): string
     {
         $options = [];
 
@@ -393,19 +311,19 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
      * a domain issue -- you cannot have multiple options selected unless the
      * multiple attribute is present and enabled.
      *
-     * @param array<string, scalar|null> $attributes
+     * @param array<string, bool|float|int|string|null> $attributes
      *
-     * @return array<int|string, string>
+     * @return array<int|string, bool|float|int|string>
      *
      * @throws DomainException
      */
-    private function validateMultiValue(mixed $value, array $attributes): array
+    protected function validateMultiValue(mixed $value, array $attributes): array
     {
         if ($value === null) {
             return [];
         }
 
-        if (is_string($value)) {
+        if (is_scalar($value)) {
             return [$value];
         }
 
@@ -423,19 +341,5 @@ final class FormSelect extends AbstractHelper implements FormSelectInterface
         }
 
         return $value;
-    }
-
-    /**
-     * @throws DomainException
-     * @throws \Laminas\Form\Exception\InvalidArgumentException
-     */
-    private function renderHiddenElement(SelectElement $element): string
-    {
-        $hiddenElement = new Hidden($element->getName());
-        $hiddenElement->setValue($element->getUnselectedValue());
-
-        $hiddenHelper = $this->getHiddenHelper();
-
-        return $hiddenHelper->render($hiddenElement);
     }
 }

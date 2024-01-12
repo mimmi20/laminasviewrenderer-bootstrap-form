@@ -18,7 +18,6 @@ use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\ExtensionNotLoadedException;
 use Laminas\Form\Exception\InvalidArgumentException;
-use Laminas\I18n\Exception\RuntimeException;
 use Mimmi20\LaminasView\BootstrapForm\FormDateTimeSelect;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
@@ -42,8 +41,6 @@ final class FormDateTimeSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     * @throws RuntimeException
      */
     public function testRenderWithWrongElement(): void
     {
@@ -68,8 +65,6 @@ final class FormDateTimeSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     * @throws RuntimeException
      */
     public function testRenderWithoutName(): void
     {
@@ -116,8 +111,6 @@ final class FormDateTimeSelectTest extends TestCase
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     * @throws RuntimeException
      */
     public function testInvokeWithoutName1(): void
     {
@@ -164,12 +157,7 @@ final class FormDateTimeSelectTest extends TestCase
         $helperObject->render($element);
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     * @throws RuntimeException
-     */
+    /** @throws Exception */
     public function testInvokeWithoutName2(): void
     {
         $element = $this->createMock(DateTimeSelectElement::class);

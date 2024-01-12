@@ -22,24 +22,6 @@ final class FormHtml extends AbstractHelper implements FormHtmlInterface
     use FormTrait;
 
     /**
-     * Invoke helper as functor
-     *
-     * Proxies to {@link render()}.
-     *
-     * @phpstan-param array<int|string, (array<int, string>|bool|float|int|iterable<int, string>|stdClass|string|null)> $attribs
-     *
-     * @throws void
-     */
-    public function __invoke(string | null $element = null, array $attribs = [], string $content = ''): string | self
-    {
-        if (!$element) {
-            return $this;
-        }
-
-        return $this->render($element, $attribs, $content);
-    }
-
-    /**
      * Render a html element
      *
      * @phpstan-param array<int|string, (array<int, string>|bool|float|int|iterable<int, string>|stdClass|string|null)> $attribs

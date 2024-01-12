@@ -26,7 +26,7 @@ trait FormDateSelectTrait
      *
      * @throws void
      */
-    private function getDaysOptions(string $pattern): array
+    protected function getDaysOptions(string $pattern): array
     {
         $keyFormatter   = new IntlDateFormatter(
             $this->getLocale(),

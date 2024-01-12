@@ -12,13 +12,11 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
-use IntlDateFormatter;
 use Laminas\Form\Element\MonthSelect as MonthSelectElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
-use Laminas\Form\View\Helper\AbstractHelper;
-use Laminas\I18n\Exception\RuntimeException;
+use Laminas\Form\View\Helper\FormMonthSelect as BaseFormMonthSelect;
 
 use function get_debug_type;
 use function implode;
@@ -27,51 +25,15 @@ use function sprintf;
 
 use const PHP_EOL;
 
-final class FormMonthSelect extends AbstractHelper implements FormIndentInterface, FormRenderInterface
+final class FormMonthSelect extends BaseFormMonthSelect implements FormIndentInterface, FormRenderInterface
 {
-    use FormMonthSelectTrait;
     use FormTrait;
-    use SelectHelperTrait;
-
-    /**
-     * Invoke helper as function
-     *
-     * Proxies to {@link render()}.
-     *
-     * @return self|string
-     *
-     * @throws DomainException
-     * @throws InvalidArgumentException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     * @throws RuntimeException
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
-     */
-    public function __invoke(
-        ElementInterface | null $element = null,
-        int $dateType = IntlDateFormatter::LONG,
-        string | null $locale = null,
-    ) {
-        if (!$element) {
-            return $this;
-        }
-
-        $this->setDateType($dateType);
-
-        if ($locale !== null) {
-            $this->setLocale($locale);
-        }
-
-        return $this->render($element);
-    }
 
     /**
      * Render a month element that is composed of two selects
      *
      * @throws InvalidArgumentException
      * @throws DomainException
-     * @throws \Laminas\View\Exception\InvalidArgumentException
-     * @throws RuntimeException
      */
     public function render(ElementInterface $element): string
     {
@@ -97,7 +59,7 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
             );
         }
 
-        $selectHelper = $this->getSelectHelper();
+        $selectHelper = $this->getSelectElementHelper();
         $pattern      = $this->parsePattern($element->shouldRenderDelimiters());
 
         // The pattern always contains "day" part and the first separator, so we have to remove it
@@ -115,7 +77,10 @@ final class FormMonthSelect extends AbstractHelper implements FormIndentInterfac
         }
 
         $indent = $this->getIndent();
-        $selectHelper->setIndent($indent);
+
+        if ($selectHelper instanceof FormIndentInterface) {
+            $selectHelper->setIndent($indent);
+        }
 
         $data                    = [];
         $data[$pattern['month']] = $selectHelper->render($monthElement);

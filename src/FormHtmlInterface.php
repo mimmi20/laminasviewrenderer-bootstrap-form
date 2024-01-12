@@ -18,17 +18,6 @@ use stdClass;
 interface FormHtmlInterface extends FormIndentInterface, HelperInterface
 {
     /**
-     * Invoke helper as functor
-     *
-     * Proxies to {@link render()}.
-     *
-     * @phpstan-param array<int|string, (array<int, string>|bool|float|int|iterable<int, string>|stdClass|string|null)> $attribs
-     *
-     * @throws void
-     */
-    public function __invoke(string | null $element = null, array $attribs = [], string $content = ''): string | self;
-
-    /**
      * Render a html element
      *
      * @phpstan-param array<int|string, (array<int, string>|bool|float|int|iterable<int, string>|stdClass|string|null)> $attribs
