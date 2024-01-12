@@ -120,7 +120,7 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
                     $fieldsetHelper->setIndent($indent . $this->getWhitespace(4));
                 }
 
-                if ($fieldsetHelper instanceof \Laminas\Form\View\Helper\FormCollection) {
+                if ($fieldsetHelper instanceof BaseFormCollection) {
                     $fieldsetHelper->setShouldWrap($this->shouldWrap());
 
                     $markup .= $fieldsetHelper->render($elementOrFieldset) . PHP_EOL;
@@ -269,7 +269,7 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
                 $fieldsetHelper->setIndent($indent . $this->getWhitespace(4));
             }
 
-            if ($fieldsetHelper instanceof \Laminas\Form\View\Helper\FormCollection) {
+            if ($fieldsetHelper instanceof BaseFormCollection) {
                 $fieldsetHelper->setShouldWrap($this->shouldWrap());
 
                 $templateMarkup = $fieldsetHelper->render($elementOrFieldset) . PHP_EOL;

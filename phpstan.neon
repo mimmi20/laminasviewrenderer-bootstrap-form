@@ -100,6 +100,7 @@ parameters:
   ignoreErrors:
     - '~Call to deprecated method setView\(\)~'
     - '~Fetching class constant class of deprecated class~'
+    - '~Call to deprecated method setView\(\) of class Laminas\\I18n\\View\\Helper\\AbstractTranslatorHelper~'
 #    -
 #      message: '~Parameter #1 \$attributesOrElement of method .* expects .*, int given~'
 #      path: tests\FormLabelTest.php

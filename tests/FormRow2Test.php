@@ -15,16 +15,13 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\View\Helper\FormElement;
-use Laminas\I18n\View\Helper\Translate;
 use Laminas\View\Exception\InvalidArgumentException;
-use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormElementErrorsInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormElementInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormHtmlInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormRow;
-use Mimmi20\LaminasView\Helper\HtmlElement\Helper\HtmlElementInterface;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -95,18 +92,6 @@ final class FormRow2Test extends TestCase
             ->method('setIndent');
         $formElementErrors->expects(self::never())
             ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $translator = $this->createMock(Translate::class);
-        $translator->expects(self::never())
-            ->method('__invoke');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -229,18 +214,6 @@ final class FormRow2Test extends TestCase
             ->method('setIndent');
         $formElementErrors->expects(self::never())
             ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $translator = $this->createMock(Translate::class);
-        $translator->expects(self::never())
-            ->method('__invoke');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -371,18 +344,6 @@ final class FormRow2Test extends TestCase
             ->method('setIndent');
         $formElementErrors->expects(self::never())
             ->method('render');
-
-        $htmlElement = $this->createMock(HtmlElementInterface::class);
-        $htmlElement->expects(self::never())
-            ->method('toHtml');
-
-        $escapeHtml = $this->createMock(EscapeHtml::class);
-        $escapeHtml->expects(self::never())
-            ->method('__invoke');
-
-        $translator = $this->createMock(Translate::class);
-        $translator->expects(self::never())
-            ->method('__invoke');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
