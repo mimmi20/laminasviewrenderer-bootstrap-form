@@ -740,7 +740,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $elementErrorsHelper->setIndent($indent);
         $elementErrors = $elementErrorsHelper->render($element);
 
-        if ($elementErrors && $element->hasAttribute('id')) {
+        if ($elementErrors !== '' && $element->hasAttribute('id')) {
             $ariaDesc = $element->hasAttribute('aria-describedby')
                 ? $element->getAttribute('aria-describedby') . ' '
                 : '';
