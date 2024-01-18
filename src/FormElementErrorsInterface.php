@@ -13,7 +13,6 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
-use Laminas\Form\Exception;
 use Laminas\Form\Exception\DomainException;
 
 interface FormElementErrorsInterface extends FormIndentInterface
@@ -42,7 +41,7 @@ interface FormElementErrorsInterface extends FormIndentInterface
      *
      * @param array<string, string> $attributes
      *
-     * @throws Exception\DomainException
+     * @throws DomainException
      */
     public function render(ElementInterface $element, array $attributes = []): string;
 
