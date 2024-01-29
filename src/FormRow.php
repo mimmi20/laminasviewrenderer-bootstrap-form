@@ -144,6 +144,23 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             $element->setAttribute('class', implode(' ', array_unique($classAttributes)));
+        } elseif ($element->getOption('was-validated')) {
+            $classAttributes = [];
+
+            if ($element->hasAttribute('class')) {
+                $classAttributes = array_merge(
+                    $classAttributes,
+                    explode(' ', (string) $element->getAttribute('class')),
+                );
+            }
+
+            $validClass = $element->getOption('valid-class');
+
+            if ($validClass) {
+                $classAttributes[] = $validClass;
+            }
+
+            $element->setAttribute('class', implode(' ', array_unique($classAttributes)));
         }
 
         $indent = $this->getIndent();

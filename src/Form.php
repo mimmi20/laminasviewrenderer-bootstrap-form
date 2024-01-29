@@ -65,39 +65,16 @@ final class Form extends BaseForm implements FormIndentInterface
      */
     public function render(FormInterface $form): string
     {
+        assert($form instanceof \Laminas\Form\Form);
+
         if (method_exists($form, 'prepare')) {
             $form->prepare();
         }
 
-        // Set form role
-        if (!$form->hasAttribute('role')) {
-            $form->setAttribute('role', 'form');
-        }
-
+        $formContent  = $this->openTag($form) . PHP_EOL;
         $formLayout   = $form->getOption('layout');
-        $class        = $form->getAttribute('class') ?? '';
         $requiredMark = $form->getOption('form-required-mark');
-
-        assert(is_string($class));
-
-        if ($formLayout === null && $form->getOption('floating-labels')) {
-            $formLayout = self::LAYOUT_VERTICAL;
-        }
-
-        if ($formLayout === self::LAYOUT_VERTICAL) {
-            if ($form->getOption('as-card')) {
-                $class .= ' card';
-            } else {
-                $class .= ' row';
-            }
-        } elseif ($formLayout === self::LAYOUT_INLINE) {
-            $class .= ' row row-cols-lg-auto align-items-center';
-        }
-
-        $form->setAttribute('class', trim($class));
-
-        $formContent = '';
-        $indent      = $this->getIndent();
+        $indent       = $this->getIndent();
 
         $elementHelper  = $this->getElementHelper();
         $fieldsetHelper = $this->getFieldsetHelper();
@@ -106,8 +83,9 @@ final class Form extends BaseForm implements FormIndentInterface
             assert($element instanceof ElementInterface);
 
             $element->setOption('form', $form);
+            $element->setOption('was-validated', $form->getOption('was-validated'));
 
-            if ($formLayout !== null && !$element->getOption('layout')) {
+            if (!$element->getOption('layout')) {
                 $element->setOption('layout', $formLayout);
             }
 
@@ -141,7 +119,61 @@ final class Form extends BaseForm implements FormIndentInterface
             $formContent .= $indent . $this->getWhitespace(4) . $requiredMark . PHP_EOL;
         }
 
-        return $this->openTag($form) . PHP_EOL . $formContent . $indent . $this->closeTag() . PHP_EOL;
+        return $formContent . $indent . $this->closeTag() . PHP_EOL;
+    }
+
+    /**
+     * Generate an opening form tag
+     *
+     * @param FormInterface<TFilteredValues>|null $form
+     *
+     * @throws void
+     *
+     * @template TFilteredValues of object
+     */
+    public function openTag(FormInterface | null $form = null): string
+    {
+        if ($form instanceof FormInterface) {
+            // Set form role
+            if (!$form->hasAttribute('role')) {
+                $form->setAttribute('role', 'form');
+            }
+
+            $formLayout   = $form->getOption('layout');
+            $class        = $form->getAttribute('class') ?? '';
+            $wasValidated = false;
+
+            try {
+                $form->getData();
+                $wasValidated = true;
+            } catch (DomainException) {
+                // do nothing
+            }
+
+            $form->setOption('was-validated', $wasValidated);
+
+            assert(is_string($class));
+
+            if ($formLayout === null && $form->getOption('floating-labels')) {
+                $formLayout = self::LAYOUT_VERTICAL;
+
+                $form->setOption('layout', $formLayout);
+            }
+
+            if ($formLayout === self::LAYOUT_VERTICAL) {
+                if ($form->getOption('as-card')) {
+                    $class .= ' card';
+                } else {
+                    $class .= ' row';
+                }
+            } elseif ($formLayout === self::LAYOUT_INLINE) {
+                $class .= ' row row-cols-lg-auto align-items-center';
+            }
+
+            $form->setAttribute('class', trim($class));
+        }
+
+        return parent::openTag($form);
     }
 
     /**

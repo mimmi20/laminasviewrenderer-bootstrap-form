@@ -91,6 +91,8 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
         foreach ($element->getIterator() as $elementOrFieldset) {
             assert($elementOrFieldset instanceof ElementInterface);
 
+            $elementOrFieldset->setOption('was-validated', $element->getOption('was-validated'));
+
             if ($form !== null && !$elementOrFieldset->getOption('form')) {
                 $elementOrFieldset->setOption('form', $form);
             }
