@@ -51,10 +51,29 @@ final class FormRow2Test extends TestCase
         $textDomain      = 'text-domain';
 
         $element = $this->createMock(ElementInterface::class);
-        $element->expects(self::once())
+        $matcher = self::exactly(2);
+        $element->expects($matcher)
             ->method('getOption')
-            ->with('form')
-            ->willReturn(null);
+            ->willReturnCallback(
+                static function (string $option) use ($matcher): mixed {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'form',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'was-validated',
+                            $option,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    return null;
+                },
+            );
         $element->expects(self::once())
             ->method('getName')
             ->willReturn('element-name');
