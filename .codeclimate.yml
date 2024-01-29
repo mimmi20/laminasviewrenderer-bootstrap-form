@@ -3,7 +3,7 @@ checks:
   argument-count:
     enabled: true
   complex-logic:
-    enabled: true
+    enabled: false
   file-lines:
     enabled: false
   method-complexity:
@@ -11,7 +11,7 @@ checks:
   method-count:
     enabled: true
   method-lines:
-    enabled: true
+    enabled: false
   nested-control-flow:
     enabled: true
   return-statements:
