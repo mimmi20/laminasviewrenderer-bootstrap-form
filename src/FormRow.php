@@ -266,27 +266,16 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             if ($elementHelper instanceof FormIndentInterface) {
-                $elementHelper->setIndent($lf4Indent);
+                $elementHelper->setIndent($element->getOption('as-card') ? $lf4Indent : $lf3Indent);
             }
 
             $elementString = $elementHelper->render($element);
 
-            $controlClasses = ['card', 'has-validation'];
-
-            if ($element->getAttribute('required')) {
-                $controlClasses[] = 'required';
-            }
-
-            $elementString = $lf3Indent . $htmlHelper->render(
-                'div',
-                ['class' => 'card-body'],
-                PHP_EOL . $elementString . PHP_EOL . $lf3Indent,
-            );
-
-            $elementString = $lf2Indent . $htmlHelper->render(
-                'div',
-                ['class' => implode(' ', $controlClasses)],
-                PHP_EOL . $elementString . PHP_EOL . $lf2Indent,
+            $elementString = $this->wrapInContainer(
+                element: $element,
+                elementString: $elementString,
+                htmlHelper: $htmlHelper,
+                indent: $lf2Indent,
             );
 
             $elementString .= $errorContent . $messageContent;
@@ -294,7 +283,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $outerDiv = $lf1Indent . $htmlHelper->render(
                 'div',
                 $colAttributes,
-                PHP_EOL . $elementString . PHP_EOL . $lf1Indent,
+                PHP_EOL . $lf2Indent . $elementString . PHP_EOL . $lf1Indent,
             );
 
             return $baseIndent . $htmlHelper->render(
@@ -330,27 +319,16 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             if ($elementHelper instanceof FormIndentInterface) {
-                $elementHelper->setIndent($lf4Indent);
+                $elementHelper->setIndent($element->getOption('as-card') ? $lf4Indent : $lf3Indent);
             }
 
             $elementString = $elementHelper->render($element);
 
-            $controlClasses = ['card', 'has-validation'];
-
-            if ($element->getAttribute('required')) {
-                $controlClasses[] = 'required';
-            }
-
-            $elementString = $lf3Indent . $htmlHelper->render(
-                'div',
-                ['class' => 'card-body'],
-                PHP_EOL . $elementString . PHP_EOL . $lf3Indent,
-            );
-
-            $elementString = $lf2Indent . $htmlHelper->render(
-                'div',
-                ['class' => implode(' ', $controlClasses)],
-                PHP_EOL . $elementString . PHP_EOL . $lf2Indent,
+            $elementString = $this->wrapInContainer(
+                element: $element,
+                elementString: $elementString,
+                htmlHelper: $htmlHelper,
+                indent: $lf2Indent,
             );
 
             $elementString .= $errorContent . $messageContent;
@@ -358,7 +336,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $outerDiv = $lf1Indent . $htmlHelper->render(
                 'div',
                 $colAttributes,
-                PHP_EOL . $elementString . PHP_EOL . $lf1Indent,
+                PHP_EOL . $lf2Indent. $elementString . PHP_EOL . $lf1Indent,
             );
 
             return $baseIndent . $htmlHelper->render(
@@ -433,28 +411,10 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         if ($elementHelper instanceof FormIndentInterface) {
-            $elementHelper->setIndent($lf3Indent);
+            $elementHelper->setIndent($lf2Indent);
         }
 
         $elementString = $elementHelper->render($element);
-
-        $controlClasses = ['card', 'has-validation'];
-
-        if ($element->getAttribute('required')) {
-            $controlClasses[] = 'required';
-        }
-
-        $elementString = $lf3Indent . $htmlHelper->render(
-            'div',
-            ['class' => 'card-body'],
-            PHP_EOL . $elementString . PHP_EOL . $lf3Indent,
-        );
-
-        $elementString = $lf2Indent . $htmlHelper->render(
-            'div',
-            ['class' => implode(' ', $controlClasses)],
-            PHP_EOL . $elementString . PHP_EOL . $lf2Indent,
-        );
 
         $elementString .= $errorContent . $messageContent;
 
@@ -549,27 +509,16 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             if ($elementHelper instanceof FormIndentInterface) {
-                $elementHelper->setIndent($lf3Indent);
+                $elementHelper->setIndent($element->getOption('as-card') ? $lf3Indent : $lf2Indent);
             }
 
             $elementString = $elementHelper->render($element);
 
-            $controlClasses = ['card', 'has-validation'];
-
-            if ($element->getAttribute('required')) {
-                $controlClasses[] = 'required';
-            }
-
-            $elementString = $lf2Indent . $htmlHelper->render(
-                'div',
-                ['class' => 'card-body'],
-                PHP_EOL . $elementString . PHP_EOL . $lf2Indent,
-            );
-
-            $elementString = $htmlHelper->render(
-                'div',
-                ['class' => implode(' ', $controlClasses)],
-                PHP_EOL . $elementString . PHP_EOL . $lf1Indent,
+            $elementString = $this->wrapInContainer(
+                element: $element,
+                elementString: $elementString,
+                htmlHelper: $htmlHelper,
+                indent: $lf1Indent,
             );
 
             $elementString .= $errorContent . $messageContent;
@@ -617,27 +566,16 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             if ($elementHelper instanceof FormIndentInterface) {
-                $elementHelper->setIndent($lf3Indent);
+                $elementHelper->setIndent($element->getOption('as-card') ? $lf3Indent : $lf2Indent);
             }
 
             $elementString = $elementHelper->render($element);
 
-            $controlClasses = ['card', 'has-validation'];
-
-            if ($element->getAttribute('required')) {
-                $controlClasses[] = 'required';
-            }
-
-            $elementString = $lf2Indent . $htmlHelper->render(
-                'div',
-                ['class' => 'card-body'],
-                PHP_EOL . $elementString . PHP_EOL . $lf2Indent,
-            );
-
-            $elementString = $htmlHelper->render(
-                'div',
-                ['class' => implode(' ', $controlClasses)],
-                PHP_EOL . $elementString . PHP_EOL . $lf1Indent,
+            $elementString = $this->wrapInContainer(
+                element: $element,
+                elementString: $elementString,
+                htmlHelper: $htmlHelper,
+                indent: $lf1Indent,
             );
 
             $elementString .= $errorContent . $messageContent;
@@ -982,5 +920,47 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         return null;
+    }
+
+    /**
+     * @param ElementInterface $element
+     * @param string $elementString
+     * @param FormHtmlInterface $htmlHelper
+     * @param string $indent
+     * @return string
+     * @throws void
+     */
+    private function wrapInContainer(ElementInterface $element, string $elementString, FormHtmlInterface $htmlHelper, string $indent): string
+    {
+        $asCard        = $element->getOption('as-card');
+        $asFormControl = $element->getOption('as-form-control');
+
+        if ($asCard || $asFormControl) {
+            if ($asCard) {
+                $controlClasses = ['card', 'has-validation'];
+
+                $lf1Indent = $indent . $this->getWhitespace(4);
+
+                $elementString = $lf1Indent . $htmlHelper->render(
+                    'div',
+                    ['class' => 'card-body'],
+                    PHP_EOL . $elementString . PHP_EOL . $lf1Indent,
+                );
+            } else {
+                $controlClasses = ['form-control', 'has-validation'];
+            }
+
+            if ($element->getAttribute('required')) {
+                $controlClasses[] = 'required';
+            }
+
+            $elementString = $htmlHelper->render(
+                'div',
+                ['class' => implode(' ', $controlClasses)],
+                PHP_EOL . $elementString . PHP_EOL . $indent,
+            );
+        }
+
+        return $elementString;
     }
 }

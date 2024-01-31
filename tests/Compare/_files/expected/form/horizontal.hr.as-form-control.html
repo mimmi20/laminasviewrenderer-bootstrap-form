@@ -2,7 +2,7 @@
     <fieldset>
         <legend class="headline-calculator"><span>Was möchten Sie versichern?</span></legend>
         <div class="row&#x20;pt-sm-3">
-            <label class="col-form-label" for="versbeginn">Versicherungsbeginn</label>
+            <label class="col-form-label" for="versbeginn">Versicherungsbeginn<span class="text-info-required">*</span></label>
             <div class="js-versbeginn&#x20;col-sm">
                 <select name="versbeginn" id="versbeginn" class="form-select&#x20;toggle-trigger" data-toggle-modus="show" data-toggle-value="datum" required="required">
                     <option value="sofort">schnellstmöglich</option>
@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="row">
-            <label class="col-form-label" for="plz">PLZ - Risiko-Anschrift</label>
+            <label class="col-form-label" for="plz">PLZ - Risiko-Anschrift<span class="text-info-required">*</span></label>
             <div class="col-sm">
                 <input type="text" name="plz" id="plz" class="form-control&#x20;form-control-short&#x20;js-special-zip-message&#x20;js-adress-completition" pattern="&#x5E;&#x5C;d&#x7B;5&#x7D;&#x24;" minlength="5" maxlength="5" required="required" aria-describedby="plzHelp" value="">
             </div>
@@ -49,13 +49,13 @@
             <div class="help-content" id="hnrHelp"><strong>Hausnummer</strong><p>Die Hausnummer Ihrer zu versichernden Wohnung.</p></div>
         </div>
         <div class="row">
-            <label class="col-form-label" for="gebdatum">Geburtsdatum</label>
+            <label class="col-form-label" for="gebdatum">Geburtsdatum<span class="text-info-required">*</span></label>
             <div class="date&#x20;datepicker-group&#x20;js-datepicker-group&#x20;col-sm">
                 <input type="text" name="gebdatum" id="gebdatum" class="form-control&#x20;datepicker&#x20;js-datepicker" placeholder="TT.MM.JJJJ" data-date-format="de" data-date-format-message="Bitte&#x20;geben&#x20;Sie&#x20;ein&#x20;korrektes&#x20;Geburtsdatum&#x20;an&#x21;" data-min-age="18y" data-min-age-message="Sie&#x20;sind&#x20;leider&#x20;zu&#x20;jung,&#x20;um&#x20;eine&#x20;Versicherung&#x20;abzuschlie&#xDF;en." autocomplete="off" required="required" value="">
             </div>
         </div>
         <div class="row">
-            <label class="col-form-label" for="whg">Wo wohnen Sie?</label>
+            <label class="col-form-label" for="whg">Wo wohnen Sie?<span class="text-info-required">*</span></label>
             <div class="col-sm">
                 <select name="whg" id="whg" class="form-select&#x20;toggle-trigger" data-toggle-modus="hide" data-toggle-value="Mehrfamilienhaus" required="required" aria-describedby="whgHelp">
                     <option value="Mehrfamilienhaus">Mehrfamilienhaus</option>
@@ -68,7 +68,7 @@
             <div class="help-content" id="whgHelp"><strong>Wo wohnen Sie</strong><p>Wählen Sie hier, in welchem Haus sich die zu versichernde Wohnung befindet.</p></div>
         </div>
         <div class="row">
-            <label class="col-form-label" for="vermietet">Ist die Wohnung möbliert vermietet?</label>
+            <label class="col-form-label" for="vermietet">Ist die Wohnung möbliert vermietet?<span class="text-info-required">*</span></label>
             <div class="col-sm">
                 <select name="vermietet" id="vermietet" required="required" class="form-select">
                     <option value="nein">nein</option>
@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="row">
-            <label class="col-form-label" for="wohnfl">Ihre gesamte Wohnfläche im Haus</label>
+            <label class="col-form-label" for="wohnfl">Ihre gesamte Wohnfläche im Haus<span class="text-info-required">*</span></label>
             <div class="col-sm">
                 <input type="number" name="wohnfl" id="wohnfl" class="form-control&#x20;has-legend" min="10" max="2000" required="required" aria-describedby="wohnflHelp" value="">
             </div>
@@ -203,7 +203,7 @@
             <div class="help-content" id="laufzeitHelp"><strong>Laufzeit</strong><p>Sollten Sie eine Vertragslaufzeit von 3 Jahren wählen, können Sie bei einigen Versicherern mit einem Beitragsnachlass in Höhe von 10% rechnen.</p></div>
         </div>
         <div class="row">
-            <label class="col-form-label" for="vorvers5">Bestand in den letzten 5 Jahren eine Vorversicherung?</label>
+            <label class="col-form-label" for="vorvers5">Bestand in den letzten 5 Jahren eine Vorversicherung?<span class="text-info-required">*</span></label>
             <div class="col-sm">
                 <select name="vorvers5" id="vorvers5" required="required" aria-describedby="vorvers5Help" class="form-select">
                     <option value="">-- Bitte wählen --</option>
@@ -214,7 +214,7 @@
             <div class="help-content" id="vorvers5Help"><strong>Bestand in den letzten 5 Jahren eine Vorversicherung?</strong><p>Haben Sie eine Vorversicherung, die bislang schadenfrei verlief, können Sie von verschiedenen Versicherern einen Rabatt bis 25% erhalten.</p></div>
         </div>
         <div class="row">
-            <label class="col-form-label" for="schaeden5">Schäden in den letzten 5 Jahren</label>
+            <label class="col-form-label" for="schaeden5">Schäden in den letzten 5 Jahren<span class="text-info-required">*</span></label>
             <div class="col-sm">
                 <select name="schaeden5" id="schaeden5" required="required" aria-describedby="schaeden5Help" class="form-select">
                     <option value="">-- Bitte wählen --</option>
@@ -243,12 +243,10 @@
         <div class="row">
             <div class="col-form-label"></div>
             <div class="col-sm">
-                <div class="card&#x20;has-validation">
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input type="checkbox" name="KrPHV" id="KrPHV" aria-describedby="KrPHVHelp" value="1" class="form-check-input">
-                            <label for="KrPHV" class="form-check-label">Privathaftpflicht</label>
-                        </div>
+                <div class="form-control&#x20;has-validation">
+                    <div class="form-check">
+                        <input type="checkbox" name="KrPHV" id="KrPHV" aria-describedby="KrPHVHelp" value="1" class="form-check-input">
+                        <label for="KrPHV" class="form-check-label">Privathaftpflicht</label>
                     </div>
                 </div>
             </div>
@@ -257,12 +255,10 @@
         <div class="row">
             <div class="col-form-label"></div>
             <div class="col-sm">
-                <div class="card&#x20;has-validation">
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input type="checkbox" name="KrTIE" id="KrTIE" aria-describedby="KrTIEHelp" value="1" class="form-check-input">
-                            <label for="KrTIE" class="form-check-label">Tierhalterhaftpflicht</label>
-                        </div>
+                <div class="form-control&#x20;has-validation">
+                    <div class="form-check">
+                        <input type="checkbox" name="KrTIE" id="KrTIE" aria-describedby="KrTIEHelp" value="1" class="form-check-input">
+                        <label for="KrTIE" class="form-check-label">Tierhalterhaftpflicht</label>
                     </div>
                 </div>
             </div>
@@ -271,12 +267,10 @@
         <div class="row">
             <div class="col-form-label"></div>
             <div class="col-sm">
-                <div class="card&#x20;has-validation">
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input type="checkbox" name="KrHUG" id="KrHUG" aria-describedby="KrHUGHelp" value="1" class="form-check-input">
-                            <label for="KrHUG" class="form-check-label">Haus-Grundbesitzer Haftpflicht</label>
-                        </div>
+                <div class="form-control&#x20;has-validation">
+                    <div class="form-check">
+                        <input type="checkbox" name="KrHUG" id="KrHUG" aria-describedby="KrHUGHelp" value="1" class="form-check-input">
+                        <label for="KrHUG" class="form-check-label">Haus-Grundbesitzer Haftpflicht</label>
                     </div>
                 </div>
             </div>
@@ -285,12 +279,10 @@
         <div class="row">
             <div class="col-form-label"></div>
             <div class="col-sm">
-                <div class="card&#x20;has-validation">
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input type="checkbox" name="KrOEL" id="KrOEL" aria-describedby="KrOELHelp" value="1" class="form-check-input">
-                            <label for="KrOEL" class="form-check-label">Gewässerschaden/Öltank</label>
-                        </div>
+                <div class="form-control&#x20;has-validation">
+                    <div class="form-check">
+                        <input type="checkbox" name="KrOEL" id="KrOEL" aria-describedby="KrOELHelp" value="1" class="form-check-input">
+                        <label for="KrOEL" class="form-check-label">Gewässerschaden/Öltank</label>
                     </div>
                 </div>
             </div>
@@ -299,12 +291,10 @@
         <div class="row">
             <div class="col-form-label"></div>
             <div class="col-sm">
-                <div class="card&#x20;has-validation">
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input type="checkbox" name="KrWG" id="KrWG" aria-describedby="KrWGHelp" value="1" class="form-check-input">
-                            <label for="KrWG" class="form-check-label">Wohngebäude</label>
-                        </div>
+                <div class="form-control&#x20;has-validation">
+                    <div class="form-check">
+                        <input type="checkbox" name="KrWG" id="KrWG" aria-describedby="KrWGHelp" value="1" class="form-check-input">
+                        <label for="KrWG" class="form-check-label">Wohngebäude</label>
                     </div>
                 </div>
             </div>
@@ -313,12 +303,10 @@
         <div class="row">
             <div class="col-form-label"></div>
             <div class="col-sm">
-                <div class="card&#x20;has-validation">
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input type="checkbox" name="KrWGGLS" id="KrWGGLS" aria-describedby="KrWGGLSHelp" value="1" class="form-check-input">
-                            <label for="KrWGGLS" class="form-check-label">Wohngebäude-Glas</label>
-                        </div>
+                <div class="form-control&#x20;has-validation">
+                    <div class="form-check">
+                        <input type="checkbox" name="KrWGGLS" id="KrWGGLS" aria-describedby="KrWGGLSHelp" value="1" class="form-check-input">
+                        <label for="KrWGGLS" class="form-check-label">Wohngebäude-Glas</label>
                     </div>
                 </div>
             </div>
@@ -327,12 +315,10 @@
         <div class="row">
             <div class="col-form-label"></div>
             <div class="col-sm">
-                <div class="card&#x20;has-validation">
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input type="checkbox" name="KrHR" id="KrHR" aria-describedby="KrHRHelp" value="1" class="form-check-input">
-                            <label for="KrHR" class="form-check-label">Hausrat</label>
-                        </div>
+                <div class="form-control&#x20;has-validation">
+                    <div class="form-check">
+                        <input type="checkbox" name="KrHR" id="KrHR" aria-describedby="KrHRHelp" value="1" class="form-check-input">
+                        <label for="KrHR" class="form-check-label">Hausrat</label>
                     </div>
                 </div>
             </div>
@@ -341,12 +327,10 @@
         <div class="row">
             <div class="col-form-label"></div>
             <div class="col-sm">
-                <div class="card&#x20;has-validation">
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input type="checkbox" name="KrHRGLS" id="KrHRGLS" aria-describedby="KrHRGLSHelp" value="1" class="form-check-input">
-                            <label for="KrHRGLS" class="form-check-label">Hausrat-Glas</label>
-                        </div>
+                <div class="form-control&#x20;has-validation">
+                    <div class="form-check">
+                        <input type="checkbox" name="KrHRGLS" id="KrHRGLS" aria-describedby="KrHRGLSHelp" value="1" class="form-check-input">
+                        <label for="KrHRGLS" class="form-check-label">Hausrat-Glas</label>
                     </div>
                 </div>
             </div>
@@ -355,12 +339,10 @@
         <div class="row">
             <div class="col-form-label"></div>
             <div class="col-sm">
-                <div class="card&#x20;has-validation">
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input type="checkbox" name="KrUNF" id="KrUNF" aria-describedby="KrUNFHelp" value="1" class="form-check-input">
-                            <label for="KrUNF" class="form-check-label">Unfall</label>
-                        </div>
+                <div class="form-control&#x20;has-validation">
+                    <div class="form-check">
+                        <input type="checkbox" name="KrUNF" id="KrUNF" aria-describedby="KrUNFHelp" value="1" class="form-check-input">
+                        <label for="KrUNF" class="form-check-label">Unfall</label>
                     </div>
                 </div>
             </div>
@@ -369,12 +351,10 @@
         <div class="row">
             <div class="col-form-label"></div>
             <div class="col-sm">
-                <div class="card&#x20;has-validation">
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input type="checkbox" name="KrRS" id="KrRS" aria-describedby="KrRSHelp" value="1" class="form-check-input">
-                            <label for="KrRS" class="form-check-label">Rechtsschutz</label>
-                        </div>
+                <div class="form-control&#x20;has-validation">
+                    <div class="form-check">
+                        <input type="checkbox" name="KrRS" id="KrRS" aria-describedby="KrRSHelp" value="1" class="form-check-input">
+                        <label for="KrRS" class="form-check-label">Rechtsschutz</label>
                     </div>
                 </div>
             </div>
@@ -382,18 +362,16 @@
         </div>
     </fieldset>
     <fieldset class="row">
-        <legend class="col-form-label">weitere Fragen</legend>
+        <legend class="col-form-label">weitere Fragen<span class="text-info-required">*</span></legend>
         <div class="col-sm">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                    <div class="form-check">
-                        <input type="radio" name="zusatzfragen" id="zusatzfragen_nein" required="required" data-event-type="click" data-event-category="versicherung" data-event-action="no&#x20;additional&#x20;questions" data-event-label="hr" value="nein" class="form-check-input&#x20;form-radio-input&#x20;js-gtm-event">
-                        <label class="form-check-label" for="zusatzfragen_nein">Ich verzichte auf die Beantwortung weiterer Fragen und wähle aus dem Vergleich einen Tarif, der meinen Bedarf erfüllt.</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="radio" name="zusatzfragen" required="required" id="zusatzfragen_ja" data-event-type="click" data-event-category="versicherung" data-event-action="additional&#x20;questions&#x20;requested" data-event-label="hr" value="ja" class="form-check-input&#x20;form-radio-input&#x20;js-gtm-event">
-                        <label class="form-check-label" for="zusatzfragen_ja">Ich möchte weitere Angaben zum gewünschten Versicherungsschutz machen. Es werden dann nur Tarife angezeigt, welche die Vorgaben erfüllen.</label>
-                    </div>
+            <div class="form-control&#x20;has-validation&#x20;required">
+                <div class="form-check">
+                    <input type="radio" name="zusatzfragen" id="zusatzfragen_nein" required="required" data-event-type="click" data-event-category="versicherung" data-event-action="no&#x20;additional&#x20;questions" data-event-label="hr" value="nein" class="form-check-input&#x20;form-radio-input&#x20;js-gtm-event">
+                    <label class="form-check-label" for="zusatzfragen_nein">Ich verzichte auf die Beantwortung weiterer Fragen und wähle aus dem Vergleich einen Tarif, der meinen Bedarf erfüllt.</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" name="zusatzfragen" required="required" id="zusatzfragen_ja" data-event-type="click" data-event-category="versicherung" data-event-action="additional&#x20;questions&#x20;requested" data-event-label="hr" value="ja" class="form-check-input&#x20;form-radio-input&#x20;js-gtm-event">
+                    <label class="form-check-label" for="zusatzfragen_ja">Ich möchte weitere Angaben zum gewünschten Versicherungsschutz machen. Es werden dann nur Tarife angezeigt, welche die Vorgaben erfüllen.</label>
                 </div>
             </div>
         </div>
@@ -640,13 +618,11 @@
     <div class="row">
         <div class="col-form-label"></div>
         <div class="col-sm">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                    <div class="form-check">
-                        <input type="hidden" name="chkErstinfo" value="">
-                        <input type="checkbox" name="chkErstinfo" id="mrmoErstinfo" required="required" value="1" class="form-check-input">
-                        <label for="mrmoErstinfo" class="form-check-label">Ich bestätige, die Erstinformation für Versicherungsmakler gemäß § 15 VersVermV heruntergeladen und gelesen zu haben.</label>
-                    </div>
+            <div class="form-control&#x20;has-validation&#x20;required">
+                <div class="form-check">
+                    <input type="hidden" name="chkErstinfo" value="">
+                    <input type="checkbox" name="chkErstinfo" id="mrmoErstinfo" required="required" value="1" class="form-check-input">
+                    <label for="mrmoErstinfo" class="form-check-label">Ich bestätige, die Erstinformation für Versicherungsmakler gemäß § 15 VersVermV heruntergeladen und gelesen zu haben.</label>
                 </div>
             </div>
         </div>

@@ -236,6 +236,24 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
             ],
+            'horizontal.hr.as-form-control' => [
+                'config' => 'horizontal.hr.as-form-control.config.php',
+                'template' => 'horizontal.hr.as-form-control.html',
+                'indent' => '',
+                'messages' => [],
+            ],
+            'vertical.hr.as-form-control' => [
+                'config' => 'vertical.hr.as-form-control.config.php',
+                'template' => 'vertical.hr.as-form-control.html',
+                'indent' => '',
+                'messages' => [],
+            ],
+            'vertical.floating.rs.as-form-control' => [
+                'config' => 'vertical.floating.rs.as-form-control.config.php',
+                'template' => 'vertical.floating.rs.as-form-control.html',
+                'indent' => '',
+                'messages' => [],
+            ],
         ];
     }
 
