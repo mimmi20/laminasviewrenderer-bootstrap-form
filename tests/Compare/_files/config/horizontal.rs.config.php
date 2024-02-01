@@ -332,6 +332,7 @@ return [
                             'content' => 'in Ordnung',
                         ],
                     ],
+                    'error-class' => 'form-error',
                 ],
                 'attributes' => [
                     'id' => 'gebdatum',
@@ -349,6 +350,8 @@ return [
                 'options' => [
                     'label' => 'Geburtsdatum des Ehe- oder Lebenspartners',
                     'help_content' => 'Help-Content',
+                    'was-validated' => true,
+                    'valid-class' => 'form-success',
                 ],
                 'attributes' => [
                     'id' => 'geburtsdatumPartner',
@@ -378,6 +381,7 @@ return [
                         'auf Dauer nicht mehr erwerbstätig' => 'auf Dauer nicht mehr erwerbstätig',
                         'Azubi/Student' => 'Azubi/Student',
                     ],
+                    'was-validated' => true,
                 ],
                 'attributes' => [
                     'id' => 'anag',
@@ -402,6 +406,7 @@ return [
                         '50000' => '20.001 - 50.000 EUR',
                         '9999999' => 'ab 50.001 EUR',
                     ],
+                    'was-validated' => true,
                 ],
                 'attributes' => ['id' => 'umsatzselbst'],
             ],
@@ -742,7 +747,10 @@ return [
                     ],
                     'as-card' => true,
                 ],
-                'attributes' => ['id' => 'zusatzfragen'],
+                'attributes' => [
+                    'id' => 'zusatzfragen',
+                    'aria-describedby' => 'xxx',
+                ],
             ],
         ],
         'vs_v' => [

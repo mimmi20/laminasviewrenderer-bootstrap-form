@@ -5,11 +5,11 @@
             <div class="card&#x20;has-validation&#x20;required">
                 <div class="card-body">
                     <div class="form-check">
-                        <input type="radio" name="zusatzfragen" id="zusatzfragen_nein" required="required" class="form-check-input&#x20;is-invalid" aria-describedby="zusatzfragenFeedback&#x20;messageInvalidId&#x20;zusatzfragenHelp" value="nein">
+                        <input type="radio" name="zusatzfragen" id="zusatzfragen_nein" aria-describedby="xxx&#x20;zusatzfragenFeedback&#x20;messageInvalidId&#x20;zusatzfragenHelp" required="required" class="form-check-input&#x20;is-invalid" value="nein">
                         <label class="form-check-label" for="zusatzfragen_nein">Ich verzichte auf die Beantwortung weiterer Fragen und wähle aus dem Vergleich einen Tarif, der meinen Bedarf erfüllt.</label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" name="zusatzfragen" required="required" class="form-check-input&#x20;is-invalid" aria-describedby="zusatzfragenFeedback&#x20;messageInvalidId&#x20;zusatzfragenHelp" id="zusatzfragen_ja" value="ja">
+                        <input type="radio" name="zusatzfragen" aria-describedby="xxx&#x20;zusatzfragenFeedback&#x20;messageInvalidId&#x20;zusatzfragenHelp" required="required" class="form-check-input&#x20;is-invalid" id="zusatzfragen_ja" value="ja">
                         <label class="form-check-label" for="zusatzfragen_ja">Ich möchte weitere Angaben zum gewünschten Versicherungsschutz machen. Es werden dann nur Tarife angezeigt, welche die Vorgaben erfüllen.</label>
                     </div>
                 </div>
@@ -194,7 +194,7 @@
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="gebdatum">Geburtsdatum des Versicherungsnehmers<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <input type="date" name="gebdatum" id="gebdatum" autocomplete="off" max="2006-01-02" required="required" class="form-control&#x20;is-invalid" aria-describedby="gebdatumFeedback&#x20;gebdatumHelp" value="">
+            <input type="date" name="gebdatum" id="gebdatum" autocomplete="off" max="2006-01-02" required="required" class="form-control&#x20;is-invalid&#x20;form-error" aria-describedby="gebdatumFeedback&#x20;gebdatumHelp" value="">
             <div class="invalid-feedback" id="gebdatumFeedback">
                 <ul>
                     <li>too young</li>
@@ -209,7 +209,7 @@
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="geburtsdatumPartner">Geburtsdatum des Ehe- oder Lebenspartners<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <input type="text" name="geburtsdatumPartner" id="geburtsdatumPartner" class="form-control&#x20;&#x20;datepicker&#x20;js-datepicker" placeholder="TT.MM.JJJJ" required="required" data-date-format="de" data-date-format-message="Bitte&#x20;geben&#x20;Sie&#x20;ein&#x20;korrektes&#x20;Geburtsdatum&#x20;an&#x21;" data-min-age="18y" data-min-age-message="Sie&#x20;sind&#x20;leider&#x20;zu&#x20;jung,&#x20;um&#x20;eine&#x20;Versicherung&#x20;abzuschlie&#xDF;en." aria-describedby="geburtsdatumPartnerHelp" value="">
+            <input type="text" name="geburtsdatumPartner" id="geburtsdatumPartner" class="form-control&#x20;&#x20;datepicker&#x20;js-datepicker&#x20;form-success" placeholder="TT.MM.JJJJ" required="required" data-date-format="de" data-date-format-message="Bitte&#x20;geben&#x20;Sie&#x20;ein&#x20;korrektes&#x20;Geburtsdatum&#x20;an&#x21;" data-min-age="18y" data-min-age-message="Sie&#x20;sind&#x20;leider&#x20;zu&#x20;jung,&#x20;um&#x20;eine&#x20;Versicherung&#x20;abzuschlie&#xDF;en." aria-describedby="geburtsdatumPartnerHelp" value="">
         </div>
         <div class="col-2&#x20;help-content" id="geburtsdatumPartnerHelp">Help-Content</div>
     </div>
@@ -235,7 +235,7 @@
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="umsatzselbst">Jahresumsatz<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <select name="umsatzselbst" id="umsatzselbst" required="required" aria-describedby="umsatzselbstHelp" class="form-select">
+            <select name="umsatzselbst" id="umsatzselbst" required="required" class="form-select" aria-describedby="umsatzselbstHelp">
                 <option value="10000">1 - 10.000 EUR</option>
                 <option value="15000">10.001 - 15.000 EUR</option>
                 <option value="20000">15.001 - 20.000 EUR</option>

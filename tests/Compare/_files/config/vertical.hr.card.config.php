@@ -20,6 +20,7 @@ use Laminas\Form\Element\Radio;
 use Laminas\Form\Element\Select;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Form;
+use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Laminas\Validator\NotEmpty;
 use Mimmi20\Form\Element\Group\ElementGroup;
 use Mimmi20\Form\Links\Element\Links;
@@ -85,6 +86,10 @@ return [
                                 'label' => 'Beginn am',
 
                                 'row_attributes' => ['class' => 'collapse toggle-box-versbeginn'],
+                                'label_options' => [
+                                    'always_wrap' => true,
+                                    'label_position' => BaseFormRow::LABEL_APPEND,
+                                ],
                             ],
                             'attributes' => [
                                 'id' => 'versbeginn_datum',
@@ -101,6 +106,10 @@ return [
                                 'label' => 'PLZ - Risiko-Anschrift',
 
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Die Postleitzahl Ihrer Wohnung wird für die Risikobeurteilung /Beitragsberechnung benötigt. Die Beitragshöhe ist nicht nur abhängig von Ihren gewünschten Leistungen, sondern wird auch anhand Art und Anzahl der Schäden, die in Ihrem Wohnort durchschnittlich gemeldet werden, bemessen.</p>',
+                                'label_options' => [
+                                    'always_wrap' => true,
+                                    'label_position' => BaseFormRow::LABEL_PREPEND,
+                                ],
                             ],
                             'attributes' => [
                                 'id' => 'plz',

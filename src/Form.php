@@ -74,6 +74,7 @@ final class Form extends BaseForm implements FormIndentInterface
         $formContent  = $this->openTag($form) . PHP_EOL;
         $formLayout   = $form->getOption('layout');
         $requiredMark = $form->getOption('form-required-mark');
+        $wasValidated = $form->getOption('was-validated');
         $indent       = $this->getIndent();
 
         $elementHelper  = $this->getElementHelper();
@@ -83,7 +84,10 @@ final class Form extends BaseForm implements FormIndentInterface
             assert($element instanceof ElementInterface);
 
             $element->setOption('form', $form);
-            $element->setOption('was-validated', $form->getOption('was-validated'));
+
+            if ($wasValidated !== null && $element->getOption('was-validated') === null) {
+                $element->setOption('was-validated', $wasValidated);
+            }
 
             if (!$element->getOption('layout')) {
                 $element->setOption('layout', $formLayout);

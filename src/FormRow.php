@@ -122,7 +122,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         // Does this element have errors ?
-        if ($element->getMessages()) {
+        if ($element->getMessages() !== []) {
             $inputErrorClass = $this->getInputErrorClass();
             $classAttributes = [];
 
