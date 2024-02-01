@@ -403,11 +403,11 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
                 ) . $label . $labelHelper->closeTag();
                 $input      = $indent . $this->getWhitespace(4) . $input;
             } else {
-                $labelOpen  = $indent . $this->getWhitespace(8) . $labelHelper->openTag(
+                $labelOpen  = $indent . $this->getWhitespace(4) . $labelHelper->openTag(
                     $filteredAttributes,
                 ) . PHP_EOL;
-                $labelClose = PHP_EOL . $indent . $this->getWhitespace(8) . $labelHelper->closeTag();
-                $input      = $indent . $this->getWhitespace(12) . $input;
+                $labelClose = PHP_EOL . $indent . $this->getWhitespace(4) . $labelHelper->closeTag();
+                $input      = $indent . $this->getWhitespace(8) . $input;
             }
 
             if (
@@ -417,7 +417,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
                 $label = $this->getWhitespace(4) . '<span>' . $label . '</span>';
 
                 if ($labelClose !== '') {
-                    $label = $indent . $this->getWhitespace(8) . $label;
+                    $label = $indent . $this->getWhitespace(4) . $label;
                 }
             }
 

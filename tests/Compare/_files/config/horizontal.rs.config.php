@@ -746,6 +746,8 @@ return [
                         ],
                     ],
                     'as-card' => true,
+                    'use_hidden_element' => true,
+                    'unchecked_value' => '0',
                 ],
                 'attributes' => [
                     'id' => 'zusatzfragen',

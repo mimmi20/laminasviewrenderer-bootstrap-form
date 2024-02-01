@@ -20,6 +20,7 @@ use Laminas\Form\Element\Radio;
 use Laminas\Form\Element\Select;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Form;
+use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Laminas\Validator\NotEmpty;
 use Mimmi20\Form\Element\Group\ElementGroup;
 use Mimmi20\Form\Links\Element\Links;
@@ -1090,6 +1091,10 @@ return [
                         ],
                     ],
                     'as-card' => true,
+                    'label_options' => [
+                        'always_wrap' => true,
+                        'label_position' => BaseFormRow::LABEL_PREPEND,
+                    ],
                 ],
                 'attributes' => ['id' => 'zusatzfragen'],
             ],

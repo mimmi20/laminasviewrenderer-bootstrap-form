@@ -1081,6 +1081,11 @@ return [
                                 'data-event-action' => 'no additional questions',
                                 'data-event-label' => 'hr',
                             ],
+                            'disabled' => true,
+                            'label_attributes' => [
+                                'class' => 'form-check-label form-text',
+                                'data-a' => 'a',
+                            ],
                         ],
                         'ja' => [
                             'value' => 'ja',
@@ -1093,9 +1098,28 @@ return [
                                 'data-event-action' => 'additional questions requested',
                                 'data-event-label' => 'hr',
                             ],
+                            'selected' => true,
+                            'label_attributes' => [
+                                'class' => 'form-check-label form-text',
+                                'data-b' => 'b',
+                            ],
                         ],
                     ],
                     'as-card' => true,
+                    'label_options' => [
+                        'always_wrap' => true,
+                        'label_position' => BaseFormRow::LABEL_APPEND,
+                    ],
+                    'label_attributes' => [
+                        'class' => 'form-check-label form-text',
+                        'data-y' => 'y',
+                    ],
+                    'switch' => true,
+                    'group_attributes' => [
+                        'class' => 'form-check-inline form-switch',
+                        'data-x' => 'x',
+                    ],
+                    'layout' => \Mimmi20\LaminasView\BootstrapForm\Form::LAYOUT_INLINE,
                 ],
                 'attributes' => ['id' => 'zusatzfragen'],
             ],
