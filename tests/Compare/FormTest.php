@@ -43,138 +43,168 @@ final class FormTest extends AbstractTestCase
                 'template' => 'vertical.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical2' => [
                 'config' => 'vertical2.config.php',
                 'template' => 'vertical2.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.floating2' => [
                 'config' => 'vertical.floating2.config.php',
                 'template' => 'vertical.floating2.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.card' => [
                 'config' => 'vertical.card.config.php',
                 'template' => 'vertical.card.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.floating' => [
                 'config' => 'vertical.floating.config.php',
                 'template' => 'vertical.floating.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.floating.card' => [
                 'config' => 'vertical.floating.card.config.php',
                 'template' => 'vertical.floating.card.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal' => [
                 'config' => 'horizontal.config.php',
                 'template' => 'horizontal.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal2' => [
                 'config' => 'horizontal2.config.php',
                 'template' => 'horizontal2.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal.collection' => [
                 'config' => 'horizontal.collection.config.php',
                 'template' => 'horizontal.collection.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal.element-group' => [
                 'config' => 'horizontal.element-group.config.php',
                 'template' => 'horizontal.element-group.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal.floating' => [
                 'config' => 'horizontal.floating.config.php',
                 'template' => 'horizontal.floating.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'inline' => [
                 'config' => 'inline.config.php',
                 'template' => 'inline.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'inline.floating' => [
                 'config' => 'inline.floating.config.php',
                 'template' => 'inline.floating.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal.hr' => [
                 'config' => 'horizontal.hr.config.php',
                 'template' => 'horizontal.hr.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal.hr2' => [
                 'config' => 'horizontal.hr2.config.php',
                 'template' => 'horizontal.hr2.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.hr' => [
                 'config' => 'vertical.hr.config.php',
                 'template' => 'vertical.hr.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal.hr.card' => [
                 'config' => 'horizontal.hr.card.config.php',
                 'template' => 'horizontal.hr.card.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
+            ],
+            'horizontal.hr.card.values' => [
+                'config' => 'horizontal.hr.card.config.php',
+                'template' => 'horizontal.hr.card.values.html',
+                'indent' => '',
+                'messages' => [],
+                'values' => ['chkErstinfo' => '1'],
             ],
             'horizontal.hr.card2' => [
                 'config' => 'horizontal.hr.card2.config.php',
                 'template' => 'horizontal.hr.card2.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.hr.card' => [
                 'config' => 'vertical.hr.card.config.php',
                 'template' => 'vertical.hr.card.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.hr.card2' => [
                 'config' => 'vertical.hr.card2.config.php',
                 'template' => 'vertical.hr.card2.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal.phv' => [
                 'config' => 'horizontal.phv.config.php',
                 'template' => 'horizontal.phv.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal.phv2' => [
                 'config' => 'horizontal.phv2.config.php',
                 'template' => 'horizontal.phv2.html',
                 'indent' => '<!-- -->',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal.rs' => [
                 'config' => 'horizontal.rs.config.php',
                 'template' => 'horizontal.rs.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal.rs.messages' => [
                 'config' => 'horizontal.rs.config.php',
@@ -187,12 +217,14 @@ final class FormTest extends AbstractTestCase
                     'tarif_privat' => ['not checked yet'],
                     'KrPHV' => ['add some more'],
                 ],
+                'values' => [],
             ],
             'vertical.floating.rs' => [
                 'config' => 'vertical.floating.rs.config.php',
                 'template' => 'vertical.floating.rs.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.floating.rs.messages' => [
                 'config' => 'vertical.floating.rs.config.php',
@@ -205,12 +237,14 @@ final class FormTest extends AbstractTestCase
                     'tarif_privat' => ['not checked yet'],
                     'KrPHV' => ['add some more'],
                 ],
+                'values' => [],
             ],
             'vertical.rs' => [
                 'config' => 'vertical.rs.config.php',
                 'template' => 'vertical.rs.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.rs.messages' => [
                 'config' => 'vertical.rs.config.php',
@@ -223,42 +257,49 @@ final class FormTest extends AbstractTestCase
                     'tarif_privat' => ['not checked yet'],
                     'KrPHV' => ['add some more'],
                 ],
+                'values' => [],
             ],
             'vertical.admin' => [
                 'config' => 'vertical.admin.config.php',
                 'template' => 'vertical.admin.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.admin2' => [
                 'config' => 'vertical.admin2.config.php',
                 'template' => 'vertical.admin2.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'horizontal.hr.as-form-control' => [
                 'config' => 'horizontal.hr.as-form-control.config.php',
                 'template' => 'horizontal.hr.as-form-control.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.hr.as-form-control' => [
                 'config' => 'vertical.hr.as-form-control.config.php',
                 'template' => 'vertical.hr.as-form-control.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
             'vertical.floating.rs.as-form-control' => [
                 'config' => 'vertical.floating.rs.as-form-control.config.php',
                 'template' => 'vertical.floating.rs.as-form-control.html',
                 'indent' => '',
                 'messages' => [],
+                'values' => [],
             ],
         ];
     }
 
     /**
      * @param array<string, array<int, string>> $messages
+     * @param array<string, mixed>              $values
      *
      * @throws Exception
      * @throws InvalidArgumentException
@@ -271,7 +312,7 @@ final class FormTest extends AbstractTestCase
      * @throws \Laminas\I18n\Exception\RuntimeException
      */
     #[DataProvider('providerTests')]
-    public function testRender(string $config, string $template, string $indent, array $messages): void
+    public function testRender(string $config, string $template, string $indent, array $messages, array $values): void
     {
         $file = 'form/' . $template;
 
@@ -295,6 +336,10 @@ final class FormTest extends AbstractTestCase
 
         if ($messages !== []) {
             $form->setMessages($messages);
+        }
+
+        if ($values !== []) {
+            $form->populateValues($values);
         }
 
         // file_put_contents($this->files . '/expected/' . $file, trim($helper->render($form)));

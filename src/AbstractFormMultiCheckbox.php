@@ -122,7 +122,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
         $useHiddenElement = $element->useHiddenElement() || $this->useHiddenElement;
 
         if ($useHiddenElement) {
-            $rendered = $this->renderHiddenElement($element) . PHP_EOL . $rendered;
+            $rendered = $indent . $this->renderHiddenElement($element) . PHP_EOL . $rendered;
         }
 
         return $rendered;
@@ -198,7 +198,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
      */
     protected function renderHiddenElement(MultiCheckboxElement $element): string
     {
-        $uncheckedValue = $element->getUncheckedValue() || $this->uncheckedValue;
+        $uncheckedValue = $element->getUncheckedValue() ?? $this->uncheckedValue;
+        assert(is_string($uncheckedValue));
 
         $hiddenElement = new Hidden($element->getName());
         $hiddenElement->setValue($uncheckedValue);

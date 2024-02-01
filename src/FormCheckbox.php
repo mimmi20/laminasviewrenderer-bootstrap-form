@@ -170,24 +170,24 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
         $labelHelper = $this->getLabelHelper();
         $htmlHelper  = $this->getHtmlHelper();
 
+        $labelStart = $indent . $this->getWhitespace(4) . $labelHelper->openTag($filteredAttributes);
+
         if (array_key_exists('id', $attributes) && !$element->getLabelOption('always_wrap')) {
             $labelOpen  = '';
             $labelClose = '';
-            $label      = $indent . $this->getWhitespace(4) . $labelHelper->openTag(
-                $filteredAttributes,
-            ) . $label . $labelHelper->closeTag();
+            $label      = $labelStart . $label . $labelHelper->closeTag();
             $rendered   = $indent . $this->getWhitespace(4) . $rendered;
 
             if ($useHiddenElement) {
                 $hidden = $indent . $this->getWhitespace(4) . $hidden . PHP_EOL;
             }
         } else {
-            $labelOpen  = $indent . $labelHelper->openTag($filteredAttributes) . PHP_EOL;
-            $labelClose = PHP_EOL . $indent . $labelHelper->closeTag();
-            $rendered   = $indent . $this->getWhitespace(4) . $rendered;
+            $labelOpen  = $labelStart . PHP_EOL;
+            $labelClose = PHP_EOL . $indent . $this->getWhitespace(4) . $labelHelper->closeTag();
+            $rendered   = $indent . $this->getWhitespace(8) . $rendered;
 
             if ($useHiddenElement) {
-                $hidden = $indent . $hidden . PHP_EOL;
+                $hidden = $indent . $this->getWhitespace(4) . $hidden . PHP_EOL;
             }
         }
 
@@ -198,7 +198,7 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
             $label = '<span>' . $label . '</span>';
 
             if ($labelClose !== '') {
-                $label = $indent . $this->getWhitespace(4) . $label;
+                $label = $indent . $this->getWhitespace(8) . $label;
             }
         }
 

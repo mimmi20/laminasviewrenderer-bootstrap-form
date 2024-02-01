@@ -384,6 +384,7 @@
         <div class="col-sm">
             <div class="card&#x20;has-validation&#x20;required">
                 <div class="card-body">
+                    <input type="hidden" name="zusatzfragen" value="x">
                     <div class="form-check">
                         <input type="radio" name="zusatzfragen" id="zusatzfragen_nein" required="required" data-event-type="click" data-event-category="versicherung" data-event-action="no&#x20;additional&#x20;questions" data-event-label="hr" value="nein" class="form-check-input&#x20;form-radio-input&#x20;js-gtm-event">
                         <label class="form-check-label" for="zusatzfragen_nein">Ich verzichte auf die Beantwortung weiterer Fragen und wähle aus dem Vergleich einen Tarif, der meinen Bedarf erfüllt.</label>
@@ -640,10 +641,12 @@
         <div class="col-sm">
             <div class="card&#x20;has-validation&#x20;required">
                 <div class="card-body">
-                    <div class="form-check">
+                    <div data-x="x" class="form-check&#x20;form-switch&#x20;form-check-inline">
                         <input type="hidden" name="chkErstinfo" value="">
-                        <input type="checkbox" name="chkErstinfo" id="mrmoErstinfo" required="required" value="1" class="form-check-input">
-                        <label for="mrmoErstinfo" class="form-check-label">Ich bestätige, die Erstinformation für Versicherungsmakler gemäß § 15 VersVermV heruntergeladen und gelesen zu haben.</label>
+                        <label class="form-check-label&#x20;form-text" data-y="y" for="mrmoErstinfo">
+                            <input type="checkbox" name="chkErstinfo" id="mrmoErstinfo" required="required" value="1" class="form-check-input">
+                            <span>Ich bestätige, die Erstinformation für Versicherungsmakler gemäß § 15 VersVermV heruntergeladen und gelesen zu haben.</span>
+                        </label>
                     </div>
                 </div>
             </div>
