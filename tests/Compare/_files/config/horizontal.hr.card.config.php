@@ -1041,8 +1041,24 @@ return [
                                 'label' => 'Gibt es auf dem Versicherungsgrundstück oder in einer Entfernung von unter 10 m Betriebe / Lager, von denen eine erhöhte Feuergefahr ausgeht?',
                                 'help_content' => '<strong>Gibt es auf dem Versicherungsgrundstück oder in einer Entfernung von unter 10 m Betriebe / Lager, von denen eine erhöhte Feuergefahr ausgeht?</strong><p>Es ist möglich, dass Versicherer bei erhöhtem Risiko den Vertrag ablehnen.</p>',
                                 'value_options' => [
-                                    'nein' => 'nein',
-                                    'ja' => 'ja',
+                                    'nein' => [
+                                        'value' => 'nein',
+                                        'label' => 'nein',
+                                        'attributes' => [
+                                            'id' => 'zusatzfragen_nein',
+                                            'class' => 'js-gtm-event',
+                                        ],
+                                        'disabled' => true,
+                                    ],
+                                    'ja' => [
+                                        'value' => 'ja',
+                                        'label' => 'ja',
+                                        'attributes' => [
+                                            'id' => 'zusatzfragen_ja',
+                                            'class' => 'js-gtm-event',
+                                        ],
+                                        'selected' => true,
+                                    ],
                                 ],
                             ],
                             'attributes' => ['id' => 'feu_v'],

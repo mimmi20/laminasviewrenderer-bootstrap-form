@@ -13,6 +13,8 @@ declare(strict_types = 1);
 namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Button;
+use Laminas\Form\Element\Submit;
+use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
@@ -29,6 +31,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
+use function get_debug_type;
 use function sprintf;
 
 #[Group('form-button')]
@@ -1690,5 +1693,73 @@ final class FormButtonTest extends TestCase
     {
         self::assertSame($this->helper, $this->helper->setIndent('  '));
         self::assertSame('  ', $this->helper->getIndent());
+    }
+
+    /**
+     * @throws Exception
+     * @throws DomainException
+     * @throws InvalidArgumentException
+     */
+    public function testRenderWithWrongElement(): void
+    {
+        $element = $this->createMock(Text::class);
+        $element->expects(self::never())
+            ->method('getName');
+        $element->expects(self::never())
+            ->method('getValue');
+        $element->expects(self::never())
+            ->method('getAttributes');
+        $element->expects(self::never())
+            ->method('getAttribute');
+        $element->expects(self::never())
+            ->method('getLabel');
+        $element->expects(self::never())
+            ->method('getLabelOption');
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                '%s requires that the element is of type %s or of type %s, but was %s',
+                'Mimmi20\LaminasView\BootstrapForm\FormButton::render',
+                Button::class,
+                Submit::class,
+                get_debug_type($element),
+            ),
+        );
+        $this->expectExceptionCode(0);
+        $this->helper->render($element);
+    }
+
+    /**
+     * @throws Exception
+     * @throws DomainException
+     * @throws InvalidArgumentException
+     */
+    public function testRenderWithSubmit(): void
+    {
+        $element = $this->createMock(Submit::class);
+        $element->expects(self::never())
+            ->method('getName');
+        $element->expects(self::never())
+            ->method('getValue');
+        $element->expects(self::never())
+            ->method('getAttributes');
+        $element->expects(self::never())
+            ->method('getAttribute');
+        $element->expects(self::once())
+            ->method('getLabel')
+            ->willReturn(null);
+        $element->expects(self::never())
+            ->method('getLabelOption');
+
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                '%s expects either button content as the second argument, or that the element provided has a label value; neither found',
+                'Mimmi20\LaminasView\BootstrapForm\FormButton::render',
+            ),
+        );
+        $this->expectExceptionCode(0);
+        $this->helper->render($element);
     }
 }
