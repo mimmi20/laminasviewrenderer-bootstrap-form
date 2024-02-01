@@ -368,7 +368,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $outerDiv = $lf1Indent . $htmlHelper->render(
                 'div',
                 $colAttributes,
-                PHP_EOL . $lf2Indent. $elementString . PHP_EOL . $lf1Indent,
+                PHP_EOL . $lf2Indent . $elementString . PHP_EOL . $lf1Indent,
             );
 
             return $baseIndent . $htmlHelper->render(
@@ -422,7 +422,6 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $baseIndent     = $indent;
         $lf1Indent      = $indent . $this->getWhitespace(4);
         $lf2Indent      = $lf1Indent . $this->getWhitespace(4);
-        $lf3Indent      = $lf2Indent . $this->getWhitespace(4);
 
         $labelHelper = $this->getLabelHelper();
 
@@ -954,16 +953,13 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         return null;
     }
 
-    /**
-     * @param ElementInterface $element
-     * @param string $elementString
-     * @param FormHtmlInterface $htmlHelper
-     * @param string $indent
-     * @return string
-     * @throws void
-     */
-    private function wrapInContainer(ElementInterface $element, string $elementString, FormHtmlInterface $htmlHelper, string $indent): string
-    {
+    /** @throws void */
+    private function wrapInContainer(
+        ElementInterface $element,
+        string $elementString,
+        FormHtmlInterface $htmlHelper,
+        string $indent,
+    ): string {
         $asCard        = $element->getOption('as-card');
         $asFormControl = $element->getOption('as-form-control');
 
