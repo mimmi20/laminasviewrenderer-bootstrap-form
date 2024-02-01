@@ -13,7 +13,6 @@
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fmimmi20%2Flaminasviewrenderer-bootstrap-form%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/mimmi20/laminasviewrenderer-bootstrap-form/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/946c580acb31a5bfc0c8/maintainability)](https://codeclimate.com/github/mimmi20/laminasviewrenderer-bootstrap-form/maintainability)
 
-
 ## Installation
 
 Run
