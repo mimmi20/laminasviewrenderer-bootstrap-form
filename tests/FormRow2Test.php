@@ -552,7 +552,7 @@ final class FormRow2Test extends TestCase
         $textDomain      = 'text-domain';
 
         $form    = $this->createMock(FormInterface::class);
-        $matcher = self::exactly(5);
+        $matcher = self::exactly(6);
         $form->expects($matcher)
             ->method('getOption')
             ->willReturnCallback(
@@ -561,21 +561,26 @@ final class FormRow2Test extends TestCase
 
                     match ($invocation) {
                         1 => self::assertSame(
-                            'layout',
+                            'was-validated',
                             $option,
                             (string) $invocation,
                         ),
                         2 => self::assertSame(
-                            'floating-labels',
+                            'layout',
                             $option,
                             (string) $invocation,
                         ),
                         3 => self::assertSame(
-                            'form-required-mark',
+                            'floating-labels',
                             $option,
                             (string) $invocation,
                         ),
                         4 => self::assertSame(
+                            'form-required-mark',
+                            $option,
+                            (string) $invocation,
+                        ),
+                        5 => self::assertSame(
                             'col_attributes',
                             $option,
                             (string) $invocation,
@@ -588,9 +593,9 @@ final class FormRow2Test extends TestCase
                     };
 
                     return match ($invocation) {
-                        1 => Form::LAYOUT_VERTICAL,
-                        2 => true,
-                        4, 5 => [],
+                        2 => Form::LAYOUT_VERTICAL,
+                        1, 3 => true,
+                        5, 6 => [],
                         default => null,
                     };
                 },
@@ -659,7 +664,6 @@ final class FormRow2Test extends TestCase
 
                     return match ($invocation) {
                         1, 10, 12 => $form,
-                        3 => true,
                         4 => 'is-valid',
                         9, 11 => [],
                         default => null,
