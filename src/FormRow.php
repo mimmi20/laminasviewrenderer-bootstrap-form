@@ -233,7 +233,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
         }
 
-        if ($element->getAttribute('required') && $showRequiredMark && is_string($requiredMark)) {
+        if ($showRequiredMark && is_string($requiredMark) && $element->getAttribute('required')) {
             $label .= $requiredMark;
         }
 
