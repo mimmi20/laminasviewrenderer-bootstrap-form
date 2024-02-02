@@ -304,6 +304,8 @@ final class FormSelectTest extends TestCase
            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
@@ -563,6 +565,8 @@ final class FormSelectTest extends TestCase
            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
@@ -907,6 +911,8 @@ final class FormSelectTest extends TestCase
         $doctype->expects(self::exactly(2))
             ->method('isHtml5')
             ->willReturn(false);
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
@@ -1371,6 +1377,8 @@ final class FormSelectTest extends TestCase
         $doctype->expects(self::exactly(5))
             ->method('isHtml5')
             ->willReturn(false);
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $formHidden = $this->createMock(FormHiddenInterface::class);
         $formHidden->expects(self::never())
@@ -1650,6 +1658,8 @@ final class FormSelectTest extends TestCase
         $doctype->expects(self::exactly(2))
             ->method('isHtml5')
             ->willReturn(true);
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $formHidden = $this->createMock(FormHidden::class);
         $formHidden->expects(self::once())

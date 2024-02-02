@@ -18,6 +18,8 @@ use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\FieldsetInterface;
 use Laminas\Form\FormInterface;
 use Laminas\Form\View\Helper\Form as BaseForm;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Renderer\RendererInterface;
 
@@ -34,7 +36,6 @@ use const PHP_EOL;
 final class Form extends BaseForm implements FormIndentInterface
 {
     use FormTrait;
-    use HtmlHelperTrait;
 
     public const LAYOUT_HORIZONTAL = 'horizontal';
 
@@ -45,12 +46,12 @@ final class Form extends BaseForm implements FormIndentInterface
     /**
      * The view helper used to render sub elements.
      */
-    protected FormRow | null $elementHelper = null;
+    protected FormRowInterface | null $elementHelper = null;
 
     /**
      * The view helper used to render sub fieldsets.
      */
-    protected FormCollection | null $fieldsetHelper = null;
+    protected FormCollectionInterface | null $fieldsetHelper = null;
 
     /**
      * Render a form from the provided $form
@@ -60,6 +61,9 @@ final class Form extends BaseForm implements FormIndentInterface
      * @throws DomainException
      * @throws RuntimeException
      * @throws InvalidArgumentException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws InvalidServiceException
+     * @throws ServiceNotFoundException
      *
      * @template TFilteredValues of object
      */
@@ -71,11 +75,11 @@ final class Form extends BaseForm implements FormIndentInterface
             $form->prepare();
         }
 
-        $formContent  = $this->openTag($form) . PHP_EOL;
+        $indent       = $this->getIndent();
+        $formContent  = PHP_EOL . $indent . $this->openTag($form) . PHP_EOL;
         $formLayout   = $form->getOption('layout');
         $requiredMark = $form->getOption('form-required-mark');
         $wasValidated = $form->getOption('was-validated');
-        $indent       = $this->getIndent();
 
         $elementHelper  = $this->getElementHelper();
         $fieldsetHelper = $this->getFieldsetHelper();
@@ -180,12 +184,24 @@ final class Form extends BaseForm implements FormIndentInterface
         return parent::openTag($form);
     }
 
+    /** @throws void */
+    public function setElementHelper(FormRowInterface | null $elementHelper): void
+    {
+        $this->elementHelper = $elementHelper;
+    }
+
+    /** @throws void */
+    public function setFieldsetHelper(FormCollectionInterface | null $fieldsetHelper): void
+    {
+        $this->fieldsetHelper = $fieldsetHelper;
+    }
+
     /**
      * Retrieve the element helper.
      *
      * @throws void
      */
-    protected function getElementHelper(): FormRow
+    protected function getElementHelper(): FormRowInterface
     {
         if ($this->elementHelper) {
             return $this->elementHelper;
@@ -195,7 +211,7 @@ final class Form extends BaseForm implements FormIndentInterface
             $this->elementHelper = $this->view->plugin('form_row');
         }
 
-        if (!$this->elementHelper instanceof FormRow) {
+        if (!$this->elementHelper instanceof FormRowInterface) {
             $this->elementHelper = new FormRow();
         }
 
@@ -207,7 +223,7 @@ final class Form extends BaseForm implements FormIndentInterface
      *
      * @throws void
      */
-    protected function getFieldsetHelper(): FormCollection
+    protected function getFieldsetHelper(): FormCollectionInterface
     {
         if ($this->fieldsetHelper) {
             return $this->fieldsetHelper;
@@ -217,7 +233,7 @@ final class Form extends BaseForm implements FormIndentInterface
             $this->fieldsetHelper = $this->view->plugin('form_collection');
         }
 
-        if (!$this->fieldsetHelper instanceof FormCollection) {
+        if (!$this->fieldsetHelper instanceof FormCollectionInterface) {
             $this->fieldsetHelper = new FormCollection();
         }
 

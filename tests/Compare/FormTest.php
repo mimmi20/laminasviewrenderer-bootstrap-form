@@ -44,6 +44,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical2' => [
                 'config' => 'vertical2.config.php',
@@ -51,6 +52,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.floating2' => [
                 'config' => 'vertical.floating2.config.php',
@@ -58,6 +60,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.card' => [
                 'config' => 'vertical.card.config.php',
@@ -65,6 +68,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.floating' => [
                 'config' => 'vertical.floating.config.php',
@@ -72,6 +76,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.floating.card' => [
                 'config' => 'vertical.floating.card.config.php',
@@ -79,6 +84,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal' => [
                 'config' => 'horizontal.config.php',
@@ -86,6 +92,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal2' => [
                 'config' => 'horizontal2.config.php',
@@ -93,6 +100,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.collection' => [
                 'config' => 'horizontal.collection.config.php',
@@ -100,6 +108,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.element-group' => [
                 'config' => 'horizontal.element-group.config.php',
@@ -107,6 +116,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.floating' => [
                 'config' => 'horizontal.floating.config.php',
@@ -114,6 +124,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'inline' => [
                 'config' => 'inline.config.php',
@@ -121,6 +132,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'inline.floating' => [
                 'config' => 'inline.floating.config.php',
@@ -128,6 +140,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.hr' => [
                 'config' => 'horizontal.hr.config.php',
@@ -135,6 +148,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.hr2' => [
                 'config' => 'horizontal.hr2.config.php',
@@ -142,6 +156,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.hr' => [
                 'config' => 'vertical.hr.config.php',
@@ -149,6 +164,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.hr.card' => [
                 'config' => 'horizontal.hr.card.config.php',
@@ -156,6 +172,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.hr.card.values' => [
                 'config' => 'horizontal.hr.card.config.php',
@@ -163,6 +180,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => ['chkErstinfo' => '1'],
+                'validate' => false,
             ],
             'horizontal.hr.card2' => [
                 'config' => 'horizontal.hr.card2.config.php',
@@ -170,6 +188,29 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
+            ],
+            'horizontal.hr.card2.values' => [
+                'config' => 'horizontal.hr.card2.config.php',
+                'template' => 'horizontal.hr.card2.values.html',
+                'indent' => '',
+                'messages' => [],
+                'values' => [
+                    'zusatzfragen' => 'ja',
+                    'feu_v' => 'ja',
+                ],
+                'validate' => false,
+            ],
+            'horizontal.hr.card2.values2' => [
+                'config' => 'horizontal.hr.card2.config.php',
+                'template' => 'horizontal.hr.card2.values2.html',
+                'indent' => '',
+                'messages' => [],
+                'values' => [
+                    'zusatzfragen' => 'ja',
+                    'feu_v' => 'ja',
+                ],
+                'validate' => true,
             ],
             'vertical.hr.card' => [
                 'config' => 'vertical.hr.card.config.php',
@@ -177,6 +218,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.hr.card2' => [
                 'config' => 'vertical.hr.card2.config.php',
@@ -184,6 +226,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.phv' => [
                 'config' => 'horizontal.phv.config.php',
@@ -191,6 +234,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.phv2' => [
                 'config' => 'horizontal.phv2.config.php',
@@ -198,6 +242,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '<!-- -->',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.rs' => [
                 'config' => 'horizontal.rs.config.php',
@@ -205,6 +250,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.rs.messages' => [
                 'config' => 'horizontal.rs.config.php',
@@ -218,6 +264,7 @@ final class FormTest extends AbstractTestCase
                     'KrPHV' => ['add some more'],
                 ],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.floating.rs' => [
                 'config' => 'vertical.floating.rs.config.php',
@@ -225,6 +272,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.floating.rs.messages' => [
                 'config' => 'vertical.floating.rs.config.php',
@@ -238,6 +286,7 @@ final class FormTest extends AbstractTestCase
                     'KrPHV' => ['add some more'],
                 ],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.rs' => [
                 'config' => 'vertical.rs.config.php',
@@ -245,6 +294,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.rs.messages' => [
                 'config' => 'vertical.rs.config.php',
@@ -258,6 +308,7 @@ final class FormTest extends AbstractTestCase
                     'KrPHV' => ['add some more'],
                 ],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.admin' => [
                 'config' => 'vertical.admin.config.php',
@@ -265,6 +316,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.admin2' => [
                 'config' => 'vertical.admin2.config.php',
@@ -272,6 +324,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'horizontal.hr.as-form-control' => [
                 'config' => 'horizontal.hr.as-form-control.config.php',
@@ -279,6 +332,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.hr.as-form-control' => [
                 'config' => 'vertical.hr.as-form-control.config.php',
@@ -286,6 +340,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
             'vertical.floating.rs.as-form-control' => [
                 'config' => 'vertical.floating.rs.as-form-control.config.php',
@@ -293,6 +348,7 @@ final class FormTest extends AbstractTestCase
                 'indent' => '',
                 'messages' => [],
                 'values' => [],
+                'validate' => false,
             ],
         ];
     }
@@ -312,8 +368,14 @@ final class FormTest extends AbstractTestCase
      * @throws \Laminas\I18n\Exception\RuntimeException
      */
     #[DataProvider('providerTests')]
-    public function testRender(string $config, string $template, string $indent, array $messages, array $values): void
-    {
+    public function testRender(
+        string $config,
+        string $template,
+        string $indent,
+        array $messages,
+        array $values,
+        bool $validate,
+    ): void {
         $file = 'form/' . $template;
 
         $form = (new Factory())->createForm(require '_files/config/' . $config);
@@ -339,7 +401,11 @@ final class FormTest extends AbstractTestCase
         }
 
         if ($values !== []) {
-            $form->populateValues($values);
+            $form->setData($values);
+        }
+
+        if ($validate) {
+            $form->isValid();
         }
 
         // file_put_contents($this->files . '/expected/' . $file, trim($helper->render($form)));

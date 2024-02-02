@@ -25,6 +25,8 @@ use PHPUnit\Framework\TestCase;
 
 use function sprintf;
 
+use const PHP_EOL;
+
 #[Group('form-multi-checkbox')]
 final class FormMultiCheckboxTest extends TestCase
 {
@@ -203,5 +205,233 @@ final class FormMultiCheckboxTest extends TestCase
     {
         self::assertSame($this->helper, $this->helper->setIndent('  '));
         self::assertSame('  ', $this->helper->getIndent());
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     */
+    public function testRenderWithName(): void
+    {
+        $name    = 'text.multi';
+        $options = ['a' => 'b', 'c' => 'd'];
+        $value   = 'b';
+
+        $expected = '<div class="form-check">' . PHP_EOL . '    <label class="form-check-label">' . PHP_EOL
+            . '        <input name="text.multi&#x5B;&#x5D;" type="checkbox" value="a" class="form-check-input">'
+            . PHP_EOL . '        <span>b</span>' . PHP_EOL . '    </label>' . PHP_EOL . '</div>' . PHP_EOL
+            . '<div class="form-check">' . PHP_EOL . '    <label class="form-check-label">' . PHP_EOL
+            . '        <input name="text.multi&#x5B;&#x5D;" type="checkbox" value="c" class="form-check-input">'
+            . PHP_EOL . '        <span>d</span>' . PHP_EOL . '    </label>' . PHP_EOL . '</div>';
+
+        $element = $this->createMock(Radio::class);
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn($name);
+        $element->expects(self::once())
+            ->method('getValueOptions')
+            ->willReturn($options);
+        $element->expects(self::once())
+            ->method('getAttributes')
+            ->willReturn([]);
+        $element->expects(self::once())
+            ->method('getValue')
+            ->willReturn($value);
+        $element->expects(self::once())
+            ->method('useHiddenElement')
+            ->willReturn(false);
+        $element->expects(self::once())
+            ->method('getLabelAttributes')
+            ->willReturn([]);
+        $element->expects(self::exactly(3))
+            ->method('getOption')
+            ->willReturn(null);
+        $element->expects(self::exactly(2))
+            ->method('getLabelOption')
+            ->with('disable_html_escape')
+            ->willReturn(null);
+        $element->expects(self::once())
+            ->method('hasLabelOption')
+            ->with('label_position')
+            ->willReturn(false);
+        $element->expects(self::never())
+            ->method('getUncheckedValue');
+
+        self::assertSame($expected, $this->helper->render($element));
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     */
+    public function testInvokeWithoutParameters(): void
+    {
+        self::assertSame($this->helper, ($this->helper)());
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     */
+    public function testInvokeWithName(): void
+    {
+        $name    = 'text.multi';
+        $options = ['a' => 'b', 'c' => 'd'];
+        $value   = 'b';
+
+        $expected = '<div class="form-check">' . PHP_EOL . '    <label class="form-check-label">' . PHP_EOL
+            . '        <input name="text.multi&#x5B;&#x5D;" type="checkbox" value="a" class="form-check-input">'
+            . PHP_EOL . '        <span>b</span>' . PHP_EOL . '    </label>' . PHP_EOL . '</div>' . PHP_EOL
+            . '<div class="form-check">' . PHP_EOL . '    <label class="form-check-label">' . PHP_EOL
+            . '        <input name="text.multi&#x5B;&#x5D;" type="checkbox" value="c" class="form-check-input">'
+            . PHP_EOL . '        <span>d</span>' . PHP_EOL . '    </label>' . PHP_EOL . '</div>';
+
+        $element = $this->createMock(Radio::class);
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn($name);
+        $element->expects(self::once())
+            ->method('getValueOptions')
+            ->willReturn($options);
+        $element->expects(self::once())
+            ->method('getAttributes')
+            ->willReturn([]);
+        $element->expects(self::once())
+            ->method('getValue')
+            ->willReturn($value);
+        $element->expects(self::once())
+            ->method('useHiddenElement')
+            ->willReturn(false);
+        $element->expects(self::once())
+            ->method('getLabelAttributes')
+            ->willReturn([]);
+        $element->expects(self::exactly(3))
+            ->method('getOption')
+            ->willReturn(null);
+        $element->expects(self::exactly(2))
+            ->method('getLabelOption')
+            ->with('disable_html_escape')
+            ->willReturn(null);
+        $element->expects(self::once())
+            ->method('hasLabelOption')
+            ->with('label_position')
+            ->willReturn(false);
+        $element->expects(self::never())
+            ->method('getUncheckedValue');
+
+        self::assertSame($expected, ($this->helper)($element));
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     */
+    public function testInvokeWithNameAndLabelPosition(): void
+    {
+        $name    = 'text.multi';
+        $options = ['a' => 'b', 'c' => 'd'];
+        $value   = 'b';
+
+        $expected = '<div class="form-check">' . PHP_EOL . '    <label class="form-check-label">'
+            . PHP_EOL . '        <span>b</span>' . PHP_EOL
+            . '        <input name="text.multi&#x5B;&#x5D;" type="checkbox" value="a" class="form-check-input">'
+            . PHP_EOL . '    </label>' . PHP_EOL . '</div>' . PHP_EOL
+            . '<div class="form-check">' . PHP_EOL . '    <label class="form-check-label">'
+            . PHP_EOL . '        <span>d</span>' . PHP_EOL
+            . '        <input name="text.multi&#x5B;&#x5D;" type="checkbox" value="c" class="form-check-input">'
+            . PHP_EOL . '    </label>' . PHP_EOL . '</div>';
+
+        $element = $this->createMock(Radio::class);
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn($name);
+        $element->expects(self::once())
+            ->method('getValueOptions')
+            ->willReturn($options);
+        $element->expects(self::once())
+            ->method('getAttributes')
+            ->willReturn([]);
+        $element->expects(self::once())
+            ->method('getValue')
+            ->willReturn($value);
+        $element->expects(self::once())
+            ->method('useHiddenElement')
+            ->willReturn(false);
+        $element->expects(self::once())
+            ->method('getLabelAttributes')
+            ->willReturn([]);
+        $element->expects(self::exactly(3))
+            ->method('getOption')
+            ->willReturn(null);
+        $element->expects(self::exactly(2))
+            ->method('getLabelOption')
+            ->with('disable_html_escape')
+            ->willReturn(null);
+        $element->expects(self::once())
+            ->method('hasLabelOption')
+            ->with('label_position')
+            ->willReturn(false);
+        $element->expects(self::never())
+            ->method('getUncheckedValue');
+
+        self::assertSame($expected, ($this->helper)($element, BaseFormRow::LABEL_PREPEND));
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     */
+    public function testInvokeWithNameAndLabelPosition2(): void
+    {
+        $name    = 'text.multi';
+        $options = ['a' => 'b', 'c' => 'd'];
+        $value   = 'b';
+
+        $expected = '<div class="form-check">' . PHP_EOL . '    <label class="form-check-label">' . PHP_EOL
+            . '        <input name="text.multi&#x5B;&#x5D;" type="checkbox" value="a" class="form-check-input">'
+            . PHP_EOL . '        <span>b</span>' . PHP_EOL . '    </label>' . PHP_EOL . '</div>' . PHP_EOL
+            . '<div class="form-check">' . PHP_EOL . '    <label class="form-check-label">' . PHP_EOL
+            . '        <input name="text.multi&#x5B;&#x5D;" type="checkbox" value="c" class="form-check-input">'
+            . PHP_EOL . '        <span>d</span>' . PHP_EOL . '    </label>' . PHP_EOL . '</div>';
+
+        $element = $this->createMock(Radio::class);
+        $element->expects(self::once())
+            ->method('getName')
+            ->willReturn($name);
+        $element->expects(self::once())
+            ->method('getValueOptions')
+            ->willReturn($options);
+        $element->expects(self::once())
+            ->method('getAttributes')
+            ->willReturn([]);
+        $element->expects(self::once())
+            ->method('getValue')
+            ->willReturn($value);
+        $element->expects(self::once())
+            ->method('useHiddenElement')
+            ->willReturn(false);
+        $element->expects(self::once())
+            ->method('getLabelAttributes')
+            ->willReturn([]);
+        $element->expects(self::exactly(3))
+            ->method('getOption')
+            ->willReturn(null);
+        $element->expects(self::exactly(2))
+            ->method('getLabelOption')
+            ->with('disable_html_escape')
+            ->willReturn(null);
+        $element->expects(self::once())
+            ->method('hasLabelOption')
+            ->with('label_position')
+            ->willReturn(false);
+        $element->expects(self::never())
+            ->method('getUncheckedValue');
+
+        self::assertSame($expected, ($this->helper)($element, BaseFormRow::LABEL_APPEND));
     }
 }
