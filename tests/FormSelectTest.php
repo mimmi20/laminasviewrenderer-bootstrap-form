@@ -31,6 +31,7 @@ use Mimmi20\LaminasView\BootstrapForm\FormSelect;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function assert;
 use function sprintf;
@@ -1748,6 +1749,303 @@ final class FormSelectTest extends TestCase
         $element->expects(self::once())
             ->method('getValue')
             ->willReturn([$value1, $value3]);
+        $element->expects(self::once())
+            ->method('useHiddenElement')
+            ->willReturn(true);
+        $element->expects(self::never())
+            ->method('getLabelAttributes');
+        $element->expects(self::never())
+            ->method('getOption');
+        $element->expects(self::never())
+            ->method('getLabelOption');
+        $element->expects(self::never())
+            ->method('hasLabelOption');
+        $element->expects(self::once())
+            ->method('getEmptyOption')
+            ->willReturn($emptyOption);
+        $element->expects(self::once())
+            ->method('getUnselectedValue')
+            ->willReturn($unselectedValue);
+
+        self::assertSame($expected, $this->helper->render($element));
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws DomainException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws RuntimeException
+     */
+    public function testRenderWithHiddenElement2(): void
+    {
+        $name               = 'test-name';
+        $nameEscaped        = 'test-name-escaped';
+        $id                 = 'test-id';
+        $idEscaped          = 'test-id-escaped';
+        $value2             = 'def';
+        $value2Escaped      = 'def-escaped';
+        $value3             = 'abc';
+        $value3Escaped      = 'abc-escaped';
+        $class              = 'test-class';
+        $classEscaped       = 'test-class-escaped';
+        $ariaLabel          = 'test';
+        $ariaLabelEscaped   = 'test-escaped';
+        $valueOptions       = [$value3 => $value2];
+        $attributes         = ['class' => $class, 'aria-label' => $ariaLabel, 'id' => $id, 'multiple' => true];
+        $emptyOption        = '0';
+        $emptyOptionEscaped = '0e';
+        $unselectedValue    = 'u';
+        $expected           = sprintf(
+            '<input type="hidden" name="%s" value="%s"/>',
+            $name,
+            $unselectedValue,
+        ) . PHP_EOL
+            . sprintf(
+                '<select classEscaped="%s" aria-labelEscaped="%s" idEscaped="%s" multipleEscaped nameEscaped="%s">',
+                $classEscaped,
+                $ariaLabelEscaped,
+                $idEscaped,
+                $nameEscaped,
+            ) . PHP_EOL
+            . sprintf('    <option valueEscaped="">%s</option>', $emptyOptionEscaped) . PHP_EOL
+            . sprintf(
+                '    <option valueEscaped="%s">%s</option>',
+                $value3Escaped,
+                $value2Escaped,
+            ) . PHP_EOL
+            . '</select>';
+
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher    = self::exactly(9);
+        $escapeHtml->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $emptyOption, $emptyOptionEscaped, $value2, $value2Escaped): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $emptyOption,
+                            $value,
+                            (string) $invocation,
+                        ),
+                        2, 4 => self::assertSame(
+                            'value',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            $value2,
+                            $value,
+                            (string) $invocation,
+                        ),
+                        5 => self::assertSame(
+                            'class',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        6 => self::assertSame(
+                            'aria-label',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        7 => self::assertSame(
+                            'id',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        8 => self::assertSame(
+                            'multiple',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        9 => self::assertSame(
+                            'name',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $value,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $emptyOptionEscaped,
+                        2, 4 => 'valueEscaped',
+                        3 => $value2Escaped,
+                        5 => 'classEscaped',
+                        6 => 'aria-labelEscaped',
+                        7 => 'idEscaped',
+                        8 => 'multipleEscaped',
+                        9 => 'nameEscaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher        = self::exactly(6);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $class, $classEscaped, $value3, $value3Escaped, $ariaLabel, $ariaLabelEscaped, $id, $idEscaped, $name, $nameEscaped): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            $value3,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'form-select ' . $class,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            $ariaLabel,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        5 => self::assertSame(
+                            $id,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        6 => self::assertSame(
+                            $name . '[]',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'x',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        2 => $value3Escaped,
+                        3 => $classEscaped,
+                        4 => $ariaLabelEscaped,
+                        5 => $idEscaped,
+                        6 => $nameEscaped,
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
+        $doctype->expects(self::never())
+            ->method('__invoke');
+        $doctype->expects(self::once())
+            ->method('isXhtml')
+            ->willReturn(false);
+        $doctype->expects(self::once())
+            ->method('isHtml5')
+            ->willReturn(true);
+        $doctype->expects(self::never())
+            ->method('getDoctype');
+
+        $formHidden = $this->createMock(FormHidden::class);
+        $formHidden->expects(self::once())
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (ElementInterface $element) use ($name, $unselectedValue): string {
+                    self::assertInstanceOf(Hidden::class, $element);
+
+                    assert($element instanceof Hidden);
+
+                    self::assertSame($name, $element->getName());
+                    self::assertSame($unselectedValue, $element->getValue());
+
+                    return sprintf(
+                        '<input type="hidden" name="%s" value="%s"/>',
+                        $name,
+                        $unselectedValue,
+                    );
+                },
+            );
+
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(4);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype, $formHidden): HelperInterface | null {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        4 => self::assertSame(
+                            'formhidden',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        4 => $formHidden,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+
+        $element = $this->createMock(SelectElement::class);
+        $element->expects(self::exactly(2))
+            ->method('getName')
+            ->willReturn($name);
+        $element->expects(self::once())
+            ->method('getValueOptions')
+            ->willReturn($valueOptions);
+        $element->expects(self::once())
+            ->method('getAttributes')
+            ->willReturn($attributes);
+        $element->expects(self::once())
+            ->method('getValue')
+            ->willReturn(new stdClass());
         $element->expects(self::once())
             ->method('useHiddenElement')
             ->willReturn(true);
