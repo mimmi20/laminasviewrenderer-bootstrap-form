@@ -16,8 +16,9 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
+use Laminas\View\Helper\HelperInterface;
 
-interface FormRowInterface extends FormIndentInterface, FormRenderInterface
+interface FormRowInterface extends FormIndentInterface, FormRenderInterface, HelperInterface
 {
     /**
      * Invoke helper as functor

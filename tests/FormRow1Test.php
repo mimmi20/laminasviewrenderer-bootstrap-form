@@ -46,13 +46,11 @@ final class FormRow1Test extends TestCase
             ->method('getOption')
             ->with('form')
             ->willReturn(true);
-        $element->expects(self::once())
-            ->method('getName')
-            ->willReturn('element-name');
-        $element->expects(self::once())
+        $element->expects(self::never())
+            ->method('getName');
+        $element->expects(self::never())
             ->method('hasAttribute')
-            ->with('required')
-            ->willReturn(false);
+            ->with('required');
         $element->expects(self::never())
             ->method('setAttribute');
         $element->expects(self::never())

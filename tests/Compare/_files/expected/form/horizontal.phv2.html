@@ -1,282 +1,194 @@
-<form action="&#x2F;calculator&#x2F;phv&#x2F;1&#x2F;input&#x2F;hdi8atj8urkn4vmp93uuc4s9ov&#x3F;subid&#x3D;A-00-000" method="post" name="form" accept-charset="utf-8" class="form&#x20;input-form&#x20;js-help&#x20;has-help&#x20;has-preloader&#x20;js-form-validation-base&#x20;col-12&#x20;js-input-form-init" data-show-arrow="left" id="phv-form" role="form">
+<!-- --><form action="&#x2F;calculator&#x2F;phv&#x2F;1&#x2F;input&#x2F;hdi8atj8urkn4vmp93uuc4s9ov&#x3F;subid&#x3D;A-00-000" method="post" name="form" accept-charset="utf-8" class="form&#x20;input-form&#x20;js-help&#x20;has-help&#x20;has-preloader&#x20;js-form-validation-base&#x20;col-12&#x20;js-input-form-init" data-show-arrow="left" id="phv-form" role="form">
 <!-- -->    <fieldset>
 <!-- -->        <legend class="headline-calculator"><span>Was möchten Sie versichern?</span></legend>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="single">Tarifauswahl</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="single" id="single" aria-describedby="singleHelp" class="form-select">
-<!-- -->                        <option value="Familie&#x2F;Lebensgemeinschaft&#x20;mit&#x20;Kinder">Familie/Lebensgemeinschaft mit Kind(ern)</option>
-<!-- -->                        <option value="Familie&#x2F;Lebensgemeinschaft&#x20;ohne&#x20;Kinder">Familie/Lebensgemeinschaft ohne Kinder</option>
-<!-- -->                        <option value="Single&#x20;ohne&#x20;Kinder">Single ohne Kinder</option>
-<!-- -->                        <option value="Single&#x20;mit&#x20;Kinder">Single mit Kind(ern)</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="single" id="single" aria-describedby="singleHelp" class="form-select">
+<!-- -->                    <option value="Familie&#x2F;Lebensgemeinschaft&#x20;mit&#x20;Kinder">Familie/Lebensgemeinschaft mit Kind(ern)</option>
+<!-- -->                    <option value="Familie&#x2F;Lebensgemeinschaft&#x20;ohne&#x20;Kinder">Familie/Lebensgemeinschaft ohne Kinder</option>
+<!-- -->                    <option value="Single&#x20;ohne&#x20;Kinder">Single ohne Kinder</option>
+<!-- -->                    <option value="Single&#x20;mit&#x20;Kinder">Single mit Kind(ern)</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="singleHelp"><strong>Tarifauswahl</strong><p>Der Singletarif ist nur möglich, wenn Sie ledig sind und keinen Lebenspartner mitversichern wollen.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="plz">PLZ des Antragsstellers<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="plz" id="plz" class="form-control&#x20;form-control-short&#x20;js-special-zip-message" pattern="&#x5E;&#x5C;d&#x7B;5&#x7D;&#x24;" minlength="5" maxlength="5" required="required" aria-describedby="plzHelp" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="plz" id="plz" class="form-control&#x20;form-control-short&#x20;js-special-zip-message" pattern="&#x5E;&#x5C;d&#x7B;5&#x7D;&#x24;" minlength="5" maxlength="5" required="required" aria-describedby="plzHelp" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="plzHelp"><strong>Warum fragen wir das?</strong><p>Die Postleitzahl Ihrer Wohnung wird für die Risikobeurteilung /Beitragsberechnung benötigt. Die Beitragshöhe ist nicht nur abhängig von Ihren gewünschten Leistungen, sondern wird auch anhand Art und Anzahl der Schäden, die in Ihrem Wohnort durchschnittlich gemeldet werden, bemessen.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="beamte">Tarifgruppe</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="beamte" id="beamte" aria-describedby="beamteHelp" class="form-select">
-<!-- -->                        <option value="Normal">Normal</option>
-<!-- -->                        <option value="&#xF6;ffentl.&#x20;Dienst">öffentlicher Dienst</option>
-<!-- -->                        <option value="&#xD6;D&#x20;mit&#x20;Dienst-HP&#x20;&#x28;nur&#x20;Lehrer&#x29;">ÖD mit Dienst-HP (nur Lehrer)</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="beamte" id="beamte" aria-describedby="beamteHelp" class="form-select">
+<!-- -->                    <option value="Normal">Normal</option>
+<!-- -->                    <option value="&#xF6;ffentl.&#x20;Dienst">öffentlicher Dienst</option>
+<!-- -->                    <option value="&#xD6;D&#x20;mit&#x20;Dienst-HP&#x20;&#x28;nur&#x20;Lehrer&#x29;">ÖD mit Dienst-HP (nur Lehrer)</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="beamteHelp"><strong>Warum fragen wir das?</strong><p>Einige Versicherer bieten Beitragsnachlässe für Beamte und Angestellte im öffentlichen Dienst.</p><strong>Hinweis zur Auswahl</strong><p>Wählen Sie auch &quot;öffentlicher Dienst&quot;, wenn Sie Beamter sind oder früher im öffentlichen Dienst beschäftigt waren und sich mittlerweile im Ruhestand befinden.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="gebdatum">Geburtsdatum des Versicherungsnehmers<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="gebdatum" id="gebdatum" class="form-control&#x20;datepicker&#x20;js-datepicker" placeholder="TT.MM.JJJJ" data-date-format="de" data-date-format-message="Bitte&#x20;geben&#x20;Sie&#x20;ein&#x20;korrektes&#x20;Geburtsdatum&#x20;an&#x21;" data-min-age="18y" data-min-age-message="Sie&#x20;sind&#x20;leider&#x20;zu&#x20;jung,&#x20;um&#x20;eine&#x20;Versicherung&#x20;abzuschlie&#xDF;en." required="required" aria-describedby="gebdatumHelp" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="gebdatum" id="gebdatum" class="form-control&#x20;datepicker&#x20;js-datepicker" placeholder="TT.MM.JJJJ" data-date-format="de" data-date-format-message="Bitte&#x20;geben&#x20;Sie&#x20;ein&#x20;korrektes&#x20;Geburtsdatum&#x20;an&#x21;" data-min-age="18y" data-min-age-message="Sie&#x20;sind&#x20;leider&#x20;zu&#x20;jung,&#x20;um&#x20;eine&#x20;Versicherung&#x20;abzuschlie&#xDF;en." required="required" aria-describedby="gebdatumHelp" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="gebdatumHelp"><strong>Warum fragen wir das?</strong><p>Die Angabe Ihres Geburtsdatums ist relevant für die Höhe des Beitrags. Einige Versicherungs­gesellschaften bieten Beitragsnachlässe für bestimmte Altersgruppen.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="ausfall">Ausfalldeckung</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="ausfall" id="ausfall" class="form-select&#x20;toggle-trigger" data-toggle-modus="hide" data-toggle-value="nein" aria-describedby="ausfallHelp">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="ausfall" id="ausfall" class="form-select&#x20;toggle-trigger" data-toggle-modus="hide" data-toggle-value="nein" aria-describedby="ausfallHelp">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="ausfallHelp"><strong>Ausfalldeckung</strong><p>Wir empfehlen Ihnen, die sogenannte Forderungs­ausfalldeckung in Ihren Versicherungs­schutz aufzunehmen. Ihr Versicherer erstattet dann auch Schäden, die Ihnen durch fremde Personen zugefügt werden, die selbst über keine Privathaftpflicht­versicherung verfügen und finanziell nicht in der Lage sind, Ihnen den entstandenen Schaden zu ersetzen. Voraussetzung für die Begleichung des Schadens ist ein rechtskräftiges Urteil des Verursachers. Die meisten Versicherer legen für die Erstattung eine Mindest­schadenshöhe fest (siehe Leistungs­vergleich).</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="delikt">Deliktunfähige Kinder unter 7 Jahre mitversichern?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="delikt" id="delikt" aria-describedby="deliktHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="delikt" id="delikt" aria-describedby="deliktHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="deliktHelp"><strong>Deliktunfähige Kinder unter 7 Jahre mitversichern?</strong><p>Eltern haften nicht für unter 7-jährige Kinder (bei Verkehr nicht bis unter 10 Jahre), wenn sie Ihrer Aufsichtspflicht nachkommen. Diese Schäden können Sie hier versichern.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="Hundn">Hund mitversichern? (kein Kampfhund!)</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="Hundn" id="Hundn" aria-describedby="HundnHelp" class="form-select">
-<!-- -->                        <option value="0">0</option>
-<!-- -->                        <option value="1">1 Hund</option>
-<!-- -->                        <option value="2">2 Hunde</option>
-<!-- -->                        <option value="3">3 Hunde</option>
-<!-- -->                        <option value="4">4 Hunde</option>
-<!-- -->                        <option value="5">5 Hunde</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="Hundn" id="Hundn" aria-describedby="HundnHelp" class="form-select">
+<!-- -->                    <option value="0">0</option>
+<!-- -->                    <option value="1">1 Hund</option>
+<!-- -->                    <option value="2">2 Hunde</option>
+<!-- -->                    <option value="3">3 Hunde</option>
+<!-- -->                    <option value="4">4 Hunde</option>
+<!-- -->                    <option value="5">5 Hunde</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="HundnHelp"><strong>Hund mitversichern? (kein Kampfhund!)</strong><p>Je nach Gesellschaft gibt es Hunderassen, die nicht versichert werden können. Dazu gehören z.B. folgende Rassen sowie deren Kreuzungen: Bandog, Bordeaux-Dogge, Bulldog, Bullterrier (auch Staffordshire Bullterrier), Dogo Argentino, Fila Brasileiro, Kangal, Mastiff (auch Bullmastiff), Mastino Espanol, Mastino Napoletano, Owtscharka (alle Unterrassen), Pitbullterrier (auch American Pitbullterrier), Rhodesian Ridgeback, Staffordshire Terrier (auch American Staffordshire Terrier bzw. American Stafford Terrier) und Tosa Ino.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="Rasse_Tier1">Rasse Hund 1 eingeben<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="Rasse_Tier1" id="Rasse_Tier1" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier1Help" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="Rasse_Tier1" id="Rasse_Tier1" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier1Help" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="Rasse_Tier1Help"><strong>Rasse Hund 1 eingeben</strong><p>Geben Sie hier die Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="mischling_hund1">Ist Hund 1 ein Mischling?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="mischling_hund1" id="mischling_hund1" aria-describedby="mischling_hund1Help" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="mischling_hund1" id="mischling_hund1" aria-describedby="mischling_hund1Help" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="mischling_hund1Help"><strong>Ist Hund 1 ein Mischling?</strong><p>Ist Ihr Hund ein Mischling?</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="Rasse_Tier1a">Mischlingsrasse Hund 1<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="Rasse_Tier1a" id="Rasse_Tier1a" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier1aHelp" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="Rasse_Tier1a" id="Rasse_Tier1a" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier1aHelp" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="Rasse_Tier1aHelp"><strong>Mischlingsrasse Hund 1</strong><p>Geben Sie hier die Mischlings-Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Mischlings-Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="Rasse_Tier2">Rasse Hund 2 eingeben<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="Rasse_Tier2" id="Rasse_Tier2" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier2Help" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="Rasse_Tier2" id="Rasse_Tier2" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier2Help" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="Rasse_Tier2Help"><strong>Rasse Hund 2 eingeben</strong><p>Geben Sie hier die Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="mischling_hund2">Ist Hund 2 ein Mischling?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="mischling_hund2" id="mischling_hund2" aria-describedby="mischling_hund2Help" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="mischling_hund2" id="mischling_hund2" aria-describedby="mischling_hund2Help" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="mischling_hund2Help"><strong>Ist Hund 2 ein Mischling?</strong><p>Ist Ihr Hund ein Mischling?</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="Rasse_Tier2a">Mischlingsrasse Hund 2<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="Rasse_Tier2a" id="Rasse_Tier2a" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier2aHelp" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="Rasse_Tier2a" id="Rasse_Tier2a" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier2aHelp" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="Rasse_Tier2aHelp"><strong>Mischlingsrasse Hund 2</strong><p>Geben Sie hier die Mischlings-Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Mischlings-Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="Rasse_Tier3">Rasse Hund 3 eingeben<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="Rasse_Tier3" id="Rasse_Tier3" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier3Help" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="Rasse_Tier3" id="Rasse_Tier3" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier3Help" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="Rasse_Tier3Help"><strong>Rasse Hund 3 eingeben</strong><p>Geben Sie hier die Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="mischling_hund3">Ist Hund 3 ein Mischling?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="mischling_hund3" id="mischling_hund3" aria-describedby="mischling_hund3Help" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="mischling_hund3" id="mischling_hund3" aria-describedby="mischling_hund3Help" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="mischling_hund3Help"><strong>Ist Hund 3 ein Mischling?</strong><p>Ist Ihr Hund ein Mischling?</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="Rasse_Tier3a">Mischlingsrasse Hund 3<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="Rasse_Tier3a" id="Rasse_Tier3a" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier3aHelp" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="Rasse_Tier3a" id="Rasse_Tier3a" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier3aHelp" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="Rasse_Tier3aHelp"><strong>Mischlingsrasse Hund 3</strong><p>Geben Sie hier die Mischlings-Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Mischlings-Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="Rasse_Tier4">Rasse Hund 4 eingeben<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="Rasse_Tier4" id="Rasse_Tier4" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier4Help" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="Rasse_Tier4" id="Rasse_Tier4" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier4Help" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="Rasse_Tier4Help"><strong>Rasse Hund 4 eingeben</strong><p>Geben Sie hier die Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="mischling_hund4">Ist Hund 4 ein Mischling?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="mischling_hund4" id="mischling_hund4" aria-describedby="mischling_hund4Help" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="mischling_hund4" id="mischling_hund4" aria-describedby="mischling_hund4Help" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="mischling_hund4Help"><strong>Ist Hund 4 ein Mischling?</strong><p>Ist Ihr Hund ein Mischling?</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="Rasse_Tier4a">Mischlingsrasse Hund 4<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="Rasse_Tier4a" id="Rasse_Tier4a" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier4aHelp" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="Rasse_Tier4a" id="Rasse_Tier4a" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier4aHelp" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="Rasse_Tier4aHelp"><strong>Mischlingsrasse Hund 4</strong><p>Geben Sie hier die Mischlings-Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Mischlings-Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row&#x20;collapse&#x20;collapse-dogs">
 <!-- -->            <label class="col-form-label" for="Rasse_Tier5">Rasse Hund 5 eingeben<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="Rasse_Tier5" id="Rasse_Tier5" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier5Help" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="Rasse_Tier5" id="Rasse_Tier5" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier5Help" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="Rasse_Tier5Help"><strong>Rasse Hund 5 eingeben</strong><p>Geben Sie hier die Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="mischling_hund5">Ist Hund 5 ein Mischling?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="mischling_hund5" id="mischling_hund5" aria-describedby="mischling_hund5Help" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="mischling_hund5" id="mischling_hund5" aria-describedby="mischling_hund5Help" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="mischling_hund5Help"><strong>Ist Hund 5 ein Mischling?</strong><p>Ist Ihr Hund ein Mischling?</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="Rasse_Tier5a">Mischlingsrasse Hund 5<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <input type="text" name="Rasse_Tier5a" id="Rasse_Tier5a" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier5aHelp" value="">
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <input type="text" name="Rasse_Tier5a" id="Rasse_Tier5a" class="form-control&#x20;js-pet-autocomplete" pattern="&#x5B;A-Za-z_&#xE4;&#xE2;&#xE0;&#xC4;&#xC2;&#xC0;&#xF6;&#xD6;&#xFC;&#xDC;&#xDF;&#xC9;&#xCA;&#xC8;&#xE9;&#xE8;&#xEA;&#xE7;&#x28;&#x29;&#x5C;s.-&#x5D;&#x7B;2,&#x7D;" required="required" aria-describedby="Rasse_Tier5aHelp" value="">
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="Rasse_Tier5aHelp"><strong>Mischlingsrasse Hund 5</strong><p>Geben Sie hier die Mischlings-Rasse Ihres Hundes an. Wenn Sie diese nicht genau kennen, geben Sie eine Mischlings-Rasse an, die dem am nächsten kommt. Achten Sie aber vor allem bei kampfhundähnlichen Rassen auf die genaue Angabe.</p></div>
 <!-- -->        </div>
@@ -286,62 +198,46 @@
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="laufzeit">Laufzeit</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="laufzeit" id="laufzeit" aria-describedby="laufzeitHelp" class="form-select">
-<!-- -->                        <option value="1">1 Jahr</option>
-<!-- -->                        <option value="3">3 Jahre</option>
-<!-- -->                        <option value="5">5 Jahre</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="laufzeit" id="laufzeit" aria-describedby="laufzeitHelp" class="form-select">
+<!-- -->                    <option value="1">1 Jahr</option>
+<!-- -->                    <option value="3">3 Jahre</option>
+<!-- -->                    <option value="5">5 Jahre</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="laufzeitHelp"><strong>Laufzeit</strong><p>Laufzeiten von mehr als einem Jahr führen bei vielen Anbietern zu Beitragsnachlässen zwischen 5% und 10%.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="vorvers5">Bestand in den letzten 5 Jahren eine Vorversicherung?<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="vorvers5" id="vorvers5" required="required" aria-describedby="vorvers5Help" class="form-select">
-<!-- -->                        <option value="">-- Bitte wählen --</option>
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="vorvers5" id="vorvers5" required="required" aria-describedby="vorvers5Help" class="form-select">
+<!-- -->                    <option value="">-- Bitte wählen --</option>
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="vorvers5Help"><strong>Bestand in den letzten 5 Jahren eine Vorversicherung?</strong><p>Bei einigen Versicherungen gibt es bis zu 30% Rabatt, wenn Sie einen Vertrag hatten, der schadenfrei lief.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="schaeden5">Schäden in den letzten 5 Jahren<span class="text-info-required">*</span></label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation&#x20;required">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="schaeden5" id="schaeden5" required="required" aria-describedby="schaeden5Help" class="form-select">
-<!-- -->                        <option value="">-- Bitte wählen --</option>
-<!-- -->                        <option value="0">0</option>
-<!-- -->                        <option value="1">1</option>
-<!-- -->                        <option value="2">2</option>
-<!-- -->                        <option value="3">3</option>
-<!-- -->                        <option value="4">4</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="schaeden5" id="schaeden5" required="required" aria-describedby="schaeden5Help" class="form-select">
+<!-- -->                    <option value="">-- Bitte wählen --</option>
+<!-- -->                    <option value="0">0</option>
+<!-- -->                    <option value="1">1</option>
+<!-- -->                    <option value="2">2</option>
+<!-- -->                    <option value="3">3</option>
+<!-- -->                    <option value="4">4</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="schaeden5Help"><strong>Schäden in den letzten 5 Jahren</strong><p>Teilen Sie mit, ob und wieviele Schäden Sie innerhalb der letzten 5 Jahre verursacht haben. Waren Sie in dieser Zeit schadensfrei, erhalten Sie bei einigen Versicherern einen Beitragsnachlass.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="kombirabatte">Kombirabatte mit berechnen?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="kombirabatte" id="kombirabatte" class="form-select&#x20;toggle-trigger" data-toggle-modus="show" data-toggle-value="ja" aria-describedby="kombirabatteHelp">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="kombirabatte" id="kombirabatte" class="form-select&#x20;toggle-trigger" data-toggle-modus="show" data-toggle-value="ja" aria-describedby="kombirabatteHelp">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="kombirabatteHelp"><strong>Kombirabatte mit berechnen?</strong><p>Welche Verträge haben Sie schon oder haben vor, sie zu versichern? Je mehr Verträge Sie bei einer Gesellschaft haben, umso günstiger wird der Preis.</p></div>
 <!-- -->        </div>
@@ -511,549 +407,397 @@
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label">Wählen Sie eine Vorgabe für Ihre Berechnung</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <a href="&#x23;" data-event-type="click" data-event-category="versicherung" data-event-label="phv" data-event-action="choose&#x20;standard&#x20;options" class="js-standard&#x20;js-gtm-event">Standard</a>
-<!-- -->                    |
-<!-- -->                    <a href="&#x23;" data-event-type="click" data-event-category="versicherung" data-event-label="phv" data-event-action="choose&#x20;AK&#x20;recommentations" class="recommendation&#x20;js-recommendation&#x20;js-gtm-event">AK Empfehlung</a>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <a href="&#x23;" data-event-type="click" data-event-category="versicherung" data-event-label="phv" data-event-action="choose&#x20;standard&#x20;options" class="js-standard&#x20;js-gtm-event">Standard</a>
+<!-- -->                |
+<!-- -->                <a href="&#x23;" data-event-type="click" data-event-category="versicherung" data-event-label="phv" data-event-action="choose&#x20;AK&#x20;recommentations" class="recommendation&#x20;js-recommendation&#x20;js-gtm-event">AK Empfehlung</a>
 <!-- -->            </div>
 <!-- -->            <div class="help-content"><strong>Wählen Sie eine Vorgabe für Ihre Berechnung</strong><p>Die Vorgabe des Arbeitskreis Vermittlerrichlinie (AK-Empfehlung) bietet Ihnen einen empfohlenen Mindestschutz. Heute erfüllen alle wichtigen Tarife diese Vorgaben. Zu Ihrer Sicherheit sollten Sie diese Mindestvorgaben wählen.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="vs_v">Mindest-Versicherungssumme Personen/Sachschäden</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="vs_v" id="vs_v" aria-describedby="vs_vHelp" class="form-select">
-<!-- -->                        <option value="3000000">mind. 3 Mio EUR  (AK Empfehlung)</option>
-<!-- -->                        <option value="5000000">mind. 5 Mio EUR</option>
-<!-- -->                        <option value="10000000">mind. 10 Mio EUR</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="vs_v" id="vs_v" aria-describedby="vs_vHelp" class="form-select">
+<!-- -->                    <option value="3000000">mind. 3 Mio EUR  (AK Empfehlung)</option>
+<!-- -->                    <option value="5000000">mind. 5 Mio EUR</option>
+<!-- -->                    <option value="10000000">mind. 10 Mio EUR</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="vs_vHelp"><strong>Mindest-Versicherungssumme Personen/Sachschäden</strong><p>Die Versicherungssumme beschreibt den maximalen Betrag, den eine Versicherung im Schadenfall erstattet.</p><p>Wählen Sie zu Ihrer Sicherheit eine hohe Versicherungssumme.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="vsm_v">Mindest-Versicherungssumme für Mietsachschäden</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="vsm_v" id="vsm_v" aria-describedby="vsm_vHelp" class="form-select">
-<!-- -->                        <option value="300000">mind. 300.000 EUR (AK Empfehlung)</option>
-<!-- -->                        <option value="500000">mind. 500.000 EUR</option>
-<!-- -->                        <option value="1000000">mind. 1 Mio EUR</option>
-<!-- -->                        <option value="3000000">mind. 3 Mio EUR</option>
-<!-- -->                        <option value="0">unter 500.000 EUR</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="vsm_v" id="vsm_v" aria-describedby="vsm_vHelp" class="form-select">
+<!-- -->                    <option value="300000">mind. 300.000 EUR (AK Empfehlung)</option>
+<!-- -->                    <option value="500000">mind. 500.000 EUR</option>
+<!-- -->                    <option value="1000000">mind. 1 Mio EUR</option>
+<!-- -->                    <option value="3000000">mind. 3 Mio EUR</option>
+<!-- -->                    <option value="0">unter 500.000 EUR</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="vsm_vHelp"><strong>Mindest-Versicherungssumme für Mietsachschäden</strong><p>Schäden an festen gemieteten Sachen (Mietwohnung, Hotel) sind mit diesem Einschluss versichert.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="vsv_v">Mindest-Versicherungssumme für Vermögensschäden</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="vsv_v" id="vsv_v" aria-describedby="vsv_vHelp" class="form-select">
-<!-- -->                        <option value="50000">mind. 50.000 EUR (AK Empfehlung)</option>
-<!-- -->                        <option value="100000">mind. 100.000 EUR</option>
-<!-- -->                        <option value="1000000">mind. 1 Mio EUR</option>
-<!-- -->                        <option value="10000">unter 50.000 EUR</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="vsv_v" id="vsv_v" aria-describedby="vsv_vHelp" class="form-select">
+<!-- -->                    <option value="50000">mind. 50.000 EUR (AK Empfehlung)</option>
+<!-- -->                    <option value="100000">mind. 100.000 EUR</option>
+<!-- -->                    <option value="1000000">mind. 1 Mio EUR</option>
+<!-- -->                    <option value="10000">unter 50.000 EUR</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="vsv_vHelp"><strong>Mindest-Versicherungssumme für Vermögensschäden</strong><p>Beispiel für einen Vermögensschaden:<br/>Sie fahren mit dem Fahrrad einen Passanten an, welcher daraufhin für 2 Wochen im Krankenhaus liegt. Dadurch hat er Verdienstausfall und Einnahmenverluste.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="best_v">Best-Leistungsgarantie</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="best_v" id="best_v" aria-describedby="best_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="best_v" id="best_v" aria-describedby="best_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="best_vHelp"><strong>Best-Leistungsgarantie</strong><p>Einige Gesellschaften bieten eine Best-Leistungs-Garantie an. Bietet ein anderer Haftpflicht-Tarif zum Zeitpunkt des Schadens einen größeren Leistungsumfang an, wird der Schaden nach diesen besseren Bedingungen reguliert.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="sgwe_v">Selbstgenutztes Wohneigentum</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="sgwe_v" id="sgwe_v" aria-describedby="sgwe_vHelp" class="form-select">
-<!-- -->                        <option value="0&#x20;kein&#x20;Wohneigentum">kein Wohneigentum</option>
-<!-- -->                        <option value="1&#x20;Wohnung">Wohnung</option>
-<!-- -->                        <option value="1&#x20;EFH">Einfamilienhaus</option>
-<!-- -->                        <option value="2&#x20;ZFH">Zweifamilienhaus</option>
-<!-- -->                        <option value="4">Mehrfamilienhaus bis 4 Wohnungen</option>
-<!-- -->                        <option value="100">Mehrfamilienhaus über 4 Wohnungen</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="sgwe_v" id="sgwe_v" aria-describedby="sgwe_vHelp" class="form-select">
+<!-- -->                    <option value="0&#x20;kein&#x20;Wohneigentum">kein Wohneigentum</option>
+<!-- -->                    <option value="1&#x20;Wohnung">Wohnung</option>
+<!-- -->                    <option value="1&#x20;EFH">Einfamilienhaus</option>
+<!-- -->                    <option value="2&#x20;ZFH">Zweifamilienhaus</option>
+<!-- -->                    <option value="4">Mehrfamilienhaus bis 4 Wohnungen</option>
+<!-- -->                    <option value="100">Mehrfamilienhaus über 4 Wohnungen</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="sgwe_vHelp"><strong>Selbstgenutztes Wohneigentum</strong><p>Dieser Einschluss deckt Schäden, die durch Ihr Wohneigentum verursacht werden (Streupflicht, Herabfallende Äste usw.). Vermietetes Eigentum muss normalerweise in einer extra Haftpflicht versichert werden. Nur wenige Tarife bieten den Einschluss von Mehrfamilienhäusern an.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="ew_v">Eigentumswohnungen in Deutschland, vermietet</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="ew_v" id="ew_v" aria-describedby="ew_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="ew_v" id="ew_v" aria-describedby="ew_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="ew_vHelp"><strong>Eigentumswohnungen in Deutschland, vermietet</strong><p>Durch eine lose Treppenstufe stürzt ein Besucher in Ihrer vermieteten Wohnung.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="unbgru_v">Unbebautes Grundstück</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="unbgru_v" id="unbgru_v" aria-describedby="unbgru_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="unbgru_v" id="unbgru_v" aria-describedby="unbgru_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="unbgru_vHelp"><strong>Unbebautes Grundstück</strong><p>Bereits von einem unbe­bauten Grund­stück können Gefahren ausgehen. Der Eigen­tümer ist dafür verantwort­lich, dass dort niemand zu Schaden kommt.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="einlw_v">Einliegerwohnung vermietet im selbstbewohnten Haus</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="einlw_v" id="einlw_v" aria-describedby="einlw_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="einlw_v" id="einlw_v" aria-describedby="einlw_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="einlw_vHelp"><strong>Einliegerwohnung vermietet im selbstbewohnten Haus</strong><p>Schäden, die durch Ihre vermietete Einliegerwohnung entstehen, sind versichert.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="fewoi_v">Ferienhaus-/Wohnung im Inland selbstgenutzt</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="fewoi_v" id="fewoi_v" aria-describedby="fewoi_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="fewoi_v" id="fewoi_v" aria-describedby="fewoi_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="fewoi_vHelp"><strong>Ferienhaus-/Wohnung im Inland selbstgenutzt</strong><p>Schäden, die durch dieses Risiko entstehen, sind versichert.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="fewoa_v">Wohnung / Ferienwohnung / Ferienhaus im europ. Ausland ohne Vermietung</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="fewoa_v" id="fewoa_v" aria-describedby="fewoa_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="fewoa_v" id="fewoa_v" aria-describedby="fewoa_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="fewoa_vHelp"><strong>Wohnung / Ferienwohnung / Ferienhaus im europ. Ausland ohne Vermietung</strong><p>Schäden, die durch genannte Wohneinheiten entstehen, sind versichert.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="fach_v">Fachpraktischer Unterricht (Laborarbeiten)</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="fach_v" id="fach_v" aria-describedby="fach_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja (AK Empfehlung)</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="fach_v" id="fach_v" aria-describedby="fach_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja (AK Empfehlung)</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="fach_vHelp"><strong>Fachpraktischer Unterricht (Laborarbeiten)</strong><p>Sie sind auch versichert, wenn Sie Schäden bei Arbeiten in Schul-, Berufsausbildung oder im Studium verursachen.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="tier_v">Hüten eines fremden Hundes/Pferdes</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="tier_v" id="tier_v" aria-describedby="tier_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja (AK Empfehlung)</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="tier_v" id="tier_v" aria-describedby="tier_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja (AK Empfehlung)</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="tier_vHelp"><strong>Hüten eines fremden Hundes/Pferdes</strong><p>Sollte durch das von Ihnen gehütete Tier ein Schaden entstehen, haftet diese Versicherung, falls Sie ein Verschulden am Schaden trifft.</p><p>In der Regel leistet immer zuerst die Tierhalter­haftpflicht­versicherung des Tieres.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="oel_v">Einschluss Öltankhaftpflicht</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="oel_v" id="oel_v" class="form-select&#x20;toggle-trigger" data-toggle-modus="hide" data-toggle-value="kein&#x20;Tank&#x20;vorhanden" aria-describedby="oel_vHelp">
-<!-- -->                        <option value="kein&#x20;Tank&#x20;vorhanden">kein Tank vorhanden</option>
-<!-- -->                        <option value="3000">bis 3.000 Liter</option>
-<!-- -->                        <option value="5000">bis 5.000 Liter</option>
-<!-- -->                        <option value="10000">bis 10.000 Liter</option>
-<!-- -->                        <option value="20000">bis 20.000 Liter</option>
-<!-- -->                        <option value="50000">bis 50.000 Liter</option>
-<!-- -->                        <option value="100000">bis 100.000 Liter</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="oel_v" id="oel_v" class="form-select&#x20;toggle-trigger" data-toggle-modus="hide" data-toggle-value="kein&#x20;Tank&#x20;vorhanden" aria-describedby="oel_vHelp">
+<!-- -->                    <option value="kein&#x20;Tank&#x20;vorhanden">kein Tank vorhanden</option>
+<!-- -->                    <option value="3000">bis 3.000 Liter</option>
+<!-- -->                    <option value="5000">bis 5.000 Liter</option>
+<!-- -->                    <option value="10000">bis 10.000 Liter</option>
+<!-- -->                    <option value="20000">bis 20.000 Liter</option>
+<!-- -->                    <option value="50000">bis 50.000 Liter</option>
+<!-- -->                    <option value="100000">bis 100.000 Liter</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="oel_vHelp"><strong>Einschluss Öltankhaftpflicht</strong><p>Wenn Sie einen Öltank besitzen, können Sie den Schutz hier mit einschließen.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="oelwo_v">Wo befindet sich der Öltank?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="oelwo_v" id="oelwo_v" aria-describedby="oelwo_vHelp" class="form-select">
-<!-- -->                        <option value="oberirdisch">oberirdisch</option>
-<!-- -->                        <option value="unterirdisch">unterirdisch</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="oelwo_v" id="oelwo_v" aria-describedby="oelwo_vHelp" class="form-select">
+<!-- -->                    <option value="oberirdisch">oberirdisch</option>
+<!-- -->                    <option value="unterirdisch">unterirdisch</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="oelwo_vHelp"><strong>Wo befindet sich der Öltank?</strong><p>Wählen Sie, ob der Tank ober- oder unterirdisch steht. Unterirdische Tanks haben ein höheres Risiko, da nicht sofort erkennbar ist, wenn Öl ausfliesst.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="allm_v">Allmählichkeitsschäden</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="allm_v" id="allm_v" aria-describedby="allm_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">mind. 3 Mio (AK Empfehlung)</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="allm_v" id="allm_v" aria-describedby="allm_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">mind. 3 Mio (AK Empfehlung)</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="allm_vHelp"><strong>Allmählichkeits­schäden</strong><p>Sachschäden, die durch schuldhafte allmähliche Einwirkung der Temperatur, von Gasen, Dämpfen oder Feuchtigkeit und von Niederschlägen (Rauch, Ruß, Staub) und dergleichen entstehen.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="gewsa_v">Gewässerschaden-Risiko, z.B. Farben</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="gewsa_v" id="gewsa_v" aria-describedby="gewsa_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja (AK Empfehlung)</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="gewsa_v" id="gewsa_v" aria-describedby="gewsa_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja (AK Empfehlung)</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="gewsa_vHelp"><strong>Gewässerschaden-Risiko, z.B. Farben</strong><p>Auch im Haushalt verwendete Farben, Lacke oder Reinigungsmittel können Gewässerschäden verursachen, diese sind hier mitversichert.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="abwa_v">Schäden durch häusliche Abwässer</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="abwa_v" id="abwa_v" aria-describedby="abwa_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">mind. 3 Mio (AK Empfehlung)</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="abwa_v" id="abwa_v" aria-describedby="abwa_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">mind. 3 Mio (AK Empfehlung)</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="abwa_vHelp"><strong>Schäden durch häusliche Abwässer</strong><p>Durch Chemikalien, die Sie in Ihren Abfluss gießen, entsteht ein Schaden an der Umwelt.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="inet_v">Schäden durch elektronischen Datenaustausch/Internetnutzung</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="inet_v" id="inet_v" aria-describedby="inet_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja (AK Empfehlung)</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="inet_v" id="inet_v" aria-describedby="inet_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja (AK Empfehlung)</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="inet_vHelp"><strong>Schäden durch elektronischen Datenaustausch / Internetnutzung</strong><p>Durch Ihren virenbefallenen PC werden z.B. fremde PCs angegriffen bzw. Festplatten gelöscht. Oder Sie verbreiten z.B. unbewusst auf einem USB Stick Viren, die einen anderen PC unbrauchbar machen.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="gef_v">Gefälligkeitsschäden</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="gef_v" id="gef_v" aria-describedby="gef_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="gef_v" id="gef_v" aria-describedby="gef_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="gef_vHelp"><strong>Gefälligkeitsschäden</strong><p>Wenn Sie jemanden helfen und dabei etwas kaputt machen, ist das normalerweise NICHT versichert. Es gibt nur wenige Tarife, die diesen Einschluss bieten.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="geli_v">Gemietete oder geliehene Sachen</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="geli_v" id="geli_v" aria-describedby="geli_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="geli_v" id="geli_v" aria-describedby="geli_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="geli_vHelp"><strong>Gemietete oder geliehene Sachen</strong><p>Bewegliche fremde geliehene Sachen sind normalerweise nicht versichert, es sei denn, Sie möchten diesen Schutz einschließen.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="sv_v">Schlüsselverlust, fremder privater Schlüssel (Mietwohnung)</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="sv_v" id="sv_v" aria-describedby="sv_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="sv_v" id="sv_v" aria-describedby="sv_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="sv_vHelp"><strong>Schlüsselverlust, fremder privater Schlüssel (Mietwohnung)</strong><p>Sie verlieren den Schlüssel Ihrer Mietwohnung und die Tür muss geöffnet werden.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="sva_v">Schlüsselverlust für Zentrale Schließanlage (keine Eigenschäden)</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="sva_v" id="sva_v" aria-describedby="sva_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="sva_v" id="sva_v" aria-describedby="sva_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="sva_vHelp"><strong>Schlüsselverlust für Zentrale Schließanlage (keine Eigenschäden)</strong><p>Sie verlieren den Schlüssel Ihrer Mietwohnung im Mehrfamilienhaus und die die gesamte Schließanlage muss getauscht werden.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="svd_v">Schlüsselverlust von fremden Dienstschlüsseln</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="svd_v" id="svd_v" aria-describedby="svd_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="svd_v" id="svd_v" aria-describedby="svd_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="svd_vHelp"><strong>Schlüsselverlust von fremden Dienstschlüsseln</strong><p>Schlüsselverlust bei Ihren Firmenschlüsseln können Sie hier versichern.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="welt_v">Weltweite Deckung gewünscht (Standard ist Europa oder EU)</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="welt_v" id="welt_v" aria-describedby="welt_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="welt_v" id="welt_v" aria-describedby="welt_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="welt_vHelp"><strong>Weltweite Deckung gewünscht (Standard ist Europa oder EU)</strong><p>Der Aufenthalt in außereuropäischen Ländern ist meist nur zeitlich begrenzt versicherbar und die Bezahlung muss über ein deutsches Institut laufen.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="elt_v">Alleinstehendes Elternteil im Haushalt lebend</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="elt_v" id="elt_v" aria-describedby="elt_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="elt_v" id="elt_v" aria-describedby="elt_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="elt_vHelp"><strong>Alleinstehendes Elternteil im Haushalt lebend</strong><p>Wenn ein Elternteil alleinstehend und im Haushalt des VN gemeldet ist, kann hier der Versicherungsschutz eingeschlossen werden.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="ehr_v">Ehrenamtliche Tätigkeit</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="ehr_v" id="ehr_v" aria-describedby="ehr_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="ehr_v" id="ehr_v" aria-describedby="ehr_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="ehr_vHelp"><strong>Ehrenamtliche Tätigkeit</strong><p>Sie sind versichert, wenn Sie eine ehrenamtlichen Tätigkeit ausüben.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="tagmu_v">Tätigkeit als Tagesmutter</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="tagmu_v" id="tagmu_v" aria-describedby="tagmu_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="tagmu_v" id="tagmu_v" aria-describedby="tagmu_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="tagmu_vHelp"><strong>Tätigkeit als Tagesmutter</strong><p>Sie sind versichert, als Tagesmutter, meist bei der Betreuung von max. 5-6 Kindern.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="regr_v">Regressansprüche von Sozialversicherungsträgern von mitversicherten Personen</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="regr_v" id="regr_v" aria-describedby="regr_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja (AK Empfehlung)</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="regr_v" id="regr_v" aria-describedby="regr_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja (AK Empfehlung)</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="regr_vHelp"><strong>Regressansprüche von Sozial­versicherungs­trägern von mitversicherten Personen</strong><p>Durch Ihr Verschulden kommt Ihr Partner zu Sturz und muss behandelt werden, die Krankenversicherung des Partners will die Behandlungskosten wieder haben. Ansprüche durch fremde Geschädigte sind mitversichert.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="bau_v">Bauherrenhaftpflicht am Haus oder Grundstück</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="bau_v" id="bau_v" aria-describedby="bau_vHelp" class="form-select">
-<!-- -->                        <option value="0">nein</option>
-<!-- -->                        <option value="50000">bis 50.000 EUR (AK Empfehlung)</option>
-<!-- -->                        <option value="100000">bis 100.000 EUR</option>
-<!-- -->                        <option value="200000">bis 200.000 EUR</option>
-<!-- -->                        <option value="1000000">bis Versicherungssumme</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="bau_v" id="bau_v" aria-describedby="bau_vHelp" class="form-select">
+<!-- -->                    <option value="0">nein</option>
+<!-- -->                    <option value="50000">bis 50.000 EUR (AK Empfehlung)</option>
+<!-- -->                    <option value="100000">bis 100.000 EUR</option>
+<!-- -->                    <option value="200000">bis 200.000 EUR</option>
+<!-- -->                    <option value="1000000">bis Versicherungssumme</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="bau_vHelp"><strong>Bauherrenhaftpflicht am Haus oder Grundstück</strong><p>Für Neu- und Umbauten auf dem versicherten Grundstück.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="surf_v">Eigene Surfbretter</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="surf_v" id="surf_v" aria-describedby="surf_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="surf_v" id="surf_v" aria-describedby="surf_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="surf_vHelp"><strong>Eigene Surfbretter</strong><p>Geliehene Surfbretter sind i.d.R. mitversichert, eigene müssen Sie extra beantragen bzw. einen Tarif wählen, der diese einschließt.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="tiere_v">Besitzen Sie Hunde, Pferde, Rinder, landwirtschaftliche Tiere?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="tiere_v" id="tiere_v" aria-describedby="tiere_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja,&#x20;evtl.&#x20;extra&#x20;Vertrag&#x20;notwendig&#x21;">ja, evtl. extra Vertrag notwendig!</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="tiere_v" id="tiere_v" aria-describedby="tiere_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja,&#x20;evtl.&#x20;extra&#x20;Vertrag&#x20;notwendig&#x21;">ja, evtl. extra Vertrag notwendig!</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="tiere_vHelp"><strong>Besitzen Sie Hunde, Pferde, Rinder, landwirtschaftliche Tiere?</strong><p>Für einige Tiere ist eine extra Haftpflicht nötig.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="wafa_v">Benutzen Sie eigene Wasserfahrzeuge?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="wafa_v" id="wafa_v" aria-describedby="wafa_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja,&#x20;extra&#x20;Vertrag&#x20;notwendig&#x21;">ja, extra Vertrag notwendig!</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="wafa_v" id="wafa_v" aria-describedby="wafa_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja,&#x20;extra&#x20;Vertrag&#x20;notwendig&#x21;">ja, extra Vertrag notwendig!</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="wafa_vHelp"><strong>Benutzen Sie eigene Wasserfahrzeuge?</strong><p>Je nach Größe und Leistung ist eine eigene Versicherung nötig.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="flug_v">Besitzen Sie Modellflugzeuge, Ballone oder Drachen?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="flug_v" id="flug_v" aria-describedby="flug_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja,&#x20;evtl.&#x20;extra&#x20;Vertrag&#x20;notwendig&#x21;">ja, evtl. extra Vertrag notwendig!</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="flug_v" id="flug_v" aria-describedby="flug_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja,&#x20;evtl.&#x20;extra&#x20;Vertrag&#x20;notwendig&#x21;">ja, evtl. extra Vertrag notwendig!</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="flug_vHelp"><strong>Besitzen Sie Modellflugzeuge, Ballone oder Drachen?</strong><p>Je nach Leistung und Art ist eine eigene Versicherung nötig.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="drohne_v">Besitzen Sie privat genutzte Drohnen?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="drohne_v" id="drohne_v" aria-describedby="drohne_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="drohne_v" id="drohne_v" aria-describedby="drohne_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="drohne_vHelp"><strong>Besitzen Sie privat genutzte Drohnen?</strong><p>Drohnen benötigen einen extra Versicherungsschutz. Über die Privathaftpflicht können nur privat genutzte Drohnen versichert werden.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="jagd_v">Gehen Sie auf die Jagd?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="jagd_v" id="jagd_v" aria-describedby="jagd_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja,&#x20;evtl.&#x20;extra&#x20;Vertrag&#x20;notwendig&#x21;">ja, evtl. extra Vertrag notwendig!</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="jagd_v" id="jagd_v" aria-describedby="jagd_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja,&#x20;evtl.&#x20;extra&#x20;Vertrag&#x20;notwendig&#x21;">ja, evtl. extra Vertrag notwendig!</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="jagd_vHelp"><strong>Gehen Sie auf die Jagd?</strong><p>Es gibt Jagdhaftpflicht Versicherungen, die dieses Risiko abdecken.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="foto_v">Betreiben Sie eine Photovoltaikanlage?</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="foto_v" id="foto_v" aria-describedby="foto_vHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja,&#x20;evtl.&#x20;extra&#x20;Vertrag&#x20;notwendig&#x21;">ja, evtl. extra Vertrag notwendig!</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="foto_v" id="foto_v" aria-describedby="foto_vHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja,&#x20;evtl.&#x20;extra&#x20;Vertrag&#x20;notwendig&#x21;">ja, evtl. extra Vertrag notwendig!</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="foto_vHelp"><strong>Betreiben Sie eine Photovoltaikanlage?</strong><p>Photovoltaikanlagen müssen extra versichert werden.</p></div>
 <!-- -->        </div>
 <!-- -->        <div class="row">
 <!-- -->            <label class="col-form-label" for="rsausfall">Rechtsschutz zur Ausfalldeckung</label>
 <!-- -->            <div class="col-sm">
-<!-- -->                <div class="card&#x20;has-validation">
-<!-- -->                    <div class="card-body">
-<!-- -->                    <select name="rsausfall" id="rsausfall" aria-describedby="rsausfallHelp" class="form-select">
-<!-- -->                        <option value="nein">nein</option>
-<!-- -->                        <option value="ja">ja</option>
-<!-- -->                    </select>
-<!-- -->                    </div>
-<!-- -->                </div>
+<!-- -->                <select name="rsausfall" id="rsausfall" aria-describedby="rsausfallHelp" class="form-select">
+<!-- -->                    <option value="nein">nein</option>
+<!-- -->                    <option value="ja">ja</option>
+<!-- -->                </select>
 <!-- -->            </div>
 <!-- -->            <div class="help-content" id="rsausfallHelp"><strong>Rechtsschutz zur Ausfalldeckung</strong><p>Wenn ein Dritter den Ihnen zugefügten Schaden nicht begleichen kann, führt das oftmals zu einem Rechtsstreit. Die Kosten für Anwalt und Gericht werden dann von dieser Versicherung übernommen. Wir empfehlen Ihnen jedoch, einen eigenen RS Vertrag abzuschließen, da dieser Einschluss i.d.R. geringere Leistungen bietet als ein selbständiger RS Vertrag. Wenn Sie eine RS Versicherung für den privaten Bereich besitzen, benötigen Sie diesen Einschluss nicht.</p></div>
 <!-- -->        </div>

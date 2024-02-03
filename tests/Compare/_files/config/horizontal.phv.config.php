@@ -561,6 +561,7 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
+                                'as-card' => true,
                             ],
                             'attributes' => [
                                 'id' => 'KrPHV',
@@ -578,6 +579,7 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
+                                'as-card' => true,
                             ],
                             'attributes' => [
                                 'id' => 'KrTIE',
@@ -595,6 +597,7 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
+                                'as-card' => true,
                             ],
                             'attributes' => [
                                 'id' => 'KrHUG',
@@ -612,6 +615,7 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
+                                'as-card' => true,
                             ],
                             'attributes' => [
                                 'id' => 'KrOEL',
@@ -629,6 +633,7 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
+                                'as-card' => true,
                             ],
                             'attributes' => [
                                 'id' => 'KrWG',
@@ -646,6 +651,7 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
+                                'as-card' => true,
                             ],
                             'attributes' => [
                                 'id' => 'KrWGGLS',
@@ -663,6 +669,7 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
+                                'as-card' => true,
                             ],
                             'attributes' => [
                                 'id' => 'KrHR',
@@ -680,6 +687,7 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
+                                'as-card' => true,
                             ],
                             'attributes' => [
                                 'id' => 'KrHRGLS',
@@ -697,6 +705,7 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
+                                'as-card' => true,
                             ],
                             'attributes' => [
                                 'id' => 'KrUNF',
@@ -714,6 +723,7 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
+                                'as-card' => true,
                             ],
                             'attributes' => [
                                 'id' => 'KrRS',
@@ -1429,6 +1439,7 @@ return [
                             ],
                         ],
                     ],
+                    'as-card' => true,
                 ],
                 'attributes' => ['id' => 'zusatzfragen'],
             ],
@@ -1442,6 +1453,7 @@ return [
                     'use_hidden_element' => true,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
+                    'as-card' => true,
                 ],
                 'attributes' => ['id' => 'mrmoErstinfo'],
             ],

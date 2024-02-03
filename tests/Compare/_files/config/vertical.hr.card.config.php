@@ -20,6 +20,7 @@ use Laminas\Form\Element\Radio;
 use Laminas\Form\Element\Select;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Form;
+use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Laminas\Validator\NotEmpty;
 use Mimmi20\Form\Element\Group\ElementGroup;
 use Mimmi20\Form\Links\Element\Links;
@@ -85,6 +86,10 @@ return [
                                 'label' => 'Beginn am',
 
                                 'row_attributes' => ['class' => 'collapse toggle-box-versbeginn'],
+                                'label_options' => [
+                                    'always_wrap' => true,
+                                    'label_position' => BaseFormRow::LABEL_APPEND,
+                                ],
                             ],
                             'attributes' => [
                                 'id' => 'versbeginn_datum',
@@ -101,6 +106,10 @@ return [
                                 'label' => 'PLZ - Risiko-Anschrift',
 
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Die Postleitzahl Ihrer Wohnung wird für die Risikobeurteilung /Beitragsberechnung benötigt. Die Beitragshöhe ist nicht nur abhängig von Ihren gewünschten Leistungen, sondern wird auch anhand Art und Anzahl der Schäden, die in Ihrem Wohnort durchschnittlich gemeldet werden, bemessen.</p>',
+                                'label_options' => [
+                                    'always_wrap' => true,
+                                    'label_position' => BaseFormRow::LABEL_PREPEND,
+                                ],
                             ],
                             'attributes' => [
                                 'id' => 'plz',
@@ -517,6 +526,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrPHV'],
                         ],
@@ -531,6 +541,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrTIE'],
                         ],
@@ -545,6 +556,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrHUG'],
                         ],
@@ -559,6 +571,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrOEL'],
                         ],
@@ -573,6 +586,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrWG'],
                         ],
@@ -587,6 +601,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrWGGLS'],
                         ],
@@ -601,6 +616,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrHR'],
                         ],
@@ -615,6 +631,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrHRGLS'],
                         ],
@@ -629,6 +646,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrUNF'],
                         ],
@@ -643,6 +661,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrRS'],
                         ],
@@ -1062,6 +1081,11 @@ return [
                                 'data-event-action' => 'no additional questions',
                                 'data-event-label' => 'hr',
                             ],
+                            'disabled' => true,
+                            'label_attributes' => [
+                                'class' => 'form-check-label form-text',
+                                'data-a' => 'a',
+                            ],
                         ],
                         'ja' => [
                             'value' => 'ja',
@@ -1074,8 +1098,28 @@ return [
                                 'data-event-action' => 'additional questions requested',
                                 'data-event-label' => 'hr',
                             ],
+                            'selected' => true,
+                            'label_attributes' => [
+                                'class' => 'form-check-label form-text',
+                                'data-b' => 'b',
+                            ],
                         ],
                     ],
+                    'as-card' => true,
+                    'label_options' => [
+                        'always_wrap' => true,
+                        'label_position' => BaseFormRow::LABEL_APPEND,
+                    ],
+                    'label_attributes' => [
+                        'class' => 'form-check-label form-text',
+                        'data-y' => 'y',
+                    ],
+                    'switch' => true,
+                    'group_attributes' => [
+                        'class' => 'form-check-inline form-switch',
+                        'data-x' => 'x',
+                    ],
+                    'layout' => \Mimmi20\LaminasView\BootstrapForm\Form::LAYOUT_INLINE,
                 ],
                 'attributes' => ['id' => 'zusatzfragen'],
             ],
@@ -1089,6 +1133,7 @@ return [
                     'use_hidden_element' => true,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
+                    'as-card' => true,
                 ],
                 'attributes' => ['id' => 'mrmoErstinfo'],
             ],

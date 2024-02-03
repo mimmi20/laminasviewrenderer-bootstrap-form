@@ -122,7 +122,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
         $useHiddenElement = $element->useHiddenElement() || $this->useHiddenElement;
 
         if ($useHiddenElement) {
-            $rendered = $this->renderHiddenElement($element) . PHP_EOL . $rendered;
+            $rendered = $indent . $this->renderHiddenElement($element) . PHP_EOL . $rendered;
         }
 
         return $rendered;
@@ -198,7 +198,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
      */
     protected function renderHiddenElement(MultiCheckboxElement $element): string
     {
-        $uncheckedValue = $element->getUncheckedValue() || $this->uncheckedValue;
+        $uncheckedValue = $element->getUncheckedValue() ?? $this->uncheckedValue;
+        assert(is_string($uncheckedValue));
 
         $hiddenElement = new Hidden($element->getName());
         $hiddenElement->setValue($uncheckedValue);
@@ -402,11 +403,11 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
                 ) . $label . $labelHelper->closeTag();
                 $input      = $indent . $this->getWhitespace(4) . $input;
             } else {
-                $labelOpen  = $indent . $this->getWhitespace(8) . $labelHelper->openTag(
+                $labelOpen  = $indent . $this->getWhitespace(4) . $labelHelper->openTag(
                     $filteredAttributes,
                 ) . PHP_EOL;
-                $labelClose = PHP_EOL . $indent . $this->getWhitespace(8) . $labelHelper->closeTag();
-                $input      = $indent . $this->getWhitespace(12) . $input;
+                $labelClose = PHP_EOL . $indent . $this->getWhitespace(4) . $labelHelper->closeTag();
+                $input      = $indent . $this->getWhitespace(8) . $input;
             }
 
             if (
@@ -416,7 +417,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
                 $label = $this->getWhitespace(4) . '<span>' . $label . '</span>';
 
                 if ($labelClose !== '') {
-                    $label = $indent . $this->getWhitespace(8) . $label;
+                    $label = $indent . $this->getWhitespace(4) . $label;
                 }
             }
 

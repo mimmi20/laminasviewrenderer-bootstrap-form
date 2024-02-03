@@ -13,6 +13,8 @@ declare(strict_types = 1);
 namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Button;
+use Laminas\Form\Element\Submit;
+use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
@@ -29,6 +31,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 
 use function assert;
+use function get_debug_type;
 use function sprintf;
 
 #[Group('form-button')]
@@ -143,6 +146,155 @@ final class FormButtonTest extends TestCase
            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
+
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::never())
+            ->method('getHelperPluginManager');
+        $matcher = self::exactly(3);
+        $renderer->expects($matcher)
+            ->method('plugin')
+            ->willReturnCallback(
+                static function (string $name, array | null $options = null) use ($matcher, $escapeHtml, $escapeHtmlAttr, $doctype): HelperInterface | null {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'escapehtml',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'escapehtmlattr',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        3 => self::assertSame(
+                            'doctype',
+                            $name,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            'class',
+                            $name,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertNull($options);
+
+                    return match ($invocation) {
+                        1 => $escapeHtml,
+                        2 => $escapeHtmlAttr,
+                        3 => $doctype,
+                        default => null,
+                    };
+                },
+            );
+        $renderer->expects(self::never())
+            ->method('render');
+
+        $this->helper->setView($renderer);
+
+        self::assertSame($expected, $this->helper->openTag($attributes));
+    }
+
+    /**
+     * @throws Exception
+     * @throws DomainException
+     */
+    public function testRenderOpenTagWithArray2(): void
+    {
+        $type        = 'test-type';
+        $attributes  = ['type' => $type, 'class' => 'btn btn-success'];
+        $typeEscaped = 'test-type-escaped';
+        $expected    = sprintf(
+            '<button typeEscaped="%s" class-escaped="btn-escaped btn-success-escaped">',
+            $typeEscaped,
+        );
+
+        $escapeHtml = $this->createMock(EscapeHtml::class);
+        $matcher    = self::exactly(2);
+        $escapeHtml->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $value, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            'type',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'class',
+                            $value,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $value,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => 'typeEscaped',
+                        2 => 'class-escaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $escapeHtmlAttr = $this->createMock(EscapeHtmlAttr::class);
+        $matcher        = self::exactly(2);
+        $escapeHtmlAttr->expects($matcher)
+            ->method('__invoke')
+            ->willReturnCallback(
+                static function (string $valueParam, int $recurse = AbstractHelper::RECURSE_NONE) use ($matcher, $type, $typeEscaped): string {
+                    $invocation = $matcher->numberOfInvocations();
+
+                    match ($invocation) {
+                        1 => self::assertSame(
+                            $type,
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        2 => self::assertSame(
+                            'btn btn-success',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                        default => self::assertSame(
+                            '',
+                            $valueParam,
+                            (string) $invocation,
+                        ),
+                    };
+
+                    self::assertSame(AbstractHelper::RECURSE_NONE, $recurse, (string) $invocation);
+
+                    return match ($invocation) {
+                        1 => $typeEscaped,
+                        2 => 'btn-escaped btn-success-escaped',
+                        default => '',
+                    };
+                },
+            );
+
+        $doctype = $this->createMock(Doctype::class);
+        $doctype->expects(self::never())
+            ->method('__invoke');
+        $doctype->expects(self::never())
+            ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -354,6 +506,8 @@ final class FormButtonTest extends TestCase
            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -548,6 +702,8 @@ final class FormButtonTest extends TestCase
            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -742,6 +898,8 @@ final class FormButtonTest extends TestCase
            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -936,6 +1094,8 @@ final class FormButtonTest extends TestCase
            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -1184,6 +1344,8 @@ final class FormButtonTest extends TestCase
            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -1403,6 +1565,8 @@ final class FormButtonTest extends TestCase
            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -1620,6 +1784,8 @@ final class FormButtonTest extends TestCase
            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -1690,5 +1856,73 @@ final class FormButtonTest extends TestCase
     {
         self::assertSame($this->helper, $this->helper->setIndent('  '));
         self::assertSame('  ', $this->helper->getIndent());
+    }
+
+    /**
+     * @throws Exception
+     * @throws DomainException
+     * @throws InvalidArgumentException
+     */
+    public function testRenderWithWrongElement(): void
+    {
+        $element = $this->createMock(Text::class);
+        $element->expects(self::never())
+            ->method('getName');
+        $element->expects(self::never())
+            ->method('getValue');
+        $element->expects(self::never())
+            ->method('getAttributes');
+        $element->expects(self::never())
+            ->method('getAttribute');
+        $element->expects(self::never())
+            ->method('getLabel');
+        $element->expects(self::never())
+            ->method('getLabelOption');
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                '%s requires that the element is of type %s or of type %s, but was %s',
+                'Mimmi20\LaminasView\BootstrapForm\FormButton::render',
+                Button::class,
+                Submit::class,
+                get_debug_type($element),
+            ),
+        );
+        $this->expectExceptionCode(0);
+        $this->helper->render($element);
+    }
+
+    /**
+     * @throws Exception
+     * @throws DomainException
+     * @throws InvalidArgumentException
+     */
+    public function testRenderWithSubmit(): void
+    {
+        $element = $this->createMock(Submit::class);
+        $element->expects(self::never())
+            ->method('getName');
+        $element->expects(self::never())
+            ->method('getValue');
+        $element->expects(self::never())
+            ->method('getAttributes');
+        $element->expects(self::never())
+            ->method('getAttribute');
+        $element->expects(self::once())
+            ->method('getLabel')
+            ->willReturn(null);
+        $element->expects(self::never())
+            ->method('getLabelOption');
+
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                '%s expects either button content as the second argument, or that the element provided has a label value; neither found',
+                'Mimmi20\LaminasView\BootstrapForm\FormButton::render',
+            ),
+        );
+        $this->expectExceptionCode(0);
+        $this->helper->render($element);
     }
 }

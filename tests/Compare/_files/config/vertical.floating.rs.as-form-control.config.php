@@ -52,7 +52,7 @@ return [
                     'checked_value' => '1',
                     'unchecked_value' => '0',
                     'help_content' => 'Help-Content',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'tarif_privat',
@@ -75,7 +75,7 @@ return [
                     'checked_value' => '1',
                     'unchecked_value' => '0',
                     'help_content' => 'Help-Content',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'tarif_beruf',
@@ -93,7 +93,7 @@ return [
                     'checked_value' => '1',
                     'unchecked_value' => '0',
                     'help_content' => 'Help-Content',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'tarif_verkehr_familie',
@@ -111,7 +111,7 @@ return [
                     'checked_value' => '1',
                     'unchecked_value' => '0',
                     'help_content' => 'Help-Content',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'tarif_miete',
@@ -132,7 +132,7 @@ return [
                     'checked_value' => '1',
                     'unchecked_value' => '0',
                     'help_content' => 'Help-Content',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'tarif_verkehr',
@@ -510,7 +510,7 @@ return [
                     'use_hidden_element' => false,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'KrPHV',
@@ -529,7 +529,7 @@ return [
                     'use_hidden_element' => false,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'KrTIE',
@@ -548,7 +548,7 @@ return [
                     'use_hidden_element' => false,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'KrHUG',
@@ -567,7 +567,7 @@ return [
                     'use_hidden_element' => false,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'KrOEL',
@@ -586,7 +586,7 @@ return [
                     'use_hidden_element' => false,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'KrWG',
@@ -605,7 +605,7 @@ return [
                     'use_hidden_element' => false,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'KrWGGLS',
@@ -624,7 +624,7 @@ return [
                     'use_hidden_element' => false,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'KrHR',
@@ -643,7 +643,7 @@ return [
                     'use_hidden_element' => false,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'KrHRGLS',
@@ -662,7 +662,7 @@ return [
                     'use_hidden_element' => false,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'KrUNF',
@@ -681,7 +681,7 @@ return [
                     'use_hidden_element' => false,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'KrRS',
@@ -710,7 +710,7 @@ return [
                     ],
                     'col_attributes' => ['data-toogle' => '1'],
                     'help_content' => 'Help-Content',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => ['id' => 'zusatzfragen'],
             ],
@@ -867,7 +867,7 @@ return [
                     'checked_value' => '1',
                     'unchecked_value' => '0',
                     'help_content' => 'Help-Content',
-                    'as-card' => true,
+                    'as-form-control' => true,
                 ],
                 'attributes' => [
                     'id' => 'mrmoErstinfo',

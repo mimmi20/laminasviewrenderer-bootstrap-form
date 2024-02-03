@@ -4,12 +4,13 @@
         <div data-toogle="1" class="col-8">
             <div class="card&#x20;has-validation&#x20;required">
                 <div class="card-body">
+                    <input type="hidden" name="zusatzfragen" value="0">
                     <div class="form-check">
-                        <input type="radio" name="zusatzfragen" id="zusatzfragen_nein" required="required" class="form-check-input&#x20;is-invalid" aria-describedby="zusatzfragenFeedback&#x20;messageInvalidId&#x20;zusatzfragenHelp" value="nein">
+                        <input type="radio" name="zusatzfragen" id="zusatzfragen_nein" aria-describedby="xxx&#x20;zusatzfragenFeedback&#x20;messageInvalidId&#x20;zusatzfragenHelp" required="required" class="form-check-input&#x20;is-invalid" value="nein">
                         <label class="form-check-label" for="zusatzfragen_nein">Ich verzichte auf die Beantwortung weiterer Fragen und wähle aus dem Vergleich einen Tarif, der meinen Bedarf erfüllt.</label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" name="zusatzfragen" required="required" class="form-check-input&#x20;is-invalid" aria-describedby="zusatzfragenFeedback&#x20;messageInvalidId&#x20;zusatzfragenHelp" id="zusatzfragen_ja" value="ja">
+                        <input type="radio" name="zusatzfragen" aria-describedby="xxx&#x20;zusatzfragenFeedback&#x20;messageInvalidId&#x20;zusatzfragenHelp" required="required" class="form-check-input&#x20;is-invalid" id="zusatzfragen_ja" value="ja">
                         <label class="form-check-label" for="zusatzfragen_ja">Ich möchte weitere Angaben zum gewünschten Versicherungsschutz machen. Es werden dann nur Tarife angezeigt, welche die Vorgaben erfüllen.</label>
                     </div>
                 </div>
@@ -108,137 +109,93 @@
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="vermiet">Vermietete Wohneinheiten<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="vermiet" id="vermiet" required="required" aria-describedby="vermietHelp" class="form-select">
-                    <option value="nein">nein</option>
-                    <option value="1">1 vermietete WE</option>
-                    <option value="2">2 vermietete WEs</option>
-                    <option value="3">3 vermietete WEs</option>
-                    <option value="4">4 vermietete WEs</option>
-                    <option value="5">5 vermietete WEs</option>
-                    <option value="6">6 vermietete WEs</option>
-                </select>
-                </div>
-            </div>
+            <select name="vermiet" id="vermiet" required="required" aria-describedby="vermietHelp" class="form-select">
+                <option value="nein">nein</option>
+                <option value="1">1 vermietete WE</option>
+                <option value="2">2 vermietete WEs</option>
+                <option value="3">3 vermietete WEs</option>
+                <option value="4">4 vermietete WEs</option>
+                <option value="5">5 vermietete WEs</option>
+                <option value="6">6 vermietete WEs</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="vermietHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB1">WE 1 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <input type="text" name="OB1" id="OB1" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB1Help" value="" class="form-control">
-                </div>
-            </div>
+            <input type="text" name="OB1" id="OB1" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB1Help" value="" class="form-control">
         </div>
         <div class="col-2&#x20;help-content" id="OB1Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB2">WE 2 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <input type="text" name="OB2" id="OB2" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB2Help" value="" class="form-control">
-                </div>
-            </div>
+            <input type="text" name="OB2" id="OB2" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB2Help" value="" class="form-control">
         </div>
         <div class="col-2&#x20;help-content" id="OB2Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB3">WE 3 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <input type="text" name="OB3" id="OB3" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB3Help" value="" class="form-control">
-                </div>
-            </div>
+            <input type="text" name="OB3" id="OB3" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB3Help" value="" class="form-control">
         </div>
         <div class="col-2&#x20;help-content" id="OB3Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB4">WE 4 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <input type="text" name="OB4" id="OB4" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB4Help" value="" class="form-control">
-                </div>
-            </div>
+            <input type="text" name="OB4" id="OB4" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB4Help" value="" class="form-control">
         </div>
         <div class="col-2&#x20;help-content" id="OB4Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB5">WE 5 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <input type="text" name="OB5" id="OB5" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB5Help" value="" class="form-control">
-                </div>
-            </div>
+            <input type="text" name="OB5" id="OB5" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB5Help" value="" class="form-control">
         </div>
         <div class="col-2&#x20;help-content" id="OB5Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB6">WE 6 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <input type="text" name="OB6" id="OB6" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB6Help" value="" class="form-control">
-                </div>
-            </div>
+            <input type="text" name="OB6" id="OB6" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB6Help" value="" class="form-control">
         </div>
         <div class="col-2&#x20;help-content" id="OB6Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="cyber">Erweiterter Internet-Schutz<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="cyber" id="cyber" required="required" aria-describedby="cyberHelp" class="form-select">
-                    <option value="nein">nein</option>
-                    <option value="ja">ja</option>
-                </select>
-                </div>
-            </div>
+            <select name="cyber" id="cyber" required="required" aria-describedby="cyberHelp" class="form-select">
+                <option value="nein">nein</option>
+                <option value="ja">ja</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="cyberHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="plz">PLZ des Antragsstellers</label>
         <div class="col-8">
-            <div class="card&#x20;has-validation">
-                <div class="card-body">
-                <input type="text" name="plz" id="plz" class="form-control&#x20;&#x20;-short" placeholder="&#x20;" aria-describedby="plzHelp" value="">
-                </div>
-            </div>
+            <input type="text" name="plz" id="plz" class="form-control&#x20;&#x20;-short" placeholder="&#x20;" aria-describedby="plzHelp" value="">
         </div>
         <div class="col-2&#x20;help-content" id="plzHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="famstand">Familiäre Verhältnisse<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="famstand" id="famstand" required="required" aria-describedby="famstandHelp" class="form-select">
-                    <option value="Familie">Familie</option>
-                    <option value="Paar">Paar</option>
-                    <option value="Single">Single</option>
-                    <option value="Alleinerziehend">Alleinerziehend</option>
-                </select>
-                </div>
-            </div>
+            <select name="famstand" id="famstand" required="required" aria-describedby="famstandHelp" class="form-select">
+                <option value="Familie">Familie</option>
+                <option value="Paar">Paar</option>
+                <option value="Single">Single</option>
+                <option value="Alleinerziehend">Alleinerziehend</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="famstandHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="gebdatum">Geburtsdatum des Versicherungsnehmers<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <input type="date" name="gebdatum" id="gebdatum" autocomplete="off" max="2006-01-02" required="required" class="form-control&#x20;is-invalid" aria-describedby="gebdatumFeedback&#x20;gebdatumHelp" value="">
-                </div>
-            </div>
+            <input type="date" name="gebdatum" id="gebdatum" autocomplete="off" max="2006-01-02" required="required" class="form-control&#x20;is-invalid&#x20;form-error" aria-describedby="gebdatumFeedback&#x20;gebdatumHelp" value="">
             <div class="invalid-feedback" id="gebdatumFeedback">
                 <ul>
                     <li>too young</li>
@@ -253,29 +210,21 @@
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="geburtsdatumPartner">Geburtsdatum des Ehe- oder Lebenspartners<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <input type="text" name="geburtsdatumPartner" id="geburtsdatumPartner" class="form-control&#x20;&#x20;datepicker&#x20;js-datepicker" placeholder="TT.MM.JJJJ" required="required" data-date-format="de" data-date-format-message="Bitte&#x20;geben&#x20;Sie&#x20;ein&#x20;korrektes&#x20;Geburtsdatum&#x20;an&#x21;" data-min-age="18y" data-min-age-message="Sie&#x20;sind&#x20;leider&#x20;zu&#x20;jung,&#x20;um&#x20;eine&#x20;Versicherung&#x20;abzuschlie&#xDF;en." aria-describedby="geburtsdatumPartnerHelp" value="">
-                </div>
-            </div>
+            <input type="text" name="geburtsdatumPartner" id="geburtsdatumPartner" class="form-control&#x20;&#x20;datepicker&#x20;js-datepicker&#x20;form-success" placeholder="TT.MM.JJJJ" required="required" data-date-format="de" data-date-format-message="Bitte&#x20;geben&#x20;Sie&#x20;ein&#x20;korrektes&#x20;Geburtsdatum&#x20;an&#x21;" data-min-age="18y" data-min-age-message="Sie&#x20;sind&#x20;leider&#x20;zu&#x20;jung,&#x20;um&#x20;eine&#x20;Versicherung&#x20;abzuschlie&#xDF;en." aria-describedby="geburtsdatumPartnerHelp" value="">
         </div>
         <div class="col-2&#x20;help-content" id="geburtsdatumPartnerHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="anag">Aktuelle Tätigkeit<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="anag" id="anag" class="form-select&#x20;toggle-trigger&#x20;is-invalid" data-toggle-modus="show" data-toggle-value="Selbst&#xE4;ndig" required="required" aria-describedby="anagFeedback&#x20;anagHelp">
-                    <option value="Arbeitnehmer">Arbeitnehmer</option>
-                    <option value="ohne&#x20;berufliche&#x20;T&#xE4;tigkeit">ohne berufliche Tätigkeit</option>
-                    <option value="&#xF6;ffentl.&#x20;Dienst">öffentlicher Dienst</option>
-                    <option value="Selbst&#xE4;ndig">Selbständig</option>
-                    <option value="auf&#x20;Dauer&#x20;nicht&#x20;mehr&#x20;erwerbst&#xE4;tig">auf Dauer nicht mehr erwerbstätig</option>
-                    <option value="Azubi&#x2F;Student">Azubi/Student</option>
-                </select>
-                </div>
-            </div>
+            <select name="anag" id="anag" class="form-select&#x20;toggle-trigger&#x20;is-invalid" data-toggle-modus="show" data-toggle-value="Selbst&#xE4;ndig" required="required" aria-describedby="anagFeedback&#x20;anagHelp">
+                <option value="Arbeitnehmer">Arbeitnehmer</option>
+                <option value="ohne&#x20;berufliche&#x20;T&#xE4;tigkeit">ohne berufliche Tätigkeit</option>
+                <option value="&#xF6;ffentl.&#x20;Dienst">öffentlicher Dienst</option>
+                <option value="Selbst&#xE4;ndig">Selbständig</option>
+                <option value="auf&#x20;Dauer&#x20;nicht&#x20;mehr&#x20;erwerbst&#xE4;tig">auf Dauer nicht mehr erwerbstätig</option>
+                <option value="Azubi&#x2F;Student">Azubi/Student</option>
+            </select>
             <div class="invalid-feedback" id="anagFeedback">
                 <ul>
                     <li>value not in group</li>
@@ -287,82 +236,62 @@
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="umsatzselbst">Jahresumsatz<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="umsatzselbst" id="umsatzselbst" required="required" aria-describedby="umsatzselbstHelp" class="form-select">
-                    <option value="10000">1 - 10.000 EUR</option>
-                    <option value="15000">10.001 - 15.000 EUR</option>
-                    <option value="20000">15.001 - 20.000 EUR</option>
-                    <option value="50000">20.001 - 50.000 EUR</option>
-                    <option value="9999999">ab 50.001 EUR</option>
-                </select>
-                </div>
-            </div>
+            <select name="umsatzselbst" id="umsatzselbst" required="required" class="form-select" aria-describedby="umsatzselbstHelp">
+                <option value="10000">1 - 10.000 EUR</option>
+                <option value="15000">10.001 - 15.000 EUR</option>
+                <option value="20000">15.001 - 20.000 EUR</option>
+                <option value="50000">20.001 - 50.000 EUR</option>
+                <option value="9999999">ab 50.001 EUR</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="umsatzselbstHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="laufzeit">Laufzeit<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="laufzeit" id="laufzeit" required="required" aria-describedby="laufzeitHelp" class="form-select">
-                    <option value="1">1 Jahr</option>
-                    <option value="3">3 Jahre</option>
-                </select>
-                </div>
-            </div>
+            <select name="laufzeit" id="laufzeit" required="required" aria-describedby="laufzeitHelp" class="form-select">
+                <option value="1">1 Jahr</option>
+                <option value="3">3 Jahre</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="laufzeitHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="vorvers5">Wie lange bestehen oder bestanden für den Antragsteller und/oder den mitversicherten Lebenspartner Vorversicherungen?<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="vorvers5" id="vorvers5" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Information&#x20;zur&#x20;Vorversicherung&#x20;an&#x21;" aria-describedby="vorvers5Help" class="form-select">
-                    <option value="">-- Bitte wählen --</option>
-                    <option value="keine&#x20;Vorversicherung">keine Vorversicherung</option>
-                    <option value="weniger&#x20;als&#x20;2&#x20;Jahre">weniger als 2 Jahre</option>
-                    <option value="mind.&#x20;2&#x20;Jahre">mind. 2 Jahre</option>
-                    <option value="mind.&#x20;3&#x20;Jahre">mind. 3 Jahre</option>
-                    <option value="mind.&#x20;4&#x20;Jahre">mind. 4 Jahre</option>
-                    <option value="mind.&#x20;5&#x20;Jahre">mind. 5 Jahre</option>
-                </select>
-                </div>
-            </div>
+            <select name="vorvers5" id="vorvers5" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Information&#x20;zur&#x20;Vorversicherung&#x20;an&#x21;" aria-describedby="vorvers5Help" class="form-select">
+                <option value="">-- Bitte wählen --</option>
+                <option value="keine&#x20;Vorversicherung">keine Vorversicherung</option>
+                <option value="weniger&#x20;als&#x20;2&#x20;Jahre">weniger als 2 Jahre</option>
+                <option value="mind.&#x20;2&#x20;Jahre">mind. 2 Jahre</option>
+                <option value="mind.&#x20;3&#x20;Jahre">mind. 3 Jahre</option>
+                <option value="mind.&#x20;4&#x20;Jahre">mind. 4 Jahre</option>
+                <option value="mind.&#x20;5&#x20;Jahre">mind. 5 Jahre</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="vorvers5Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="wannschaden">Wann wurde der letzte Schaden gemeldet?<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="wannschaden" id="wannschaden" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;an,&#x20;wann&#x20;der&#x20;letzte&#x20;Schaden&#x20;gemeldet&#x20;wurde&#x21;" aria-describedby="wannschadenHelp" class="form-select">
-                    <option value="">-- Bitte wählen --</option>
-                    <option value="vor&#x20;mehr&#x20;als&#x20;5&#x20;Jahren&#x20;oder&#x20;schadenfrei">vor mehr als 5 Jahren oder schadenfrei</option>
-                    <option value="innerhalb&#x20;der&#x20;letzten&#x20;2&#x20;Jahre">innerhalb der letzten 2 Jahre</option>
-                    <option value="vor&#x20;mehr&#x20;als&#x20;2&#x20;Jahren">vor mehr als 2 Jahren</option>
-                    <option value="vor&#x20;mehr&#x20;als&#x20;3&#x20;Jahren">vor mehr als 3 Jahren</option>
-                    <option value="vor&#x20;mehr&#x20;als&#x20;4&#x20;Jahren">vor mehr als 4 Jahren</option>
-                </select>
-                </div>
-            </div>
+            <select name="wannschaden" id="wannschaden" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;an,&#x20;wann&#x20;der&#x20;letzte&#x20;Schaden&#x20;gemeldet&#x20;wurde&#x21;" aria-describedby="wannschadenHelp" class="form-select">
+                <option value="">-- Bitte wählen --</option>
+                <option value="vor&#x20;mehr&#x20;als&#x20;5&#x20;Jahren&#x20;oder&#x20;schadenfrei">vor mehr als 5 Jahren oder schadenfrei</option>
+                <option value="innerhalb&#x20;der&#x20;letzten&#x20;2&#x20;Jahre">innerhalb der letzten 2 Jahre</option>
+                <option value="vor&#x20;mehr&#x20;als&#x20;2&#x20;Jahren">vor mehr als 2 Jahren</option>
+                <option value="vor&#x20;mehr&#x20;als&#x20;3&#x20;Jahren">vor mehr als 3 Jahren</option>
+                <option value="vor&#x20;mehr&#x20;als&#x20;4&#x20;Jahren">vor mehr als 4 Jahren</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="wannschadenHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="kombirabatte">Kombirabatte mit berechnen?<span class="text-info-required"><sup>*</sup></span></label>
         <div data-toogle="1" class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="kombirabatte" id="kombirabatte" required="required" aria-describedby="kombirabatteHelp" class="form-select">
-                    <option value="nein" id="kr_n">nein</option>
-                    <option value="ja" id="kr_j">ja</option>
-                </select>
-                </div>
-            </div>
+            <select name="kombirabatte" id="kombirabatte" required="required" aria-describedby="kombirabatteHelp" class="form-select">
+                <option value="nein" id="kr_n">nein</option>
+                <option value="ja" id="kr_j">ja</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="kombirabatteHelp"><strong>Kombirabatte mit berechnen?</strong><p>Welche Verträge haben Sie schon oder haben vor, sie zu versichern? Je mehr Verträge Sie bei einer Gesellschaft haben, umso günstiger wird der Preis.</p></div>
     </div>
@@ -517,107 +446,79 @@
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="vs_v">Deckungssumme?<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="vs_v" id="vs_v" required="required" aria-describedby="vs_vHelp" class="form-select">
-                    <option value="100000">weniger als 300.000 EUR</option>
-                    <option value="300000">300.000 EUR (AK Empfehlung)</option>
-                    <option value="500000">500.000 EUR</option>
-                    <option value="unbegrenzt">unbegrenzt</option>
-                </select>
-                </div>
-            </div>
+            <select name="vs_v" id="vs_v" required="required" aria-describedby="vs_vHelp" class="form-select">
+                <option value="100000">weniger als 300.000 EUR</option>
+                <option value="300000">300.000 EUR (AK Empfehlung)</option>
+                <option value="500000">500.000 EUR</option>
+                <option value="unbegrenzt">unbegrenzt</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="vs_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="kaution_v">Strafkautionen?<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="kaution_v" id="kaution_v" required="required" aria-describedby="kaution_vHelp" class="form-select">
-                    <option value="50000">50.000 EUR</option>
-                    <option value="100000">100.000 EUR (AK Empfehlung)</option>
-                    <option value="100001">mehr als 100.000 EUR</option>
-                </select>
-                </div>
-            </div>
+            <select name="kaution_v" id="kaution_v" required="required" aria-describedby="kaution_vHelp" class="form-select">
+                <option value="50000">50.000 EUR</option>
+                <option value="100000">100.000 EUR (AK Empfehlung)</option>
+                <option value="100001">mehr als 100.000 EUR</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="kaution_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="folge_v">Schadensregulierung nach Folgeereignistheorie<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="folge_v" id="folge_v" required="required" aria-describedby="folge_vHelp" class="form-select">
-                    <option value="nein">nein</option>
-                    <option value="ja">ja (AK Empfehlung)</option>
-                </select>
-                </div>
-            </div>
+            <select name="folge_v" id="folge_v" required="required" aria-describedby="folge_vHelp" class="form-select">
+                <option value="nein">nein</option>
+                <option value="ja">ja (AK Empfehlung)</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="folge_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="ehestreit_v">Rechtsschutz in Ehesachen (nur wenn verheiratet)<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="ehestreit_v" id="ehestreit_v" required="required" aria-describedby="ehestreit_vHelp" class="form-select">
-                    <option value="nein">nein</option>
-                    <option value="beratung">mindestens Beratungsleistung</option>
-                    <option value="aussergerichtlich">mindestens außergerichtlich</option>
-                    <option value="gerichtlich">Übernahme gerichtliche Kosten</option>
-                </select>
-                </div>
-            </div>
+            <select name="ehestreit_v" id="ehestreit_v" required="required" aria-describedby="ehestreit_vHelp" class="form-select">
+                <option value="nein">nein</option>
+                <option value="beratung">mindestens Beratungsleistung</option>
+                <option value="aussergerichtlich">mindestens außergerichtlich</option>
+                <option value="gerichtlich">Übernahme gerichtliche Kosten</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="ehestreit_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="unterhalt_v">Rechtsschutz für Unterhalt<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="unterhalt_v" id="unterhalt_v" required="required" aria-describedby="unterhalt_vHelp" class="form-select">
-                    <option value="nein">nein</option>
-                    <option value="beratung">mindestens Beratungsleistung</option>
-                    <option value="aussergerichtlich">mindestens außergerichtlich</option>
-                    <option value="gerichtlich">Übernahme gerichtliche Kosten</option>
-                </select>
-                </div>
-            </div>
+            <select name="unterhalt_v" id="unterhalt_v" required="required" aria-describedby="unterhalt_vHelp" class="form-select">
+                <option value="nein">nein</option>
+                <option value="beratung">mindestens Beratungsleistung</option>
+                <option value="aussergerichtlich">mindestens außergerichtlich</option>
+                <option value="gerichtlich">Übernahme gerichtliche Kosten</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="unterhalt_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="spezialstraf_v">Einschluss Spezial-Straf-Rechtschutz<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <div class="card&#x20;has-validation&#x20;required">
-                <div class="card-body">
-                <select name="spezialstraf_v" id="spezialstraf_v" required="required" aria-describedby="spezialstraf_vHelp" class="form-select">
-                    <option value="nein">nein</option>
-                    <option value="ja">ja</option>
-                </select>
-                </div>
-            </div>
+            <select name="spezialstraf_v" id="spezialstraf_v" required="required" aria-describedby="spezialstraf_vHelp" class="form-select">
+                <option value="nein">nein</option>
+                <option value="ja">ja</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="spezialstraf_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="zahlweise">Zahlweise</label>
         <div class="col-8">
-            <div class="card&#x20;has-validation">
-                <div class="card-body">
-                <select name="zahlweise" id="zahlweise" aria-describedby="zahlweiseHelp" class="form-select">
-                    <option value="1">jährlich</option>
-                    <option value="2">halbjährlich</option>
-                    <option value="4">vierteljährlich</option>
-                    <option value="12">monatlich</option>
-                </select>
-                </div>
-            </div>
+            <select name="zahlweise" id="zahlweise" aria-describedby="zahlweiseHelp" class="form-select">
+                <option value="1">jährlich</option>
+                <option value="2">halbjährlich</option>
+                <option value="4">vierteljährlich</option>
+                <option value="12">monatlich</option>
+            </select>
         </div>
         <div class="col-2&#x20;help-content" id="zahlweiseHelp">Help-Content</div>
     </div>

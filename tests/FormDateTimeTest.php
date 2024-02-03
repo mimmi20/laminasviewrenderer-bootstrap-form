@@ -216,6 +216,8 @@ final class FormDateTimeTest extends TestCase
             ->willReturn(false);
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -411,6 +413,8 @@ final class FormDateTimeTest extends TestCase
             ->willReturn(true);
         $doctype->expects(self::never())
             ->method('isHtml5');
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())
@@ -621,6 +625,8 @@ final class FormDateTimeTest extends TestCase
         $doctype->expects(self::once())
             ->method('isHtml5')
             ->willReturn(false);
+        $doctype->expects(self::never())
+            ->method('getDoctype');
 
         $renderer = $this->createMock(PhpRenderer::class);
         $renderer->expects(self::never())

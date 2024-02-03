@@ -126,6 +126,7 @@ return [
                     'label' => 'Check me out',
                     'col_attributes' => ['class' => 'col-12'],
                     'use_hidden_element' => false,
+                    'as-card' => true,
                 ],
                 'attributes' => ['id' => 'gridCheck'],
             ],

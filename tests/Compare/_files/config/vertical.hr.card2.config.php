@@ -20,6 +20,7 @@ use Laminas\Form\Element\Radio;
 use Laminas\Form\Element\Select;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Form;
+use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Laminas\Validator\NotEmpty;
 use Mimmi20\Form\Element\Group\ElementGroup;
 use Mimmi20\Form\Links\Element\Links;
@@ -519,6 +520,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrPHV'],
                         ],
@@ -533,6 +535,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrTIE'],
                         ],
@@ -547,6 +550,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrHUG'],
                         ],
@@ -561,6 +565,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrOEL'],
                         ],
@@ -575,6 +580,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrWG'],
                         ],
@@ -589,6 +595,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrWGGLS'],
                         ],
@@ -603,6 +610,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrHR'],
                         ],
@@ -617,6 +625,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrHRGLS'],
                         ],
@@ -631,6 +640,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrUNF'],
                         ],
@@ -645,6 +655,7 @@ return [
                                 'use_hidden_element' => false,
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
+                                'as-card' => true,
                             ],
                             'attributes' => ['id' => 'KrRS'],
                         ],
@@ -1079,6 +1090,11 @@ return [
                             ],
                         ],
                     ],
+                    'as-card' => true,
+                    'label_options' => [
+                        'always_wrap' => true,
+                        'label_position' => BaseFormRow::LABEL_PREPEND,
+                    ],
                 ],
                 'attributes' => ['id' => 'zusatzfragen'],
             ],
@@ -1092,6 +1108,7 @@ return [
                     'use_hidden_element' => true,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
+                    'as-card' => true,
                 ],
                 'attributes' => ['id' => 'mrmoErstinfo'],
             ],

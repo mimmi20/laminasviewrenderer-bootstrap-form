@@ -19,8 +19,9 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
+use Laminas\View\Helper\HelperInterface;
 
-interface FormCollectionInterface extends FormIndentInterface, FormRenderInterface
+interface FormCollectionInterface extends FormIndentInterface, FormRenderInterface, HelperInterface
 {
     /**
      * Invoke helper as function

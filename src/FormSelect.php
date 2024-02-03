@@ -17,7 +17,6 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\View\Helper\FormSelect as BaseFormSelect;
 use Laminas\I18n\Exception\RuntimeException;
-use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Exception\InvalidArgumentException;
 
 use function array_key_exists;
@@ -27,6 +26,7 @@ use function assert;
 use function explode;
 use function get_debug_type;
 use function implode;
+use function in_array;
 use function is_array;
 use function is_scalar;
 use function sprintf;
@@ -222,7 +222,7 @@ final class FormSelect extends BaseFormSelect implements FormSelectInterface
             $disabled = $optionSpec['disabled'];
         }
 
-        if (ArrayUtils::inArray((string) $value, $selectedOptions, true)) {
+        if (in_array((string) $value, $selectedOptions, true)) {
             $selected = true;
         }
 
