@@ -23,8 +23,12 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Renderer\RendererInterface;
 
+use function array_merge;
+use function array_unique;
 use function assert;
-use function is_string;
+use function explode;
+use function implode;
+use function is_array;
 use function method_exists;
 use function trim;
 
@@ -148,7 +152,7 @@ final class Form extends BaseForm implements FormIndentInterface
             }
 
             $formLayout   = $form->getOption('layout');
-            $class        = $form->getAttribute('class') ?? '';
+            $classes      = explode(' ', trim((string) ($form->getAttribute('class') ?? '')));
             $wasValidated = false;
 
             try {
@@ -160,7 +164,7 @@ final class Form extends BaseForm implements FormIndentInterface
 
             $form->setOption('was-validated', $wasValidated);
 
-            assert(is_string($class));
+            assert(is_array($classes));
 
             if ($formLayout === null && $form->getOption('floating-labels')) {
                 $formLayout = self::LAYOUT_VERTICAL;
@@ -169,16 +173,15 @@ final class Form extends BaseForm implements FormIndentInterface
             }
 
             if ($formLayout === self::LAYOUT_VERTICAL) {
-                if ($form->getOption('as-card')) {
-                    $class .= ' card';
-                } else {
-                    $class .= ' row';
-                }
+                $classes[] = $form->getOption('as-card') ? 'card' : 'row';
             } elseif ($formLayout === self::LAYOUT_INLINE) {
-                $class .= ' row row-cols-lg-auto align-items-center';
+                $classes = array_merge(
+                    $classes,
+                    explode(' ', 'row row-cols-lg-auto align-items-center'),
+                );
             }
 
-            $form->setAttribute('class', trim($class));
+            $form->setAttribute('class', trim(implode(' ', array_unique($classes))));
         }
 
         return parent::openTag($form);
