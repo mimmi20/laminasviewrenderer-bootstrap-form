@@ -11,16 +11,16 @@
                     <input type="radio" name="zusatzfragen" required="required" class="form-check-input&#x20;is-invalid" aria-describedby="zusatzfragenFeedback&#x20;zusatzfragenHelp" id="zusatzfragen_ja" value="ja">
                     <label class="form-check-label" for="zusatzfragen_ja">Ich möchte weitere Angaben zum gewünschten Versicherungsschutz machen. Es werden dann nur Tarife angezeigt, welche die Vorgaben erfüllen.</label>
                 </div>
+                <div class="invalid-feedback" id="zusatzfragenFeedback">
+                    <ul>
+                        <li>is required</li>
+                    </ul>
+                </div>
+                <div class="invalid-feedback">nicht in Ordnung</div>
+                <div class="invalid-max-feedback">zu jung</div>
+                <div class="valid-feedback">in Ordnung</div>
             </div>
         </div>
-        <div class="invalid-feedback" id="zusatzfragenFeedback">
-            <ul>
-                <li>is required</li>
-            </ul>
-        </div>
-        <div class="invalid-feedback">nicht in Ordnung</div>
-        <div class="invalid-max-feedback">zu jung</div>
-        <div class="valid-feedback">in Ordnung</div>
         <div class="col-2&#x20;help-content" id="zusatzfragenHelp">Help-Content</div>
     </fieldset>
     <div class="col-8">
@@ -31,12 +31,12 @@
                     <input type="checkbox" name="tarif_privat" id="tarif_privat" class="form-check-input&#x20;&#x20;area-selector&#x20;js-tarif-privat&#x20;is-invalid" data-toggle="collapse" data-target=".collapse-more-questions" aria-expanded="true" aria-controls="collapse-unterhalt&#x20;collapse-spezialstraf" role="button" aria-describedby="tarif_privatFeedback&#x20;tarif_privatHelp" value="1">
                     <label for="tarif_privat" class="form-check-label">Privater Bereich</label>
                 </div>
+                <div class="invalid-feedback" id="tarif_privatFeedback">
+                    <ul>
+                        <li>not checked yet</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="invalid-feedback" id="tarif_privatFeedback">
-            <ul>
-                <li>not checked yet</li>
-            </ul>
         </div>
         <div class="col-2&#x20;help-content" id="tarif_privatHelp">Help-Content</div>
     </div>
@@ -248,12 +248,12 @@
                     <input type="checkbox" name="KrPHV" id="KrPHV" class="form-check-input&#x20;is-invalid" aria-describedby="KrPHVFeedback&#x20;KrPHVHelp" value="1">
                     <label for="KrPHV" class="form-check-label">Privathaftpflicht</label>
                 </div>
+                <div class="invalid-feedback" id="KrPHVFeedback">
+                    <ul>
+                        <li>add some more</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="invalid-feedback" id="KrPHVFeedback">
-            <ul>
-                <li>add some more</li>
-            </ul>
         </div>
         <div class="col-2&#x20;help-content" id="KrPHVHelp">Help-Content</div>
     </div>
@@ -429,11 +429,11 @@
                     <input type="checkbox" name="chkErstinfo" id="mrmoErstinfo" class="form-check-input" required="required" aria-describedby="messageInvalidId&#x20;mrmoErstinfoHelp" value="1">
                     <label for="mrmoErstinfo" class="form-check-label">Ich bestätige, die Erstinformation für Versicherungsmakler gemäß § 15 VersVermV heruntergeladen und gelesen zu haben.</label>
                 </div>
+                <div class="invalid-feedback" id="messageInvalidId">nicht in Ordnung</div>
+                <div class="invalid-max-feedback">zu jung</div>
+                <div class="valid-feedback">in Ordnung</div>
             </div>
         </div>
-        <div class="invalid-feedback" id="messageInvalidId">nicht in Ordnung</div>
-        <div class="invalid-max-feedback">zu jung</div>
-        <div class="valid-feedback">in Ordnung</div>
         <div class="col-2&#x20;help-content" id="mrmoErstinfoHelp">Help-Content</div>
     </div>
     <input type="hidden" name="selbstMin" id="selbstMin" value="">

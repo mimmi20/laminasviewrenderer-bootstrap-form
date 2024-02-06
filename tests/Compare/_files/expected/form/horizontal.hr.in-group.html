@@ -1,0 +1,678 @@
+<form action="&#x2F;calculator&#x2F;hr&#x2F;1&#x2F;input&#x2F;2doqt23okbdqkgabg80guef8en&#x3F;subid&#x3D;A-00-000" method="post" name="form" accept-charset="utf-8" class="form&#x20;input-form&#x20;js-help&#x20;has-help&#x20;has-preloader&#x20;js-form-validation-base&#x20;col-12&#x20;js-input-form-init" data-show-arrow="left" id="hr-form" role="form">
+    <fieldset>
+        <legend class="headline-calculator"><span>Was möchten Sie versichern?</span></legend>
+        <div class="row&#x20;pt-sm-3">
+            <label class="col-form-label" for="versbeginn">Versicherungsbeginn<span class="text-info-required">*</span></label>
+            <div class="js-versbeginn&#x20;col-sm">
+                <select name="versbeginn" id="versbeginn" class="form-select&#x20;toggle-trigger" data-toggle-modus="show" data-toggle-value="datum" required="required">
+                    <option value="sofort">schnellstmöglich</option>
+                    <option value="datum">Datum angeben</option>
+                </select>
+            </div>
+        </div>
+        <div class="row&#x20;collapse&#x20;toggle-box-versbeginn">
+            <label class="col-form-label" for="versbeginn_datum">Beginn am</label>
+            <div class="col-sm">
+                <input type="text" name="versbeginn_datum" id="versbeginn_datum" class="form-control&#x20;datepicker&#x20;js-datepicker&#x20;js-initial-required" autocomplete="off" value="">
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="plz">PLZ - Risiko-Anschrift<span class="text-info-required">*</span></label>
+            <div class="col-sm">
+                <input type="text" name="plz" id="plz" class="form-control&#x20;form-control-short&#x20;js-special-zip-message&#x20;js-adress-completition" pattern="&#x5E;&#x5C;d&#x7B;5&#x7D;&#x24;" minlength="5" maxlength="5" required="required" aria-describedby="plzHelp" value="">
+            </div>
+            <div class="help-content" id="plzHelp"><strong>Warum fragen wir das?</strong><p>Die Postleitzahl Ihrer Wohnung wird für die Risikobeurteilung /Beitragsberechnung benötigt. Die Beitragshöhe ist nicht nur abhängig von Ihren gewünschten Leistungen, sondern wird auch anhand Art und Anzahl der Schäden, die in Ihrem Wohnort durchschnittlich gemeldet werden, bemessen.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="ort">Ort</label>
+            <div class="js-ort&#x20;col-sm">
+                <select name="ort" id="ort" aria-describedby="ortHelp" class="form-select">
+                    <option value="">Bitte zuerst PLZ eintragen</option>
+                </select>
+            </div>
+            <div class="help-content" id="ortHelp"><strong>Ort</strong><p>Der Ort Ihrer zu versichernden Wohnung.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="strasse">Straße</label>
+            <div class="js-strasse&#x20;col-sm">
+                <select name="strasse" id="strasse" aria-describedby="strasseHelp" class="form-select">
+                    <option value="">Bitte zuerst Ort wählen</option>
+                </select>
+            </div>
+            <div class="help-content" id="strasseHelp"><strong>Straße</strong><p>Die Straße Ihrer zu versichernden Wohnung.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="hnr">Hausnummer</label>
+            <div class="col-sm">
+                <input type="text" name="hnr" id="hnr" class="form-control&#x20;form-control-short" aria-describedby="hnrHelp" value="">
+            </div>
+            <div class="help-content" id="hnrHelp"><strong>Hausnummer</strong><p>Die Hausnummer Ihrer zu versichernden Wohnung.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="gebdatum">Geburtsdatum<span class="text-info-required">*</span></label>
+            <div class="date&#x20;datepicker-group&#x20;js-datepicker-group&#x20;col-sm">
+                <input type="text" name="gebdatum" id="gebdatum" class="form-control&#x20;datepicker&#x20;js-datepicker" placeholder="TT.MM.JJJJ" data-date-format="de" data-date-format-message="Bitte&#x20;geben&#x20;Sie&#x20;ein&#x20;korrektes&#x20;Geburtsdatum&#x20;an&#x21;" data-min-age="18y" data-min-age-message="Sie&#x20;sind&#x20;leider&#x20;zu&#x20;jung,&#x20;um&#x20;eine&#x20;Versicherung&#x20;abzuschlie&#xDF;en." autocomplete="off" required="required" value="">
+                <div class="invalid-feedback">nicht in Ordnung</div>
+                <div class="invalid-max-feedback">zu jung</div>
+                <div class="valid-feedback">in Ordnung</div>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="whg">Wo wohnen Sie?<span class="text-info-required">*</span></label>
+            <div class="col-sm">
+                <select name="whg" id="whg" class="form-select&#x20;toggle-trigger" data-toggle-modus="hide" data-toggle-value="Mehrfamilienhaus" required="required" aria-describedby="whgHelp">
+                    <option value="Mehrfamilienhaus">Mehrfamilienhaus</option>
+                    <option value="Einfamilienhaus">Einfamilienhaus</option>
+                    <option value="Zweifamilienhaus">Zweifamilienhaus</option>
+                    <option value="Doppelhaush&#xE4;lfte">Doppelhaushälfte</option>
+                    <option value="Reihenhaus">Reihenhaus</option>
+                </select>
+            </div>
+            <div class="help-content" id="whgHelp"><strong>Wo wohnen Sie</strong><p>Wählen Sie hier, in welchem Haus sich die zu versichernde Wohnung befindet.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="vermietet">Ist die Wohnung möbliert vermietet?<span class="text-info-required">*</span></label>
+            <div class="col-sm">
+                <select name="vermietet" id="vermietet" required="required" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="wohnfl">Ihre gesamte Wohnfläche im Haus<span class="text-info-required">*</span></label>
+            <div class="col-sm">
+                <div class="input-group&#x20;has-validation&#x20;required">
+                    <input type="number" name="wohnfl" id="wohnfl" class="form-control&#x20;has-legend" min="10" max="2000" required="required" aria-describedby="wohnflHelp" value="">
+                    <div class="input-group-text">m<sup>2</sup></div>
+                </div>
+            </div>
+            <div class="help-content" id="wohnflHelp"><strong>Ihre gesamte Wohnfläche im Haus</strong><p>Als Wohnfläche gilt die Grundfläche aller Räume der versicherten Wohnung. Räume, die zu Hobbyzwecken genutzt werden, gelten immer als Wohnfläche. Nicht zu berücksichtigen sind: Zubehörräume, Keller- und Speicherräume, die nicht zu Wohnzwecken genutzt werden, nicht ausgebaute Dachböden, Treppen, Balkone, Terrassen, Loggien, Garagen.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="wohnfl_kg">Davon sind im Keller</label>
+            <div class="col-sm">
+                <input type="number" name="wohnfl_kg" id="wohnfl_kg" class="form-control&#x20;has-legend" aria-describedby="wohnfl_kgHelp" value="">
+            </div>
+            <div class="help-content" id="wohnfl_kgHelp"><strong>Davon sind im Keller</strong><p>Geben Sie hier eine evtl. Wohnfläche im Keller an. Diese muss aber im o.g. Feld schon enthalten sein. Definition siehe oben. (z.B. Hobbyraum)</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="kellerfl">Grundfläche des Kellers</label>
+            <div class="col-sm">
+                <input type="number" name="kellerfl" id="kellerfl" class="form-control&#x20;has-legend" aria-describedby="kellerflHelp" value="">
+            </div>
+            <div class="help-content" id="kellerflHelp"><strong>Grundfläche des Kellers</strong><p>Geben Sie hier die gesamte Grundfläche Ihres Kellers in qm an.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="beamte">Tarif</label>
+            <div class="col-sm">
+                <select name="beamte" id="beamte" aria-describedby="beamteHelp" class="form-select">
+                    <option value="Normal">Normal</option>
+                    <option value="&#xF6;ffentl.&#x20;Dienst">öffentlicher Dienst</option>
+                </select>
+            </div>
+            <div class="help-content" id="beamteHelp"><strong>Warum fragen wir das?</strong><p>Einige Versicherer bieten Beitragsnachlässe für Beamte und Angestellte im öffentlichen Dienst.</p><strong>Hinweis zur Auswahl</strong><p>Wählen Sie auch &quot;öffentlicher Dienst&quot;, wenn Sie Beamter sind oder früher im öffentlichen Dienst beschäftigt waren und sich mittlerweile im Ruhestand befinden.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="verssummeauto">Versicherungssumme</label>
+            <div class="col-sm">
+                <select name="verssummeauto" id="verssummeauto" class="form-select&#x20;toggle-trigger" data-toggle-modus="show" data-toggle-value="manuell" aria-describedby="verssummeautoHelp">
+                    <option value="auto">automatisch ermitteln</option>
+                    <option value="manuell">selbst angeben</option>
+                </select>
+            </div>
+            <div class="help-content" id="verssummeautoHelp"><strong>Versicherungssumme</strong><p>Die vereinbarte Versicherungssumme bildet die Höchst­entschädigungs­grenze nach einem Totalschaden. Wir empfehlen Unter­versicherungs­verzicht zu vereinbaren, damit nach einem Schaden durch den Versicherer keine Abzüge wegen möglicher Unterversicherung vorgenommen werden.</p><p>Eine Unterversicherung liegt vor, wenn im Schadenfall die vereinbarte Versicherungssumme niedriger ist als der tatsächlich vorhandene Wert Ihres Hausrates.<br/>Ein Unter­versicherungs­verzicht erfordert je nach Anbieter und Tarif eine Versicherungssumme in Höhe von 600-700 EUR/qm Wohnfläche. Beachten Sie: Ohne eigene Eingabe der Versicherungssumme wird automatisch der richtige Wert für den Unter­versicherungs­verzicht ermittelt.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="verssumme">Versicherungssumme selbst angeben</label>
+            <div class="col-sm">
+                <input type="number" name="verssumme" id="verssumme" class="form-control&#x20;has-legend" aria-describedby="verssummeHelp" value="">
+            </div>
+            <div class="help-content" id="verssummeHelp"><strong>Versicherungssumme selbst angeben</strong><p>Die vereinbarte Versicherungssumme bildet die Höchst­entschädigungs­grenze nach einem Totalschaden. Wir empfehlen Unter­versicherungs­verzicht zu vereinbaren, damit nach einem Schaden durch den Versicherer keine Abzüge wegen möglicher Unterversicherung vorgenommen werden. Dieser Unter­versicherungs­verzicht erfordert je nach Anbieter und Tarif eine Versicherungssumme in Höhe von 600-700 EUR/qm Wohnfläche. Beachten Sie: Ohne Eingabe der Versicherungssumme wird automatisch der richtige Wert für den Unter­versicherungs­verzicht ermittelt.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="fahrrad">Fahrraddiebstahl bis</label>
+            <div class="col-sm">
+                <div class="input-group&#x20;has-validation">
+                    <input type="number" name="fahrrad" id="fahrrad" class="form-control&#x20;has-legend" min="0" aria-describedby="fahrradHelp" value="">
+                    <div class="input-group-text">&euro;</div>
+                </div>
+            </div>
+            <div class="help-content" id="fahrradHelp"><strong>Fahrraddiebstahl bis</strong><p>Auch bei Fahrraddiebstahl gilt Neuwertersatz. Achten Sie besonders auf Anbieter, die auf die Nachtzeitklausel verzichten und auch dann Schadenersatz leisten, wenn das Fahrrad in der Zeit zwischen 22:00-06:00 Uhr entwendet wurde. Bedingung: Das Fahrrad muss vor dem Diebstahl in geeigneter Weise gesichert (angeschlossen) gewesen sein. Schaden-Beispiel: Sie fahren mit Ihrem Fahrrad einkaufen, schließen es vor dem Geschäft ordnungsgemäß an. Trotzdem wird Ihr Fahrrad gestohlen.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="glas">Glasversicherung</label>
+            <div class="col-sm">
+                <select name="glas" id="glas" aria-describedby="glasHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="glasHelp"><strong>Glasversicherung</strong><p>Bei Wohnungen im Mehrfamilienhaus ist nur die Mobiliarverglasung versichert, im selbstgenutzten Einfamilienhaus zusätzlich die Gebäudeverglasung.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="elem">Elementarschäden (Überschwemmung, Erdbeben, Erdsenkung, Erdrutsch, Schneedruck- und Lawinenschäden)</label>
+            <div class="col-sm">
+                <select name="elem" id="elem" aria-describedby="elemHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="elemHelp"><strong>Elementarschäden (Überschwemmung, Erdbeben, Erdsenkung, Erdrutsch, Schneedruck- und Lawinenschäden)</strong><p>Dazu gehören Überschwemmung durch Witterungsniederschläge, oder Ausuferung von oberirdischen Gewässern, Schneedruck, Lawinen, Erdrutsch, Erdfall, Erdbeben. Sturm oder Hagelschäden sind schon in der normalen Versicherung enthalten! Schaden-Beispiel: Durch starke Niederschläge wird Ihr Keller überflutet und die darin stehenden Möbel (z.B. Gefrierschrank) kommen zu Schaden.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="grob">Mitversicherung der groben Fahrlässigkeit?</label>
+            <div class="col-sm">
+                <select name="grob" id="grob" aria-describedby="grobHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="grobHelp"><strong>Mitversicherung der groben Fahrlässigkeit?</strong><p>Wir empfehlen dringend, die Grobe Fahrlässigkeit mitzuversichern. Ein grob fahrlässiges Verhalten liegt beispielsweise vor, wenn Täter durch geöffnete oder gekippte Fenster bzw. Türen eindringen konnten, während der Versicherungsnehmer über einen längeren Zeitraum abwesend war. Die Auswahl &quot;ja&quot; bedeutet alle Tarife mit dieser Leistung werden angezeigt und bei der Auswahl &quot;ja, nur bestmögliche&quot; werden nur die Tarife angezeigt, die eine höchst mögliche Leistung anbieten.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="bauart">Bauartklasse <a href="#modal-dialog-contruction-type" data-toggle="modal">Info</a></label>
+            <div class="col-sm">
+                <select name="bauart" id="bauart" aria-describedby="bauartHelp" class="form-select">
+                    <option value="massive&#x20;Bauweise&#x20;mit&#x20;harter&#x20;Dachung&#x20;&#x28;BAK&#x20;I&#x29;">massive Bauweise mit harter Dachung (BAK I)</option>
+                    <option value="Stahl&#x2F;Glas&#x20;Bauweise&#x20;mit&#x20;harter&#x20;Dachung&#x20;&#x28;BAK&#x20;II&#x29;">Stahl/Glas Bauweise mit harter Dachung (BAK II)</option>
+                    <option value="Holzhaus&#x20;oder&#x20;Lehmfachwerk&#x20;mit&#x20;harter&#x20;Dachung&#x20;&#x28;BAK&#x20;III&#x29;">Holzhaus oder Lehmfachwerk mit harter Dachung (BAK III)</option>
+                    <option value="weiche&#x20;Dachung&#x20;&#x28;BAK&#x20;IV&#x20;oder&#x20;V&#x29;">weiche Dachung (BAK IV oder V)</option>
+                    <option value="Fertighaus,&#x20;massiv&#x20;mit&#x20;harter&#x20;Dachung&#x20;&#x28;FHG&#x20;I,&#x20;FHG&#x20;II&#x29;">Fertighaus, massiv mit harter Dachung (FHG I, FHG II)</option>
+                    <option value="Fertighaus&#x20;mit&#x20;harter&#x20;Dachung&#x20;&#x28;FHG&#x20;III&#x29;">Fertighaus mit harter Dachung (FHG III)</option>
+                </select>
+            </div>
+            <div class="help-content" id="bauartHelp"><strong>Bauartklasse Info</strong><p>Die meisten Häuser sind massiv (aus Stein, Ziegel, Beton o. ä.) gebaut und verfügen über eine harte Dachung, z.B. aus Ziegeln, Metall, Beton, Schiefer. Sollten Sie aber z.B. in einem Fachwerkhaus wohnen oder Ihr Haus mit einer weichen Dachung z.B. aus Schilf, Reed, Holz ausgestattet sein, wird ein Zuschlag fällig.</p></div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend class="headline-calculator"><span>Rabattrelevante Angaben</span></legend>
+        <div class="row">
+            <label class="col-form-label" for="selbst">Selbstbeteiligung</label>
+            <div class="col-sm">
+                <select name="selbst" id="selbst" aria-describedby="selbstHelp" class="form-select">
+                    <option value="nein">0 €</option>
+                    <option value="150">150 €</option>
+                    <option value="200">200 €</option>
+                    <option value="250">250 €</option>
+                    <option value="300">300 €</option>
+                </select>
+            </div>
+            <div class="help-content" id="selbstHelp"><strong>Selbstbeteiligung</strong><p>Eine evtl. vereinbarte Selbstbeteiligung führt zu Beitragsnachlässen und muss durch Sie nach jedem Schadensfall in vereinbarter Höhe selbst tragen werden.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="laufzeit">Laufzeit</label>
+            <div class="col-sm">
+                <select name="laufzeit" id="laufzeit" aria-describedby="laufzeitHelp" class="form-select">
+                    <option value="1">1 Jahr</option>
+                    <option value="3">3 Jahre</option>
+                    <option value="5">5 Jahre</option>
+                </select>
+            </div>
+            <div class="help-content" id="laufzeitHelp"><strong>Laufzeit</strong><p>Sollten Sie eine Vertragslaufzeit von 3 Jahren wählen, können Sie bei einigen Versicherern mit einem Beitragsnachlass in Höhe von 10% rechnen.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="vorvers5">Bestand in den letzten 5 Jahren eine Vorversicherung?<span class="text-info-required">*</span></label>
+            <div class="col-sm">
+                <select name="vorvers5" id="vorvers5" required="required" aria-describedby="vorvers5Help" class="form-select">
+                    <option value="">-- Bitte wählen --</option>
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="vorvers5Help"><strong>Bestand in den letzten 5 Jahren eine Vorversicherung?</strong><p>Haben Sie eine Vorversicherung, die bislang schadenfrei verlief, können Sie von verschiedenen Versicherern einen Rabatt bis 25% erhalten.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="schaeden5">Schäden in den letzten 5 Jahren<span class="text-info-required">*</span></label>
+            <div class="col-sm">
+                <select name="schaeden5" id="schaeden5" required="required" aria-describedby="schaeden5Help" class="form-select">
+                    <option value="">-- Bitte wählen --</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div class="help-content" id="schaeden5Help"><strong>Schäden in den letzten 5 Jahren</strong><p>Bei Schadenfreiheit gibt es bei einigen Tarifen einen Nachlass.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="kombirabatte">Kombirabatte mit berechnen?</label>
+            <div class="col-sm">
+                <select name="kombirabatte" id="kombirabatte" class="form-select&#x20;toggle-trigger" data-toggle-modus="show" data-toggle-value="ja" aria-describedby="kombirabatteHelp">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="kombirabatteHelp"><strong>Kombirabatte mit berechnen?</strong><p>Welche Verträge haben Sie schon oder haben vor, sie zu versichern? Je mehr Verträge Sie bei einer Gesellschaft haben, umso günstiger wird der Preis.</p></div>
+        </div>
+    </fieldset>
+    <fieldset class="collapse&#x20;toggle-box-kombirabatte&#x20;discount">
+        <legend class="headline-calculator"><span>Kombirabatte für folgende Sparten-Kombinationen berücksichtigen</span></legend>
+        <div class="row">
+            <div class="col-form-label"></div>
+            <div class="col-sm">
+                <div class="card&#x20;has-validation">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" name="KrPHV" id="KrPHV" aria-describedby="KrPHVHelp" value="1" class="form-check-input">
+                            <label for="KrPHV" class="form-check-label">Privathaftpflicht</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="help-content" id="KrPHVHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+        </div>
+        <div class="row">
+            <div class="col-form-label"></div>
+            <div class="col-sm">
+                <div class="card&#x20;has-validation">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" name="KrTIE" id="KrTIE" aria-describedby="KrTIEHelp" value="1" class="form-check-input">
+                            <label for="KrTIE" class="form-check-label">Tierhalterhaftpflicht</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="help-content" id="KrTIEHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+        </div>
+        <div class="row">
+            <div class="col-form-label"></div>
+            <div class="col-sm">
+                <div class="card&#x20;has-validation">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" name="KrHUG" id="KrHUG" aria-describedby="KrHUGHelp" value="1" class="form-check-input">
+                            <label for="KrHUG" class="form-check-label">Haus-Grundbesitzer Haftpflicht</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="help-content" id="KrHUGHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+        </div>
+        <div class="row">
+            <div class="col-form-label"></div>
+            <div class="col-sm">
+                <div class="card&#x20;has-validation">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" name="KrOEL" id="KrOEL" aria-describedby="KrOELHelp" value="1" class="form-check-input">
+                            <label for="KrOEL" class="form-check-label">Gewässerschaden/Öltank</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="help-content" id="KrOELHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+        </div>
+        <div class="row">
+            <div class="col-form-label"></div>
+            <div class="col-sm">
+                <div class="card&#x20;has-validation">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" name="KrWG" id="KrWG" aria-describedby="KrWGHelp" value="1" class="form-check-input">
+                            <label for="KrWG" class="form-check-label">Wohngebäude</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="help-content" id="KrWGHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+        </div>
+        <div class="row">
+            <div class="col-form-label"></div>
+            <div class="col-sm">
+                <div class="card&#x20;has-validation">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" name="KrWGGLS" id="KrWGGLS" aria-describedby="KrWGGLSHelp" value="1" class="form-check-input">
+                            <label for="KrWGGLS" class="form-check-label">Wohngebäude-Glas</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="help-content" id="KrWGGLSHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+        </div>
+        <div class="row">
+            <div class="col-form-label"></div>
+            <div class="col-sm">
+                <div class="card&#x20;has-validation">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" name="KrHR" id="KrHR" aria-describedby="KrHRHelp" value="1" class="form-check-input">
+                            <label for="KrHR" class="form-check-label">Hausrat</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="help-content" id="KrHRHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+        </div>
+        <div class="row">
+            <div class="col-form-label"></div>
+            <div class="col-sm">
+                <div class="card&#x20;has-validation">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" name="KrHRGLS" id="KrHRGLS" aria-describedby="KrHRGLSHelp" value="1" class="form-check-input">
+                            <label for="KrHRGLS" class="form-check-label">Hausrat-Glas</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="help-content" id="KrHRGLSHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+        </div>
+        <div class="row">
+            <div class="col-form-label"></div>
+            <div class="col-sm">
+                <div class="card&#x20;has-validation">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" name="KrUNF" id="KrUNF" aria-describedby="KrUNFHelp" value="1" class="form-check-input">
+                            <label for="KrUNF" class="form-check-label">Unfall</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="help-content" id="KrUNFHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+        </div>
+        <div class="row">
+            <div class="col-form-label"></div>
+            <div class="col-sm">
+                <div class="card&#x20;has-validation">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="checkbox" name="KrRS" id="KrRS" aria-describedby="KrRSHelp" value="1" class="form-check-input">
+                            <label for="KrRS" class="form-check-label">Rechtsschutz</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="help-content" id="KrRSHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+        </div>
+    </fieldset>
+    <fieldset class="row">
+        <legend class="col-form-label">weitere Fragen<span class="text-info-required">*</span></legend>
+        <div class="col-sm">
+            <div class="card&#x20;has-validation&#x20;required">
+                <div class="card-body">
+                    <div class="form-check">
+                        <input type="radio" name="zusatzfragen" id="zusatzfragen_nein" required="required" class="form-check-input&#x20;is-invalid&#x20;form-radio-input&#x20;js-gtm-event" aria-describedby="zusatzfragenFeedback" data-event-type="click" data-event-category="versicherung" data-event-action="no&#x20;additional&#x20;questions" data-event-label="hr" value="nein">
+                        <label class="form-check-label" for="zusatzfragen_nein">Ich verzichte auf die Beantwortung weiterer Fragen und wähle aus dem Vergleich einen Tarif, der meinen Bedarf erfüllt.</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="zusatzfragen" required="required" class="form-check-input&#x20;is-invalid&#x20;form-radio-input&#x20;js-gtm-event" aria-describedby="zusatzfragenFeedback" id="zusatzfragen_ja" data-event-type="click" data-event-category="versicherung" data-event-action="additional&#x20;questions&#x20;requested" data-event-label="hr" value="ja">
+                        <label class="form-check-label" for="zusatzfragen_ja">Ich möchte weitere Angaben zum gewünschten Versicherungsschutz machen. Es werden dann nur Tarife angezeigt, welche die Vorgaben erfüllen.</label>
+                    </div>
+                    <div class="invalid-feedback" id="zusatzfragenFeedback">
+                        <ul>
+                            <li>is required</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="collapse&#x20;collapse-questions">
+        <legend class="headline-calculator"><span>Optionale Detailfragen</span></legend>
+        <div class="row">
+            <label class="col-form-label">Wählen Sie eine Vorgabe für Ihre Berechnung</label>
+            <div class="col-sm">
+                <a href="&#x23;" data-event-type="click" data-event-category="versicherung" data-event-label="hr" data-event-action="choose&#x20;standard&#x20;options" class="js-standard&#x20;js-gtm-event">Standard</a>
+                |
+                <a href="&#x23;" data-event-type="click" data-event-category="versicherung" data-event-label="hr" data-event-action="choose&#x20;AK&#x20;recommentations" class="recommendation&#x20;js-recommendation&#x20;js-gtm-event">AK Empfehlung</a>
+            </div>
+            <div class="help-content"><strong>Wählen Sie eine Vorgabe für Ihre Berechnung</strong><p>Die Vorgabe des Arbeitskreis Vermittlerrichlinie (AK-Empfehlung) bietet Ihnen einen empfohlenen Mindestschutz. Heute erfüllen alle wichtigen Tarife diese Vorgaben. Zu Ihrer Sicherheit sollten Sie diese Mindestvorgaben wählen.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="uver_v">Wünschen Sie einen Unterversicherungsverzicht?</label>
+            <div class="col-sm">
+                <select name="uver_v" id="uver_v" aria-describedby="uver_vHelp" class="form-select">
+                    <option value="nein&#x20;-&#x20;Eingabe&#x20;einer&#x20;V-Summe">nein - Eingabe einer V-Summe</option>
+                    <option value="ja">ja - empfohlen</option>
+                </select>
+            </div>
+            <div class="help-content" id="uver_vHelp"><strong>Wünschen Sie einen Unter­versicherungs­verzicht?</strong><p>Eine Unterversicherung liegt vor, wenn im Schadenfall die vereinbarte Versicherungssumme niedriger ist als der tatsächlich vorhandene Wert Ihres Hausrates.</p><p>Wenn Sie keinen Unter­versicherungs­verzicht vereinbaren (je nach Anbieter 600-700 EUR/qm) kann es im Schadenfall zur Leistungskürzung kommen.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="ues_v">Mitversicherung von Überspannungsschäden?</label>
+            <div class="col-sm">
+                <select name="ues_v" id="ues_v" aria-describedby="ues_vHelp" class="form-select">
+                    <option value="ja">ja - empfohlen</option>
+                    <option value="nein">nein</option>
+                </select>
+            </div>
+            <div class="help-content" id="ues_vHelp"><strong>Mitversicherung von Wertsachen? Ohne Angaben sind mind. 20% der VS mitversichert.</strong><p>Meist sind 20-25% der Versicherungssumme für Wertsachen mitversichert. Bargeld, Wertpapiere, Schmuck, Briefmarken, Münzen, Sachen aus Silber/Gold/Platin, Pelze, handgeknüpfte Teppiche, Kunstgegenstände (z.B. Gemälde, Plastiken), Sachen über 100 Jahre alt. Möbelstücke fallen nicht unter Wertsachen!</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="werts_v">Mitversicherung von Wertsachen? Ohne Angaben sind mind. 20% der VS mitversichert.</label>
+            <div class="col-sm">
+                <input type="text" name="werts_v" id="werts_v" class="form-control&#x20;has-legend" aria-describedby="werts_vHelp" value="">
+            </div>
+            <div class="help-content" id="werts_vHelp"><strong>Mitversicherung von Wertsachen? Ohne Angaben sind mind. 20% der VS mitversichert.</strong><p>Meist sind 20-25% der Versicherungssumme für Wertsachen mitversichert. Bargeld, Wertpapiere, Schmuck, Briefmarken, Münzen, Sachen aus Silber/Gold/Platin, Pelze, handgeknüpfte Teppiche, Kunstgegenstände (z.B. Gemälde, Plastiken), Sachen über 100 Jahre alt. Möbelstücke fallen nicht unter Wertsachen!</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="dieb_v">Diebstahl von Kinderwagen und Krankenfahrstühlen?</label>
+            <div class="col-sm">
+                <select name="dieb_v" id="dieb_v" aria-describedby="dieb_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="dieb_vHelp"><strong>Diebstahl von Kinderwagen und Krankenfahrstühlen?</strong><p>Einige Tarife schließen diesen Diebstahl bis zu einer begrenzten Summe mit ein.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="dkfz_v">Diebstahl aus KFZ?</label>
+            <div class="col-sm">
+                <select name="dkfz_v" id="dkfz_v" aria-describedby="dkfz_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="dkfz_vHelp"><strong>Diebstahl aus KFZ?</strong><p>Ausgeschlossen sind meist elektronische Geräte wie Notebook und Kameras.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="dkle_v">Diebstahl von Wäsche auf der Leine?</label>
+            <div class="col-sm">
+                <select name="dkle_v" id="dkle_v" aria-describedby="dkle_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="dkle_vHelp"><strong>Diebstahl von Wäsche auf der Leine?</strong><p>Falls Ihre Wäsche von der Leine gestohlen wird, muss eine polizeiliche Meldung vorliegen, um Ersatz vom Versicherer zu erhalten.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="rauch_v">Schäden durch Verpuffung, Rauch und Ruß?</label>
+            <div class="col-sm">
+                <select name="rauch_v" id="rauch_v" aria-describedby="rauch_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="rauch_vHelp"><strong>Schäden durch Verpuffung, Rauch und Ruß?</strong><p>In einer Heizung, die befeuert wird, entsteht durch sich entwickelnde Gase eine Verpuffung.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="kfz_v">Schäden durch Anprall von Landfahrzeugen?</label>
+            <div class="col-sm">
+                <select name="kfz_v" id="kfz_v" aria-describedby="kfz_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="kfz_vHelp"><strong>Schäden durch Anprall von Landfahrzeugen?</strong><p>Fährt ein KFZ gegen Ihr Haus und es entsteht ein Schaden am Hausrat, wird dieser ersetzt.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="bank_v">Sachen in Bankgewahrsam?</label>
+            <div class="col-sm">
+                <select name="bank_v" id="bank_v" aria-describedby="bank_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="bank_vHelp"><strong>Sachen in Bankgewahrsam?</strong><p>Wenn z.B. Ihr Schmuck aus dem Banktresor gestohlen wird.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="dgar_v">Diebstahl von Gartenmöbeln/Geräten?</label>
+            <div class="col-sm">
+                <select name="dgar_v" id="dgar_v" aria-describedby="dgar_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="dgar_vHelp"><strong>Diebstahl von Gartenmöbeln/Geräten?</strong><p>Falls Ihre Sitzgruppe gestohlen wird, ist diese hier mitversichert.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="was_v">Haben Sie Aquarien oder Wasserbetten (Wasserschäden)?</label>
+            <div class="col-sm">
+                <select name="was_v" id="was_v" aria-describedby="was_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="was_vHelp"><strong>Haben Sie Aquarien oder Wasserbetten (Wasserschäden)?</strong><p>In der Regel werden nur die Folgen des Wasserschadens ersetzt, nicht das Wasserbett selbst.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="seng_v">Sollen Sengschäden mitversichert werden?</label>
+            <div class="col-sm">
+                <select name="seng_v" id="seng_v" aria-describedby="seng_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="seng_vHelp"><strong>Sollen Sengschäden mitversichert werden?</strong><p>Darunter versteht man Schäden, die ohne Feuer entstehen, sondern nur durch Hitzeeinwirkung (z.B. Bügeleisen).</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="waver_v">Soll Wasserverlust infolge Rohrbruch mitversichert werden?</label>
+            <div class="col-sm">
+                <select name="waver_v" id="waver_v" aria-describedby="waver_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="waver_vHelp"><strong>Soll Wasserverlust infolge Rohrbruch mitversichert werden?</strong><p>Läuft längere Zeit Wasser weg, wird auch das bis zur Höchstgrenze erstattet.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="hot_v">Hotelkosten im Schadenfall?</label>
+            <div class="col-sm">
+                <select name="hot_v" id="hot_v" aria-describedby="hot_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="hot_vHelp"><strong>Hotelkosten im Schadenfall?</strong><p>Wird Ihre Wohnung z.B. nach einem Wasserschaden unbewohnbar, werden Hotelkosten ersetzt.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="reis_v">Rückreisekosten aus dem Urlaub?</label>
+            <div class="col-sm">
+                <select name="reis_v" id="reis_v" aria-describedby="reis_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="reis_vHelp"><strong>Rückreisekosten aus dem Urlaub?</strong><p>Wenn ein erheblicher Versicherungsfall eintritt, werden Fahrtmehrkosten für die Rückreise aus dem Urlaub ersetzt.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="arb_v">Sachen im häuslichen Arbeitszimmer?</label>
+            <div class="col-sm">
+                <select name="arb_v" id="arb_v" aria-describedby="arb_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="arb_vHelp"><strong>Sachen im häuslichen Arbeitszimmer?</strong><p>Üben Sie Ihr Gewerbe aus Ihrer Wohnung aus, sind die gewerblichen Sachen bis zu einer Höchstgrenze bei diesem Einschluss mitversichert.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="evors_v">Erweiterte Vorsorge</label>
+            <div class="col-sm">
+                <select name="evors_v" id="evors_v" aria-describedby="evors_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="evors_vHelp"><strong>Erweiterte Vorsorge</strong><p>Kein Deckungsnachteil gegenüber Mitbewerbern im Schadenfall. Im Versicherungsfall gelten Risiken, die im Rahmen des vereinbarten Vertrages nicht eingeschlossen sind, jedoch durch einen leistungsstärkeren, allgemein und für jedermann zugänglichen Tarif zur Hausratversicherung zum Zeitpunkt des Schadeneintritts eingeschlossen wären, automatisch entsprechend den dortigen Regelungen mitversichert.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="all_v">Wünschen Sie für Ihren Hausrat eine Allgefahrendeckung?</label>
+            <div class="col-sm">
+                <select name="all_v" id="all_v" aria-describedby="all_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="all_vHelp"><strong>Wünschen Sie für Ihren Hausrat eine Allgefahrendeckung?</strong><p>Bei der Allgefahrendeckung handelt es sich um einen weitreichenden, über die Leistungen einer klassischen Versicherung hinausgehenden Versicherungsschutz. Auf die gewohnte Aufzählung von versicherten Gefahren, z. B. Feuer, Leitungswasser oder Sturm, wird verzichtet: Schäden - Zerstörung, Beschädigung und Abhandenkommen von versicherten Gegenständen - gelten als Folge aller Gefahren als versichert, soweit diese nicht explizit vom Versicherungsschutz ausgenommen sind.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="sich_v">Sind an allen Haus- und sonstigen Eingangstüren Sicherheitsschlösser mit von außen nicht abschraubbaren, bündig montierten Sicherheitsbeschlägen vorhanden?</label>
+            <div class="col-sm">
+                <select name="sich_v" id="sich_v" aria-describedby="sich_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="sich_vHelp"><strong>Sind an allen Haus- und sonstigen Eingangstüren Sicherheitsschlösser mit von außen nicht abschraubbaren, bündig montierten Sicherheitsbeschlägen vorhanden?</strong><p>Im Falle eines Einbruchdiebstahls wird überprüft, ob die Türen diesen Ansprüchen gerecht werden.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="meld_v">Ist eine vom VdS (Verband der Sachversicherer) anerkannte Einbruchmeldeanlage vorhanden?</label>
+            <div class="col-sm">
+                <select name="meld_v" id="meld_v" aria-describedby="meld_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="meld_vHelp"><strong>Ist eine vom VdS (Verband der Sachversicherer) anerkannte Einbruchmeldeanlage vorhanden?</strong><p>Diese Anforderung ist nützlich bei hohen Versicherungssummen oder besonderen Risiken. Im Normalfall spielt eine Meldeanlage im Schadensfall keine Rolle.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="bewo_v">Ist die Wohnung länger als 60 Tage ununterbrochen unbewohnt?</label>
+            <div class="col-sm">
+                <select name="bewo_v" id="bewo_v" aria-describedby="bewo_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="bewo_vHelp"><strong>Ist die Wohnung länger als 60 Tage ununterbrochen unbewohnt?</strong><p>Bei einigen Gesellschaften erlischt der Versicherungsschutz, wenn die Wohnung länger als 60 Tage leer steht. Bewohnt heißt, dass eine erwachsene Person in der Wohnung übernachtet und sich dort im Normalfall aufhält.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="tres_v">Ist ein mehrwandiger Stahlschrank mit einem Gewicht von &gt; 200 kg oder ein eingemauerter Tresor mit mehrwandiger Tür vorhanden?</label>
+            <div class="col-sm">
+                <select name="tres_v" id="tres_v" aria-describedby="tres_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="tres_vHelp"><strong>Ist ein mehrwandiger Stahlschrank mit einem Gewicht von > 200 kg oder ein eingemauerter Tresor mit mehrwandiger Tür vorhanden?</strong><p>Ist im Normalfall uninteressant. Bei besonderen Risiken muss das gesondert behandelt werden.</p></div>
+        </div>
+        <div class="row">
+            <label class="col-form-label" for="feu_v">Gibt es auf dem Versicherungsgrundstück oder in einer Entfernung von unter 10 m Betriebe / Lager, von denen eine erhöhte Feuergefahr ausgeht?</label>
+            <div class="col-sm">
+                <select name="feu_v" id="feu_v" aria-describedby="feu_vHelp" class="form-select">
+                    <option value="nein">nein</option>
+                    <option value="ja">ja</option>
+                </select>
+            </div>
+            <div class="help-content" id="feu_vHelp"><strong>Gibt es auf dem Versicherungsgrundstück oder in einer Entfernung von unter 10 m Betriebe / Lager, von denen eine erhöhte Feuergefahr ausgeht?</strong><p>Es ist möglich, dass Versicherer bei erhöhtem Risiko den Vertrag ablehnen.</p></div>
+        </div>
+    </fieldset>
+    <div class="row">
+        <div class="col-form-label"></div>
+        <div class="col-sm">
+            <div class="card&#x20;has-validation&#x20;required">
+                <div class="card-body">
+                    <div class="form-check">
+                        <input type="hidden" name="chkErstinfo" value="">
+                        <input type="checkbox" name="chkErstinfo" id="mrmoErstinfo" required="required" value="1" class="form-check-input">
+                        <label for="mrmoErstinfo" class="form-check-label">Ich bestätige, die Erstinformation für Versicherungsmakler gemäß § 15 VersVermV heruntergeladen und gelesen zu haben.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <button type="submit" name="btn_berechnen" class="btn&#x20;btn-default&#x20;js-gtm-event" data-event-type="click" data-event-category="versicherung" data-event-action="calculate" data-event-label="hr">Berechnen</button>
+        </div>
+    </div>
+    <input type="hidden" name="sToken" value="">
+    <input type="hidden" name="zahlweise" value="">
+    <input type="hidden" name="chkFilterNachhaltigkeit" value="">
+    <input type="hidden" name="addressUri" id="addressUri" value="">
+    <div class="mt-2 text-info-required">* Pflichtfeld</div>
+</form>
