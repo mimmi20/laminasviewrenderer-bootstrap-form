@@ -15,26 +15,26 @@
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="plz">PLZ - Risiko-Anschrift<span class="text-info-required">*</span></label>
             <input type="text" name="plz" id="plz" class="form-control&#x20;form-control-short&#x20;js-special-zip-message&#x20;js-adress-completition" pattern="&#x5E;&#x5C;d&#x7B;5&#x7D;&#x24;" minlength="5" maxlength="5" required="required" aria-describedby="plzHelp" value="">
-            <div class="help-content" id="plzHelp"><strong>Warum fragen wir das?</strong><p>Die Postleitzahl Ihrer Wohnung wird für die Risikobeurteilung /Beitragsberechnung benötigt. Die Beitragshöhe ist nicht nur abhängig von Ihren gewünschten Leistungen, sondern wird auch anhand Art und Anzahl der Schäden, die in Ihrem Wohnort durchschnittlich gemeldet werden, bemessen.</p></div>
+            <div class="toast&#x20;help-content" id="plzHelp"><strong>Warum fragen wir das?</strong><p>Die Postleitzahl Ihrer Wohnung wird für die Risikobeurteilung /Beitragsberechnung benötigt. Die Beitragshöhe ist nicht nur abhängig von Ihren gewünschten Leistungen, sondern wird auch anhand Art und Anzahl der Schäden, die in Ihrem Wohnort durchschnittlich gemeldet werden, bemessen.</p></div>
         </div>
         <div class="js-ort&#x20;col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="ort">Ort</label>
             <select name="ort" id="ort" aria-describedby="ortHelp" class="form-select">
                 <option value="">Bitte zuerst PLZ eintragen</option>
             </select>
-            <div class="help-content" id="ortHelp"><strong>Ort</strong><p>Der Ort Ihrer zu versichernden Wohnung.</p></div>
+            <div class="toast&#x20;help-content" id="ortHelp"><strong>Ort</strong><p>Der Ort Ihrer zu versichernden Wohnung.</p></div>
         </div>
         <div class="js-strasse&#x20;col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="strasse">Straße</label>
             <select name="strasse" id="strasse" aria-describedby="strasseHelp" class="form-select">
                 <option value="">Bitte zuerst Ort wählen</option>
             </select>
-            <div class="help-content" id="strasseHelp"><strong>Straße</strong><p>Die Straße Ihrer zu versichernden Wohnung.</p></div>
+            <div class="toast&#x20;help-content" id="strasseHelp"><strong>Straße</strong><p>Die Straße Ihrer zu versichernden Wohnung.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="hnr">Hausnummer</label>
             <input type="text" name="hnr" id="hnr" class="form-control&#x20;form-control-short" aria-describedby="hnrHelp" value="">
-            <div class="help-content" id="hnrHelp"><strong>Hausnummer</strong><p>Die Hausnummer Ihrer zu versichernden Wohnung.</p></div>
+            <div class="toast&#x20;help-content" id="hnrHelp"><strong>Hausnummer</strong><p>Die Hausnummer Ihrer zu versichernden Wohnung.</p></div>
         </div>
         <div class="date&#x20;datepicker-group&#x20;js-datepicker-group&#x20;col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="gebdatum">Geburtsdatum<span class="text-info-required">*</span></label>
@@ -52,7 +52,7 @@
                 <option value="Doppelhaush&#xE4;lfte">Doppelhaushälfte</option>
                 <option value="Reihenhaus">Reihenhaus</option>
             </select>
-            <div class="help-content" id="whgHelp"><strong>Wo wohnen Sie</strong><p>Wählen Sie hier, in welchem Haus sich die zu versichernde Wohnung befindet.</p></div>
+            <div class="toast&#x20;help-content" id="whgHelp"><strong>Wo wohnen Sie</strong><p>Wählen Sie hier, in welchem Haus sich die zu versichernde Wohnung befindet.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="vermietet">Ist die Wohnung möbliert vermietet?<span class="text-info-required">*</span></label>
@@ -67,17 +67,17 @@
                 <input type="number" name="wohnfl" id="wohnfl" class="form-control&#x20;has-legend" min="10" max="2000" required="required" aria-describedby="wohnflHelp" value="">
                 <div class="input-group-text">m<sup>2</sup></div>
             </div>
-            <div class="help-content" id="wohnflHelp"><strong>Ihre gesamte Wohnfläche im Haus</strong><p>Als Wohnfläche gilt die Grundfläche aller Räume der versicherten Wohnung. Räume, die zu Hobbyzwecken genutzt werden, gelten immer als Wohnfläche. Nicht zu berücksichtigen sind: Zubehörräume, Keller- und Speicherräume, die nicht zu Wohnzwecken genutzt werden, nicht ausgebaute Dachböden, Treppen, Balkone, Terrassen, Loggien, Garagen.</p></div>
+            <div class="toast&#x20;help-content" id="wohnflHelp"><strong>Ihre gesamte Wohnfläche im Haus</strong><p>Als Wohnfläche gilt die Grundfläche aller Räume der versicherten Wohnung. Räume, die zu Hobbyzwecken genutzt werden, gelten immer als Wohnfläche. Nicht zu berücksichtigen sind: Zubehörräume, Keller- und Speicherräume, die nicht zu Wohnzwecken genutzt werden, nicht ausgebaute Dachböden, Treppen, Balkone, Terrassen, Loggien, Garagen.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="wohnfl_kg">Davon sind im Keller</label>
             <input type="number" name="wohnfl_kg" id="wohnfl_kg" class="form-control&#x20;has-legend" aria-describedby="wohnfl_kgHelp" value="">
-            <div class="help-content" id="wohnfl_kgHelp"><strong>Davon sind im Keller</strong><p>Geben Sie hier eine evtl. Wohnfläche im Keller an. Diese muss aber im o.g. Feld schon enthalten sein. Definition siehe oben. (z.B. Hobbyraum)</p></div>
+            <div class="toast&#x20;help-content" id="wohnfl_kgHelp"><strong>Davon sind im Keller</strong><p>Geben Sie hier eine evtl. Wohnfläche im Keller an. Diese muss aber im o.g. Feld schon enthalten sein. Definition siehe oben. (z.B. Hobbyraum)</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="kellerfl">Grundfläche des Kellers</label>
             <input type="number" name="kellerfl" id="kellerfl" class="form-control&#x20;has-legend" aria-describedby="kellerflHelp" value="">
-            <div class="help-content" id="kellerflHelp"><strong>Grundfläche des Kellers</strong><p>Geben Sie hier die gesamte Grundfläche Ihres Kellers in qm an.</p></div>
+            <div class="toast&#x20;help-content" id="kellerflHelp"><strong>Grundfläche des Kellers</strong><p>Geben Sie hier die gesamte Grundfläche Ihres Kellers in qm an.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="beamte">Tarif</label>
@@ -85,7 +85,7 @@
                 <option value="Normal">Normal</option>
                 <option value="&#xF6;ffentl.&#x20;Dienst">öffentlicher Dienst</option>
             </select>
-            <div class="help-content" id="beamteHelp"><strong>Warum fragen wir das?</strong><p>Einige Versicherer bieten Beitragsnachlässe für Beamte und Angestellte im öffentlichen Dienst.</p><strong>Hinweis zur Auswahl</strong><p>Wählen Sie auch &quot;öffentlicher Dienst&quot;, wenn Sie Beamter sind oder früher im öffentlichen Dienst beschäftigt waren und sich mittlerweile im Ruhestand befinden.</p></div>
+            <div class="toast&#x20;help-content" id="beamteHelp"><strong>Warum fragen wir das?</strong><p>Einige Versicherer bieten Beitragsnachlässe für Beamte und Angestellte im öffentlichen Dienst.</p><strong>Hinweis zur Auswahl</strong><p>Wählen Sie auch &quot;öffentlicher Dienst&quot;, wenn Sie Beamter sind oder früher im öffentlichen Dienst beschäftigt waren und sich mittlerweile im Ruhestand befinden.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="verssummeauto">Versicherungssumme</label>
@@ -93,12 +93,12 @@
                 <option value="auto">automatisch ermitteln</option>
                 <option value="manuell">selbst angeben</option>
             </select>
-            <div class="help-content" id="verssummeautoHelp"><strong>Versicherungssumme</strong><p>Die vereinbarte Versicherungssumme bildet die Höchst­entschädigungs­grenze nach einem Totalschaden. Wir empfehlen Unter­versicherungs­verzicht zu vereinbaren, damit nach einem Schaden durch den Versicherer keine Abzüge wegen möglicher Unterversicherung vorgenommen werden.</p><p>Eine Unterversicherung liegt vor, wenn im Schadenfall die vereinbarte Versicherungssumme niedriger ist als der tatsächlich vorhandene Wert Ihres Hausrates.<br/>Ein Unter­versicherungs­verzicht erfordert je nach Anbieter und Tarif eine Versicherungssumme in Höhe von 600-700 EUR/qm Wohnfläche. Beachten Sie: Ohne eigene Eingabe der Versicherungssumme wird automatisch der richtige Wert für den Unter­versicherungs­verzicht ermittelt.</p></div>
+            <div class="toast&#x20;help-content" id="verssummeautoHelp"><strong>Versicherungssumme</strong><p>Die vereinbarte Versicherungssumme bildet die Höchst­entschädigungs­grenze nach einem Totalschaden. Wir empfehlen Unter­versicherungs­verzicht zu vereinbaren, damit nach einem Schaden durch den Versicherer keine Abzüge wegen möglicher Unterversicherung vorgenommen werden.</p><p>Eine Unterversicherung liegt vor, wenn im Schadenfall die vereinbarte Versicherungssumme niedriger ist als der tatsächlich vorhandene Wert Ihres Hausrates.<br/>Ein Unter­versicherungs­verzicht erfordert je nach Anbieter und Tarif eine Versicherungssumme in Höhe von 600-700 EUR/qm Wohnfläche. Beachten Sie: Ohne eigene Eingabe der Versicherungssumme wird automatisch der richtige Wert für den Unter­versicherungs­verzicht ermittelt.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="verssumme">Versicherungssumme selbst angeben</label>
             <input type="number" name="verssumme" id="verssumme" class="form-control&#x20;has-legend" aria-describedby="verssummeHelp" value="">
-            <div class="help-content" id="verssummeHelp"><strong>Versicherungssumme selbst angeben</strong><p>Die vereinbarte Versicherungssumme bildet die Höchst­entschädigungs­grenze nach einem Totalschaden. Wir empfehlen Unter­versicherungs­verzicht zu vereinbaren, damit nach einem Schaden durch den Versicherer keine Abzüge wegen möglicher Unterversicherung vorgenommen werden. Dieser Unter­versicherungs­verzicht erfordert je nach Anbieter und Tarif eine Versicherungssumme in Höhe von 600-700 EUR/qm Wohnfläche. Beachten Sie: Ohne Eingabe der Versicherungssumme wird automatisch der richtige Wert für den Unter­versicherungs­verzicht ermittelt.</p></div>
+            <div class="toast&#x20;help-content" id="verssummeHelp"><strong>Versicherungssumme selbst angeben</strong><p>Die vereinbarte Versicherungssumme bildet die Höchst­entschädigungs­grenze nach einem Totalschaden. Wir empfehlen Unter­versicherungs­verzicht zu vereinbaren, damit nach einem Schaden durch den Versicherer keine Abzüge wegen möglicher Unterversicherung vorgenommen werden. Dieser Unter­versicherungs­verzicht erfordert je nach Anbieter und Tarif eine Versicherungssumme in Höhe von 600-700 EUR/qm Wohnfläche. Beachten Sie: Ohne Eingabe der Versicherungssumme wird automatisch der richtige Wert für den Unter­versicherungs­verzicht ermittelt.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="fahrrad">Fahrraddiebstahl bis</label>
@@ -106,7 +106,7 @@
                 <input type="number" name="fahrrad" id="fahrrad" class="form-control&#x20;has-legend" min="0" aria-describedby="fahrradHelp" value="">
                 <div class="input-group-text">&euro;</div>
             </div>
-            <div class="help-content" id="fahrradHelp"><strong>Fahrraddiebstahl bis</strong><p>Auch bei Fahrraddiebstahl gilt Neuwertersatz. Achten Sie besonders auf Anbieter, die auf die Nachtzeitklausel verzichten und auch dann Schadenersatz leisten, wenn das Fahrrad in der Zeit zwischen 22:00-06:00 Uhr entwendet wurde. Bedingung: Das Fahrrad muss vor dem Diebstahl in geeigneter Weise gesichert (angeschlossen) gewesen sein. Schaden-Beispiel: Sie fahren mit Ihrem Fahrrad einkaufen, schließen es vor dem Geschäft ordnungsgemäß an. Trotzdem wird Ihr Fahrrad gestohlen.</p></div>
+            <div class="toast&#x20;help-content" id="fahrradHelp"><strong>Fahrraddiebstahl bis</strong><p>Auch bei Fahrraddiebstahl gilt Neuwertersatz. Achten Sie besonders auf Anbieter, die auf die Nachtzeitklausel verzichten und auch dann Schadenersatz leisten, wenn das Fahrrad in der Zeit zwischen 22:00-06:00 Uhr entwendet wurde. Bedingung: Das Fahrrad muss vor dem Diebstahl in geeigneter Weise gesichert (angeschlossen) gewesen sein. Schaden-Beispiel: Sie fahren mit Ihrem Fahrrad einkaufen, schließen es vor dem Geschäft ordnungsgemäß an. Trotzdem wird Ihr Fahrrad gestohlen.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="glas">Glasversicherung</label>
@@ -114,7 +114,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="glasHelp"><strong>Glasversicherung</strong><p>Bei Wohnungen im Mehrfamilienhaus ist nur die Mobiliarverglasung versichert, im selbstgenutzten Einfamilienhaus zusätzlich die Gebäudeverglasung.</p></div>
+            <div class="toast&#x20;help-content" id="glasHelp"><strong>Glasversicherung</strong><p>Bei Wohnungen im Mehrfamilienhaus ist nur die Mobiliarverglasung versichert, im selbstgenutzten Einfamilienhaus zusätzlich die Gebäudeverglasung.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="elem">Elementarschäden (Überschwemmung, Erdbeben, Erdsenkung, Erdrutsch, Schneedruck- und Lawinenschäden)</label>
@@ -122,7 +122,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="elemHelp"><strong>Elementarschäden (Überschwemmung, Erdbeben, Erdsenkung, Erdrutsch, Schneedruck- und Lawinenschäden)</strong><p>Dazu gehören Überschwemmung durch Witterungsniederschläge, oder Ausuferung von oberirdischen Gewässern, Schneedruck, Lawinen, Erdrutsch, Erdfall, Erdbeben. Sturm oder Hagelschäden sind schon in der normalen Versicherung enthalten! Schaden-Beispiel: Durch starke Niederschläge wird Ihr Keller überflutet und die darin stehenden Möbel (z.B. Gefrierschrank) kommen zu Schaden.</p></div>
+            <div class="toast&#x20;help-content" id="elemHelp"><strong>Elementarschäden (Überschwemmung, Erdbeben, Erdsenkung, Erdrutsch, Schneedruck- und Lawinenschäden)</strong><p>Dazu gehören Überschwemmung durch Witterungsniederschläge, oder Ausuferung von oberirdischen Gewässern, Schneedruck, Lawinen, Erdrutsch, Erdfall, Erdbeben. Sturm oder Hagelschäden sind schon in der normalen Versicherung enthalten! Schaden-Beispiel: Durch starke Niederschläge wird Ihr Keller überflutet und die darin stehenden Möbel (z.B. Gefrierschrank) kommen zu Schaden.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="grob">Mitversicherung der groben Fahrlässigkeit?</label>
@@ -130,7 +130,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="grobHelp"><strong>Mitversicherung der groben Fahrlässigkeit?</strong><p>Wir empfehlen dringend, die Grobe Fahrlässigkeit mitzuversichern. Ein grob fahrlässiges Verhalten liegt beispielsweise vor, wenn Täter durch geöffnete oder gekippte Fenster bzw. Türen eindringen konnten, während der Versicherungsnehmer über einen längeren Zeitraum abwesend war. Die Auswahl &quot;ja&quot; bedeutet alle Tarife mit dieser Leistung werden angezeigt und bei der Auswahl &quot;ja, nur bestmögliche&quot; werden nur die Tarife angezeigt, die eine höchst mögliche Leistung anbieten.</p></div>
+            <div class="toast&#x20;help-content" id="grobHelp"><strong>Mitversicherung der groben Fahrlässigkeit?</strong><p>Wir empfehlen dringend, die Grobe Fahrlässigkeit mitzuversichern. Ein grob fahrlässiges Verhalten liegt beispielsweise vor, wenn Täter durch geöffnete oder gekippte Fenster bzw. Türen eindringen konnten, während der Versicherungsnehmer über einen längeren Zeitraum abwesend war. Die Auswahl &quot;ja&quot; bedeutet alle Tarife mit dieser Leistung werden angezeigt und bei der Auswahl &quot;ja, nur bestmögliche&quot; werden nur die Tarife angezeigt, die eine höchst mögliche Leistung anbieten.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="bauart">Bauartklasse <a href="#modal-dialog-contruction-type" data-toggle="modal">Info</a></label>
@@ -142,7 +142,7 @@
                 <option value="Fertighaus,&#x20;massiv&#x20;mit&#x20;harter&#x20;Dachung&#x20;&#x28;FHG&#x20;I,&#x20;FHG&#x20;II&#x29;">Fertighaus, massiv mit harter Dachung (FHG I, FHG II)</option>
                 <option value="Fertighaus&#x20;mit&#x20;harter&#x20;Dachung&#x20;&#x28;FHG&#x20;III&#x29;">Fertighaus mit harter Dachung (FHG III)</option>
             </select>
-            <div class="help-content" id="bauartHelp"><strong>Bauartklasse Info</strong><p>Die meisten Häuser sind massiv (aus Stein, Ziegel, Beton o. ä.) gebaut und verfügen über eine harte Dachung, z.B. aus Ziegeln, Metall, Beton, Schiefer. Sollten Sie aber z.B. in einem Fachwerkhaus wohnen oder Ihr Haus mit einer weichen Dachung z.B. aus Schilf, Reed, Holz ausgestattet sein, wird ein Zuschlag fällig.</p></div>
+            <div class="toast&#x20;help-content" id="bauartHelp"><strong>Bauartklasse Info</strong><p>Die meisten Häuser sind massiv (aus Stein, Ziegel, Beton o. ä.) gebaut und verfügen über eine harte Dachung, z.B. aus Ziegeln, Metall, Beton, Schiefer. Sollten Sie aber z.B. in einem Fachwerkhaus wohnen oder Ihr Haus mit einer weichen Dachung z.B. aus Schilf, Reed, Holz ausgestattet sein, wird ein Zuschlag fällig.</p></div>
         </div>
     </fieldset>
     <fieldset>
@@ -156,7 +156,7 @@
                 <option value="250">250 €</option>
                 <option value="300">300 €</option>
             </select>
-            <div class="help-content" id="selbstHelp"><strong>Selbstbeteiligung</strong><p>Eine evtl. vereinbarte Selbstbeteiligung führt zu Beitragsnachlässen und muss durch Sie nach jedem Schadensfall in vereinbarter Höhe selbst tragen werden.</p></div>
+            <div class="toast&#x20;help-content" id="selbstHelp"><strong>Selbstbeteiligung</strong><p>Eine evtl. vereinbarte Selbstbeteiligung führt zu Beitragsnachlässen und muss durch Sie nach jedem Schadensfall in vereinbarter Höhe selbst tragen werden.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="laufzeit">Laufzeit</label>
@@ -165,7 +165,7 @@
                 <option value="3">3 Jahre</option>
                 <option value="5">5 Jahre</option>
             </select>
-            <div class="help-content" id="laufzeitHelp"><strong>Laufzeit</strong><p>Sollten Sie eine Vertragslaufzeit von 3 Jahren wählen, können Sie bei einigen Versicherern mit einem Beitragsnachlass in Höhe von 10% rechnen.</p></div>
+            <div class="toast&#x20;help-content" id="laufzeitHelp"><strong>Laufzeit</strong><p>Sollten Sie eine Vertragslaufzeit von 3 Jahren wählen, können Sie bei einigen Versicherern mit einem Beitragsnachlass in Höhe von 10% rechnen.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="vorvers5">Bestand in den letzten 5 Jahren eine Vorversicherung?<span class="text-info-required">*</span></label>
@@ -174,7 +174,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="vorvers5Help"><strong>Bestand in den letzten 5 Jahren eine Vorversicherung?</strong><p>Haben Sie eine Vorversicherung, die bislang schadenfrei verlief, können Sie von verschiedenen Versicherern einen Rabatt bis 25% erhalten.</p></div>
+            <div class="toast&#x20;help-content" id="vorvers5Help"><strong>Bestand in den letzten 5 Jahren eine Vorversicherung?</strong><p>Haben Sie eine Vorversicherung, die bislang schadenfrei verlief, können Sie von verschiedenen Versicherern einen Rabatt bis 25% erhalten.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="schaeden5">Schäden in den letzten 5 Jahren<span class="text-info-required">*</span></label>
@@ -186,7 +186,7 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
             </select>
-            <div class="help-content" id="schaeden5Help"><strong>Schäden in den letzten 5 Jahren</strong><p>Bei Schadenfreiheit gibt es bei einigen Tarifen einen Nachlass.</p></div>
+            <div class="toast&#x20;help-content" id="schaeden5Help"><strong>Schäden in den letzten 5 Jahren</strong><p>Bei Schadenfreiheit gibt es bei einigen Tarifen einen Nachlass.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="kombirabatte">Kombirabatte mit berechnen?</label>
@@ -194,7 +194,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="kombirabatteHelp"><strong>Kombirabatte mit berechnen?</strong><p>Welche Verträge haben Sie schon oder haben vor, sie zu versichern? Je mehr Verträge Sie bei einer Gesellschaft haben, umso günstiger wird der Preis.</p></div>
+            <div class="toast&#x20;help-content" id="kombirabatteHelp"><strong>Kombirabatte mit berechnen?</strong><p>Welche Verträge haben Sie schon oder haben vor, sie zu versichern? Je mehr Verträge Sie bei einer Gesellschaft haben, umso günstiger wird der Preis.</p></div>
         </div>
     </fieldset>
     <fieldset class="collapse&#x20;toggle-box-kombirabatte&#x20;discount">
@@ -208,7 +208,7 @@
                     </div>
                 </div>
             </div>
-            <div class="help-content" id="KrPHVHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+            <div class="toast&#x20;help-content" id="KrPHVHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
         </div>
         <div class="col-sm">
             <div class="card&#x20;has-validation">
@@ -219,7 +219,7 @@
                     </div>
                 </div>
             </div>
-            <div class="help-content" id="KrTIEHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+            <div class="toast&#x20;help-content" id="KrTIEHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
         </div>
         <div class="col-sm">
             <div class="card&#x20;has-validation">
@@ -230,7 +230,7 @@
                     </div>
                 </div>
             </div>
-            <div class="help-content" id="KrHUGHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+            <div class="toast&#x20;help-content" id="KrHUGHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
         </div>
         <div class="col-sm">
             <div class="card&#x20;has-validation">
@@ -241,7 +241,7 @@
                     </div>
                 </div>
             </div>
-            <div class="help-content" id="KrOELHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+            <div class="toast&#x20;help-content" id="KrOELHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
         </div>
         <div class="col-sm">
             <div class="card&#x20;has-validation">
@@ -252,7 +252,7 @@
                     </div>
                 </div>
             </div>
-            <div class="help-content" id="KrWGHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+            <div class="toast&#x20;help-content" id="KrWGHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
         </div>
         <div class="col-sm">
             <div class="card&#x20;has-validation">
@@ -263,7 +263,7 @@
                     </div>
                 </div>
             </div>
-            <div class="help-content" id="KrWGGLSHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+            <div class="toast&#x20;help-content" id="KrWGGLSHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
         </div>
         <div class="col-sm">
             <div class="card&#x20;has-validation">
@@ -274,7 +274,7 @@
                     </div>
                 </div>
             </div>
-            <div class="help-content" id="KrHRHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+            <div class="toast&#x20;help-content" id="KrHRHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
         </div>
         <div class="col-sm">
             <div class="card&#x20;has-validation">
@@ -285,7 +285,7 @@
                     </div>
                 </div>
             </div>
-            <div class="help-content" id="KrHRGLSHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+            <div class="toast&#x20;help-content" id="KrHRGLSHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
         </div>
         <div class="col-sm">
             <div class="card&#x20;has-validation">
@@ -296,7 +296,7 @@
                     </div>
                 </div>
             </div>
-            <div class="help-content" id="KrUNFHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+            <div class="toast&#x20;help-content" id="KrUNFHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
         </div>
         <div class="col-sm">
             <div class="card&#x20;has-validation">
@@ -307,7 +307,7 @@
                     </div>
                 </div>
             </div>
-            <div class="help-content" id="KrRSHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
+            <div class="toast&#x20;help-content" id="KrRSHelp"><strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p></div>
         </div>
     </fieldset>
     <fieldset class="col-sm">
@@ -337,7 +337,7 @@
             <a href="&#x23;" data-event-type="click" data-event-category="versicherung" data-event-label="hr" data-event-action="choose&#x20;standard&#x20;options" class="js-standard&#x20;js-gtm-event">Standard</a>
             |
             <a href="&#x23;" data-event-type="click" data-event-category="versicherung" data-event-label="hr" data-event-action="choose&#x20;AK&#x20;recommentations" class="recommendation&#x20;js-recommendation&#x20;js-gtm-event">AK Empfehlung</a>
-            <div class="help-content"><strong>Wählen Sie eine Vorgabe für Ihre Berechnung</strong><p>Die Vorgabe des Arbeitskreis Vermittlerrichlinie (AK-Empfehlung) bietet Ihnen einen empfohlenen Mindestschutz. Heute erfüllen alle wichtigen Tarife diese Vorgaben. Zu Ihrer Sicherheit sollten Sie diese Mindestvorgaben wählen.</p></div>
+            <div class="toast&#x20;help-content"><strong>Wählen Sie eine Vorgabe für Ihre Berechnung</strong><p>Die Vorgabe des Arbeitskreis Vermittlerrichlinie (AK-Empfehlung) bietet Ihnen einen empfohlenen Mindestschutz. Heute erfüllen alle wichtigen Tarife diese Vorgaben. Zu Ihrer Sicherheit sollten Sie diese Mindestvorgaben wählen.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="uver_v">Wünschen Sie einen Unterversicherungsverzicht?</label>
@@ -345,7 +345,7 @@
                 <option value="nein&#x20;-&#x20;Eingabe&#x20;einer&#x20;V-Summe">nein - Eingabe einer V-Summe</option>
                 <option value="ja">ja - empfohlen</option>
             </select>
-            <div class="help-content" id="uver_vHelp"><strong>Wünschen Sie einen Unter­versicherungs­verzicht?</strong><p>Eine Unterversicherung liegt vor, wenn im Schadenfall die vereinbarte Versicherungssumme niedriger ist als der tatsächlich vorhandene Wert Ihres Hausrates.</p><p>Wenn Sie keinen Unter­versicherungs­verzicht vereinbaren (je nach Anbieter 600-700 EUR/qm) kann es im Schadenfall zur Leistungskürzung kommen.</p></div>
+            <div class="toast&#x20;help-content" id="uver_vHelp"><strong>Wünschen Sie einen Unter­versicherungs­verzicht?</strong><p>Eine Unterversicherung liegt vor, wenn im Schadenfall die vereinbarte Versicherungssumme niedriger ist als der tatsächlich vorhandene Wert Ihres Hausrates.</p><p>Wenn Sie keinen Unter­versicherungs­verzicht vereinbaren (je nach Anbieter 600-700 EUR/qm) kann es im Schadenfall zur Leistungskürzung kommen.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="ues_v">Mitversicherung von Überspannungsschäden?</label>
@@ -353,12 +353,12 @@
                 <option value="ja">ja - empfohlen</option>
                 <option value="nein">nein</option>
             </select>
-            <div class="help-content" id="ues_vHelp"><strong>Mitversicherung von Wertsachen? Ohne Angaben sind mind. 20% der VS mitversichert.</strong><p>Meist sind 20-25% der Versicherungssumme für Wertsachen mitversichert. Bargeld, Wertpapiere, Schmuck, Briefmarken, Münzen, Sachen aus Silber/Gold/Platin, Pelze, handgeknüpfte Teppiche, Kunstgegenstände (z.B. Gemälde, Plastiken), Sachen über 100 Jahre alt. Möbelstücke fallen nicht unter Wertsachen!</p></div>
+            <div class="toast&#x20;help-content" id="ues_vHelp"><strong>Mitversicherung von Wertsachen? Ohne Angaben sind mind. 20% der VS mitversichert.</strong><p>Meist sind 20-25% der Versicherungssumme für Wertsachen mitversichert. Bargeld, Wertpapiere, Schmuck, Briefmarken, Münzen, Sachen aus Silber/Gold/Platin, Pelze, handgeknüpfte Teppiche, Kunstgegenstände (z.B. Gemälde, Plastiken), Sachen über 100 Jahre alt. Möbelstücke fallen nicht unter Wertsachen!</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="werts_v">Mitversicherung von Wertsachen? Ohne Angaben sind mind. 20% der VS mitversichert.</label>
             <input type="text" name="werts_v" id="werts_v" class="form-control&#x20;has-legend" aria-describedby="werts_vHelp" value="">
-            <div class="help-content" id="werts_vHelp"><strong>Mitversicherung von Wertsachen? Ohne Angaben sind mind. 20% der VS mitversichert.</strong><p>Meist sind 20-25% der Versicherungssumme für Wertsachen mitversichert. Bargeld, Wertpapiere, Schmuck, Briefmarken, Münzen, Sachen aus Silber/Gold/Platin, Pelze, handgeknüpfte Teppiche, Kunstgegenstände (z.B. Gemälde, Plastiken), Sachen über 100 Jahre alt. Möbelstücke fallen nicht unter Wertsachen!</p></div>
+            <div class="toast&#x20;help-content" id="werts_vHelp"><strong>Mitversicherung von Wertsachen? Ohne Angaben sind mind. 20% der VS mitversichert.</strong><p>Meist sind 20-25% der Versicherungssumme für Wertsachen mitversichert. Bargeld, Wertpapiere, Schmuck, Briefmarken, Münzen, Sachen aus Silber/Gold/Platin, Pelze, handgeknüpfte Teppiche, Kunstgegenstände (z.B. Gemälde, Plastiken), Sachen über 100 Jahre alt. Möbelstücke fallen nicht unter Wertsachen!</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="dieb_v">Diebstahl von Kinderwagen und Krankenfahrstühlen?</label>
@@ -366,7 +366,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="dieb_vHelp"><strong>Diebstahl von Kinderwagen und Krankenfahrstühlen?</strong><p>Einige Tarife schließen diesen Diebstahl bis zu einer begrenzten Summe mit ein.</p></div>
+            <div class="toast&#x20;help-content" id="dieb_vHelp"><strong>Diebstahl von Kinderwagen und Krankenfahrstühlen?</strong><p>Einige Tarife schließen diesen Diebstahl bis zu einer begrenzten Summe mit ein.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="dkfz_v">Diebstahl aus KFZ?</label>
@@ -374,7 +374,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="dkfz_vHelp"><strong>Diebstahl aus KFZ?</strong><p>Ausgeschlossen sind meist elektronische Geräte wie Notebook und Kameras.</p></div>
+            <div class="toast&#x20;help-content" id="dkfz_vHelp"><strong>Diebstahl aus KFZ?</strong><p>Ausgeschlossen sind meist elektronische Geräte wie Notebook und Kameras.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="dkle_v">Diebstahl von Wäsche auf der Leine?</label>
@@ -382,7 +382,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="dkle_vHelp"><strong>Diebstahl von Wäsche auf der Leine?</strong><p>Falls Ihre Wäsche von der Leine gestohlen wird, muss eine polizeiliche Meldung vorliegen, um Ersatz vom Versicherer zu erhalten.</p></div>
+            <div class="toast&#x20;help-content" id="dkle_vHelp"><strong>Diebstahl von Wäsche auf der Leine?</strong><p>Falls Ihre Wäsche von der Leine gestohlen wird, muss eine polizeiliche Meldung vorliegen, um Ersatz vom Versicherer zu erhalten.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="rauch_v">Schäden durch Verpuffung, Rauch und Ruß?</label>
@@ -390,7 +390,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="rauch_vHelp"><strong>Schäden durch Verpuffung, Rauch und Ruß?</strong><p>In einer Heizung, die befeuert wird, entsteht durch sich entwickelnde Gase eine Verpuffung.</p></div>
+            <div class="toast&#x20;help-content" id="rauch_vHelp"><strong>Schäden durch Verpuffung, Rauch und Ruß?</strong><p>In einer Heizung, die befeuert wird, entsteht durch sich entwickelnde Gase eine Verpuffung.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="kfz_v">Schäden durch Anprall von Landfahrzeugen?</label>
@@ -398,7 +398,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="kfz_vHelp"><strong>Schäden durch Anprall von Landfahrzeugen?</strong><p>Fährt ein KFZ gegen Ihr Haus und es entsteht ein Schaden am Hausrat, wird dieser ersetzt.</p></div>
+            <div class="toast&#x20;help-content" id="kfz_vHelp"><strong>Schäden durch Anprall von Landfahrzeugen?</strong><p>Fährt ein KFZ gegen Ihr Haus und es entsteht ein Schaden am Hausrat, wird dieser ersetzt.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="bank_v">Sachen in Bankgewahrsam?</label>
@@ -406,7 +406,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="bank_vHelp"><strong>Sachen in Bankgewahrsam?</strong><p>Wenn z.B. Ihr Schmuck aus dem Banktresor gestohlen wird.</p></div>
+            <div class="toast&#x20;help-content" id="bank_vHelp"><strong>Sachen in Bankgewahrsam?</strong><p>Wenn z.B. Ihr Schmuck aus dem Banktresor gestohlen wird.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="dgar_v">Diebstahl von Gartenmöbeln/Geräten?</label>
@@ -414,7 +414,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="dgar_vHelp"><strong>Diebstahl von Gartenmöbeln/Geräten?</strong><p>Falls Ihre Sitzgruppe gestohlen wird, ist diese hier mitversichert.</p></div>
+            <div class="toast&#x20;help-content" id="dgar_vHelp"><strong>Diebstahl von Gartenmöbeln/Geräten?</strong><p>Falls Ihre Sitzgruppe gestohlen wird, ist diese hier mitversichert.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="was_v">Haben Sie Aquarien oder Wasserbetten (Wasserschäden)?</label>
@@ -422,7 +422,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="was_vHelp"><strong>Haben Sie Aquarien oder Wasserbetten (Wasserschäden)?</strong><p>In der Regel werden nur die Folgen des Wasserschadens ersetzt, nicht das Wasserbett selbst.</p></div>
+            <div class="toast&#x20;help-content" id="was_vHelp"><strong>Haben Sie Aquarien oder Wasserbetten (Wasserschäden)?</strong><p>In der Regel werden nur die Folgen des Wasserschadens ersetzt, nicht das Wasserbett selbst.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="seng_v">Sollen Sengschäden mitversichert werden?</label>
@@ -430,7 +430,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="seng_vHelp"><strong>Sollen Sengschäden mitversichert werden?</strong><p>Darunter versteht man Schäden, die ohne Feuer entstehen, sondern nur durch Hitzeeinwirkung (z.B. Bügeleisen).</p></div>
+            <div class="toast&#x20;help-content" id="seng_vHelp"><strong>Sollen Sengschäden mitversichert werden?</strong><p>Darunter versteht man Schäden, die ohne Feuer entstehen, sondern nur durch Hitzeeinwirkung (z.B. Bügeleisen).</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="waver_v">Soll Wasserverlust infolge Rohrbruch mitversichert werden?</label>
@@ -438,7 +438,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="waver_vHelp"><strong>Soll Wasserverlust infolge Rohrbruch mitversichert werden?</strong><p>Läuft längere Zeit Wasser weg, wird auch das bis zur Höchstgrenze erstattet.</p></div>
+            <div class="toast&#x20;help-content" id="waver_vHelp"><strong>Soll Wasserverlust infolge Rohrbruch mitversichert werden?</strong><p>Läuft längere Zeit Wasser weg, wird auch das bis zur Höchstgrenze erstattet.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="hot_v">Hotelkosten im Schadenfall?</label>
@@ -446,7 +446,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="hot_vHelp"><strong>Hotelkosten im Schadenfall?</strong><p>Wird Ihre Wohnung z.B. nach einem Wasserschaden unbewohnbar, werden Hotelkosten ersetzt.</p></div>
+            <div class="toast&#x20;help-content" id="hot_vHelp"><strong>Hotelkosten im Schadenfall?</strong><p>Wird Ihre Wohnung z.B. nach einem Wasserschaden unbewohnbar, werden Hotelkosten ersetzt.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="reis_v">Rückreisekosten aus dem Urlaub?</label>
@@ -454,7 +454,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="reis_vHelp"><strong>Rückreisekosten aus dem Urlaub?</strong><p>Wenn ein erheblicher Versicherungsfall eintritt, werden Fahrtmehrkosten für die Rückreise aus dem Urlaub ersetzt.</p></div>
+            <div class="toast&#x20;help-content" id="reis_vHelp"><strong>Rückreisekosten aus dem Urlaub?</strong><p>Wenn ein erheblicher Versicherungsfall eintritt, werden Fahrtmehrkosten für die Rückreise aus dem Urlaub ersetzt.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="arb_v">Sachen im häuslichen Arbeitszimmer?</label>
@@ -462,7 +462,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="arb_vHelp"><strong>Sachen im häuslichen Arbeitszimmer?</strong><p>Üben Sie Ihr Gewerbe aus Ihrer Wohnung aus, sind die gewerblichen Sachen bis zu einer Höchstgrenze bei diesem Einschluss mitversichert.</p></div>
+            <div class="toast&#x20;help-content" id="arb_vHelp"><strong>Sachen im häuslichen Arbeitszimmer?</strong><p>Üben Sie Ihr Gewerbe aus Ihrer Wohnung aus, sind die gewerblichen Sachen bis zu einer Höchstgrenze bei diesem Einschluss mitversichert.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="evors_v">Erweiterte Vorsorge</label>
@@ -470,7 +470,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="evors_vHelp"><strong>Erweiterte Vorsorge</strong><p>Kein Deckungsnachteil gegenüber Mitbewerbern im Schadenfall. Im Versicherungsfall gelten Risiken, die im Rahmen des vereinbarten Vertrages nicht eingeschlossen sind, jedoch durch einen leistungsstärkeren, allgemein und für jedermann zugänglichen Tarif zur Hausratversicherung zum Zeitpunkt des Schadeneintritts eingeschlossen wären, automatisch entsprechend den dortigen Regelungen mitversichert.</p></div>
+            <div class="toast&#x20;help-content" id="evors_vHelp"><strong>Erweiterte Vorsorge</strong><p>Kein Deckungsnachteil gegenüber Mitbewerbern im Schadenfall. Im Versicherungsfall gelten Risiken, die im Rahmen des vereinbarten Vertrages nicht eingeschlossen sind, jedoch durch einen leistungsstärkeren, allgemein und für jedermann zugänglichen Tarif zur Hausratversicherung zum Zeitpunkt des Schadeneintritts eingeschlossen wären, automatisch entsprechend den dortigen Regelungen mitversichert.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="all_v">Wünschen Sie für Ihren Hausrat eine Allgefahrendeckung?</label>
@@ -478,7 +478,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="all_vHelp"><strong>Wünschen Sie für Ihren Hausrat eine Allgefahrendeckung?</strong><p>Bei der Allgefahrendeckung handelt es sich um einen weitreichenden, über die Leistungen einer klassischen Versicherung hinausgehenden Versicherungsschutz. Auf die gewohnte Aufzählung von versicherten Gefahren, z. B. Feuer, Leitungswasser oder Sturm, wird verzichtet: Schäden - Zerstörung, Beschädigung und Abhandenkommen von versicherten Gegenständen - gelten als Folge aller Gefahren als versichert, soweit diese nicht explizit vom Versicherungsschutz ausgenommen sind.</p></div>
+            <div class="toast&#x20;help-content" id="all_vHelp"><strong>Wünschen Sie für Ihren Hausrat eine Allgefahrendeckung?</strong><p>Bei der Allgefahrendeckung handelt es sich um einen weitreichenden, über die Leistungen einer klassischen Versicherung hinausgehenden Versicherungsschutz. Auf die gewohnte Aufzählung von versicherten Gefahren, z. B. Feuer, Leitungswasser oder Sturm, wird verzichtet: Schäden - Zerstörung, Beschädigung und Abhandenkommen von versicherten Gegenständen - gelten als Folge aller Gefahren als versichert, soweit diese nicht explizit vom Versicherungsschutz ausgenommen sind.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="sich_v">Sind an allen Haus- und sonstigen Eingangstüren Sicherheitsschlösser mit von außen nicht abschraubbaren, bündig montierten Sicherheitsbeschlägen vorhanden?</label>
@@ -486,7 +486,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="sich_vHelp"><strong>Sind an allen Haus- und sonstigen Eingangstüren Sicherheitsschlösser mit von außen nicht abschraubbaren, bündig montierten Sicherheitsbeschlägen vorhanden?</strong><p>Im Falle eines Einbruchdiebstahls wird überprüft, ob die Türen diesen Ansprüchen gerecht werden.</p></div>
+            <div class="toast&#x20;help-content" id="sich_vHelp"><strong>Sind an allen Haus- und sonstigen Eingangstüren Sicherheitsschlösser mit von außen nicht abschraubbaren, bündig montierten Sicherheitsbeschlägen vorhanden?</strong><p>Im Falle eines Einbruchdiebstahls wird überprüft, ob die Türen diesen Ansprüchen gerecht werden.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="meld_v">Ist eine vom VdS (Verband der Sachversicherer) anerkannte Einbruchmeldeanlage vorhanden?</label>
@@ -494,7 +494,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="meld_vHelp"><strong>Ist eine vom VdS (Verband der Sachversicherer) anerkannte Einbruchmeldeanlage vorhanden?</strong><p>Diese Anforderung ist nützlich bei hohen Versicherungssummen oder besonderen Risiken. Im Normalfall spielt eine Meldeanlage im Schadensfall keine Rolle.</p></div>
+            <div class="toast&#x20;help-content" id="meld_vHelp"><strong>Ist eine vom VdS (Verband der Sachversicherer) anerkannte Einbruchmeldeanlage vorhanden?</strong><p>Diese Anforderung ist nützlich bei hohen Versicherungssummen oder besonderen Risiken. Im Normalfall spielt eine Meldeanlage im Schadensfall keine Rolle.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="bewo_v">Ist die Wohnung länger als 60 Tage ununterbrochen unbewohnt?</label>
@@ -502,7 +502,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="bewo_vHelp"><strong>Ist die Wohnung länger als 60 Tage ununterbrochen unbewohnt?</strong><p>Bei einigen Gesellschaften erlischt der Versicherungsschutz, wenn die Wohnung länger als 60 Tage leer steht. Bewohnt heißt, dass eine erwachsene Person in der Wohnung übernachtet und sich dort im Normalfall aufhält.</p></div>
+            <div class="toast&#x20;help-content" id="bewo_vHelp"><strong>Ist die Wohnung länger als 60 Tage ununterbrochen unbewohnt?</strong><p>Bei einigen Gesellschaften erlischt der Versicherungsschutz, wenn die Wohnung länger als 60 Tage leer steht. Bewohnt heißt, dass eine erwachsene Person in der Wohnung übernachtet und sich dort im Normalfall aufhält.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="tres_v">Ist ein mehrwandiger Stahlschrank mit einem Gewicht von &gt; 200 kg oder ein eingemauerter Tresor mit mehrwandiger Tür vorhanden?</label>
@@ -510,7 +510,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="tres_vHelp"><strong>Ist ein mehrwandiger Stahlschrank mit einem Gewicht von > 200 kg oder ein eingemauerter Tresor mit mehrwandiger Tür vorhanden?</strong><p>Ist im Normalfall uninteressant. Bei besonderen Risiken muss das gesondert behandelt werden.</p></div>
+            <div class="toast&#x20;help-content" id="tres_vHelp"><strong>Ist ein mehrwandiger Stahlschrank mit einem Gewicht von > 200 kg oder ein eingemauerter Tresor mit mehrwandiger Tür vorhanden?</strong><p>Ist im Normalfall uninteressant. Bei besonderen Risiken muss das gesondert behandelt werden.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="feu_v">Gibt es auf dem Versicherungsgrundstück oder in einer Entfernung von unter 10 m Betriebe / Lager, von denen eine erhöhte Feuergefahr ausgeht?</label>
@@ -518,7 +518,7 @@
                 <option value="nein">nein</option>
                 <option value="ja">ja</option>
             </select>
-            <div class="help-content" id="feu_vHelp"><strong>Gibt es auf dem Versicherungsgrundstück oder in einer Entfernung von unter 10 m Betriebe / Lager, von denen eine erhöhte Feuergefahr ausgeht?</strong><p>Es ist möglich, dass Versicherer bei erhöhtem Risiko den Vertrag ablehnen.</p></div>
+            <div class="toast&#x20;help-content" id="feu_vHelp"><strong>Gibt es auf dem Versicherungsgrundstück oder in einer Entfernung von unter 10 m Betriebe / Lager, von denen eine erhöhte Feuergefahr ausgeht?</strong><p>Es ist möglich, dass Versicherer bei erhöhtem Risiko den Vertrag ablehnen.</p></div>
         </div>
     </fieldset>
     <div class="col-sm">

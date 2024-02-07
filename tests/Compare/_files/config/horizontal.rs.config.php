@@ -50,7 +50,7 @@ return [
                     'use_hidden_element' => true,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'help_content' => 'Help-Content',
+                    'help_content' => ['Help-Content'],
                     'as-card' => true,
                 ],
                 'attributes' => [
@@ -73,7 +73,7 @@ return [
                     'use_hidden_element' => true,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'help_content' => 'Help-Content',
+                    'help_content' => ['content' => ''],
                     'as-card' => true,
                 ],
                 'attributes' => [
@@ -91,7 +91,7 @@ return [
                     'use_hidden_element' => true,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'help_content' => 'Help-Content',
+                    'help_content' => ['content' => 'Help-Content'],
                     'as-card' => true,
                 ],
                 'attributes' => [
@@ -109,7 +109,7 @@ return [
                     'use_hidden_element' => true,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'help_content' => 'Help-Content',
+                    'help_content' => ['content' => 'Help-Content', 'header' => 'Help Title'],
                     'as-card' => true,
                 ],
                 'attributes' => [

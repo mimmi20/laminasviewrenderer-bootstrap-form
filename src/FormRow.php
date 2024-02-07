@@ -815,9 +815,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     private function renderFormHelp(ElementInterface $element, string $indent): string
     {
         $helpContent = $element->getOption('help_content');
-        $attributes  = $this->mergeAttributes($element, 'help_attributes', []);
+        $attributes  = $this->mergeAttributes($element, 'help_attributes', ['toast']);
 
-        assert(is_string($helpContent));
+        assert(is_string($helpContent) || is_array($helpContent));
 
         if ($element->hasAttribute('id')) {
             $attributes['id'] = $element->getAttribute('id') . 'Help';
@@ -833,7 +833,39 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
         $htmlHelper = $this->getHtmlHelper();
 
-        return PHP_EOL . $indent . $htmlHelper->render('div', $attributes, $helpContent);
+        if (is_string($helpContent)) {
+            return PHP_EOL . $indent . $htmlHelper->render('div', $attributes, $helpContent);
+        }
+
+        if (
+            !array_key_exists('content', $helpContent)
+            || !is_string($helpContent['content'])
+            || $helpContent['content'] === ''
+        ) {
+            return '';
+        }
+
+        $lf1Indent = $indent . $this->getWhitespace(4);
+
+        $content = $htmlHelper->render('div', ['class' => 'toast-body'], $helpContent['content']);
+        $header  = '';
+
+        if (
+            array_key_exists('header', $helpContent)
+            && is_string($helpContent['header'])
+            && $helpContent['header'] !== ''
+        ) {
+            $header = $htmlHelper->render('div', ['class' => 'toast-header'], $helpContent['header']);
+            $header = $lf1Indent . $header . PHP_EOL;
+        }
+
+        $content = $htmlHelper->render(
+            'div',
+            $attributes,
+            PHP_EOL . $header . $lf1Indent . $content . PHP_EOL . $indent,
+        );
+
+        return PHP_EOL . $indent . $content;
     }
 
     /** @throws void */
