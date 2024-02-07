@@ -593,7 +593,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
                 $elementString  = $indent . $htmlHelper->render(
                     'div',
-                    ['class' => 'form-floating'],
+                    ['class' => 'form-floating flex-fill'],
                     $elementString,
                 );
                 $elementString .= $helpContent;
@@ -766,7 +766,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $rendered .= $element->getOption('in-group') ? $lf1Indent : $indent;
             $rendered  = $htmlHelper->render(
                 'div',
-                ['class' => 'form-floating'],
+                ['class' => 'form-floating flex-fill'],
                 $rendered,
             );
 
