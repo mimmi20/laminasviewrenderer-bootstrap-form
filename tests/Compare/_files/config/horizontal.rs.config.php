@@ -50,7 +50,7 @@ return [
                     'use_hidden_element' => true,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'help_content' => 'Help-Content',
+                    'help_content' => ['Help-Content'],
                     'as-card' => true,
                 ],
                 'attributes' => [
@@ -73,7 +73,7 @@ return [
                     'use_hidden_element' => true,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'help_content' => 'Help-Content',
+                    'help_content' => ['content' => ''],
                     'as-card' => true,
                 ],
                 'attributes' => [
@@ -91,7 +91,7 @@ return [
                     'use_hidden_element' => true,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'help_content' => 'Help-Content',
+                    'help_content' => ['content' => 'Help-Content'],
                     'as-card' => true,
                 ],
                 'attributes' => [
@@ -109,7 +109,7 @@ return [
                     'use_hidden_element' => true,
                     'checked_value' => '1',
                     'unchecked_value' => '0',
-                    'help_content' => 'Help-Content',
+                    'help_content' => ['content' => 'Help-Content', 'header' => 'Help Title'],
                     'as-card' => true,
                 ],
                 'attributes' => [
@@ -162,11 +162,47 @@ return [
         ],
         [
             'spec' => [
+                'type' => Select::class,
+                'name' => 'vermiet2',
+                'options' => [
+                    'label' => '',
+                    'help_content' => 'Help-Content',
+
+                    'value_options' => [
+                        'nein' => 'nein',
+                        '1' => '1 vermietete WE',
+                        '2' => '2 vermietete WEs',
+                        '3' => '3 vermietete WEs',
+                        '4' => '4 vermietete WEs',
+                        '5' => '5 vermietete WEs',
+                        '6' => '6 vermietete WEs',
+                    ],
+                ],
+                'attributes' => ['id' => 'vermiet2'],
+            ],
+        ],
+        [
+            'spec' => [
                 'type' => Text::class,
                 'name' => 'OB1',
                 'options' => [
                     'label' => 'WE 1 Jahresbruttomiete EUR',
                     'help_content' => 'Help-Content',
+                    'in-group' => true,
+                    'group-prefixes' => [
+                        [],
+                        ['content' => null],
+                        ['content' => ''],
+                        ['content' => 'ghi'],
+                        ['content' => 'def', 'attributes' => ['class' => 'abc']],
+                    ],
+                    'group-suffixes' => [
+                        [],
+                        ['content' => null],
+                        ['content' => ''],
+                        ['content' => 'EUR'],
+                        ['content' => '€', 'attributes' => ['class' => 'abc']],
+                    ],
                 ],
                 'attributes' => [
                     'id' => 'OB1',
@@ -184,6 +220,21 @@ return [
                 'options' => [
                     'label' => 'WE 2 Jahresbruttomiete EUR',
                     'help_content' => 'Help-Content',
+                    'in-group' => true,
+                    'group-prefixes' => [
+                        [],
+                        ['content' => null],
+                        ['content' => ''],
+                        ['content' => 'ghi'],
+                        ['content' => 'def', 'attributes' => ['class' => 'abc']],
+                    ],
+                    'group-suffixes' => [
+                        [],
+                        ['content' => null],
+                        ['content' => ''],
+                        ['content' => 'EUR'],
+                        ['content' => '€', 'attributes' => ['class' => 'abc']],
+                    ],
                 ],
                 'attributes' => [
                     'id' => 'OB2',
@@ -201,6 +252,14 @@ return [
                 'options' => [
                     'label' => 'WE 3 Jahresbruttomiete EUR',
                     'help_content' => 'Help-Content',
+                    'in-group' => true,
+                    'group-prefixes' => [
+                        [],
+                        ['content' => null],
+                        ['content' => ''],
+                        ['content' => 'ghi'],
+                        ['content' => 'def', 'attributes' => ['class' => 'abc']],
+                    ],
                 ],
                 'attributes' => [
                     'id' => 'OB3',
@@ -218,6 +277,14 @@ return [
                 'options' => [
                     'label' => 'WE 4 Jahresbruttomiete EUR',
                     'help_content' => 'Help-Content',
+                    'in-group' => true,
+                    'group-suffixes' => [
+                        [],
+                        ['content' => null],
+                        ['content' => ''],
+                        ['content' => 'EUR'],
+                        ['content' => '€', 'attributes' => ['class' => 'abc']],
+                    ],
                 ],
                 'attributes' => [
                     'id' => 'OB4',

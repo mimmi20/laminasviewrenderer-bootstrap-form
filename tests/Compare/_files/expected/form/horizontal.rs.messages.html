@@ -13,18 +13,18 @@
                         <input type="radio" name="zusatzfragen" aria-describedby="xxx&#x20;zusatzfragenFeedback&#x20;messageInvalidId&#x20;zusatzfragenHelp" required="required" class="form-check-input&#x20;is-invalid" id="zusatzfragen_ja" value="ja">
                         <label class="form-check-label" for="zusatzfragen_ja">Ich möchte weitere Angaben zum gewünschten Versicherungsschutz machen. Es werden dann nur Tarife angezeigt, welche die Vorgaben erfüllen.</label>
                     </div>
+                    <div class="invalid-feedback" id="zusatzfragenFeedback">
+                        <ul>
+                            <li>is required</li>
+                        </ul>
+                    </div>
+                    <div class="invalid-feedback" id="messageInvalidId">nicht in Ordnung</div>
+                    <div class="invalid-max-feedback">zu jung</div>
+                    <div class="valid-feedback">in Ordnung</div>
                 </div>
             </div>
-            <div class="invalid-feedback" id="zusatzfragenFeedback">
-                <ul>
-                    <li>is required</li>
-                </ul>
-            </div>
-            <div class="invalid-feedback" id="messageInvalidId">nicht in Ordnung</div>
-            <div class="invalid-max-feedback">zu jung</div>
-            <div class="valid-feedback">in Ordnung</div>
         </div>
-        <div class="col-2&#x20;help-content" id="zusatzfragenHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="zusatzfragenHelp">Help-Content</div>
     </fieldset>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -36,15 +36,14 @@
                         <input type="checkbox" name="tarif_privat" id="tarif_privat" class="form-check-input&#x20;&#x20;area-selector&#x20;js-tarif-privat&#x20;is-invalid" data-toggle="collapse" data-target=".collapse-more-questions" aria-expanded="true" aria-controls="collapse-unterhalt&#x20;collapse-spezialstraf" role="button" aria-describedby="tarif_privatFeedback&#x20;tarif_privatHelp" value="1">
                         <label for="tarif_privat" class="form-check-label">Privater Bereich</label>
                     </div>
+                    <div class="invalid-feedback" id="tarif_privatFeedback">
+                        <ul>
+                            <li>not checked yet</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="invalid-feedback" id="tarif_privatFeedback">
-                <ul>
-                    <li>not checked yet</li>
-                </ul>
-            </div>
         </div>
-        <div class="col-2&#x20;help-content" id="tarif_privatHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -59,7 +58,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="tarif_berufHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -74,7 +72,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="tarif_verkehr_familieHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="tarif_verkehr_familieHelp">
+            <div class="toast-body">Help-Content</div>
+        </div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -89,7 +89,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="tarif_mieteHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="tarif_mieteHelp">
+            <div class="toast-header">Help Title</div>
+            <div class="toast-body">Help-Content</div>
+        </div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -104,7 +107,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="tarif_verkehrHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="tarif_verkehrHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="vermiet">Vermietete Wohneinheiten<span class="text-info-required"><sup>*</sup></span></label>
@@ -119,49 +122,84 @@
                 <option value="6">6 vermietete WEs</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="vermietHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="vermietHelp">Help-Content</div>
+    </div>
+    <div class="row&#x20;my-2">
+        <label class="col-form-label&#x20;col-2" for="vermiet2"><span class="text-info-required"><sup>*</sup></span></label>
+        <div class="col-8">
+            <select name="vermiet2" id="vermiet2" required="required" aria-describedby="vermiet2Help" class="form-select">
+                <option value="nein">nein</option>
+                <option value="1">1 vermietete WE</option>
+                <option value="2">2 vermietete WEs</option>
+                <option value="3">3 vermietete WEs</option>
+                <option value="4">4 vermietete WEs</option>
+                <option value="5">5 vermietete WEs</option>
+                <option value="6">6 vermietete WEs</option>
+            </select>
+        </div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="vermiet2Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB1">WE 1 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <input type="text" name="OB1" id="OB1" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB1Help" value="" class="form-control">
+            <div class="input-group&#x20;has-validation&#x20;required">
+                <div>ghi</div>
+                <div class="abc">def</div>
+                <input type="text" name="OB1" id="OB1" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB1Help" value="" class="form-control">
+                <div>EUR</div>
+                <div class="abc">€</div>
+            </div>
         </div>
-        <div class="col-2&#x20;help-content" id="OB1Help">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="OB1Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB2">WE 2 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <input type="text" name="OB2" id="OB2" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB2Help" value="" class="form-control">
+            <div class="input-group&#x20;has-validation&#x20;required">
+                <div>ghi</div>
+                <div class="abc">def</div>
+                <input type="text" name="OB2" id="OB2" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB2Help" value="" class="form-control">
+                <div>EUR</div>
+                <div class="abc">€</div>
+            </div>
         </div>
-        <div class="col-2&#x20;help-content" id="OB2Help">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="OB2Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB3">WE 3 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <input type="text" name="OB3" id="OB3" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB3Help" value="" class="form-control">
+            <div class="input-group&#x20;has-validation&#x20;required">
+                <div>ghi</div>
+                <div class="abc">def</div>
+                <input type="text" name="OB3" id="OB3" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB3Help" value="" class="form-control">
+            </div>
         </div>
-        <div class="col-2&#x20;help-content" id="OB3Help">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="OB3Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB4">WE 4 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
-            <input type="text" name="OB4" id="OB4" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB4Help" value="" class="form-control">
+            <div class="input-group&#x20;has-validation&#x20;required">
+                <input type="text" name="OB4" id="OB4" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB4Help" value="" class="form-control">
+                <div>EUR</div>
+                <div class="abc">€</div>
+            </div>
         </div>
-        <div class="col-2&#x20;help-content" id="OB4Help">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="OB4Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB5">WE 5 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
             <input type="text" name="OB5" id="OB5" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB5Help" value="" class="form-control">
         </div>
-        <div class="col-2&#x20;help-content" id="OB5Help">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="OB5Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="OB6">WE 6 Jahresbruttomiete EUR<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
             <input type="text" name="OB6" id="OB6" required="required" title="Bitte&#x20;geben&#x20;Sie&#x20;die&#x20;Jahresmiete&#x20;an&#x21;" pattern="&#x5E;&#x5C;d&#x7B;1,&#x7D;&#x24;" aria-describedby="OB6Help" value="" class="form-control">
         </div>
-        <div class="col-2&#x20;help-content" id="OB6Help">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="OB6Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="cyber">Erweiterter Internet-Schutz<span class="text-info-required"><sup>*</sup></span></label>
@@ -171,14 +209,14 @@
                 <option value="ja">ja</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="cyberHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="cyberHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="plz">PLZ des Antragsstellers</label>
         <div class="col-8">
             <input type="text" name="plz" id="plz" class="form-control&#x20;&#x20;-short" placeholder="&#x20;" aria-describedby="plzHelp" value="">
         </div>
-        <div class="col-2&#x20;help-content" id="plzHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="plzHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="famstand">Familiäre Verhältnisse<span class="text-info-required"><sup>*</sup></span></label>
@@ -190,7 +228,7 @@
                 <option value="Alleinerziehend">Alleinerziehend</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="famstandHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="famstandHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="gebdatum">Geburtsdatum des Versicherungsnehmers<span class="text-info-required"><sup>*</sup></span></label>
@@ -205,14 +243,14 @@
             <div class="invalid-max-feedback">zu jung</div>
             <div class="valid-feedback">in Ordnung</div>
         </div>
-        <div class="col-2&#x20;help-content" id="gebdatumHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="gebdatumHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="geburtsdatumPartner">Geburtsdatum des Ehe- oder Lebenspartners<span class="text-info-required"><sup>*</sup></span></label>
         <div class="col-8">
             <input type="text" name="geburtsdatumPartner" id="geburtsdatumPartner" class="form-control&#x20;&#x20;datepicker&#x20;js-datepicker&#x20;form-success" placeholder="TT.MM.JJJJ" required="required" data-date-format="de" data-date-format-message="Bitte&#x20;geben&#x20;Sie&#x20;ein&#x20;korrektes&#x20;Geburtsdatum&#x20;an&#x21;" data-min-age="18y" data-min-age-message="Sie&#x20;sind&#x20;leider&#x20;zu&#x20;jung,&#x20;um&#x20;eine&#x20;Versicherung&#x20;abzuschlie&#xDF;en." aria-describedby="geburtsdatumPartnerHelp" value="">
         </div>
-        <div class="col-2&#x20;help-content" id="geburtsdatumPartnerHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="geburtsdatumPartnerHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="anag">Aktuelle Tätigkeit<span class="text-info-required"><sup>*</sup></span></label>
@@ -231,7 +269,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="anagHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="anagHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="umsatzselbst">Jahresumsatz<span class="text-info-required"><sup>*</sup></span></label>
@@ -244,7 +282,7 @@
                 <option value="9999999">ab 50.001 EUR</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="umsatzselbstHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="umsatzselbstHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="laufzeit">Laufzeit<span class="text-info-required"><sup>*</sup></span></label>
@@ -254,7 +292,7 @@
                 <option value="3">3 Jahre</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="laufzeitHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="laufzeitHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="vorvers5">Wie lange bestehen oder bestanden für den Antragsteller und/oder den mitversicherten Lebenspartner Vorversicherungen?<span class="text-info-required"><sup>*</sup></span></label>
@@ -269,7 +307,7 @@
                 <option value="mind.&#x20;5&#x20;Jahre">mind. 5 Jahre</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="vorvers5Help">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="vorvers5Help">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="wannschaden">Wann wurde der letzte Schaden gemeldet?<span class="text-info-required"><sup>*</sup></span></label>
@@ -283,7 +321,7 @@
                 <option value="vor&#x20;mehr&#x20;als&#x20;4&#x20;Jahren">vor mehr als 4 Jahren</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="wannschadenHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="wannschadenHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="kombirabatte">Kombirabatte mit berechnen?<span class="text-info-required"><sup>*</sup></span></label>
@@ -293,7 +331,7 @@
                 <option value="ja" id="kr_j">ja</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="kombirabatteHelp"><strong>Kombirabatte mit berechnen?</strong><p>Welche Verträge haben Sie schon oder haben vor, sie zu versichern? Je mehr Verträge Sie bei einer Gesellschaft haben, umso günstiger wird der Preis.</p></div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="kombirabatteHelp"><strong>Kombirabatte mit berechnen?</strong><p>Welche Verträge haben Sie schon oder haben vor, sie zu versichern? Je mehr Verträge Sie bei einer Gesellschaft haben, umso günstiger wird der Preis.</p></div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -304,18 +342,18 @@
                         <input type="checkbox" name="KrPHV" id="KrPHV" class="form-check-input&#x20;is-invalid" aria-describedby="KrPHVFeedback&#x20;KrPHVHelp" value="1">
                         <label for="KrPHV" class="form-check-label">Privathaftpflicht</label>
                     </div>
+                    <div class="invalid-feedback" id="KrPHVFeedback">
+                        <ul>
+                            <li>add some more</li>
+                        </ul>
+                    </div>
+                    <div class="invalid-feedback">nicht in Ordnung</div>
+                    <div class="invalid-max-feedback">zu jung</div>
+                    <div class="valid-feedback">in Ordnung</div>
                 </div>
             </div>
-            <div class="invalid-feedback" id="KrPHVFeedback">
-                <ul>
-                    <li>add some more</li>
-                </ul>
-            </div>
-            <div class="invalid-feedback">nicht in Ordnung</div>
-            <div class="invalid-max-feedback">zu jung</div>
-            <div class="valid-feedback">in Ordnung</div>
         </div>
-        <div class="col-2&#x20;help-content" id="KrPHVHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="KrPHVHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -329,7 +367,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="KrTIEHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="KrTIEHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -343,7 +381,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="KrHUGHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="KrHUGHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -357,7 +395,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="KrOELHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="KrOELHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -371,7 +409,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="KrWGHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="KrWGHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -385,7 +423,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="KrWGGLSHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="KrWGGLSHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -399,7 +437,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="KrHRHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="KrHRHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -413,7 +451,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="KrHRGLSHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="KrHRGLSHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -427,7 +465,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="KrUNFHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="KrUNFHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -441,7 +479,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="KrRSHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="KrRSHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="vs_v">Deckungssumme?<span class="text-info-required"><sup>*</sup></span></label>
@@ -453,7 +491,7 @@
                 <option value="unbegrenzt">unbegrenzt</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="vs_vHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="vs_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="kaution_v">Strafkautionen?<span class="text-info-required"><sup>*</sup></span></label>
@@ -464,7 +502,7 @@
                 <option value="100001">mehr als 100.000 EUR</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="kaution_vHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="kaution_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="folge_v">Schadensregulierung nach Folgeereignistheorie<span class="text-info-required"><sup>*</sup></span></label>
@@ -474,7 +512,7 @@
                 <option value="ja">ja (AK Empfehlung)</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="folge_vHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="folge_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="ehestreit_v">Rechtsschutz in Ehesachen (nur wenn verheiratet)<span class="text-info-required"><sup>*</sup></span></label>
@@ -486,7 +524,7 @@
                 <option value="gerichtlich">Übernahme gerichtliche Kosten</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="ehestreit_vHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="ehestreit_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="unterhalt_v">Rechtsschutz für Unterhalt<span class="text-info-required"><sup>*</sup></span></label>
@@ -498,7 +536,7 @@
                 <option value="gerichtlich">Übernahme gerichtliche Kosten</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="unterhalt_vHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="unterhalt_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="spezialstraf_v">Einschluss Spezial-Straf-Rechtschutz<span class="text-info-required"><sup>*</sup></span></label>
@@ -508,7 +546,7 @@
                 <option value="ja">ja</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="spezialstraf_vHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="spezialstraf_vHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <label class="col-form-label&#x20;col-2" for="zahlweise">Zahlweise</label>
@@ -520,7 +558,7 @@
                 <option value="12">monatlich</option>
             </select>
         </div>
-        <div class="col-2&#x20;help-content" id="zahlweiseHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="zahlweiseHelp">Help-Content</div>
     </div>
     <div class="row&#x20;my-2">
         <div class="col-form-label&#x20;col-2"></div>
@@ -535,7 +573,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2&#x20;help-content" id="mrmoErstinfoHelp">Help-Content</div>
+        <div class="toast&#x20;col-2&#x20;help-content" id="mrmoErstinfoHelp">Help-Content</div>
     </div>
     <input type="hidden" name="selbstMin" id="selbstMin" value="">
     <input type="hidden" name="selbstMax" id="selbstMax" value="">

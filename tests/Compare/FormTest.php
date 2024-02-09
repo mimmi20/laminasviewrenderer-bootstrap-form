@@ -166,6 +166,28 @@ final class FormTest extends AbstractTestCase
                 'values' => [],
                 'validate' => false,
             ],
+            'vertical.hr.in-group' => [
+                'config' => 'vertical.hr.in-group.config.php',
+                'template' => 'vertical.hr.in-group.html',
+                'indent' => '',
+                'messages' => [
+                    'zusatzfragen' => ['is required'],
+                    'KrPHV' => ['add some more'],
+                ],
+                'values' => [],
+                'validate' => false,
+            ],
+            'vertical.hr.floating.in-group' => [
+                'config' => 'vertical.hr.floating.in-group.config.php',
+                'template' => 'vertical.hr.floating.in-group.html',
+                'indent' => '',
+                'messages' => [
+                    'zusatzfragen' => ['is required'],
+                    'KrPHV' => ['add some more'],
+                ],
+                'values' => [],
+                'validate' => false,
+            ],
             'horizontal.hr.card' => [
                 'config' => 'horizontal.hr.card.config.php',
                 'template' => 'horizontal.hr.card.html',
@@ -211,6 +233,17 @@ final class FormTest extends AbstractTestCase
                     'feu_v' => 'ja',
                 ],
                 'validate' => true,
+            ],
+            'horizontal.hr.in-group' => [
+                'config' => 'horizontal.hr.in-group.config.php',
+                'template' => 'horizontal.hr.in-group.html',
+                'indent' => '',
+                'messages' => [
+                    'zusatzfragen' => ['is required'],
+                    'KrPHV' => ['add some more'],
+                ],
+                'values' => [],
+                'validate' => false,
             ],
             'vertical.hr.card' => [
                 'config' => 'vertical.hr.card.config.php',

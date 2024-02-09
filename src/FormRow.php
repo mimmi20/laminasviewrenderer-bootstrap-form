@@ -30,6 +30,7 @@ use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Laminas\InputFilter\InputFilterInterface;
 use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\InputFilter\InputInterface;
+use stdClass;
 
 use function array_key_exists;
 use function array_merge;
@@ -279,6 +280,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $lf3Indent  = $lf2Indent . $this->getWhitespace(4);
             $lf4Indent  = $lf3Indent . $this->getWhitespace(4);
 
+            $asCard        = $element->getOption('as-card');
+            $asFormControl = $element->getOption('as-form-control');
+
             $legend = $lf1Indent . $htmlHelper->render('legend', $labelColAttributes, $label) . PHP_EOL;
 
             $errorContent   = '';
@@ -286,11 +290,17 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $messageContent = '';
 
             if ($this->renderErrors) {
-                $errorContent = $this->renderFormErrors($element, $lf2Indent);
+                $errorContent = $this->renderFormErrors(
+                    $element,
+                    $asCard || $asFormControl ? $lf4Indent : $lf2Indent,
+                );
             }
 
             if ($element->getOption('messages')) {
-                $messageContent = $this->renderMessages($element, $lf2Indent);
+                $messageContent = $this->renderMessages(
+                    $element,
+                    $asCard || $asFormControl ? $lf4Indent : $lf2Indent,
+                );
             }
 
             if ($element->getOption('help_content')) {
@@ -301,7 +311,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 $elementHelper->setIndent($element->getOption('as-card') ? $lf4Indent : $lf3Indent);
             }
 
-            $elementString = $elementHelper->render($element);
+            $elementString  = $elementHelper->render($element);
+            $elementString .= $errorContent;
+            $elementString .= $messageContent;
 
             $elementString = $this->wrapInContainer(
                 element: $element,
@@ -309,8 +321,6 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 htmlHelper: $htmlHelper,
                 indent: $lf2Indent,
             );
-
-            $elementString .= $errorContent . $messageContent;
 
             $outerDiv = $lf1Indent . $htmlHelper->render(
                 'div',
@@ -336,14 +346,23 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $lf3Indent      = $lf2Indent . $this->getWhitespace(4);
             $lf4Indent      = $lf3Indent . $this->getWhitespace(4);
 
+            $asCard        = $element->getOption('as-card');
+            $asFormControl = $element->getOption('as-form-control');
+
             $legend = $lf1Indent . $htmlHelper->render('div', $labelColAttributes, '') . PHP_EOL;
 
             if ($this->renderErrors) {
-                $errorContent = $this->renderFormErrors($element, $lf2Indent);
+                $errorContent = $this->renderFormErrors(
+                    $element,
+                    $asCard || $asFormControl ? $lf4Indent : $lf2Indent,
+                );
             }
 
             if ($element->getOption('messages')) {
-                $messageContent = $this->renderMessages($element, $lf2Indent);
+                $messageContent = $this->renderMessages(
+                    $element,
+                    $asCard || $asFormControl ? $lf4Indent : $lf2Indent,
+                );
             }
 
             if ($element->getOption('help_content')) {
@@ -354,7 +373,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 $elementHelper->setIndent($element->getOption('as-card') ? $lf4Indent : $lf3Indent);
             }
 
-            $elementString = $elementHelper->render($element);
+            $elementString  = $elementHelper->render($element);
+            $elementString .= $errorContent . $messageContent;
 
             $elementString = $this->wrapInContainer(
                 element: $element,
@@ -362,8 +382,6 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 htmlHelper: $htmlHelper,
                 indent: $lf2Indent,
             );
-
-            $elementString .= $errorContent . $messageContent;
 
             $outerDiv = $lf1Indent . $htmlHelper->render(
                 'div',
@@ -422,6 +440,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         $baseIndent     = $indent;
         $lf1Indent      = $indent . $this->getWhitespace(4);
         $lf2Indent      = $lf1Indent . $this->getWhitespace(4);
+        $lf3Indent      = $lf2Indent . $this->getWhitespace(4);
 
         $labelHelper = $this->getLabelHelper();
 
@@ -442,12 +461,19 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         if ($elementHelper instanceof FormIndentInterface) {
-            $elementHelper->setIndent($lf2Indent);
+            $elementHelper->setIndent($element->getOption('in-group') ? $lf3Indent : $lf2Indent);
         }
 
         $elementString = $elementHelper->render($element);
 
         $elementString .= $errorContent . $messageContent;
+
+        $elementString = $this->wrapInGroup(
+            element: $element,
+            elementString: $elementString,
+            htmlHelper: $htmlHelper,
+            indent: $lf2Indent,
+        );
 
         $outerDiv = $lf1Indent . $htmlHelper->render(
             'div',
@@ -527,12 +553,21 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $lf2Indent = $lf1Indent . $this->getWhitespace(4);
             $lf3Indent = $lf2Indent . $this->getWhitespace(4);
 
+            $asCard        = $element->getOption('as-card');
+            $asFormControl = $element->getOption('as-form-control');
+
             if ($this->renderErrors) {
-                $errorContent = $this->renderFormErrors($element, $lf1Indent);
+                $errorContent = $this->renderFormErrors(
+                    $element,
+                    $asCard || $asFormControl ? $lf3Indent : $lf1Indent,
+                );
             }
 
             if ($element->getOption('messages')) {
-                $messageContent = $this->renderMessages($element, $lf1Indent);
+                $messageContent = $this->renderMessages(
+                    $element,
+                    $asCard || $asFormControl ? $lf3Indent : $lf1Indent,
+                );
             }
 
             if ($element->getOption('help_content')) {
@@ -543,7 +578,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 $elementHelper->setIndent($element->getOption('as-card') ? $lf3Indent : $lf2Indent);
             }
 
-            $elementString = $elementHelper->render($element);
+            $elementString  = $elementHelper->render($element);
+            $elementString .= $errorContent . $messageContent;
 
             $elementString = $this->wrapInContainer(
                 element: $element,
@@ -552,14 +588,12 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 indent: $lf1Indent,
             );
 
-            $elementString .= $errorContent . $messageContent;
-
             if ($floating) {
                 $elementString = PHP_EOL . $lf1Indent . $elementString . PHP_EOL . '    ' . $legend . PHP_EOL . $indent;
 
                 $elementString  = $indent . $htmlHelper->render(
                     'div',
-                    ['class' => 'form-floating'],
+                    ['class' => 'form-floating flex-fill'],
                     $elementString,
                 );
                 $elementString .= $helpContent;
@@ -584,12 +618,21 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $lf2Indent      = $lf1Indent . $this->getWhitespace(4);
             $lf3Indent      = $lf2Indent . $this->getWhitespace(4);
 
+            $asCard        = $element->getOption('as-card');
+            $asFormControl = $element->getOption('as-form-control');
+
             if ($this->renderErrors) {
-                $errorContent = $this->renderFormErrors($element, $lf1Indent);
+                $errorContent = $this->renderFormErrors(
+                    $element,
+                    $asCard || $asFormControl ? $lf3Indent : $lf1Indent,
+                );
             }
 
             if ($element->getOption('messages')) {
-                $messageContent = $this->renderMessages($element, $lf1Indent);
+                $messageContent = $this->renderMessages(
+                    $element,
+                    $asCard || $asFormControl ? $lf3Indent : $lf1Indent,
+                );
             }
 
             if ($element->getOption('help_content')) {
@@ -600,7 +643,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 $elementHelper->setIndent($element->getOption('as-card') ? $lf3Indent : $lf2Indent);
             }
 
-            $elementString = $elementHelper->render($element);
+            $elementString  = $elementHelper->render($element);
+            $elementString .= $errorContent . $messageContent;
 
             $elementString = $this->wrapInContainer(
                 element: $element,
@@ -608,8 +652,6 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 htmlHelper: $htmlHelper,
                 indent: $lf1Indent,
             );
-
-            $elementString .= $errorContent . $messageContent;
 
             return $baseIndent . $htmlHelper->render(
                 'div',
@@ -651,17 +693,18 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         $lf1Indent = $indent . $this->getWhitespace(4);
+        $lf2Indent = $lf1Indent . $this->getWhitespace(4);
 
         $errorContent   = '';
         $helpContent    = '';
         $messageContent = '';
 
         if ($this->renderErrors) {
-            $errorContent = $this->renderFormErrors($element, $lf1Indent);
+            $errorContent = $this->renderFormErrors($element, $floating ? $indent : $lf1Indent);
         }
 
         if ($element->getOption('messages')) {
-            $messageContent = $this->renderMessages($element, $lf1Indent);
+            $messageContent = $this->renderMessages($element, $floating ? $indent : $lf1Indent);
         }
 
         if ($element->getOption('help_content')) {
@@ -669,15 +712,14 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         if ($elementHelper instanceof FormIndentInterface) {
-            $elementHelper->setIndent($lf1Indent);
+            $elementHelper->setIndent($element->getOption('in-group') ? $lf2Indent : $lf1Indent);
         }
 
-        $elementString  = $elementHelper->render($element);
-        $elementString .= $errorContent . $messageContent;
+        $elementString = $elementHelper->render($element);
 
-        $rendered = $elementString;
-
-        if ($label !== '') {
+        if ($label === '') {
+            $rendered = $elementString . $errorContent . $messageContent;
+        } else {
             if ($element instanceof LabelAwareInterface) {
                 if ($floating) {
                     $labelPosition = BaseFormRow::LABEL_APPEND;
@@ -690,21 +732,51 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
             $labelHelper = $this->getLabelHelper();
 
-            $legend = $lf1Indent . $labelHelper->openTag(
-                $labelAttributes,
-            ) . $label . $labelHelper->closeTag();
+            $legend = $labelHelper->openTag($labelAttributes) . $label . $labelHelper->closeTag();
 
-            $rendered = match ($labelPosition) {
-                BaseFormRow::LABEL_PREPEND => $legend . PHP_EOL . $elementString,
-                default => $elementString . PHP_EOL . $legend,
-            };
+            if ($labelPosition === BaseFormRow::LABEL_PREPEND) {
+                $elementString .= $errorContent . $messageContent;
+                $elementString  = $this->wrapInGroup(
+                    element: $element,
+                    elementString: $elementString,
+                    htmlHelper: $htmlHelper,
+                    indent: $lf1Indent,
+                );
+
+                $rendered = $lf1Indent . $legend . PHP_EOL . $elementString;
+            } else {
+                if (!$floating) {
+                    $elementString .= $errorContent . $messageContent;
+                    $elementString  = $this->wrapInGroup(
+                        element: $element,
+                        elementString: $elementString,
+                        htmlHelper: $htmlHelper,
+                        indent: $indent,
+                    );
+                }
+
+                $rendered  = $elementString . PHP_EOL;
+                $rendered .= $element->getOption('in-group') ? $lf2Indent : $lf1Indent;
+                $rendered .= $legend;
+            }
         }
 
         if ($floating) {
-            $rendered = $indent . $htmlHelper->render(
+            $rendered  = PHP_EOL . $rendered . PHP_EOL;
+            $rendered .= $element->getOption('in-group') ? $lf1Indent : $indent;
+            $rendered  = $htmlHelper->render(
                 'div',
-                ['class' => 'form-floating'],
-                PHP_EOL . $rendered . PHP_EOL . $indent,
+                ['class' => 'form-floating flex-fill'],
+                $rendered,
+            );
+
+            $rendered .= $errorContent . $messageContent;
+            $rendered  = ($element->getOption('in-group') ? $lf1Indent : $indent) . $rendered;
+            $rendered  = $this->wrapInGroup(
+                element: $element,
+                elementString: $rendered,
+                htmlHelper: $htmlHelper,
+                indent: $indent,
             );
         }
 
@@ -743,9 +815,9 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     private function renderFormHelp(ElementInterface $element, string $indent): string
     {
         $helpContent = $element->getOption('help_content');
-        $attributes  = $this->mergeAttributes($element, 'help_attributes', []);
+        $attributes  = $this->mergeAttributes($element, 'help_attributes', ['toast']);
 
-        assert(is_string($helpContent));
+        assert(is_string($helpContent) || is_array($helpContent));
 
         if ($element->hasAttribute('id')) {
             $attributes['id'] = $element->getAttribute('id') . 'Help';
@@ -761,7 +833,39 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
         $htmlHelper = $this->getHtmlHelper();
 
-        return PHP_EOL . $indent . $htmlHelper->render('div', $attributes, $helpContent);
+        if (is_string($helpContent)) {
+            return PHP_EOL . $indent . $htmlHelper->render('div', $attributes, $helpContent);
+        }
+
+        if (
+            !array_key_exists('content', $helpContent)
+            || !is_string($helpContent['content'])
+            || $helpContent['content'] === ''
+        ) {
+            return '';
+        }
+
+        $lf1Indent = $indent . $this->getWhitespace(4);
+
+        $content = $htmlHelper->render('div', ['class' => 'toast-body'], $helpContent['content']);
+        $header  = '';
+
+        if (
+            array_key_exists('header', $helpContent)
+            && is_string($helpContent['header'])
+            && $helpContent['header'] !== ''
+        ) {
+            $header = $htmlHelper->render('div', ['class' => 'toast-header'], $helpContent['header']);
+            $header = $lf1Indent . $header . PHP_EOL;
+        }
+
+        $content = $htmlHelper->render(
+            'div',
+            $attributes,
+            PHP_EOL . $header . $lf1Indent . $content . PHP_EOL . $indent,
+        );
+
+        return PHP_EOL . $indent . $content;
     }
 
     /** @throws void */
@@ -801,6 +905,33 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         return $messageContent;
+    }
+
+    /**
+     * @param array<int|string, array{content?: string, attributes?: array<int|string, bool|float|int|iterable<int, string>|stdClass|string|null>}> $messages
+     *
+     * @throws void
+     */
+    private function renderGroupContent(array $messages, string $indent): string
+    {
+        $messageContents = [];
+        $htmlHelper      = $this->getHtmlHelper();
+
+        foreach ($messages as $message) {
+            assert(is_array($message));
+
+            $content = $message['content'] ?? '';
+
+            if ($content === '') {
+                continue;
+            }
+
+            $attributes = $message['attributes'] ?? [];
+
+            $messageContents[] = $htmlHelper->render('div', $attributes, $content);
+        }
+
+        return PHP_EOL . $indent . implode(PHP_EOL . $indent, $messageContents);
     }
 
     /**
@@ -987,6 +1118,53 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 ['class' => implode(' ', $controlClasses)],
                 PHP_EOL . $elementString . PHP_EOL . $indent,
             );
+        }
+
+        return $elementString;
+    }
+
+    /** @throws void */
+    private function wrapInGroup(
+        ElementInterface $element,
+        string $elementString,
+        FormHtmlInterface $htmlHelper,
+        string $indent,
+    ): string {
+        $inGroup = $element->getOption('in-group');
+
+        if ($inGroup) {
+            $prefixes = $element->getOption('group-prefixes');
+            $suffixes = $element->getOption('group-suffixes');
+
+            $lf1Indent = $indent . $this->getWhitespace(4);
+
+            $elementString = PHP_EOL . $elementString;
+
+            if (is_array($prefixes)) {
+                $prefixContent = $this->renderGroupContent($prefixes, $lf1Indent);
+
+                $elementString = $prefixContent . $elementString;
+            }
+
+            if (is_array($suffixes)) {
+                $suffixContent = $this->renderGroupContent($suffixes, $lf1Indent);
+
+                $elementString .= $suffixContent;
+            }
+
+            $controlClasses = ['input-group', 'has-validation'];
+
+            if ($element->getAttribute('required')) {
+                $controlClasses[] = 'required';
+            }
+
+            $elementString = $htmlHelper->render(
+                'div',
+                ['class' => implode(' ', $controlClasses)],
+                $elementString . PHP_EOL . $indent,
+            );
+
+            $elementString = $indent . $elementString;
         }
 
         return $elementString;
