@@ -914,8 +914,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      */
     private function renderGroupContent(array $messages, string $indent): string
     {
-        $messageContent = '';
-        $htmlHelper     = $this->getHtmlHelper();
+        $messageContents = [];
+        $htmlHelper      = $this->getHtmlHelper();
 
         foreach ($messages as $message) {
             assert(is_array($message));
@@ -928,10 +928,10 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
             $attributes = $message['attributes'] ?? [];
 
-            $messageContent .= PHP_EOL . $indent . $htmlHelper->render('div', $attributes, $content);
+            $messageContents[] = $htmlHelper->render('div', $attributes, $content);
         }
 
-        return $messageContent;
+        return PHP_EOL . $indent . implode(PHP_EOL . $indent, $messageContents);
     }
 
     /**
@@ -1138,6 +1138,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
             $lf1Indent = $indent . $this->getWhitespace(4);
 
+            $elementString = PHP_EOL . $elementString;
+
             if (is_array($prefixes)) {
                 $prefixContent = $this->renderGroupContent($prefixes, $lf1Indent);
 
@@ -1159,7 +1161,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $elementString = $htmlHelper->render(
                 'div',
                 ['class' => implode(' ', $controlClasses)],
-                PHP_EOL . $elementString . PHP_EOL . $indent,
+                $elementString . PHP_EOL . $indent,
             );
 
             $elementString = $indent . $elementString;
