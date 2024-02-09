@@ -128,6 +128,21 @@ return [
                     [
                         'spec' => [
                             'type' => Select::class,
+                            'name' => 'ort2',
+                            'options' => [
+                                'label' => '',
+
+                                'value_options' => ['' => 'Bitte zuerst PLZ eintragen'],
+                                'disable_inarray_validator' => true,
+                                'help_content' => '<strong>Ort</strong><p>Der Ort Ihrer zu versichernden Wohnung.</p>',
+                                'col_attributes' => ['class' => 'js-ort'],
+                            ],
+                            'attributes' => ['id' => 'ort2'],
+                        ],
+                    ],
+                    [
+                        'spec' => [
+                            'type' => Select::class,
                             'name' => 'strasse',
                             'options' => [
                                 'label' => 'Straße',
@@ -222,6 +237,20 @@ return [
                             'options' => [
                                 'label' => 'Ihre gesamte Wohnfläche im Haus',
                                 'help_content' => '<strong>Ihre gesamte Wohnfläche im Haus</strong><p>Als Wohnfläche gilt die Grundfläche aller Räume der versicherten Wohnung. Räume, die zu Hobbyzwecken genutzt werden, gelten immer als Wohnfläche. Nicht zu berücksichtigen sind: Zubehörräume, Keller- und Speicherräume, die nicht zu Wohnzwecken genutzt werden, nicht ausgebaute Dachböden, Treppen, Balkone, Terrassen, Loggien, Garagen.</p>',
+                                'in-group' => true,
+                                'group-prefixes' => [
+                                    [],
+                                    ['content' => null],
+                                    ['content' => ''],
+                                    ['content' => 'ghi'],
+                                    ['content' => 'def', 'attributes' => ['class' => 'abc']],
+                                ],
+                                'group-suffixes' => [
+                                    [],
+                                    ['content' => null],
+                                    ['content' => ''],
+                                    ['content' => 'm<sup>2</sup>', 'attributes' => ['class' => 'abc']],
+                                ],
                             ],
                             'attributes' => [
                                 'id' => 'wohnfl',
@@ -238,6 +267,20 @@ return [
                             'options' => [
                                 'label' => 'Davon sind im Keller',
                                 'help_content' => '<strong>Davon sind im Keller</strong><p>Geben Sie hier eine evtl. Wohnfläche im Keller an. Diese muss aber im o.g. Feld schon enthalten sein. Definition siehe oben. (z.B. Hobbyraum)</p>',
+                                'in-group' => true,
+                                'group-prefixes' => [
+                                    [],
+                                    ['content' => null],
+                                    ['content' => ''],
+                                    ['content' => 'ghi'],
+                                    ['content' => 'def', 'attributes' => ['class' => 'abc']],
+                                ],
+                                'group-suffixes' => [
+                                    [],
+                                    ['content' => null],
+                                    ['content' => ''],
+                                    ['content' => 'm<sup>2</sup>', 'attributes' => ['class' => 'abc']],
+                                ],
                             ],
                             'attributes' => [
                                 'id' => 'wohnfl_kg',
@@ -252,6 +295,20 @@ return [
                             'options' => [
                                 'label' => 'Grundfläche des Kellers',
                                 'help_content' => '<strong>Grundfläche des Kellers</strong><p>Geben Sie hier die gesamte Grundfläche Ihres Kellers in qm an.</p>',
+                                'in-group' => true,
+                                'group-prefixes' => [
+                                    [],
+                                    ['content' => null],
+                                    ['content' => ''],
+                                    ['content' => 'ghi'],
+                                    ['content' => 'def', 'attributes' => ['class' => 'abc']],
+                                ],
+                                'group-suffixes' => [
+                                    [],
+                                    ['content' => null],
+                                    ['content' => ''],
+                                    ['content' => 'm<sup>2</sup>', 'attributes' => ['class' => 'abc']],
+                                ],
                             ],
                             'attributes' => [
                                 'id' => 'kellerfl',
@@ -301,6 +358,21 @@ return [
                             'options' => [
                                 'label' => 'Versicherungssumme selbst angeben',
                                 'help_content' => '<strong>Versicherungssumme selbst angeben</strong><p>Die vereinbarte Versicherungssumme bildet die Höchst­entschädigungs­grenze nach einem Totalschaden. Wir empfehlen Unter­versicherungs­verzicht zu vereinbaren, damit nach einem Schaden durch den Versicherer keine Abzüge wegen möglicher Unterversicherung vorgenommen werden. Dieser Unter­versicherungs­verzicht erfordert je nach Anbieter und Tarif eine Versicherungssumme in Höhe von 600-700 EUR/qm Wohnfläche. Beachten Sie: Ohne Eingabe der Versicherungssumme wird automatisch der richtige Wert für den Unter­versicherungs­verzicht ermittelt.</p>',
+                                'in-group' => true,
+                                'group-prefixes' => [
+                                    [],
+                                    ['content' => null],
+                                    ['content' => ''],
+                                    ['content' => 'ghi'],
+                                    ['content' => 'def', 'attributes' => ['class' => 'abc']],
+                                ],
+                                'group-suffixes' => [
+                                    [],
+                                    ['content' => null],
+                                    ['content' => ''],
+                                    ['content' => 'EUR'],
+                                    ['content' => '€', 'attributes' => ['class' => 'abc']],
+                                ],
                             ],
                             'attributes' => [
                                 'id' => 'verssumme',

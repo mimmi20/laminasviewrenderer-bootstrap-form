@@ -24,6 +24,12 @@
             </select>
             <div class="toast&#x20;help-content" id="ortHelp"><strong>Ort</strong><p>Der Ort Ihrer zu versichernden Wohnung.</p></div>
         </div>
+        <div class="js-ort&#x20;col-sm">
+            <select name="ort2" id="ort2" aria-describedby="ort2Help" class="form-select">
+                <option value="">Bitte zuerst PLZ eintragen</option>
+            </select>
+            <div class="toast&#x20;help-content" id="ort2Help"><strong>Ort</strong><p>Der Ort Ihrer zu versichernden Wohnung.</p></div>
+        </div>
         <div class="js-strasse&#x20;col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="strasse">Straße</label>
             <select name="strasse" id="strasse" aria-describedby="strasseHelp" class="form-select">
@@ -60,17 +66,32 @@
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="wohnfl">Ihre gesamte Wohnfläche im Haus<span class="text-info-required">*</span></label>
-            <input type="number" name="wohnfl" id="wohnfl" class="form-control&#x20;has-legend" min="10" max="2000" required="required" aria-describedby="wohnflHelp" value="">
+            <div class="input-group&#x20;has-validation&#x20;required">
+                <div>ghi</div>
+                <div class="abc">def</div>
+                <input type="number" name="wohnfl" id="wohnfl" class="form-control&#x20;has-legend" min="10" max="2000" required="required" aria-describedby="wohnflHelp" value="">
+                <div class="abc">m<sup>2</sup></div>
+            </div>
             <div class="toast&#x20;help-content" id="wohnflHelp"><strong>Ihre gesamte Wohnfläche im Haus</strong><p>Als Wohnfläche gilt die Grundfläche aller Räume der versicherten Wohnung. Räume, die zu Hobbyzwecken genutzt werden, gelten immer als Wohnfläche. Nicht zu berücksichtigen sind: Zubehörräume, Keller- und Speicherräume, die nicht zu Wohnzwecken genutzt werden, nicht ausgebaute Dachböden, Treppen, Balkone, Terrassen, Loggien, Garagen.</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="wohnfl_kg">Davon sind im Keller</label>
-            <input type="number" name="wohnfl_kg" id="wohnfl_kg" class="form-control&#x20;has-legend" aria-describedby="wohnfl_kgHelp" value="">
+            <div class="input-group&#x20;has-validation">
+                <div>ghi</div>
+                <div class="abc">def</div>
+                <input type="number" name="wohnfl_kg" id="wohnfl_kg" class="form-control&#x20;has-legend" aria-describedby="wohnfl_kgHelp" value="">
+                <div class="abc">m<sup>2</sup></div>
+            </div>
             <div class="toast&#x20;help-content" id="wohnfl_kgHelp"><strong>Davon sind im Keller</strong><p>Geben Sie hier eine evtl. Wohnfläche im Keller an. Diese muss aber im o.g. Feld schon enthalten sein. Definition siehe oben. (z.B. Hobbyraum)</p></div>
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="kellerfl">Grundfläche des Kellers</label>
-            <input type="number" name="kellerfl" id="kellerfl" class="form-control&#x20;has-legend" aria-describedby="kellerflHelp" value="">
+            <div class="input-group&#x20;has-validation">
+                <div>ghi</div>
+                <div class="abc">def</div>
+                <input type="number" name="kellerfl" id="kellerfl" class="form-control&#x20;has-legend" aria-describedby="kellerflHelp" value="">
+                <div class="abc">m<sup>2</sup></div>
+            </div>
             <div class="toast&#x20;help-content" id="kellerflHelp"><strong>Grundfläche des Kellers</strong><p>Geben Sie hier die gesamte Grundfläche Ihres Kellers in qm an.</p></div>
         </div>
         <div class="col-sm">
@@ -91,7 +112,13 @@
         </div>
         <div class="col-sm">
             <label class="form-label&#x20;col-sm&#x20;text-sm-right" for="verssumme">Versicherungssumme selbst angeben</label>
-            <input type="number" name="verssumme" id="verssumme" class="form-control&#x20;has-legend" aria-describedby="verssummeHelp" value="">
+            <div class="input-group&#x20;has-validation">
+                <div>ghi</div>
+                <div class="abc">def</div>
+                <input type="number" name="verssumme" id="verssumme" class="form-control&#x20;has-legend" aria-describedby="verssummeHelp" value="">
+                <div>EUR</div>
+                <div class="abc">€</div>
+            </div>
             <div class="toast&#x20;help-content" id="verssummeHelp"><strong>Versicherungssumme selbst angeben</strong><p>Die vereinbarte Versicherungssumme bildet die Höchst­entschädigungs­grenze nach einem Totalschaden. Wir empfehlen Unter­versicherungs­verzicht zu vereinbaren, damit nach einem Schaden durch den Versicherer keine Abzüge wegen möglicher Unterversicherung vorgenommen werden. Dieser Unter­versicherungs­verzicht erfordert je nach Anbieter und Tarif eine Versicherungssumme in Höhe von 600-700 EUR/qm Wohnfläche. Beachten Sie: Ohne Eingabe der Versicherungssumme wird automatisch der richtige Wert für den Unter­versicherungs­verzicht ermittelt.</p></div>
         </div>
         <div class="col-sm">
