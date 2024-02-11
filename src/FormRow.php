@@ -41,6 +41,7 @@ use function get_debug_type;
 use function implode;
 use function in_array;
 use function is_array;
+use function is_scalar;
 use function is_string;
 use function mb_strlen;
 use function mb_strpos;
@@ -304,7 +305,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             if ($element->getOption('help_content')) {
-                $helpContent = $this->renderFormHelp($element, $lf1Indent);
+                $helpContent = $this->renderFormHelp($element, $lf1Indent, $rowAttributes);
             }
 
             if ($elementHelper instanceof FormIndentInterface) {
@@ -366,7 +367,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             if ($element->getOption('help_content')) {
-                $helpContent = $this->renderFormHelp($element, $lf1Indent);
+                $helpContent = $this->renderFormHelp($element, $lf1Indent, $rowAttributes);
             }
 
             if ($elementHelper instanceof FormIndentInterface) {
@@ -457,7 +458,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         if ($element->getOption('help_content')) {
-            $helpContent = $this->renderFormHelp($element, $lf1Indent);
+            $helpContent = $this->renderFormHelp($element, $lf1Indent, $rowAttributes);
         }
 
         if ($elementHelper instanceof FormIndentInterface) {
@@ -571,7 +572,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             if ($element->getOption('help_content')) {
-                $helpContent = $this->renderFormHelp($element, $floating ? $indent : $lf1Indent);
+                $helpContent = $this->renderFormHelp(
+                    $element,
+                    $floating ? $indent : $lf1Indent,
+                    $colAttributes,
+                );
             }
 
             if ($elementHelper instanceof FormIndentInterface) {
@@ -636,7 +641,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             if ($element->getOption('help_content')) {
-                $helpContent = $this->renderFormHelp($element, $lf1Indent);
+                $helpContent = $this->renderFormHelp($element, $lf1Indent, $colAttributes);
             }
 
             if ($elementHelper instanceof FormIndentInterface) {
@@ -708,7 +713,11 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         }
 
         if ($element->getOption('help_content')) {
-            $helpContent = $this->renderFormHelp($element, $floating ? $indent : $lf1Indent);
+            $helpContent = $this->renderFormHelp(
+                $element,
+                $floating ? $indent : $lf1Indent,
+                $colAttributes,
+            );
         }
 
         if ($elementHelper instanceof FormIndentInterface) {
@@ -811,11 +820,50 @@ final class FormRow extends BaseFormRow implements FormRowInterface
         return $elementErrors;
     }
 
-    /** @throws void */
-    private function renderFormHelp(ElementInterface $element, string $indent): string
+    /**
+     * @param array<string, array<mixed>|bool|float|int|string> $containerAttributes
+     *
+     * @throws void
+     */
+    private function renderFormHelp(ElementInterface $element, string $indent, array &$containerAttributes): string
     {
         $helpContent = $element->getOption('help_content');
-        $attributes  = $this->mergeAttributes($element, 'help_attributes', ['toast']);
+
+        if (!is_string($helpContent) && !is_array($helpContent)) {
+            return '';
+        }
+
+        if (is_string($helpContent) && $helpContent === '') {
+            return '';
+        }
+
+        if (
+            is_array($helpContent)
+            && (
+                !array_key_exists('content', $helpContent)
+                || !is_string($helpContent['content'])
+                || $helpContent['content'] === ''
+            )
+        ) {
+            return '';
+        }
+
+        $classes = [];
+
+        if (
+            array_key_exists('class', $containerAttributes)
+            && is_scalar($containerAttributes['class'])
+        ) {
+            $classes = explode(' ', (string) $containerAttributes['class']);
+
+            unset($containerAttributes['class']);
+        }
+
+        $classes[] = 'has-help';
+
+        $containerAttributes['class'] = implode(' ', array_unique($classes));
+
+        $attributes = $this->mergeAttributes($element, 'help_attributes', ['toast']);
 
         assert(is_string($helpContent) || is_array($helpContent));
 
@@ -835,14 +883,6 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
         if (is_string($helpContent)) {
             return PHP_EOL . $indent . $htmlHelper->render('div', $attributes, $helpContent);
-        }
-
-        if (
-            !array_key_exists('content', $helpContent)
-            || !is_string($helpContent['content'])
-            || $helpContent['content'] === ''
-        ) {
-            return '';
         }
 
         $lf1Indent = $indent . $this->getWhitespace(4);
