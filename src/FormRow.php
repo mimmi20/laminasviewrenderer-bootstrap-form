@@ -304,7 +304,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 );
             }
 
-            if ($element->getOption('help_content')) {
+            if ($element->getOption('help_content') !== null) {
                 $helpContent = $this->renderFormHelp($element, $lf1Indent, $rowAttributes);
             }
 
@@ -366,7 +366,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 );
             }
 
-            if ($element->getOption('help_content')) {
+            if ($element->getOption('help_content') !== null) {
                 $helpContent = $this->renderFormHelp($element, $lf1Indent, $rowAttributes);
             }
 
@@ -457,7 +457,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $messageContent = $this->renderMessages($element, $lf2Indent);
         }
 
-        if ($element->getOption('help_content')) {
+        if ($element->getOption('help_content') !== null) {
             $helpContent = $this->renderFormHelp($element, $lf1Indent, $rowAttributes);
         }
 
@@ -571,7 +571,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 );
             }
 
-            if ($element->getOption('help_content')) {
+            if ($element->getOption('help_content') !== null) {
                 $helpContent = $this->renderFormHelp(
                     $element,
                     $floating ? $indent : $lf1Indent,
@@ -640,7 +640,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
                 );
             }
 
-            if ($element->getOption('help_content')) {
+            if ($element->getOption('help_content') !== null) {
                 $helpContent = $this->renderFormHelp($element, $lf1Indent, $colAttributes);
             }
 
@@ -712,7 +712,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $messageContent = $this->renderMessages($element, $floating ? $indent : $lf1Indent);
         }
 
-        if ($element->getOption('help_content')) {
+        if ($element->getOption('help_content') !== null) {
             $helpContent = $this->renderFormHelp(
                 $element,
                 $floating ? $indent : $lf1Indent,
