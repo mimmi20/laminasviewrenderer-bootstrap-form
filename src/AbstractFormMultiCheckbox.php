@@ -308,8 +308,17 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
                 $disabled = $optionSpec['disabled'];
             }
 
-            $labelClasses = ['form-check-label'];
-            $inputClasses = ['form-check-input'];
+            if ($element->getOption('as-button')) {
+                $inputClasses = ['btn-check'];
+                $labelClasses = ['btn'];
+
+                $lf1Indent = $indent;
+            } else {
+                $labelClasses = ['form-check-label'];
+                $inputClasses = ['form-check-input'];
+
+                $lf1Indent = $indent . $this->getWhitespace(4);
+            }
 
             if (array_key_exists('class', $labelAttributes) && is_string($labelAttributes['class'])) {
                 $labelClasses = array_merge($labelClasses, explode(' ', $labelAttributes['class']));
@@ -398,16 +407,25 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
             if (array_key_exists('id', $inputAttributes) && !$element->getLabelOption('always_wrap')) {
                 $labelOpen  = '';
                 $labelClose = '';
-                $label      = $indent . $this->getWhitespace(4) . $labelHelper->openTag(
+                $label      = $labelHelper->openTag(
                     $filteredAttributes,
                 ) . $label . $labelHelper->closeTag();
-                $input      = $indent . $this->getWhitespace(4) . $input;
             } else {
-                $labelOpen  = $indent . $this->getWhitespace(4) . $labelHelper->openTag(
+                $labelOpen = $labelHelper->openTag(
                     $filteredAttributes,
                 ) . PHP_EOL;
-                $labelClose = PHP_EOL . $indent . $this->getWhitespace(4) . $labelHelper->closeTag();
-                $input      = $indent . $this->getWhitespace(8) . $input;
+
+                if ($element->getOption('as-button')) {
+                    $labelOpen .= $lf1Indent;
+                }
+
+                $labelClose = PHP_EOL . $lf1Indent . $labelHelper->closeTag();
+
+                if (!$element->getOption('as-button')) {
+                    $input = $this->getWhitespace(4) . $input;
+                } else {
+                    $input = $this->getWhitespace(4) . $input;
+                }
             }
 
             if (
@@ -416,21 +434,34 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
             ) {
                 $label = $this->getWhitespace(4) . '<span>' . $label . '</span>';
 
-                if ($labelClose !== '') {
-                    $label = $indent . $this->getWhitespace(4) . $label;
+                if (!$element->getOption('as-button')) {
+                    $input = $lf1Indent . $input;
                 }
             }
 
-            $markup = match ($labelPosition) {
-                BaseFormRow::LABEL_PREPEND => $labelOpen . $label . PHP_EOL . $input . $labelClose,
-                default => $labelOpen . $input . PHP_EOL . $label . $labelClose,
-            };
+            $markup = $labelOpen;
 
-            $combinedMarkup[] = $htmlHelper->render(
-                'div',
-                $groupAttributes,
-                PHP_EOL . $markup . PHP_EOL . $indent,
-            );
+            if ($labelPosition === BaseFormRow::LABEL_PREPEND) {
+                if (!$element->getOption('as-button')) {
+                    $markup .= $this->getWhitespace(4);
+                }
+
+                $markup .= $label . PHP_EOL . $lf1Indent . $input;
+            } else {
+                $markup .= $input . PHP_EOL . $lf1Indent . $label;
+            }
+
+            $markup .= $labelClose;
+
+            if ($element->getOption('as-button')) {
+                $combinedMarkup[] = $markup;
+            } else {
+                $combinedMarkup[] = $htmlHelper->render(
+                    'div',
+                    $groupAttributes,
+                    PHP_EOL . $lf1Indent . $markup . PHP_EOL . $indent,
+                );
+            }
         }
 
         return implode(PHP_EOL . $indent, $combinedMarkup);

@@ -42,7 +42,67 @@ final class FormRadioTest extends AbstractTestCase
             'radio' => [
                 'config' => 'radio.config.php',
                 'template' => 'radio.html',
-                'indent' => '',
+                'indent' => '<!-- -->',
+                'messages' => [],
+            ],
+            'radio2' => [
+                'config' => 'radio2.config.php',
+                'template' => 'radio2.html',
+                'indent' => '<!-- -->',
+                'messages' => [],
+            ],
+            'radio3' => [
+                'config' => 'radio3.config.php',
+                'template' => 'radio3.html',
+                'indent' => '<!-- -->',
+                'messages' => [],
+            ],
+            'radio4' => [
+                'config' => 'radio4.config.php',
+                'template' => 'radio4.html',
+                'indent' => '<!-- -->',
+                'messages' => [],
+            ],
+            'radio5' => [
+                'config' => 'radio5.config.php',
+                'template' => 'radio5.html',
+                'indent' => '<!-- -->',
+                'messages' => [],
+            ],
+            'radio6' => [
+                'config' => 'radio6.config.php',
+                'template' => 'radio6.html',
+                'indent' => '<!-- -->',
+                'messages' => [],
+            ],
+            'radio7' => [
+                'config' => 'radio7.config.php',
+                'template' => 'radio7.html',
+                'indent' => '<!-- -->',
+                'messages' => [],
+            ],
+            'radio8' => [
+                'config' => 'radio8.config.php',
+                'template' => 'radio8.html',
+                'indent' => '<!-- -->',
+                'messages' => [],
+            ],
+            'radio9' => [
+                'config' => 'radio9.config.php',
+                'template' => 'radio9.html',
+                'indent' => '<!-- -->',
+                'messages' => [],
+            ],
+            'radio10' => [
+                'config' => 'radio10.config.php',
+                'template' => 'radio10.html',
+                'indent' => '<!-- -->',
+                'messages' => [],
+            ],
+            'radio11' => [
+                'config' => 'radio11.config.php',
+                'template' => 'radio11.html',
+                'indent' => '<!-- -->',
                 'messages' => [],
             ],
         ];

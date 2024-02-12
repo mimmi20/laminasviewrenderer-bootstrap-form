@@ -1,0 +1,60 @@
+<?php
+/**
+ * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
+ *
+ * Copyright (c) 2021-2024, Thomas Mueller <mimmi20@live.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types = 1);
+
+namespace Calculator;
+
+use Laminas\Form\Element\Radio;
+use Laminas\Form\Form;
+use Laminas\Form\View\Helper\FormRow as BaseFormRow;
+
+return [
+    'type' => Form::class,
+    'elements' => [
+        [
+            'spec' => [
+                'type' => Radio::class,
+                'name' => 'inputRadio',
+                'options' => [
+                    'label' => 'weitere Fragen',
+                    'value_options' => [
+                        'nein' => [
+                            'value' => 'nein',
+                            'label' => 'Ich verzichte auf die Beantwortung weiterer Fragen und wähle aus dem Vergleich einen Tarif, der meinen Bedarf erfüllt.',
+                            'attributes' => [
+                                'id' => 'zusatzfragen_nein',
+                                'class' => 'form-check-input form-radio-input js-gtm-event',
+                                'data-event-type' => 'click',
+                                'data-event-category' => 'versicherung',
+                                'data-event-action' => 'no additional questions',
+                                'data-event-label' => 'hr',
+                            ],
+                        ],
+                        'ja' => [
+                            'value' => 'ja',
+                            'label' => 'Ich möchte weitere Angaben zum gewünschten Versicherungsschutz machen. Es werden dann nur Tarife angezeigt, welche die Vorgaben erfüllen.',
+                            'attributes' => [
+                                'id' => 'zusatzfragen_ja',
+                                'class' => 'form-check-input form-radio-input js-gtm-event',
+                                'data-event-type' => 'click',
+                                'data-event-category' => 'versicherung',
+                                'data-event-action' => 'additional questions requested',
+                                'data-event-label' => 'hr',
+                            ],
+                        ],
+                    ],
+                    'as-card' => true,
+                ],
+                'attributes' => ['id' => 'inputRadio'],
+            ],
+        ],
+    ],
+];
