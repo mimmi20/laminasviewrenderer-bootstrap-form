@@ -421,12 +421,10 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
 
                 $labelClose = PHP_EOL . $lf1Indent . $labelHelper->closeTag();
 
-                if (!$element->getOption('as-button')) {
-                    $input = $this->getWhitespace(4) . $input;
-                } else {
-                    $input = $this->getWhitespace(4) . $input;
-                }
+                $input = $this->getWhitespace(4) . $input;
             }
+
+            $markup = $labelOpen;
 
             if (
                 $label !== '' && !array_key_exists('id', $inputAttributes)
@@ -435,17 +433,11 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
                 $label = $this->getWhitespace(4) . '<span>' . $label . '</span>';
 
                 if (!$element->getOption('as-button')) {
-                    $input = $lf1Indent . $input;
+                    $markup .= $lf1Indent;
                 }
             }
 
-            $markup = $labelOpen;
-
             if ($labelPosition === BaseFormRow::LABEL_PREPEND) {
-                if (!$element->getOption('as-button')) {
-                    $markup .= $this->getWhitespace(4);
-                }
-
                 $markup .= $label . PHP_EOL . $lf1Indent . $input;
             } else {
                 $markup .= $input . PHP_EOL . $lf1Indent . $label;

@@ -105,6 +105,12 @@ final class FormRadioTest extends AbstractTestCase
                 'indent' => '<!-- -->',
                 'messages' => [],
             ],
+            'radio12' => [
+                'config' => 'radio12.config.php',
+                'template' => 'radio12.html',
+                'indent' => '<!-- -->',
+                'messages' => [],
+            ],
         ];
     }
 
