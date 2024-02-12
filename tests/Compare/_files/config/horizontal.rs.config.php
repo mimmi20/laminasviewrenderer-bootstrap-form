@@ -187,7 +187,7 @@ return [
                 'name' => 'OB1',
                 'options' => [
                     'label' => 'WE 1 Jahresbruttomiete EUR',
-                    'help_content' => 'Help-Content',
+                    'help_content' => 42,
                     'in-group' => true,
                     'group-prefixes' => [
                         [],
@@ -219,7 +219,7 @@ return [
                 'name' => 'OB2',
                 'options' => [
                     'label' => 'WE 2 Jahresbruttomiete EUR',
-                    'help_content' => 'Help-Content',
+                    'help_content' => '',
                     'in-group' => true,
                     'group-prefixes' => [
                         [],
