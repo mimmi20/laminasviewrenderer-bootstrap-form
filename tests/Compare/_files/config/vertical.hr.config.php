@@ -386,7 +386,7 @@ return [
                             'name' => 'fahrrad',
                             'options' => [
                                 'label' => 'Fahrraddiebstahl bis',
-                                'help_content' => '<strong>Fahrraddiebstahl bis</strong><p>Auch bei Fahrraddiebstahl gilt Neuwertersatz. Achten Sie besonders auf Anbieter, die auf die Nachtzeitklausel verzichten und auch dann Schadenersatz leisten, wenn das Fahrrad in der Zeit zwischen 22:00-06:00 Uhr entwendet wurde. Bedingung: Das Fahrrad muss vor dem Diebstahl in geeigneter Weise gesichert (angeschlossen) gewesen sein. Schaden-Beispiel: Sie fahren mit Ihrem Fahrrad einkaufen, schließen es vor dem Geschäft ordnungsgemäß an. Trotzdem wird Ihr Fahrrad gestohlen.</p>',
+                                'help_content' => '',
                             ],
                             'attributes' => [
                                 'id' => 'fahrrad',
@@ -401,7 +401,7 @@ return [
                             'name' => 'glas',
                             'options' => [
                                 'label' => 'Glasversicherung',
-                                'help_content' => '<strong>Glasversicherung</strong><p>Bei Wohnungen im Mehrfamilienhaus ist nur die Mobiliarverglasung versichert, im selbstgenutzten Einfamilienhaus zusätzlich die Gebäudeverglasung.</p>',
+                                'help_content' => 42,
                                 'value_options' => [
                                     'nein' => 'nein',
                                     'ja' => 'ja',
