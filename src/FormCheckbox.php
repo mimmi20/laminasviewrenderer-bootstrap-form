@@ -87,31 +87,43 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
 
         $id = $this->getId($element);
 
-        $groupClasses = ['form-check'];
-        $labelClasses = ['form-check-label'];
-        $inputClasses = ['form-check-input'];
+        $indent          = $this->getIndent();
+        $groupAttributes = [];
 
-        if ($element->getOption('layout') === Form::LAYOUT_INLINE) {
-            $groupClasses[] = 'form-check-inline';
+        if ($element->getOption('as-button')) {
+            $inputClasses = ['btn-check'];
+            $labelClasses = ['btn'];
+
+            $lf1Indent = $indent;
+        } else {
+            $groupClasses = ['form-check'];
+            $labelClasses = ['form-check-label'];
+            $inputClasses = ['form-check-input'];
+
+            if ($element->getOption('layout') === Form::LAYOUT_INLINE) {
+                $groupClasses[] = 'form-check-inline';
+            }
+
+            if ($element->getOption('switch')) {
+                $groupClasses[] = 'form-switch';
+            }
+
+            $groupAttributes = $element->getOption('group_attributes') ?? [];
+            assert(is_array($groupAttributes));
+
+            if (array_key_exists('class', $groupAttributes) && is_string($groupAttributes['class'])) {
+                $groupClasses = array_merge(
+                    $groupClasses,
+                    explode(' ', $groupAttributes['class']),
+                );
+
+                unset($groupAttributes['class']);
+            }
+
+            $groupAttributes['class'] = implode(' ', array_unique($groupClasses));
+
+            $lf1Indent = $indent . $this->getWhitespace(4);
         }
-
-        if ($element->getOption('switch')) {
-            $groupClasses[] = 'form-switch';
-        }
-
-        $groupAttributes = $element->getOption('group_attributes') ?? [];
-        assert(is_array($groupAttributes));
-
-        if (array_key_exists('class', $groupAttributes) && is_string($groupAttributes['class'])) {
-            $groupClasses = array_merge(
-                $groupClasses,
-                explode(' ', $groupAttributes['class']),
-            );
-
-            unset($groupAttributes['class']);
-        }
-
-        $groupAttributes['class'] = implode(' ', array_unique($groupClasses));
 
         $labelAttributes = [...$element->getLabelAttributes(), 'for' => $id];
 
@@ -141,8 +153,6 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
 
         $attributes['class'] = trim(implode(' ', array_unique($inputClasses)));
 
-        $indent = $this->getIndent();
-
         /** @var array<string, bool|string> $filteredAttributes */
         $filteredAttributes = array_filter(
             $labelAttributes,
@@ -170,24 +180,24 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
         $labelHelper = $this->getLabelHelper();
         $htmlHelper  = $this->getHtmlHelper();
 
-        $labelStart = $indent . $this->getWhitespace(4) . $labelHelper->openTag($filteredAttributes);
+        $labelStart = $lf1Indent . $labelHelper->openTag($filteredAttributes);
 
         if (array_key_exists('id', $attributes) && !$element->getLabelOption('always_wrap')) {
             $labelOpen  = '';
             $labelClose = '';
             $label      = $labelStart . $label . $labelHelper->closeTag();
-            $rendered   = $indent . $this->getWhitespace(4) . $rendered;
+            $rendered   = $lf1Indent . $rendered;
 
             if ($useHiddenElement) {
-                $hidden = $indent . $this->getWhitespace(4) . $hidden . PHP_EOL;
+                $hidden = $lf1Indent . $hidden . PHP_EOL;
             }
         } else {
             $labelOpen  = $labelStart . PHP_EOL;
-            $labelClose = PHP_EOL . $indent . $this->getWhitespace(4) . $labelHelper->closeTag();
-            $rendered   = $indent . $this->getWhitespace(8) . $rendered;
+            $labelClose = PHP_EOL . $lf1Indent . $labelHelper->closeTag();
+            $rendered   = $lf1Indent . $this->getWhitespace(4) . $rendered;
 
             if ($useHiddenElement) {
-                $hidden = $indent . $this->getWhitespace(4) . $hidden . PHP_EOL;
+                $hidden = $lf1Indent . $hidden . PHP_EOL;
             }
         }
 
@@ -198,7 +208,7 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
             $label = '<span>' . $label . '</span>';
 
             if ($labelClose !== '') {
-                $label = $indent . $this->getWhitespace(8) . $label;
+                $label = $lf1Indent . $this->getWhitespace(4) . $label;
             }
         }
 
@@ -208,6 +218,10 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
             BaseFormRow::LABEL_PREPEND => $labelOpen . $label . PHP_EOL . $rendered . $labelClose,
             default => $labelOpen . $rendered . PHP_EOL . $label . $labelClose,
         };
+
+        if ($element->getOption('as-button')) {
+            return $markup;
+        }
 
         return $indent . $htmlHelper->render(
             'div',

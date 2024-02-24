@@ -14,7 +14,6 @@ namespace Calculator;
 
 use Laminas\Form\Element\Radio;
 use Laminas\Form\Form;
-use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 
 return [
     'type' => Form::class,

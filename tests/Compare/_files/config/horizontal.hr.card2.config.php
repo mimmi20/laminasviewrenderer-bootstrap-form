@@ -520,6 +520,8 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => ['id' => 'KrPHV'],
                         ],
@@ -535,6 +537,8 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => ['id' => 'KrTIE'],
                         ],
@@ -550,6 +554,8 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => ['id' => 'KrHUG'],
                         ],
@@ -565,6 +571,8 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => ['id' => 'KrOEL'],
                         ],
@@ -580,6 +588,8 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => ['id' => 'KrWG'],
                         ],
@@ -595,6 +605,8 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => ['id' => 'KrWGGLS'],
                         ],
@@ -610,6 +622,8 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => ['id' => 'KrHR'],
                         ],
@@ -625,6 +639,8 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => ['id' => 'KrHRGLS'],
                         ],
@@ -640,6 +656,8 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => ['id' => 'KrUNF'],
                         ],
@@ -655,6 +673,8 @@ return [
                                 'checked_value' => '1',
                                 'unchecked_value' => '0',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => ['id' => 'KrRS'],
                         ],
@@ -1104,6 +1124,8 @@ return [
                     'checked_value' => '1',
                     'unchecked_value' => '0',
                     'as-card' => true,
+
+                    'col_attributes' => ['class' => 'offset-sm-2'],
                 ],
                 'attributes' => ['id' => 'mrmoErstinfo'],
             ],

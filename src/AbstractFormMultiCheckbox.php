@@ -386,6 +386,10 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
                 $labelAttributes['for'] = $inputAttributes['id'];
             }
 
+            if ($element->getOption('switch')) {
+                $inputAttributes['role'] = 'switch';
+            }
+
             $input = sprintf(
                 '<input %s%s',
                 $this->createAttributesString($inputAttributes),
@@ -411,9 +415,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
                     $filteredAttributes,
                 ) . $label . $labelHelper->closeTag();
             } else {
-                $labelOpen = $labelHelper->openTag(
-                    $filteredAttributes,
-                ) . PHP_EOL;
+                $labelOpen = $labelHelper->openTag($filteredAttributes) . PHP_EOL;
 
                 if ($element->getOption('as-button')) {
                     $labelOpen .= $lf1Indent;
@@ -445,15 +447,13 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
 
             $markup .= $labelClose;
 
-            if ($element->getOption('as-button')) {
-                $combinedMarkup[] = $markup;
-            } else {
-                $combinedMarkup[] = $htmlHelper->render(
+            $combinedMarkup[] = $element->getOption('as-button')
+                ? $markup
+                : $htmlHelper->render(
                     'div',
                     $groupAttributes,
                     PHP_EOL . $lf1Indent . $markup . PHP_EOL . $indent,
                 );
-            }
         }
 
         return implode(PHP_EOL . $indent, $combinedMarkup);
