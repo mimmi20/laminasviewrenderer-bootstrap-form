@@ -78,6 +78,14 @@ final class FormTest extends AbstractTestCase
                 'values' => [],
                 'validate' => false,
             ],
+            'vertical.floating3' => [
+                'config' => 'vertical.floating3.config.php',
+                'template' => 'vertical.floating3.html',
+                'indent' => '',
+                'messages' => [],
+                'values' => [],
+                'validate' => false,
+            ],
             'vertical.floating.card' => [
                 'config' => 'vertical.floating.card.config.php',
                 'template' => 'vertical.floating.card.html',
@@ -121,6 +129,14 @@ final class FormTest extends AbstractTestCase
             'horizontal.floating' => [
                 'config' => 'horizontal.floating.config.php',
                 'template' => 'horizontal.floating.html',
+                'indent' => '',
+                'messages' => [],
+                'values' => [],
+                'validate' => false,
+            ],
+            'horizontal.floating2' => [
+                'config' => 'horizontal.floating2.config.php',
+                'template' => 'horizontal.floating2.html',
                 'indent' => '',
                 'messages' => [],
                 'values' => [],

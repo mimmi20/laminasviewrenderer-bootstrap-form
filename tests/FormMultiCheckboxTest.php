@@ -244,7 +244,7 @@ final class FormMultiCheckboxTest extends TestCase
         $element->expects(self::once())
             ->method('getLabelAttributes')
             ->willReturn([]);
-        $element->expects(self::exactly(3))
+        $element->expects(self::exactly(13))
             ->method('getOption')
             ->willReturn(null);
         $element->expects(self::exactly(2))
@@ -308,7 +308,7 @@ final class FormMultiCheckboxTest extends TestCase
         $element->expects(self::once())
             ->method('getLabelAttributes')
             ->willReturn([]);
-        $element->expects(self::exactly(3))
+        $element->expects(self::exactly(13))
             ->method('getOption')
             ->willReturn(null);
         $element->expects(self::exactly(2))
@@ -364,7 +364,7 @@ final class FormMultiCheckboxTest extends TestCase
         $element->expects(self::once())
             ->method('getLabelAttributes')
             ->willReturn([]);
-        $element->expects(self::exactly(3))
+        $element->expects(self::exactly(13))
             ->method('getOption')
             ->willReturn(null);
         $element->expects(self::exactly(2))
@@ -418,7 +418,7 @@ final class FormMultiCheckboxTest extends TestCase
         $element->expects(self::once())
             ->method('getLabelAttributes')
             ->willReturn([]);
-        $element->expects(self::exactly(3))
+        $element->expects(self::exactly(13))
             ->method('getOption')
             ->willReturn(null);
         $element->expects(self::exactly(2))

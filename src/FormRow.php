@@ -350,8 +350,6 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             $asCard        = $element->getOption('as-card');
             $asFormControl = $element->getOption('as-form-control');
 
-            $legend = $lf1Indent . $htmlHelper->render('div', $labelColAttributes, '') . PHP_EOL;
-
             if ($this->renderErrors) {
                 $errorContent = $this->renderFormErrors(
                     $element,
@@ -393,7 +391,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             return $baseIndent . $htmlHelper->render(
                 'div',
                 $rowAttributes,
-                PHP_EOL . $legend . $outerDiv . $helpContent . PHP_EOL . $baseIndent,
+                PHP_EOL . $outerDiv . $helpContent . PHP_EOL . $baseIndent,
             );
         }
 

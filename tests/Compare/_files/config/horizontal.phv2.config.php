@@ -562,6 +562,8 @@ return [
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => [
                                 'id' => 'KrPHV',
@@ -580,6 +582,8 @@ return [
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => [
                                 'id' => 'KrTIE',
@@ -598,6 +602,8 @@ return [
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => [
                                 'id' => 'KrHUG',
@@ -616,6 +622,8 @@ return [
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => [
                                 'id' => 'KrOEL',
@@ -634,6 +642,8 @@ return [
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => [
                                 'id' => 'KrWG',
@@ -652,6 +662,8 @@ return [
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => [
                                 'id' => 'KrWGGLS',
@@ -670,6 +682,8 @@ return [
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => [
                                 'id' => 'KrHR',
@@ -688,6 +702,8 @@ return [
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => [
                                 'id' => 'KrHRGLS',
@@ -706,6 +722,8 @@ return [
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => [
                                 'id' => 'KrUNF',
@@ -724,6 +742,8 @@ return [
                                 'unchecked_value' => '0',
                                 'help_content' => '<strong>Warum fragen wir das?</strong><p>Klicken Sie hier, wenn Sie diese Versicherung schon besitzen oder diese neu beantragen möchten.</p>',
                                 'as-card' => true,
+
+                                'col_attributes' => ['class' => 'offset-sm-2'],
                             ],
                             'attributes' => [
                                 'id' => 'KrRS',
@@ -1454,6 +1474,8 @@ return [
                     'checked_value' => '1',
                     'unchecked_value' => '0',
                     'as-card' => true,
+
+                    'col_attributes' => ['class' => 'offset-sm-2'],
                 ],
                 'attributes' => ['id' => 'mrmoErstinfo'],
             ],
