@@ -320,8 +320,8 @@ final class FormTextareaTest extends TestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-       $doctype->expects(self::never())
-           ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
         $doctype->expects(self::never())
@@ -487,8 +487,8 @@ final class FormTextareaTest extends TestCase
         $doctype = $this->createMock(Doctype::class);
         $doctype->expects(self::never())
             ->method('__invoke');
-       $doctype->expects(self::never())
-           ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
         $doctype->expects(self::never())
