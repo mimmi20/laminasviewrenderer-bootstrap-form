@@ -19,3 +19,10 @@ indent_size = 2
 [*.md]
 indent_size = 2
 trim_trailing_whitespace = false
+
+[tests/Compare/_files/expected/form/*.html]
+insert_final_newline = false
+trim_trailing_whitespace = false
+
+[tests/Compare/_files/expected/form/{date-select,date-time-select,date-time-select.seconds,month-select,tier,unfall}.html]
+indent_size = 1

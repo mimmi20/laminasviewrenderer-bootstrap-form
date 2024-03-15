@@ -81,8 +81,8 @@ final class FormImageTest extends TestCase
             ->getMock();
         $doctype->expects(self::never())
             ->method('__invoke');
-       $doctype->expects(self::never())
-           ->method('isXhtml');
+        $doctype->expects(self::never())
+            ->method('isXhtml');
         $doctype->expects(self::never())
             ->method('isHtml5');
 
