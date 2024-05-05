@@ -36,7 +36,7 @@
     "laminas/laminas-modulemanager": "^2.15.0",
     "laminas/laminas-servicemanager": "^3.22.1",
     "laminas/laminas-validator": "^2.53.0",
-    "mimmi20/coding-standard": "^5.2.24",
+    "mimmi20/coding-standard": "^5.2.26",
     "mimmi20/laminas-form-element-group": "^3.0.8",
     "mimmi20/laminas-form-element-links": "^2.0.7",
     "mimmi20/laminas-form-element-paragraph": "^2.0.7",
