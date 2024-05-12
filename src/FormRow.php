@@ -71,15 +71,12 @@ final class FormRow extends BaseFormRow implements FormRowInterface
     /**
      * Utility form helper that renders a label (if it exists), an element and errors
      *
-     * @param string|null $labelPosition
-     *
      * @throws DomainException
      * @throws InvalidArgumentException
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function render(ElementInterface $element, $labelPosition = null): string
+    public function render(ElementInterface $element, string | null $labelPosition = null): string
     {
         $form = $element->getOption('form');
         assert(

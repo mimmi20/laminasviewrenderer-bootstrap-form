@@ -32,7 +32,7 @@ use function mb_strtolower;
 use function sprintf;
 use function trim;
 
-final class FormButton extends FormInput implements FormRenderInterface
+final class FormButton extends AbstractFormInput implements FormRenderInterface
 {
     /**
      * Attributes valid for the button tag

@@ -22,7 +22,7 @@ use Laminas\Form\ElementInterface;
  * the Search state might result in an appearance consistent with the platform's
  * search fields rather than appearing like a regular text field.
  */
-final class FormSearch extends FormInput
+final class FormSearch extends AbstractFormInput
 {
     /**
      * Attributes valid for the input tag type="text"

@@ -20,7 +20,7 @@ use function is_array;
 use function is_string;
 use function sprintf;
 
-final class FormFile extends FormInput implements FormRenderInterface
+final class FormFile extends AbstractFormInput implements FormRenderInterface
 {
     /**
      * Attributes valid for the input tag type="file"

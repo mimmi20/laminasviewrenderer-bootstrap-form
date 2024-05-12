@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 
-final class FormPassword extends FormInput
+final class FormPassword extends AbstractFormInput
 {
     /**
      * Attributes valid for the input tag type="password"

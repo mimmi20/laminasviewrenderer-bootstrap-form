@@ -37,17 +37,13 @@ use const ARRAY_FILTER_USE_KEY;
 use const PHP_EOL;
 
 /** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
-abstract class AbstractFormMultiCheckbox extends FormInput implements FormRenderInterface
+abstract class AbstractFormMultiCheckbox extends AbstractFormInput implements FormRenderInterface
 {
     use HiddenHelperTrait;
     use HtmlHelperTrait;
     use LabelHelperTrait;
     use LabelPositionTrait;
     use UseHiddenElementTrait;
-
-    final public const LABEL_APPEND = 'append';
-
-    final public const LABEL_PREPEND = 'prepend';
 
     /**
      * The attributes applied to option label
@@ -134,6 +130,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
      * @param array<int|string, bool|string> $attributes
      *
      * @throws void
+     *
+     * @api
      */
     public function setLabelAttributes(array $attributes): self
     {
@@ -148,6 +146,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
      * @return array<int|string, bool|string>
      *
      * @throws void
+     *
+     * @api
      */
     public function getLabelAttributes(): array
     {
@@ -158,6 +158,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
      * Set separator string for checkbox elements
      *
      * @throws void
+     *
+     * @api
      */
     public function setSeparator(string $separator): self
     {
@@ -170,6 +172,8 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
      * Get separator for checkbox elements
      *
      * @throws void
+     *
+     * @api
      */
     public function getSeparator(): string
     {
@@ -196,7 +200,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
      * @throws InvalidArgumentException
      * @throws DomainException
      */
-    protected function renderHiddenElement(MultiCheckboxElement $element): string
+    private function renderHiddenElement(MultiCheckboxElement $element): string
     {
         $uncheckedValue = $element->getUncheckedValue() ?? $this->uncheckedValue;
         assert(is_string($uncheckedValue));
@@ -404,7 +408,7 @@ abstract class AbstractFormMultiCheckbox extends FormInput implements FormRender
             /** @var array<string, bool|string> $filteredAttributes */
             $filteredAttributes = array_filter(
                 $labelAttributes,
-                static fn ($key): bool => is_string($key),
+                static fn (int | string $key): bool => is_string($key),
                 ARRAY_FILTER_USE_KEY,
             );
 

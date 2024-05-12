@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 
-final class FormUrl extends FormInput
+final class FormUrl extends AbstractFormInput
 {
     /**
      * Attributes valid for the input tag type="url"

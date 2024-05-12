@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 
-final class FormColor extends FormInput
+final class FormColor extends AbstractFormInput
 {
     /**
      * Attributes valid for the input tag type="color"

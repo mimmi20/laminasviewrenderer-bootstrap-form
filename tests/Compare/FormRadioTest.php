@@ -10,7 +10,7 @@
 
 declare(strict_types = 1);
 
-namespace Compare;
+namespace Mimmi20Test\LaminasView\BootstrapForm\Compare;
 
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
@@ -19,7 +19,6 @@ use Laminas\I18n\Exception\RuntimeException;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormRadio;
-use Mimmi20Test\LaminasView\BootstrapForm\Compare\AbstractTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;

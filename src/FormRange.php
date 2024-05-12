@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 
-final class FormRange extends FormInput
+final class FormRange extends AbstractFormInput
 {
     /**
      * Attributes valid for the input tag type="range"

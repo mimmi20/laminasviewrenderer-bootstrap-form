@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 
-final class FormSubmit extends FormInput
+final class FormSubmit extends AbstractFormInput
 {
     /**
      * Attributes valid for the input tag type="submit"

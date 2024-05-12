@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 
-final class FormReset extends FormInput
+final class FormReset extends AbstractFormInput
 {
     /**
      * Attributes valid for the input tag type="reset"

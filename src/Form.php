@@ -50,12 +50,12 @@ final class Form extends BaseForm implements FormIndentInterface
     /**
      * The view helper used to render sub elements.
      */
-    protected FormRowInterface | null $elementHelper = null;
+    private FormRowInterface | null $elementHelper = null;
 
     /**
      * The view helper used to render sub fieldsets.
      */
-    protected FormCollectionInterface | null $fieldsetHelper = null;
+    private FormCollectionInterface | null $fieldsetHelper = null;
 
     /**
      * Render a form from the provided $form
@@ -187,13 +187,21 @@ final class Form extends BaseForm implements FormIndentInterface
         return parent::openTag($form);
     }
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @api
+     */
     public function setElementHelper(FormRowInterface | null $elementHelper): void
     {
         $this->elementHelper = $elementHelper;
     }
 
-    /** @throws void */
+    /**
+     * @throws void
+     *
+     * @api
+     */
     public function setFieldsetHelper(FormCollectionInterface | null $fieldsetHelper): void
     {
         $this->fieldsetHelper = $fieldsetHelper;
@@ -204,7 +212,7 @@ final class Form extends BaseForm implements FormIndentInterface
      *
      * @throws void
      */
-    protected function getElementHelper(): FormRowInterface
+    private function getElementHelper(): FormRowInterface
     {
         if ($this->elementHelper) {
             return $this->elementHelper;
@@ -226,7 +234,7 @@ final class Form extends BaseForm implements FormIndentInterface
      *
      * @throws void
      */
-    protected function getFieldsetHelper(): FormCollectionInterface
+    private function getFieldsetHelper(): FormCollectionInterface
     {
         if ($this->fieldsetHelper) {
             return $this->fieldsetHelper;
