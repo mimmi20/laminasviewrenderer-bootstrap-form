@@ -65,7 +65,7 @@ final class FormTelTest extends TestCase
         $this->expectExceptionMessage(
             sprintf(
                 '%s requires that the element has an assigned name; none discovered',
-                'Mimmi20\LaminasView\BootstrapForm\FormInput::render',
+                'Mimmi20\LaminasView\BootstrapForm\AbstractFormInput::render',
             ),
         );
         $this->expectExceptionCode(0);

@@ -35,7 +35,7 @@ use function trim;
 use const ARRAY_FILTER_USE_KEY;
 use const PHP_EOL;
 
-final class FormCheckbox extends FormInput implements FormRenderInterface
+final class FormCheckbox extends AbstractFormInput implements FormRenderInterface
 {
     use HiddenHelperTrait;
     use HtmlHelperTrait;
@@ -156,7 +156,7 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
         /** @var array<string, bool|string> $filteredAttributes */
         $filteredAttributes = array_filter(
             $labelAttributes,
-            static fn ($key): bool => is_string($key),
+            static fn (int | string $key): bool => is_string($key),
             ARRAY_FILTER_USE_KEY,
         );
 
@@ -235,7 +235,7 @@ final class FormCheckbox extends FormInput implements FormRenderInterface
      *
      * @throws void
      */
-    protected function getInputType(): string
+    private function getInputType(): string
     {
         return 'checkbox';
     }

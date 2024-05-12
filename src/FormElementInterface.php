@@ -19,6 +19,7 @@ use Laminas\View\Helper\HelperInterface;
 
 interface FormElementInterface extends FormIndentInterface, FormRenderInterface, HelperInterface
 {
+    /** @api */
     public const DEFAULT_HELPER = 'formInput';
 
     /**

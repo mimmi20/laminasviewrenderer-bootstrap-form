@@ -29,7 +29,7 @@ use function sprintf;
 use function trim;
 
 /** @SuppressWarnings(PHPMD.NumberOfChildren) */
-abstract class FormInput extends BaseFormInput implements FormInputInterface
+abstract class AbstractFormInput extends BaseFormInput implements FormInputInterface
 {
     use FormTrait;
 

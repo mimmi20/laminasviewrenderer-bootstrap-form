@@ -17,7 +17,7 @@ use Laminas\Form\Exception\DomainException;
 
 use function sprintf;
 
-final class FormImage extends FormInput implements FormRenderInterface
+final class FormImage extends AbstractFormInput implements FormRenderInterface
 {
     /**
      * Attributes valid for the input tag type="image"

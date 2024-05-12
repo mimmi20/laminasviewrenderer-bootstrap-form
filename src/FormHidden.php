@@ -17,7 +17,7 @@ use Laminas\Form\Exception\DomainException;
 
 use function sprintf;
 
-final class FormHidden extends FormInput implements FormHiddenInterface
+final class FormHidden extends AbstractFormInput implements FormHiddenInterface
 {
     /**
      * Attributes valid for the input tag type="hidden"

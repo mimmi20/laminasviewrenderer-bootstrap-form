@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 
-final class FormDateTimeLocal extends FormInput
+final class FormDateTimeLocal extends AbstractFormInput
 {
     /**
      * Attributes valid for the input tag type="datetime"

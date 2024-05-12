@@ -14,7 +14,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 
-final class FormTel extends FormInput
+final class FormTel extends AbstractFormInput
 {
     /**
      * Attributes valid for the input tag type="tel"

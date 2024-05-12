@@ -54,6 +54,8 @@ final class FormElement extends BaseFormElement implements FormIndentInterface, 
      * Get default helper name
      *
      * @throws void
+     *
+     * @api
      */
     public function getDefaultHelper(): string
     {
