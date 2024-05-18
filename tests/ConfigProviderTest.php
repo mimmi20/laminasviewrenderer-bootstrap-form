@@ -12,14 +12,12 @@ declare(strict_types = 1);
 
 namespace Mimmi20Test\LaminasView\BootstrapForm;
 
-use AssertionError;
 use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\ConfigProvider;
 use Mimmi20\LaminasView\BootstrapForm\Form;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\ContainerInterface;
 
 final class ConfigProviderTest extends TestCase
 {
@@ -66,72 +64,6 @@ final class ConfigProviderTest extends TestCase
         self::assertArrayHasKey(HelperPluginManager::class, $factories);
 
         self::assertArrayNotHasKey('aliases', $dependencyConfig);
-    }
-
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
-    public function testGetDependencyConfig2(): void
-    {
-        $dependencyConfig = $this->provider->getDependencyConfig();
-        self::assertIsArray($dependencyConfig);
-
-        self::assertArrayHasKey('factories', $dependencyConfig);
-        $factories = $dependencyConfig['factories'];
-        self::assertIsArray($factories);
-        self::assertArrayHasKey(HelperPluginManager::class, $factories);
-        self::assertIsCallable($factories[HelperPluginManager::class]);
-
-        self::assertArrayNotHasKey('aliases', $dependencyConfig);
-
-        $callable = $factories[HelperPluginManager::class];
-
-        $container = $this->createMock(ContainerInterface::class);
-        $container->expects(self::never())
-            ->method('has');
-        $container->expects(self::once())
-            ->method('get')
-            ->with('config')
-            ->willReturn(null);
-
-        $this->expectException(AssertionError::class);
-        $this->expectExceptionCode(1);
-        $this->expectExceptionMessage('assert(is_array($config))');
-
-        $callable($container, '', null);
-    }
-
-    /**
-     * @throws Exception
-     * @throws ContainerExceptionInterface
-     */
-    public function testGetDependencyConfig3(): void
-    {
-        $dependencyConfig = $this->provider->getDependencyConfig();
-        self::assertIsArray($dependencyConfig);
-
-        self::assertArrayHasKey('factories', $dependencyConfig);
-        $factories = $dependencyConfig['factories'];
-        self::assertIsArray($factories);
-        self::assertArrayHasKey(HelperPluginManager::class, $factories);
-        self::assertIsCallable($factories[HelperPluginManager::class]);
-
-        self::assertArrayNotHasKey('aliases', $dependencyConfig);
-
-        $callable = $factories[HelperPluginManager::class];
-
-        $container = $this->createMock(ContainerInterface::class);
-        $container->expects(self::never())
-            ->method('has');
-        $container->expects(self::once())
-            ->method('get')
-            ->with('config')
-            ->willReturn([]);
-
-        $result = $callable($container, '', null);
-
-        self::assertInstanceOf(HelperPluginManager::class, $result);
     }
 
     /**

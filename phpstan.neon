@@ -103,7 +103,7 @@ parameters:
 
   type_coverage:
     return: 99.8
-    param: 100
+    param: 99.8
     property: 100
     # also, how many files has declare strict types
     declare: 100

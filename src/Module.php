@@ -12,20 +12,16 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
-use Closure;
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 use Laminas\ModuleManager\Feature\DependencyIndicatorInterface;
-use Laminas\View\Helper\HelperInterface;
-use Laminas\View\HelperPluginManager;
-use Psr\Container\ContainerInterface;
 
 final class Module implements ConfigProviderInterface, DependencyIndicatorInterface
 {
     /**
      * Return default configuration for laminas-mvc applications.
      *
-     * @return array<string, array<string, array<int|string, Closure|string>>>
-     * @phpstan-return array{service_manager: array{factories: array<class-string, (Closure(ContainerInterface, string, array<mixed>|null):HelperPluginManager<(callable(): HelperInterface)|HelperInterface>)>}, view_helpers: array{aliases: array<string, class-string>, factories: array<class-string, class-string>}}
+     * @return array<string, array<string, array<int|string, string>>>
+     * @phpstan-return array{service_manager: array{factories: array<class-string, class-string>}, view_helpers: array{aliases: array<string, class-string>, factories: array<class-string, class-string>}}
      *
      * @throws void
      */
