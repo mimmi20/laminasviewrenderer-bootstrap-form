@@ -31,7 +31,7 @@
     "ext-xml": "*",
     "ext-xmlwriter": "*",
     "infection/infection": "^0.27.11 || ^0.28.1 || ^0.29.0",
-    "laminas/laminas-filter": "^2.35.2",
+    "laminas/laminas-filter": "^2.36.0",
     "laminas/laminas-i18n": "^2.26.0",
     "laminas/laminas-modulemanager": "^2.15.0",
     "laminas/laminas-servicemanager": "^3.22.1",
