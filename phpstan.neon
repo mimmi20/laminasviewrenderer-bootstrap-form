@@ -35,9 +35,6 @@ parameters:
   # reports function and method calls with incorrect name case
   checkFunctionNameCase: true
 
-  # it requires type variables always be specified in typehints
-  checkGenericClassInNonGenericObjectType: true
-
   # be strict about values with an unspecified (implicit mixed) type
   checkImplicitMixed: false # todo: fix
 
@@ -72,10 +69,10 @@ parameters:
   reportAlwaysTrueInLastCondition: true
 
   # reports violations of parameter type contravariance and return type covariance
-  reportMaybesInMethodSignatures: false
+  reportMaybesInMethodSignatures: false # todo: fix
 
   # reports violations of property type invariance
-  reportMaybesInPropertyPhpDocTypes: false
+  reportMaybesInPropertyPhpDocTypes: false # todo: fix
 
   # reports violations of parameter type contravariance and return type covariance in static methods
   reportStaticMethodSignatures: true
