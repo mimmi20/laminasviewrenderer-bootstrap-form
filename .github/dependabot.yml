@@ -58,55 +58,55 @@ updates:
       - dependency-name: "infection/infection"
       - dependency-name: "psr/http-message"
 
-  - package-ecosystem: "composer"
-
-    directory: "/"
-
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-      time: "04:00"
-      timezone: "Europe/Berlin"
-
-    groups:
-      # Specify a name for the group, which will be used in pull request titles
-      # and branch names
-      minor-patch-dependencies:
-        applies-to: "version-updates"
-        # Define patterns to include dependencies in the group (based on
-        # dependency name)
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
-          - "patch"
-        # exclude-patterns:
-        #   - "gc_ruboconfig"
-
-    open-pull-requests-limit: 10
-
-    reviewers:
-      - "mimmi20"
-
-    assignees:
-      - "mimmi20"
-
-    labels:
-      - "dependencies"
-
-    versioning-strategy: "widen"
-
-    target-branch: "master"
-
-    commit-message:
-      include: "scope"
-      prefix: "composer"
-
-    allow:
-      - dependency-name: "psr/container"
-      - dependency-name: "infection/infection"
-      - dependency-name: "nikic/php-parser"
-      - dependency-name: "psr/http-message"
+#  - package-ecosystem: "composer"
+#
+#    directory: "/"
+#
+#    schedule:
+#      interval: "weekly"
+#      day: "thursday"
+#      time: "04:00"
+#      timezone: "Europe/Berlin"
+#
+#    groups:
+#      # Specify a name for the group, which will be used in pull request titles
+#      # and branch names
+#      minor-patch-dependencies:
+#        applies-to: "version-updates"
+#        # Define patterns to include dependencies in the group (based on
+#        # dependency name)
+#        patterns:
+#          - "*"
+#        update-types:
+#          - "minor"
+#          - "patch"
+#        # exclude-patterns:
+#        #   - "gc_ruboconfig"
+#
+#    open-pull-requests-limit: 10
+#
+#    reviewers:
+#      - "mimmi20"
+#
+#    assignees:
+#      - "mimmi20"
+#
+#    labels:
+#      - "dependencies"
+#
+#    versioning-strategy: "widen"
+#
+#    target-branch: "master"
+#
+#    commit-message:
+#      include: "scope"
+#      prefix: "composer"
+#
+#    allow:
+#      - dependency-name: "psr/container"
+#      - dependency-name: "infection/infection"
+#      - dependency-name: "nikic/php-parser"
+#      - dependency-name: "psr/http-message"
 
   - package-ecosystem: "github-actions"
 
