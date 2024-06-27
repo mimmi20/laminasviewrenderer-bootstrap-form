@@ -25,21 +25,12 @@ final class HelperPluginManagerFactory
     /**
      * Create an instance of the requested class name.
      *
-     * @param string            $requestedName
-     * @param array<mixed>|null $options
-     *
      * @return HelperPluginManager<(callable(): mixed)|HelperInterface>
      *
      * @throws ContainerExceptionInterface
-     *
-     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function __invoke(
-        ContainerInterface $container,
-        $requestedName,
-        array | null $options = null,
-    ): HelperPluginManager {
+    public function __invoke(ContainerInterface $container): HelperPluginManager
+    {
         $config = $container->get('config');
         assert(is_array($config));
 
