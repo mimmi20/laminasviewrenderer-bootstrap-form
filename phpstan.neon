@@ -120,7 +120,7 @@ parameters:
     - '~Call to deprecated method setView\(\)~'
     - '~Fetching class constant class of deprecated class~'
     - '~Dead catch - .* is never thrown in the try block~'
-#    - '~Call to deprecated method setView\(\) of class Laminas\\I18n\\View\\Helper\\AbstractTranslatorHelper~'
+    - '~deprecated interface Laminas\\I18n\\Translator\\TranslatorInterface~'
 #    -
 #      message: '~Parameter #1 \$attributesOrElement of method .* expects .*, int given~'
 #      path: tests\FormLabelTest.php
