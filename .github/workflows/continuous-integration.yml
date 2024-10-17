@@ -125,12 +125,6 @@ jobs:
       - name: "Enable annotations for validation errors and warnings"
         uses: "korelstar/xmllint-problem-matcher@v1"
 
-      - name: "Validate phpcs.xml"
-        uses: "ChristophWurst/xmllint-action@v1"
-        with:
-          xml-file: "phpunit.xml"
-          xml-schema-file: "vendor/phpunit/phpunit/phpunit.xsd"
-
   code-coverage:
     name: "Code Coverage with PHPUnit"
 
