@@ -20,7 +20,7 @@
     "ext-intl": "*",
     "ext-mbstring": "*",
     "laminas/laminas-form": "^3.21.0",
-    "laminas/laminas-inputfilter": "^2.30.1",
+    "laminas/laminas-inputfilter": "^2.31.0",
     "laminas/laminas-view": "^2.35.0"
   },
   "require-dev": {
