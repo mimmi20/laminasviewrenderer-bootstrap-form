@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
+use Override;
 
 final class FormDateTimeLocal extends AbstractFormInput
 {
@@ -46,6 +47,7 @@ final class FormDateTimeLocal extends AbstractFormInput
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
+    #[Override]
     protected function getType(ElementInterface $element): string
     {
         return 'datetime-local';

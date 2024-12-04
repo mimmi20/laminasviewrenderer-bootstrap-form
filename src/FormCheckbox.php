@@ -19,6 +19,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
+use Override;
 
 use function array_filter;
 use function array_key_exists;
@@ -51,6 +52,7 @@ final class FormCheckbox extends AbstractFormInput implements FormRenderInterfac
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof CheckboxElement) {

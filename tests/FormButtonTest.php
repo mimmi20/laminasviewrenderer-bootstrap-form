@@ -26,6 +26,7 @@ use Laminas\View\Helper\Escaper\AbstractHelper;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormButton;
+use Override;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -41,6 +42,7 @@ final class FormButtonTest extends TestCase
     private FormButton $helper;
 
     /** @throws void */
+    #[Override]
     protected function setUp(): void
     {
         $this->helper = new FormButton();

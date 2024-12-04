@@ -15,6 +15,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use DateTime;
 use IntlDateFormatter;
+use Override;
 
 trait FormDateSelectTrait
 {
@@ -27,6 +28,7 @@ trait FormDateSelectTrait
      *
      * @throws void
      */
+    #[Override]
     protected function getDaysOptions(string $pattern): array
     {
         $keyFormatter   = new IntlDateFormatter(

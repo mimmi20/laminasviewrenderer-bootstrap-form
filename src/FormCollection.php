@@ -23,6 +23,7 @@ use Laminas\Form\LabelAwareInterface;
 use Laminas\Form\View\Helper\FormCollection as BaseFormCollection;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\HelperInterface;
+use Override;
 
 use function array_key_exists;
 use function array_merge;
@@ -50,6 +51,7 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
      * @throws RuntimeException
      * @throws InvalidArgumentException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof FieldsetInterface) {
@@ -245,6 +247,7 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
      * @throws DomainException
      * @throws RuntimeException
      */
+    #[Override]
     public function renderTemplate(CollectionElement $collection, string $indent = ''): string
     {
         $elementOrFieldset = $collection->getTemplateElement();
@@ -304,6 +307,7 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
      *
      * @throws void
      */
+    #[Override]
     public function setShouldWrap(bool $wrap): self
     {
         $this->shouldWrap = $wrap;
@@ -316,6 +320,7 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
      *
      * @throws void
      */
+    #[Override]
     public function shouldWrap(): bool
     {
         return $this->shouldWrap;

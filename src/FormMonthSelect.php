@@ -18,6 +18,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormMonthSelect as BaseFormMonthSelect;
+use Override;
 
 use function get_debug_type;
 use function implode;
@@ -36,6 +37,7 @@ final class FormMonthSelect extends BaseFormMonthSelect implements FormIndentInt
      * @throws InvalidArgumentException
      * @throws DomainException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof MonthSelectElement) {

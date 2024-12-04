@@ -19,6 +19,7 @@ use Laminas\Form\Exception\DomainException;
 use Laminas\Form\View\Helper\FormSelect as BaseFormSelect;
 use Laminas\I18n\Exception\RuntimeException;
 use Laminas\View\Exception\InvalidArgumentException;
+use Override;
 
 use function array_key_exists;
 use function array_merge;
@@ -64,6 +65,7 @@ final class FormSelect extends BaseFormSelect implements FormSelectInterface
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof SelectElement) {
@@ -166,6 +168,7 @@ final class FormSelect extends BaseFormSelect implements FormSelectInterface
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
+    #[Override]
     public function renderOptions(array $options, array $selectedOptions = [], int $level = 0): string
     {
         $optionStrings = [];
@@ -185,6 +188,7 @@ final class FormSelect extends BaseFormSelect implements FormSelectInterface
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
+    #[Override]
     public function renderOption(
         int | string $key,
         array | string $optionSpec,
@@ -273,6 +277,7 @@ final class FormSelect extends BaseFormSelect implements FormSelectInterface
      * @throws InvalidArgumentException
      * @throws RuntimeException
      */
+    #[Override]
     public function renderOptgroup(array $optgroup, array $selectedOptions = [], int $level = 0): string
     {
         $options = [];
@@ -318,6 +323,7 @@ final class FormSelect extends BaseFormSelect implements FormSelectInterface
      *
      * @throws DomainException
      */
+    #[Override]
     protected function validateMultiValue(mixed $value, array $attributes): array
     {
         if ($value === null) {

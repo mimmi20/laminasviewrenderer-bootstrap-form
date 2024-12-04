@@ -21,6 +21,7 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\HelperInterface;
+use Override;
 
 interface FormCollectionInterface extends FormIndentInterface, FormRenderInterface, HelperInterface
 {
@@ -52,6 +53,7 @@ interface FormCollectionInterface extends FormIndentInterface, FormRenderInterfa
      * @throws InvalidArgumentException
      * @throws \Laminas\Form\Exception\InvalidArgumentException
      */
+    #[Override]
     public function render(ElementInterface $element): string;
 
     /**

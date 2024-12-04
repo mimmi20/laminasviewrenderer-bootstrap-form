@@ -16,6 +16,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\View\Helper\FormElementErrors as BaseFormElementErrors;
+use Override;
 
 use const PHP_EOL;
 
@@ -35,6 +36,7 @@ final class FormElementErrors extends BaseFormElementErrors implements FormInden
      *
      * @throws DomainException
      */
+    #[Override]
     public function render(ElementInterface $element, array $attributes = []): string
     {
         $indent = $this->getIndent();

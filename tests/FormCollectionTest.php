@@ -19,6 +19,7 @@ use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\FieldsetInterface;
 use Laminas\View\Exception\RuntimeException;
 use Mimmi20\LaminasView\BootstrapForm\FormCollection;
+use Override;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -31,6 +32,7 @@ final class FormCollectionTest extends TestCase
     private FormCollection $helper;
 
     /** @throws void */
+    #[Override]
     protected function setUp(): void
     {
         $this->helper = new FormCollection();

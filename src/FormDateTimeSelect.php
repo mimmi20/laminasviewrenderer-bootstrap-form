@@ -20,6 +20,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormDateTimeSelect as BaseFormDateTimeSelect;
+use Override;
 
 use function array_key_exists;
 use function get_debug_type;
@@ -41,6 +42,7 @@ final class FormDateTimeSelect extends BaseFormDateTimeSelect implements FormInd
      * @throws InvalidArgumentException
      * @throws DomainException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof DateTimeSelectElement) {
@@ -138,6 +140,7 @@ final class FormDateTimeSelect extends BaseFormDateTimeSelect implements FormInd
      *
      * @throws void
      */
+    #[Override]
     protected function getHoursOptions(string $pattern): array
     {
         $keyFormatter   = new IntlDateFormatter(
@@ -190,6 +193,7 @@ final class FormDateTimeSelect extends BaseFormDateTimeSelect implements FormInd
      *
      * @throws void
      */
+    #[Override]
     protected function getMinutesOptions(string $pattern): array
     {
         $keyFormatter   = new IntlDateFormatter(
@@ -242,6 +246,7 @@ final class FormDateTimeSelect extends BaseFormDateTimeSelect implements FormInd
      *
      * @throws void
      */
+    #[Override]
     protected function getSecondsOptions(string $pattern): array
     {
         $keyFormatter   = new IntlDateFormatter(

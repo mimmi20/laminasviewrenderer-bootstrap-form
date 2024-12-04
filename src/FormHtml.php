@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\View\Helper\AbstractHelper;
+use Override;
 use stdClass;
 
 use function sprintf;
@@ -29,6 +30,7 @@ final class FormHtml extends AbstractHelper implements FormHtmlInterface
      *
      * @throws void
      */
+    #[Override]
     public function render(string $element, array $attribs, string $content): string
     {
         return $this->open($element, $attribs) . $content . $this->close($element);

@@ -22,6 +22,7 @@ use Mimmi20\LaminasView\BootstrapForm\Form;
 use Mimmi20\LaminasView\BootstrapForm\FormElementErrorsInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormElementInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormRow;
+use Override;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -34,6 +35,7 @@ final class FormRow2Test extends TestCase
     private FormRow $helper;
 
     /** @throws void */
+    #[Override]
     protected function setUp(): void
     {
         $this->helper = new FormRow();

@@ -23,6 +23,7 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Renderer\RendererInterface;
+use Override;
 
 use function array_merge;
 use function array_unique;
@@ -42,11 +43,11 @@ final class Form extends BaseForm implements FormIndentInterface
 {
     use FormTrait;
 
-    public const LAYOUT_HORIZONTAL = 'horizontal';
+    public const string LAYOUT_HORIZONTAL = 'horizontal';
 
-    public const LAYOUT_VERTICAL = 'vertical';
+    public const string LAYOUT_VERTICAL = 'vertical';
 
-    public const LAYOUT_INLINE = 'inline';
+    public const string LAYOUT_INLINE = 'inline';
 
     /**
      * The view helper used to render sub elements.
@@ -72,6 +73,7 @@ final class Form extends BaseForm implements FormIndentInterface
      *
      * @template TFilteredValues of object
      */
+    #[Override]
     public function render(FormInterface $form): string
     {
         assert($form instanceof \Laminas\Form\Form);
@@ -144,6 +146,7 @@ final class Form extends BaseForm implements FormIndentInterface
      *
      * @template TFilteredValues of object
      */
+    #[Override]
     public function openTag(FormInterface | null $form = null): string
     {
         if ($form instanceof FormInterface) {

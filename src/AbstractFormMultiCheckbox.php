@@ -19,6 +19,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
+use Override;
 
 use function array_filter;
 use function array_key_exists;
@@ -70,6 +71,7 @@ abstract class AbstractFormMultiCheckbox extends AbstractFormInput implements Fo
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
+    #[Override]
     public function __invoke(ElementInterface | null $element = null, string | null $labelPosition = null)
     {
         if ($element === null) {
@@ -89,6 +91,7 @@ abstract class AbstractFormMultiCheckbox extends AbstractFormInput implements Fo
      * @throws InvalidArgumentException
      * @throws DomainException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof MultiCheckboxElement) {

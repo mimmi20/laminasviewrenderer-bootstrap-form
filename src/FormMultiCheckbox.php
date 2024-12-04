@@ -15,6 +15,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Override;
 
 use function sprintf;
 
@@ -25,6 +26,7 @@ final class FormMultiCheckbox extends AbstractFormMultiCheckbox
      *
      * @throws void
      */
+    #[Override]
     protected function getInputType(): string
     {
         return 'checkbox';
@@ -35,6 +37,7 @@ final class FormMultiCheckbox extends AbstractFormMultiCheckbox
      *
      * @throws DomainException
      */
+    #[Override]
     protected static function getName(ElementInterface $element): string
     {
         $name = $element->getName();

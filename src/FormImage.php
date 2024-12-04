@@ -15,6 +15,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Override;
 
 use function sprintf;
 
@@ -48,6 +49,7 @@ final class FormImage extends AbstractFormInput implements FormRenderInterface
      *
      * @throws DomainException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         $src = $element->getAttribute('src');
@@ -71,6 +73,7 @@ final class FormImage extends AbstractFormInput implements FormRenderInterface
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
+    #[Override]
     protected function getType(ElementInterface $element): string
     {
         return 'image';

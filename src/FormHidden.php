@@ -15,6 +15,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Override;
 
 use function sprintf;
 
@@ -40,6 +41,7 @@ final class FormHidden extends AbstractFormInput implements FormHiddenInterface
      *
      * @throws DomainException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         $name = $element->getName();
@@ -84,6 +86,7 @@ final class FormHidden extends AbstractFormInput implements FormHiddenInterface
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
+    #[Override]
     protected function getType(ElementInterface $element): string
     {
         return 'hidden';

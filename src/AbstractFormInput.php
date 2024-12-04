@@ -18,6 +18,7 @@ use Laminas\Form\Element\Submit;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\View\Helper\FormInput as BaseFormInput;
+use Override;
 
 use function array_key_exists;
 use function array_merge;
@@ -39,6 +40,7 @@ abstract class AbstractFormInput extends BaseFormInput implements FormInputInter
      *
      * @throws DomainException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         $name = $element->getName();

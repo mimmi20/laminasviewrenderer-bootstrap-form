@@ -18,6 +18,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormDateSelect as BaseFormDateSelect;
+use Override;
 
 use function get_debug_type;
 use function implode;
@@ -37,6 +38,7 @@ final class FormDateSelect extends BaseFormDateSelect implements FormIndentInter
      * @throws InvalidArgumentException
      * @throws DomainException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         if (!$element instanceof DateSelectElement) {

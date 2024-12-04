@@ -19,6 +19,7 @@ use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Mimmi20\LaminasView\BootstrapForm\FormCheckbox;
+use Override;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -31,6 +32,7 @@ final class FormCheckboxTest extends TestCase
     private FormCheckbox $helper;
 
     /** @throws void */
+    #[Override]
     protected function setUp(): void
     {
         $this->helper = new FormCheckbox();

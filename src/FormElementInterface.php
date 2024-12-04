@@ -17,11 +17,12 @@ use Laminas\Form\ElementInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Helper\HelperInterface;
+use Override;
 
 interface FormElementInterface extends FormIndentInterface, FormRenderInterface, HelperInterface
 {
     /** @api */
-    public const DEFAULT_HELPER = 'formInput';
+    public const string DEFAULT_HELPER = 'formInput';
 
     /**
      * Invoke helper as function
@@ -46,6 +47,7 @@ interface FormElementInterface extends FormIndentInterface, FormRenderInterface,
      * @throws InvalidServiceException
      * @throws ServiceNotFoundException
      */
+    #[Override]
     public function render(ElementInterface $element): string;
 
     /**

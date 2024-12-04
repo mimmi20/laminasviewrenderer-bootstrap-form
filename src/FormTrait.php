@@ -13,6 +13,8 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
+use Override;
+
 use function is_int;
 use function str_repeat;
 
@@ -26,6 +28,7 @@ trait FormTrait
      *
      * @throws void
      */
+    #[Override]
     public function setIndent(int | string $indent): self
     {
         $this->indent = $this->getWhitespace($indent);
@@ -38,6 +41,7 @@ trait FormTrait
      *
      * @throws void
      */
+    #[Override]
     public function getIndent(): string
     {
         return $this->indent;
