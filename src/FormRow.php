@@ -31,6 +31,7 @@ use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Laminas\InputFilter\InputFilterInterface;
 use Laminas\InputFilter\InputFilterProviderInterface;
 use Laminas\InputFilter\InputInterface;
+use Override;
 use stdClass;
 
 use function array_key_exists;
@@ -77,6 +78,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
      */
+    #[Override]
     public function render(ElementInterface $element, string | null $labelPosition = null): string
     {
         $form = $element->getOption('form');

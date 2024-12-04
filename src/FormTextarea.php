@@ -17,6 +17,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\View\Helper\AbstractHelper;
 use Laminas\View\Exception\InvalidArgumentException;
+use Override;
 
 use function array_key_exists;
 use function array_merge;
@@ -79,6 +80,7 @@ final class FormTextarea extends AbstractHelper implements FormIndentInterface, 
      * @throws DomainException
      * @throws InvalidArgumentException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         $name = $element->getName();

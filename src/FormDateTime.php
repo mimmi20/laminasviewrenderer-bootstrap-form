@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
+use Override;
 
 /** @deprecated This element is deprecated as it has been removed from WHATWG HTML, use {@see FormDateTimeLocal} instead */
 final class FormDateTime extends AbstractFormInput
@@ -47,6 +48,7 @@ final class FormDateTime extends AbstractFormInput
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
+    #[Override]
     protected function getType(ElementInterface $element): string
     {
         return 'datetime';

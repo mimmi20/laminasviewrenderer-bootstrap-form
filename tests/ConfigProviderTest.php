@@ -16,6 +16,7 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\ConfigProvider;
 use Mimmi20\LaminasView\BootstrapForm\Form;
+use Override;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
@@ -25,6 +26,7 @@ final class ConfigProviderTest extends TestCase
     private ConfigProvider $provider;
 
     /** @throws void */
+    #[Override]
     protected function setUp(): void
     {
         $this->provider = new ConfigProvider();

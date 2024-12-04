@@ -20,6 +20,7 @@ use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\ExtensionNotLoadedException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Mimmi20\LaminasView\BootstrapForm\FormDateSelect;
+use Override;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -33,6 +34,7 @@ final class FormDateSelectTest extends TestCase
     private FormDateSelect $helper;
 
     /** @throws ExtensionNotLoadedException */
+    #[Override]
     protected function setUp(): void
     {
         $this->helper = new FormDateSelect();

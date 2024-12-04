@@ -21,6 +21,7 @@ use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\Form\Links\Element\Links;
 use Mimmi20\Form\Paragraph\Element\Paragraph;
+use Override;
 
 use function assert;
 use function get_debug_type;
@@ -68,6 +69,7 @@ final class FormElement extends BaseFormElement implements FormIndentInterface, 
      *
      * @throws InvalidArgumentException
      */
+    #[Override]
     protected function renderHelper(string $name, ElementInterface $element): string
     {
         $renderer = $this->getView();

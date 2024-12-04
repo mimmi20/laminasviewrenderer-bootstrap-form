@@ -19,6 +19,7 @@ use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Renderer\RendererInterface;
 use Mimmi20\LaminasView\BootstrapForm\ConfigProvider;
+use Override;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -46,6 +47,7 @@ abstract class AbstractTestCase extends TestCase
      *
      * @throws ContainerModificationsNotAllowedException
      */
+    #[Override]
     protected function setUp(): void
     {
         $cwd = __DIR__;

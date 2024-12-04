@@ -15,6 +15,7 @@ namespace Mimmi20\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Override;
 
 use function array_key_exists;
 use function is_array;
@@ -45,6 +46,7 @@ final class FormFile extends AbstractFormInput implements FormRenderInterface
      *
      * @throws DomainException
      */
+    #[Override]
     public function render(ElementInterface $element): string
     {
         $name = $element->getName();
@@ -98,6 +100,7 @@ final class FormFile extends AbstractFormInput implements FormRenderInterface
      *
      * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
      */
+    #[Override]
     protected function getType(ElementInterface $element): string
     {
         return 'file';

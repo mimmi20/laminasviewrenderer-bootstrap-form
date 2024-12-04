@@ -18,6 +18,7 @@ use Laminas\Form\Element\Submit as SubmitElement;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
+use Override;
 
 use function array_key_exists;
 use function array_merge;
@@ -75,6 +76,7 @@ final class FormButton extends AbstractFormInput implements FormRenderInterface
      * @throws DomainException
      * @throws InvalidArgumentException
      */
+    #[Override]
     public function __invoke(
         ElementInterface | null $element = null,
         string | null $buttonContent = null,
@@ -93,6 +95,7 @@ final class FormButton extends AbstractFormInput implements FormRenderInterface
      * @throws DomainException
      * @throws InvalidArgumentException
      */
+    #[Override]
     public function render(ElementInterface $element, string | null $buttonContent = null): string
     {
         if (!$element instanceof ButtonElement && !$element instanceof SubmitElement) {
@@ -215,6 +218,7 @@ final class FormButton extends AbstractFormInput implements FormRenderInterface
      *
      * @throws void
      */
+    #[Override]
     protected function getType(ElementInterface $element): string
     {
         $type = $element->getAttribute('type');
