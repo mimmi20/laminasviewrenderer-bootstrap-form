@@ -3,7 +3,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021-2024, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2025, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -55,7 +55,6 @@ use function trim;
 
 use const PHP_EOL;
 
-/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
 final class FormRow extends BaseFormRow implements FormRowInterface
 {
     use FormTrait;
@@ -922,6 +921,8 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             assert(is_array($message));
 
             $content = $message['content'] ?? '';
+
+            assert(is_string($content));
 
             if ($content === '') {
                 continue;
