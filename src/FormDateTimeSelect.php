@@ -3,7 +3,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021-2024, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2025, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -30,7 +30,6 @@ use function sprintf;
 
 use const PHP_EOL;
 
-/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
 final class FormDateTimeSelect extends BaseFormDateTimeSelect implements FormIndentInterface, FormRenderInterface
 {
     use FormDateSelectTrait;

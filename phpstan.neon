@@ -16,15 +16,6 @@ parameters:
     - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/autoload.php
     - %currentWorkingDirectory%/vendor/squizlabs/php_codesniffer/src/Util/Tokens.php
 
-  # reports occurrences of type-checking functions always evaluated to true
-  checkAlwaysTrueCheckTypeFunctionCall: false # todo: fix
-
-  # reports instanceof occurrences always evaluated to true
-  checkAlwaysTrueInstanceof: false # todo: fix
-
-  # reports === and !== occurrences always evaluated to true
-  checkAlwaysTrueStrictComparison: true
-
   # enable stricter analysis of benevolent union types
   checkBenevolentUnionTypes: true
 
@@ -45,9 +36,6 @@ parameters:
 
   # require that callable signatures are specified
   checkMissingCallableSignature: true
-
-  # checks for missing typehints in iterables
-  checkMissingIterableValueType: true
 
   # reports return typehints that could be narrowed down because some of the listed types are never returned
   checkTooWideReturnTypesInProtectedAndPublicMethods: true
@@ -122,16 +110,30 @@ parameters:
   ignoreErrors:
     - '~Call to deprecated method setView\(\)~'
     - '~Fetching class constant class of deprecated class~'
-    - '~Dead catch - .* is never thrown in the try block~'
-    - '~deprecated interface Laminas\\I18n\\Translator\\TranslatorInterface~'
-#    -
-#      message: '~Parameter #1 \$attributesOrElement of method .* expects .*, int given~'
-#      path: tests\FormLabelTest.php
+    #- '~Dead catch - .* is never thrown in the try block~'
+    - '~will always evaluate to true~'
+    -
+      message: '~deprecated interface Laminas\\I18n\\Translator\\TranslatorInterface~'
+      path: tests\FormButtonTest.php
+    -
+      message: '~array<string, array<mixed>\|bool\|float\|int\|string> given~'
+      path: src\FormRow.php
+    -
+      message: '~array<mixed, mixed> given~'
+      path: src\FormRow.php
+    -
+      message: '~but returns array<mixed, mixed>~'
+      path: src\FormSelect.php
+    -
+      message: '~Parameter #2 \$v3config of class Laminas\\View\\HelperPluginManager constructor expects array~'
+      path: src\HelperPluginManagerFactory.php
+    -
+      message: '~Dead catch~'
+      path: src\Form.php
 
 rules:
   # code complexity
   - Symplify\PHPStanRules\Rules\NoDynamicNameRule
-  # - Symplify\PHPStanRules\Rules\NoReturnArrayVariableListRule # todo: fix
 
   - Symplify\PHPStanRules\Rules\ForbiddenExtendOfNonAbstractClassRule
 
@@ -153,14 +155,8 @@ rules:
   # naming
   - Symplify\PHPStanRules\Rules\RequireAttributeNameRule
 
-  # regexes
-  - Symplify\PHPStanRules\Rules\AnnotateRegexClassConstWithRegexLinkRule
-  - Symplify\PHPStanRules\Rules\NoInlineStringRegexRule
-  - Symplify\PHPStanRules\Rules\RegexSuffixInRegexConstantRule
-
   # naming
   - Symplify\PHPStanRules\Rules\Explicit\ExplicitClassPrefixSuffixRule
   # - Symplify\PHPStanRules\Rules\NoReturnSetterMethodRule
   - Symplify\PHPStanRules\Rules\UppercaseConstantRule
   - Symplify\PHPStanRules\Rules\ClassNameRespectsParentSuffixRule
-  - Symplify\PHPStanRules\Rules\CheckClassNamespaceFollowPsr4Rule

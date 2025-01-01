@@ -3,7 +3,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021-2024, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2025, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -24,6 +24,7 @@ use Laminas\Form\View\Helper\FormCollection as BaseFormCollection;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\HelperInterface;
 use Override;
+use stdClass;
 
 use function array_key_exists;
 use function array_merge;
@@ -289,9 +290,8 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
             }
         }
 
+        /** @var array<int|string, bool|float|int|iterable<int, string>|stdClass|string|null> $templateAttrbutes */
         $templateAttrbutes = $collection->getOption('template_attributes') ?? [];
-
-        assert(is_array($templateAttrbutes));
 
         $htmlHelper = $this->getHtmlHelper();
 

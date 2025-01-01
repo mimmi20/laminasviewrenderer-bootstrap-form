@@ -3,7 +3,7 @@
 /**
  * This file is part of the mimmi20/laminasviewrenderer-bootstrap-form package.
  *
- * Copyright (c) 2021-2024, Thomas Mueller <mimmi20@live.de>
+ * Copyright (c) 2021-2025, Thomas Mueller <mimmi20@live.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -38,7 +38,6 @@ use function sprintf;
 use const ARRAY_FILTER_USE_KEY;
 use const PHP_EOL;
 
-/** @SuppressWarnings(PHPMD.ExcessiveClassComplexity) */
 abstract class AbstractFormMultiCheckbox extends AbstractFormInput implements FormRenderInterface
 {
     use HiddenHelperTrait;
@@ -286,7 +285,7 @@ abstract class AbstractFormMultiCheckbox extends AbstractFormInput implements Fo
             $label           = '';
             $inputAttributes = $attributes;
 
-            /** @var array<int|string, array<string, string>|bool|string> $labelAttributes */
+            /** @var array<int|string, bool|float|int|string|null> $labelAttributes */
             $labelAttributes = $globalLabelAttributes;
             $selected        = isset($inputAttributes['selected'])
                 && $inputAttributes['type'] !== 'radio'
