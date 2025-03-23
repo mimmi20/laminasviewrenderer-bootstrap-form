@@ -17,10 +17,9 @@ use IntlDateFormatter;
 use Laminas\Form\Element\DateTimeSelect as DateTimeSelectElement;
 use Laminas\Form\Element\Text;
 use Laminas\Form\Exception\DomainException;
-use Laminas\Form\Exception\ExtensionNotLoadedException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Mimmi20\LaminasView\BootstrapForm\FormDateTimeSelect;
-use Override;
+use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -31,22 +30,17 @@ use function sprintf;
 #[Group('form-datetime-select')]
 final class FormDateTimeSelectTest extends TestCase
 {
-    private FormDateTimeSelect $helper;
-
-    /** @throws ExtensionNotLoadedException */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->helper = new FormDateTimeSelect();
-    }
-
     /**
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithWrongElement(): void
     {
+        $helper = new FormDateTimeSelect();
+
         $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
@@ -61,16 +55,20 @@ final class FormDateTimeSelectTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /**
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithoutName(): void
     {
+        $helper = new FormDateTimeSelect();
+
         $element = $this->createMock(DateTimeSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
@@ -107,16 +105,20 @@ final class FormDateTimeSelectTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /**
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testInvokeWithoutName1(): void
     {
+        $helper = new FormDateTimeSelect();
+
         $element = $this->createMock(DateTimeSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
@@ -153,16 +155,23 @@ final class FormDateTimeSelectTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $helperObject = ($this->helper)();
+        $helperObject = ($helper)();
 
         assert($helperObject instanceof FormDateTimeSelect);
 
         $helperObject->render($element);
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws DomainException
+     */
     public function testInvokeWithoutName2(): void
     {
+        $helper = new FormDateTimeSelect();
+
         $element = $this->createMock(DateTimeSelectElement::class);
         $element->expects(self::once())
             ->method('getName')
@@ -173,34 +182,49 @@ final class FormDateTimeSelectTest extends TestCase
         $locale = 'de_DE';
 
         try {
-            ($this->helper)($element, IntlDateFormatter::FULL, IntlDateFormatter::FULL, $locale);
+            ($helper)($element, IntlDateFormatter::FULL, IntlDateFormatter::FULL, $locale);
             self::fail('expecting throwing an exception');
         } catch (DomainException) {
-            self::assertSame(IntlDateFormatter::LONG, $this->helper->getDateType());
-            self::assertSame($locale, $this->helper->getLocale());
+            self::assertSame(IntlDateFormatter::LONG, $helper->getDateType());
+            self::assertSame($locale, $helper->getLocale());
         }
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws DomainException
+     */
     public function testSetGetTimeType(): void
     {
+        $helper = new FormDateTimeSelect();
+
         $type = IntlDateFormatter::MEDIUM;
 
-        self::assertSame($this->helper, $this->helper->setTimeType($type));
-        self::assertSame($type, $this->helper->getTimeType());
+        self::assertSame($helper, $helper->setTimeType($type));
+        self::assertSame($type, $helper->getTimeType());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws DomainException
+     */
     public function testSetGetIndent1(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent(4));
-        self::assertSame('    ', $this->helper->getIndent());
+        $helper = new FormDateTimeSelect();
+
+        self::assertSame($helper, $helper->setIndent(4));
+        self::assertSame('    ', $helper->getIndent());
     }
 
-    /** @throws Exception */
+    /**
+     * @throws Exception
+     * @throws DomainException
+     */
     public function testSetGetIndent2(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent('  '));
-        self::assertSame('  ', $this->helper->getIndent());
+        $helper = new FormDateTimeSelect();
+
+        self::assertSame($helper, $helper->setIndent('  '));
+        self::assertSame('  ', $helper->getIndent());
     }
 }

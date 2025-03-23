@@ -20,6 +20,7 @@ use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\Form\Paragraph\Element\Paragraph;
 use Mimmi20\LaminasView\BootstrapForm\FormElement;
 use Mimmi20\LaminasView\BootstrapForm\FormInputInterface;
+use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
@@ -77,9 +78,11 @@ final class FormElementTest extends TestCase
     }
 
     /**
-     * @param class-string<mixed> $class
+     * @param class-string<object> $class
      *
      * @throws Exception
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     #[DataProvider('providerRender')]
     public function testRender(ElementInterface $element, string $helperType, string $class, string $rendered): void
@@ -112,6 +115,8 @@ final class FormElementTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testInvoke1(): void
     {
@@ -151,6 +156,8 @@ final class FormElementTest extends TestCase
     /**
      * @throws Exception
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testInvoke2(): void
     {

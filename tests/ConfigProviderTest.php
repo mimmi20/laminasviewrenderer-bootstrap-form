@@ -16,29 +16,19 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use Laminas\View\HelperPluginManager;
 use Mimmi20\LaminasView\BootstrapForm\ConfigProvider;
 use Mimmi20\LaminasView\BootstrapForm\Form;
-use Override;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerExceptionInterface;
 
 final class ConfigProviderTest extends TestCase
 {
-    private ConfigProvider $provider;
-
-    /** @throws void */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->provider = new ConfigProvider();
-    }
-
     /**
      * @throws Exception
      * @throws ContainerExceptionInterface
      */
     public function testProviderDefinesExpectedFactoryServices(): void
     {
-        $viewHelperConfig = $this->provider->getViewHelperConfig();
+        $viewHelperConfig = (new ConfigProvider())->getViewHelperConfig();
         self::assertIsArray($viewHelperConfig);
 
         self::assertArrayHasKey('factories', $viewHelperConfig);
@@ -58,7 +48,7 @@ final class ConfigProviderTest extends TestCase
      */
     public function testGetDependencyConfig(): void
     {
-        $dependencyConfig = $this->provider->getDependencyConfig();
+        $dependencyConfig = (new ConfigProvider())->getDependencyConfig();
         self::assertIsArray($dependencyConfig);
 
         self::assertArrayHasKey('factories', $dependencyConfig);
@@ -75,7 +65,7 @@ final class ConfigProviderTest extends TestCase
      */
     public function testInvocationReturnsArrayWithDependencies(): void
     {
-        $config = ($this->provider)();
+        $config = (new ConfigProvider())();
 
         self::assertIsArray($config);
         self::assertCount(2, $config);

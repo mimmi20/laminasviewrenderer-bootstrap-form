@@ -26,7 +26,7 @@ use Laminas\View\Helper\Escaper\AbstractHelper;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormButton;
-use Override;
+use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -39,32 +39,29 @@ use function sprintf;
 #[Group('form-button')]
 final class FormButtonTest extends TestCase
 {
-    private FormButton $helper;
-
-    /** @throws void */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->helper = new FormButton();
-    }
-
     /**
      * @throws Exception
      * @throws DomainException
      */
     public function testRenderOpenTagWithNull(): void
     {
+        $helper = new FormButton();
+
         $expected = '<button>';
 
-        self::assertSame($expected, $this->helper->openTag());
+        self::assertSame($expected, $helper->openTag());
     }
 
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderOpenTagWithArray(): void
     {
+        $helper = new FormButton();
+
         $type        = 'test-type';
         $attributes  = ['type' => $type];
         $typeEscaped = 'test-type-escaped';
@@ -198,17 +195,21 @@ final class FormButtonTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
-        self::assertSame($expected, $this->helper->openTag($attributes));
+        self::assertSame($expected, $helper->openTag($attributes));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderOpenTagWithArray2(): void
     {
+        $helper = new FormButton();
+
         $type        = 'test-type';
         $attributes  = ['type' => $type, 'class' => 'btn btn-success'];
         $typeEscaped = 'test-type-escaped';
@@ -345,17 +346,21 @@ final class FormButtonTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
-        self::assertSame($expected, $this->helper->openTag($attributes));
+        self::assertSame($expected, $helper->openTag($attributes));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderOpenTagWithElementWithoutName(): void
     {
+        $helper = new FormButton();
+
         $element = $this->createMock(Button::class);
         $element->expects(self::once())
             ->method('getName')
@@ -379,15 +384,19 @@ final class FormButtonTest extends TestCase
             ),
         );
         $this->expectExceptionCode(0);
-        $this->helper->openTag($element);
+        $helper->openTag($element);
     }
 
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderOpenTagWithElementWithoutValue(): void
     {
+        $helper = new FormButton();
+
         $type        = 'button';
         $name        = 'test-button';
         $typeEscaped = 'button-escaped';
@@ -558,17 +567,21 @@ final class FormButtonTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
-        self::assertSame($expected, $this->helper->openTag($element));
+        self::assertSame($expected, $helper->openTag($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderOpenTagWithElementWithValue(): void
     {
+        $helper = new FormButton();
+
         $type         = 'button';
         $name         = 'test-button';
         $value        = 'test-value';
@@ -754,17 +767,21 @@ final class FormButtonTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
-        self::assertSame($expected, $this->helper->openTag($element));
+        self::assertSame($expected, $helper->openTag($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderOpenTagWithElementWithoutType(): void
     {
+        $helper = new FormButton();
+
         $type         = 'submit';
         $name         = 'test-button';
         $value        = 'test-value';
@@ -950,17 +967,21 @@ final class FormButtonTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
-        self::assertSame($expected, $this->helper->openTag($element));
+        self::assertSame($expected, $helper->openTag($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderOpenTagWithElementWithWrongType(): void
     {
+        $helper = new FormButton();
+
         $type         = 'submit';
         $name         = 'test-button';
         $value        = 'test-value';
@@ -1146,18 +1167,22 @@ final class FormButtonTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
-        self::assertSame($expected, $this->helper->openTag($element));
+        self::assertSame($expected, $helper->openTag($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithoutLabel(): void
     {
+        $helper = new FormButton();
+
         $element = $this->createMock(Button::class);
         $element->expects(self::never())
             ->method('getName');
@@ -1181,16 +1206,20 @@ final class FormButtonTest extends TestCase
             ),
         );
         $this->expectExceptionCode(0);
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithTranslator(): void
     {
+        $helper = new FormButton();
+
         $type                  = 'button';
         $name                  = 'test-button';
         $value                 = 'test-value';
@@ -1396,12 +1425,12 @@ final class FormButtonTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
-        $this->helper->setTranslator($translator);
+        $helper->setView($renderer);
+        $helper->setTranslator($translator);
 
-        $this->helper->setTranslatorTextDomain($textDomain);
+        $helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($expected, $this->helper->render($element));
+        self::assertSame($expected, $helper->render($element));
     }
 
     /**
@@ -1409,9 +1438,13 @@ final class FormButtonTest extends TestCase
      * @throws DomainException
      * @throws ContainerExceptionInterface
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testInvokeWithTranslator1(): void
     {
+        $helper = new FormButton();
+
         $type                  = 'button';
         $name                  = 'test-button';
         $value                 = 'test-value';
@@ -1617,20 +1650,24 @@ final class FormButtonTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
-        $this->helper->setTranslator($translator);
-        $this->helper->setTranslatorTextDomain($textDomain);
+        $helper->setView($renderer);
+        $helper->setTranslator($translator);
+        $helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($expected, ($this->helper)($element));
+        self::assertSame($expected, ($helper)($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithTranslator2(): void
     {
+        $helper = new FormButton();
+
         $type                  = 'button';
         $name                  = 'test-button';
         $value                 = 'test-value';
@@ -1836,11 +1873,11 @@ final class FormButtonTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
-        $this->helper->setTranslator($translator);
-        $this->helper->setTranslatorTextDomain($textDomain);
+        $helper->setView($renderer);
+        $helper->setTranslator($translator);
+        $helper->setTranslatorTextDomain($textDomain);
 
-        $helperObject = ($this->helper)();
+        $helperObject = ($helper)();
 
         assert($helperObject instanceof FormButton);
 
@@ -1850,24 +1887,32 @@ final class FormButtonTest extends TestCase
     /** @throws Exception */
     public function testSetGetIndent1(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent(4));
-        self::assertSame('    ', $this->helper->getIndent());
+        $helper = new FormButton();
+
+        self::assertSame($helper, $helper->setIndent(4));
+        self::assertSame('    ', $helper->getIndent());
     }
 
     /** @throws Exception */
     public function testSetGetIndent2(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent('  '));
-        self::assertSame('  ', $this->helper->getIndent());
+        $helper = new FormButton();
+
+        self::assertSame($helper, $helper->setIndent('  '));
+        self::assertSame('  ', $helper->getIndent());
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithWrongElement(): void
     {
+        $helper = new FormButton();
+
         $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
@@ -1893,16 +1938,20 @@ final class FormButtonTest extends TestCase
             ),
         );
         $this->expectExceptionCode(0);
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithSubmit(): void
     {
+        $helper = new FormButton();
+
         $element = $this->createMock(Submit::class);
         $element->expects(self::never())
             ->method('getName');
@@ -1926,6 +1975,6 @@ final class FormButtonTest extends TestCase
             ),
         );
         $this->expectExceptionCode(0);
-        $this->helper->render($element);
+        $helper->render($element);
     }
 }

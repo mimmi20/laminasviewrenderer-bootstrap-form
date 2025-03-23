@@ -22,7 +22,7 @@ use Laminas\View\Helper\Escaper\AbstractHelper;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormEmail;
-use Override;
+use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -32,21 +32,16 @@ use function sprintf;
 #[Group('form-email')]
 final class FormEmailTest extends TestCase
 {
-    private FormEmail $helper;
-
-    /** @throws void */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->helper = new FormEmail();
-    }
-
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithoutName(): void
     {
+        $helper = new FormEmail();
+
         $element = $this->createMock(Button::class);
         $element->expects(self::once())
             ->method('getName')
@@ -72,15 +67,19 @@ final class FormEmailTest extends TestCase
             ),
         );
         $this->expectExceptionCode(0);
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderHtml(): void
     {
+        $helper = new FormEmail();
+
         $name         = 'test-name';
         $class        = 'test-class';
         $value        = 'test-value';
@@ -267,17 +266,21 @@ final class FormEmailTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
-        self::assertSame($expected, $this->helper->render($element));
+        self::assertSame($expected, $helper->render($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderXHtml(): void
     {
+        $helper = new FormEmail();
+
         $name         = 'test-name';
         $class        = 'test-class';
         $value        = 'test-value';
@@ -464,17 +467,21 @@ final class FormEmailTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
-        self::assertSame($expected, $this->helper->render($element));
+        self::assertSame($expected, $helper->render($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderReadonlyXHtml(): void
     {
+        $helper = new FormEmail();
+
         $name         = 'test-name';
         $class        = 'test-class';
         $value        = 'test-value';
@@ -676,22 +683,26 @@ final class FormEmailTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
-        self::assertSame($expected, $this->helper->render($element));
+        self::assertSame($expected, $helper->render($element));
     }
 
     /** @throws Exception */
     public function testSetGetIndent1(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent(4));
-        self::assertSame('    ', $this->helper->getIndent());
+        $helper = new FormEmail();
+
+        self::assertSame($helper, $helper->setIndent(4));
+        self::assertSame('    ', $helper->getIndent());
     }
 
     /** @throws Exception */
     public function testSetGetIndent2(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent('  '));
-        self::assertSame('  ', $this->helper->getIndent());
+        $helper = new FormEmail();
+
+        self::assertSame($helper, $helper->setIndent('  '));
+        self::assertSame('  ', $helper->getIndent());
     }
 }

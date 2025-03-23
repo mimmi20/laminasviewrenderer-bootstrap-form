@@ -30,7 +30,7 @@ use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\Form;
 use Mimmi20\LaminasView\BootstrapForm\FormCollectionInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormRowInterface;
-use Override;
+use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -40,15 +40,6 @@ use const PHP_EOL;
 #[Group('form-tel')]
 final class FormTest extends TestCase
 {
-    private Form $helper;
-
-    /** @throws void */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->helper = new Form();
-    }
-
     /**
      * @throws Exception
      * @throws DomainException
@@ -57,9 +48,13 @@ final class FormTest extends TestCase
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws InvalidServiceException
      * @throws ServiceNotFoundException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRender1(): void
     {
+        $helper = new Form();
+
         $expected = PHP_EOL . '<form action="" method="get">' . PHP_EOL . '</form>' . PHP_EOL;
 
         $form = $this->createMock(\Laminas\Form\Form::class);
@@ -79,7 +74,7 @@ final class FormTest extends TestCase
             ->method('getOption')
             ->willReturn(null);
 
-        self::assertSame($expected, $this->helper->render($form));
+        self::assertSame($expected, $helper->render($form));
     }
 
     /**
@@ -90,9 +85,13 @@ final class FormTest extends TestCase
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws InvalidServiceException
      * @throws ServiceNotFoundException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRender2(): void
     {
+        $helper = new Form();
+
         $name     = 'test-name';
         $expected = PHP_EOL . '<form action="" method="POST" role="form" class="">' . PHP_EOL . '    <div>'
             . PHP_EOL . '' . PHP_EOL . '    </div>' . PHP_EOL . '</form>' . PHP_EOL;
@@ -111,7 +110,7 @@ final class FormTest extends TestCase
 
         $form->add($element);
 
-        self::assertSame($expected, $this->helper->render($form));
+        self::assertSame($expected, $helper->render($form));
     }
 
     /**
@@ -122,9 +121,13 @@ final class FormTest extends TestCase
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws InvalidServiceException
      * @throws ServiceNotFoundException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRender3(): void
     {
+        $helper = new Form();
+
         $name1            = 'test-name-1';
         $name2            = 'test-name-2';
         $indent           = '<!-- -->';
@@ -179,11 +182,11 @@ final class FormTest extends TestCase
             ->with($element2)
             ->willReturn($expectedFieldset);
 
-        $this->helper->setElementHelper($elementHelper);
-        $this->helper->setFieldsetHelper($fieldsetHelper);
-        $this->helper->setIndent($indent);
+        $helper->setElementHelper($elementHelper);
+        $helper->setFieldsetHelper($fieldsetHelper);
+        $helper->setIndent($indent);
 
-        self::assertSame($expected, $this->helper->render($form));
+        self::assertSame($expected, $helper->render($form));
     }
 
     /**
@@ -194,9 +197,13 @@ final class FormTest extends TestCase
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws InvalidServiceException
      * @throws ServiceNotFoundException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRender4(): void
     {
+        $helper = new Form();
+
         $name1            = 'test-name-1';
         $name2            = 'test-name-2';
         $indent           = '<!-- -->';
@@ -251,7 +258,7 @@ final class FormTest extends TestCase
             ->with($element2)
             ->willReturn($expectedFieldset);
 
-        $this->helper->setIndent($indent);
+        $helper->setIndent($indent);
 
         $escapeHtml = $this->createMock(EscapeHtml::class);
         $matcher    = self::exactly(4);
@@ -410,22 +417,26 @@ final class FormTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
-        self::assertSame($expected, $this->helper->render($form));
+        self::assertSame($expected, $helper->render($form));
     }
 
     /** @throws Exception */
     public function testSetGetIndent1(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent(4));
-        self::assertSame('    ', $this->helper->getIndent());
+        $helper = new Form();
+
+        self::assertSame($helper, $helper->setIndent(4));
+        self::assertSame('    ', $helper->getIndent());
     }
 
     /** @throws Exception */
     public function testSetGetIndent2(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent('  '));
-        self::assertSame('  ', $this->helper->getIndent());
+        $helper = new Form();
+
+        self::assertSame($helper, $helper->setIndent('  '));
+        self::assertSame('  ', $helper->getIndent());
     }
 }

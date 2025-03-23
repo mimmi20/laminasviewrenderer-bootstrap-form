@@ -23,7 +23,7 @@ use Laminas\View\Helper\Escaper\AbstractHelper;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormTextarea;
-use Override;
+use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -35,22 +35,17 @@ use function sprintf;
 #[Group('form-textarea')]
 final class FormTextareaTest extends TestCase
 {
-    private FormTextarea $helper;
-
-    /** @throws void */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->helper = new FormTextarea();
-    }
-
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithoutName(): void
     {
+        $helper = new FormTextarea();
+
         $element = $this->createMock(File::class);
         $element->expects(self::once())
             ->method('getName')
@@ -65,16 +60,20 @@ final class FormTextareaTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithName(): void
     {
+        $helper = new FormTextarea();
+
         $name         = 'name';
         $value        = 'xyz';
         $escapedValue = 'uvwxyz';
@@ -214,7 +213,7 @@ final class FormTextareaTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
         $element = $this->createMock(File::class);
         $element->expects(self::once())
@@ -227,16 +226,20 @@ final class FormTextareaTest extends TestCase
             ->method('getValue')
             ->willReturn($value);
 
-        self::assertSame($expected, $this->helper->render($element));
+        self::assertSame($expected, $helper->render($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testInvoke1(): void
     {
+        $helper = new FormTextarea();
+
         $name         = 'name';
         $value        = 'xyz';
         $escapedValue = 'uvwxyz';
@@ -376,7 +379,7 @@ final class FormTextareaTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
         $element = $this->createMock(File::class);
         $element->expects(self::once())
@@ -389,7 +392,7 @@ final class FormTextareaTest extends TestCase
             ->method('getValue')
             ->willReturn($value);
 
-        $helperObject = ($this->helper)();
+        $helperObject = ($helper)();
 
         assert($helperObject instanceof FormTextarea);
 
@@ -401,9 +404,13 @@ final class FormTextareaTest extends TestCase
      * @throws DomainException
      * @throws ContainerExceptionInterface
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testInvoke2(): void
     {
+        $helper = new FormTextarea();
+
         $name         = 'name';
         $value        = 'xyz';
         $escapedValue = 'uvwxyz';
@@ -543,7 +550,7 @@ final class FormTextareaTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
         $element = $this->createMock(File::class);
         $element->expects(self::once())
@@ -556,20 +563,24 @@ final class FormTextareaTest extends TestCase
             ->method('getValue')
             ->willReturn($value);
 
-        self::assertSame($expected, ($this->helper)($element));
+        self::assertSame($expected, ($helper)($element));
     }
 
     /** @throws Exception */
     public function testSetGetIndent1(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent(4));
-        self::assertSame('    ', $this->helper->getIndent());
+        $helper = new FormTextarea();
+
+        self::assertSame($helper, $helper->setIndent(4));
+        self::assertSame('    ', $helper->getIndent());
     }
 
     /** @throws Exception */
     public function testSetGetIndent2(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent('  '));
-        self::assertSame('  ', $this->helper->getIndent());
+        $helper = new FormTextarea();
+
+        self::assertSame($helper, $helper->setIndent('  '));
+        self::assertSame('  ', $helper->getIndent());
     }
 }

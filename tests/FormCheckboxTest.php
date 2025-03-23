@@ -19,7 +19,7 @@ use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Mimmi20\LaminasView\BootstrapForm\FormCheckbox;
-use Override;
+use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -29,18 +29,11 @@ use function sprintf;
 #[Group('form-checkbox')]
 final class FormCheckboxTest extends TestCase
 {
-    private FormCheckbox $helper;
-
-    /** @throws void */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->helper = new FormCheckbox();
-    }
-
     /** @throws InvalidArgumentException */
     public function testSetWrongLabelPosition(): void
     {
+        $helper = new FormCheckbox();
+
         $labelPosition = 'abc';
 
         $this->expectException(InvalidArgumentException::class);
@@ -55,7 +48,7 @@ final class FormCheckboxTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->setLabelPosition($labelPosition);
+        $helper->setLabelPosition($labelPosition);
     }
 
     /**
@@ -64,13 +57,15 @@ final class FormCheckboxTest extends TestCase
      */
     public function testSetGetLabelPosition(): void
     {
+        $helper = new FormCheckbox();
+
         $labelPosition = BaseFormRow::LABEL_PREPEND;
 
-        self::assertSame(BaseFormRow::LABEL_APPEND, $this->helper->getLabelPosition());
+        self::assertSame(BaseFormRow::LABEL_APPEND, $helper->getLabelPosition());
 
-        $this->helper->setLabelPosition($labelPosition);
+        $helper->setLabelPosition($labelPosition);
 
-        self::assertSame($labelPosition, $this->helper->getLabelPosition());
+        self::assertSame($labelPosition, $helper->getLabelPosition());
     }
 
     /**
@@ -78,9 +73,13 @@ final class FormCheckboxTest extends TestCase
      * @throws InvalidArgumentException
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithWrongElement(): void
     {
+        $helper = new FormCheckbox();
+
         $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
@@ -95,7 +94,7 @@ final class FormCheckboxTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /**
@@ -103,9 +102,13 @@ final class FormCheckboxTest extends TestCase
      * @throws InvalidArgumentException
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithoutName(): void
     {
+        $helper = new FormCheckbox();
+
         $element = $this->createMock(Checkbox::class);
         $element->expects(self::once())
             ->method('getName')
@@ -120,20 +123,24 @@ final class FormCheckboxTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /** @throws Exception */
     public function testSetGetIndent1(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent(4));
-        self::assertSame('    ', $this->helper->getIndent());
+        $helper = new FormCheckbox();
+
+        self::assertSame($helper, $helper->setIndent(4));
+        self::assertSame('    ', $helper->getIndent());
     }
 
     /** @throws Exception */
     public function testSetGetIndent2(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent('  '));
-        self::assertSame('  ', $this->helper->getIndent());
+        $helper = new FormCheckbox();
+
+        self::assertSame($helper, $helper->setIndent('  '));
+        self::assertSame('  ', $helper->getIndent());
     }
 }
