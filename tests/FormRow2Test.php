@@ -22,7 +22,7 @@ use Mimmi20\LaminasView\BootstrapForm\Form;
 use Mimmi20\LaminasView\BootstrapForm\FormElementErrorsInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormElementInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormRow;
-use Override;
+use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -32,22 +32,17 @@ use const PHP_EOL;
 #[Group('form-row')]
 final class FormRow2Test extends TestCase
 {
-    private FormRow $helper;
-
-    /** @throws void */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->helper = new FormRow();
-    }
-
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderPartialWithLabelAndTranslatorWithoutFormOption(): void
     {
+        $helper = new FormRow();
+
         $label           = 'test-label';
         $messages        = [];
         $type            = 'hidden';
@@ -133,22 +128,26 @@ final class FormRow2Test extends TestCase
             )
             ->willReturn($expectedElement);
 
-        $this->helper->setView($renderer);
-        $this->helper->setIndent($indent);
-        $this->helper->setRenderErrors($renderErrors);
-        $this->helper->setPartial($partial);
-        $this->helper->setTranslatorTextDomain($textDomain);
+        $helper->setView($renderer);
+        $helper->setIndent($indent);
+        $helper->setRenderErrors($renderErrors);
+        $helper->setPartial($partial);
+        $helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($expectedElement, $this->helper->render($element));
+        self::assertSame($expectedElement, $helper->render($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderPartialWithLabelAndTranslatorWithoutFormOption2(): void
     {
+        $helper = new FormRow();
+
         $label           = 'test-label';
         $messages        = ['x' => 'y'];
         $type            = 'hidden';
@@ -254,22 +253,26 @@ final class FormRow2Test extends TestCase
             )
             ->willReturn($expectedElement);
 
-        $this->helper->setView($renderer);
-        $this->helper->setIndent($indent);
-        $this->helper->setRenderErrors($renderErrors);
-        $this->helper->setPartial($partial);
-        $this->helper->setTranslatorTextDomain($textDomain);
+        $helper->setView($renderer);
+        $helper->setIndent($indent);
+        $helper->setRenderErrors($renderErrors);
+        $helper->setPartial($partial);
+        $helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($expectedElement, $this->helper->render($element));
+        self::assertSame($expectedElement, $helper->render($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderPartialWithLabelAndTranslatorWithoutFormOption3(): void
     {
+        $helper = new FormRow();
+
         $label           = 'test-label';
         $messages        = ['x' => 'y'];
         $type            = 'hidden';
@@ -383,22 +386,26 @@ final class FormRow2Test extends TestCase
             )
             ->willReturn($expectedElement);
 
-        $this->helper->setView($renderer);
-        $this->helper->setIndent($indent);
-        $this->helper->setRenderErrors($renderErrors);
-        $this->helper->setPartial($partial);
-        $this->helper->setTranslatorTextDomain($textDomain);
+        $helper->setView($renderer);
+        $helper->setIndent($indent);
+        $helper->setRenderErrors($renderErrors);
+        $helper->setPartial($partial);
+        $helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($expectedElement, $this->helper->render($element));
+        self::assertSame($expectedElement, $helper->render($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderPartialWithLabelAndTranslatorWithoutFormOption4(): void
     {
+        $helper = new FormRow();
+
         $label           = 'test-label';
         $messages        = [];
         $type            = 'hidden';
@@ -529,22 +536,26 @@ final class FormRow2Test extends TestCase
             )
             ->willReturn($expectedElement);
 
-        $this->helper->setView($renderer);
-        $this->helper->setIndent($indent);
-        $this->helper->setRenderErrors($renderErrors);
-        $this->helper->setPartial($partial);
-        $this->helper->setTranslatorTextDomain($textDomain);
+        $helper->setView($renderer);
+        $helper->setIndent($indent);
+        $helper->setRenderErrors($renderErrors);
+        $helper->setPartial($partial);
+        $helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($expectedElement, $this->helper->render($element));
+        self::assertSame($expectedElement, $helper->render($element));
     }
 
     /**
      * @throws Exception
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithLabelAndTranslatorWithoutFormOption(): void
     {
+        $helper = new FormRow();
+
         $label           = 'test-label';
         $messages        = [];
         $type            = 'button';
@@ -737,10 +748,10 @@ final class FormRow2Test extends TestCase
         $formElementErrors->expects(self::never())
             ->method('render');
 
-        $this->helper->setIndent($indent);
-        $this->helper->setRenderErrors($renderErrors);
-        $this->helper->setTranslatorTextDomain($textDomain);
+        $helper->setIndent($indent);
+        $helper->setRenderErrors($renderErrors);
+        $helper->setTranslatorTextDomain($textDomain);
 
-        self::assertSame($expectedElement, $this->helper->render($element));
+        self::assertSame($expectedElement, $helper->render($element));
     }
 }

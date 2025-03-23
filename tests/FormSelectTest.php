@@ -29,7 +29,7 @@ use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
 use Mimmi20\LaminasView\BootstrapForm\FormSelect;
-use Override;
+use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -43,24 +43,19 @@ use const PHP_EOL;
 #[Group('form-select')]
 final class FormSelectTest extends TestCase
 {
-    private FormSelect $helper;
-
-    /** @throws void */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->helper = new FormSelect();
-    }
-
     /**
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithWrongElement(): void
     {
+        $helper = new FormSelect();
+
         $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
@@ -87,7 +82,7 @@ final class FormSelectTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /**
@@ -96,9 +91,13 @@ final class FormSelectTest extends TestCase
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithoutName(): void
     {
+        $helper = new FormSelect();
+
         $element = $this->createMock(SelectElement::class);
         $element->expects(self::once())
             ->method('getName')
@@ -133,7 +132,7 @@ final class FormSelectTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /**
@@ -142,9 +141,13 @@ final class FormSelectTest extends TestCase
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithNameWithoutValue(): void
     {
+        $helper = new FormSelect();
+
         $name               = 'test-name';
         $nameEscaped        = 'test-name-escaped';
         $id                 = 'test-id';
@@ -361,7 +364,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
         $element = $this->createMock(SelectElement::class);
         $element->expects(self::once())
@@ -393,7 +396,7 @@ final class FormSelectTest extends TestCase
         $element->expects(self::never())
             ->method('getUnselectedValue');
 
-        self::assertSame($expected, $this->helper->render($element));
+        self::assertSame($expected, $helper->render($element));
     }
 
     /**
@@ -402,9 +405,13 @@ final class FormSelectTest extends TestCase
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithNameWithStringValue(): void
     {
+        $helper = new FormSelect();
+
         $name               = 'test-name';
         $nameEscaped        = 'test-name-escaped';
         $id                 = 'test-id';
@@ -622,7 +629,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
         $element = $this->createMock(SelectElement::class);
         $element->expects(self::once())
@@ -654,7 +661,7 @@ final class FormSelectTest extends TestCase
         $element->expects(self::never())
             ->method('getUnselectedValue');
 
-        self::assertSame($expected, $this->helper->render($element));
+        self::assertSame($expected, $helper->render($element));
     }
 
     /**
@@ -663,9 +670,13 @@ final class FormSelectTest extends TestCase
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithNameWithArrayValue(): void
     {
+        $helper = new FormSelect();
+
         $name         = 'test-name';
         $id           = 'test-id';
         $value2       = 'def';
@@ -714,7 +725,7 @@ final class FormSelectTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /**
@@ -723,9 +734,13 @@ final class FormSelectTest extends TestCase
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithNameWithArrayMultipleValue(): void
     {
+        $helper = new FormSelect();
+
         $name               = 'test-name';
         $nameEscaped        = 'test-name-escaped';
         $id                 = 'test-id';
@@ -968,7 +983,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
         $element = $this->createMock(SelectElement::class);
         $element->expects(self::once())
@@ -1000,7 +1015,7 @@ final class FormSelectTest extends TestCase
         $element->expects(self::never())
             ->method('getUnselectedValue');
 
-        self::assertSame($expected, $this->helper->render($element));
+        self::assertSame($expected, $helper->render($element));
     }
 
     /**
@@ -1009,9 +1024,13 @@ final class FormSelectTest extends TestCase
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderMultipleOptions1(): void
     {
+        $helper = new FormSelect();
+
         $name             = 'test-name';
         $nameEscaped      = 'test-name-escaped';
         $id               = 'test-id';
@@ -1434,7 +1453,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
         $element = $this->createMock(SelectElement::class);
         $element->expects(self::once())
@@ -1466,7 +1485,7 @@ final class FormSelectTest extends TestCase
         $element->expects(self::never())
             ->method('getUnselectedValue');
 
-        self::assertSame($expected, $this->helper->render($element));
+        self::assertSame($expected, $helper->render($element));
     }
 
     /**
@@ -1475,9 +1494,13 @@ final class FormSelectTest extends TestCase
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithHiddenElement(): void
     {
+        $helper = new FormSelect();
+
         $name               = 'test-name';
         $nameEscaped        = 'test-name-escaped';
         $id                 = 'test-id';
@@ -1737,7 +1760,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
         $element = $this->createMock(SelectElement::class);
         $element->expects(self::exactly(2))
@@ -1770,7 +1793,7 @@ final class FormSelectTest extends TestCase
             ->method('getUnselectedValue')
             ->willReturn($unselectedValue);
 
-        self::assertSame($expected, $this->helper->render($element));
+        self::assertSame($expected, $helper->render($element));
     }
 
     /**
@@ -1779,9 +1802,13 @@ final class FormSelectTest extends TestCase
      * @throws DomainException
      * @throws \Laminas\View\Exception\InvalidArgumentException
      * @throws RuntimeException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithHiddenElement2(): void
     {
+        $helper = new FormSelect();
+
         $name               = 'test-name';
         $nameEscaped        = 'test-name-escaped';
         $id                 = 'test-id';
@@ -2034,7 +2061,7 @@ final class FormSelectTest extends TestCase
         $renderer->expects(self::never())
             ->method('render');
 
-        $this->helper->setView($renderer);
+        $helper->setView($renderer);
 
         $element = $this->createMock(SelectElement::class);
         $element->expects(self::exactly(2))
@@ -2067,20 +2094,24 @@ final class FormSelectTest extends TestCase
             ->method('getUnselectedValue')
             ->willReturn($unselectedValue);
 
-        self::assertSame($expected, $this->helper->render($element));
+        self::assertSame($expected, $helper->render($element));
     }
 
     /** @throws Exception */
     public function testSetGetIndent1(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent(4));
-        self::assertSame('    ', $this->helper->getIndent());
+        $helper = new FormSelect();
+
+        self::assertSame($helper, $helper->setIndent(4));
+        self::assertSame('    ', $helper->getIndent());
     }
 
     /** @throws Exception */
     public function testSetGetIndent2(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent('  '));
-        self::assertSame('  ', $this->helper->getIndent());
+        $helper = new FormSelect();
+
+        self::assertSame($helper, $helper->setIndent('  '));
+        self::assertSame('  ', $helper->getIndent());
     }
 }

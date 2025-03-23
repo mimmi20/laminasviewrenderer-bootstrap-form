@@ -20,7 +20,7 @@ use Laminas\Form\Exception\DomainException;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\View\Helper\FormRow as BaseFormRow;
 use Mimmi20\LaminasView\BootstrapForm\FormRadio;
-use Override;
+use PHPUnit\Event\NoPreviousThrowableException;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\TestCase;
@@ -30,40 +30,37 @@ use function sprintf;
 #[Group('form-radio')]
 final class FormRadioTest extends TestCase
 {
-    private FormRadio $helper;
-
-    /** @throws void */
-    #[Override]
-    protected function setUp(): void
-    {
-        $this->helper = new FormRadio();
-    }
-
     /** @throws Exception */
     public function testSetGetLabelAttributes(): void
     {
-        self::assertSame([], $this->helper->getLabelAttributes());
+        $helper = new FormRadio();
+
+        self::assertSame([], $helper->getLabelAttributes());
 
         $labelAttributes = ['class' => 'test-class', 'aria-label' => 'test'];
 
-        self::assertSame($this->helper, $this->helper->setLabelAttributes($labelAttributes));
-        self::assertSame($labelAttributes, $this->helper->getLabelAttributes());
+        self::assertSame($helper, $helper->setLabelAttributes($labelAttributes));
+        self::assertSame($labelAttributes, $helper->getLabelAttributes());
     }
 
     /** @throws Exception */
     public function testSetGetSeperator(): void
     {
-        self::assertSame('', $this->helper->getSeparator());
+        $helper = new FormRadio();
+
+        self::assertSame('', $helper->getSeparator());
 
         $seperator = '::test::';
 
-        self::assertSame($this->helper, $this->helper->setSeparator($seperator));
-        self::assertSame($seperator, $this->helper->getSeparator());
+        self::assertSame($helper, $helper->setSeparator($seperator));
+        self::assertSame($seperator, $helper->getSeparator());
     }
 
     /** @throws InvalidArgumentException */
     public function testSetWrongLabelPosition(): void
     {
+        $helper = new FormRadio();
+
         $labelPosition = 'abc';
 
         $this->expectException(InvalidArgumentException::class);
@@ -78,7 +75,7 @@ final class FormRadioTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->setLabelPosition($labelPosition);
+        $helper->setLabelPosition($labelPosition);
     }
 
     /**
@@ -87,44 +84,54 @@ final class FormRadioTest extends TestCase
      */
     public function testSetGetLabelPosition(): void
     {
+        $helper = new FormRadio();
+
         $labelPosition = BaseFormRow::LABEL_PREPEND;
 
-        self::assertSame(BaseFormRow::LABEL_APPEND, $this->helper->getLabelPosition());
+        self::assertSame(BaseFormRow::LABEL_APPEND, $helper->getLabelPosition());
 
-        $this->helper->setLabelPosition($labelPosition);
+        $helper->setLabelPosition($labelPosition);
 
-        self::assertSame($labelPosition, $this->helper->getLabelPosition());
+        self::assertSame($labelPosition, $helper->getLabelPosition());
     }
 
     /** @throws Exception */
     public function testSetGetUseHiddenElement(): void
     {
-        self::assertFalse($this->helper->getUseHiddenElement());
+        $helper = new FormRadio();
 
-        $this->helper->setUseHiddenElement(true);
+        self::assertFalse($helper->getUseHiddenElement());
 
-        self::assertTrue($this->helper->getUseHiddenElement());
+        $helper->setUseHiddenElement(true);
+
+        self::assertTrue($helper->getUseHiddenElement());
     }
 
     /** @throws Exception */
     public function testSetGetUncheckedValue(): void
     {
+        $helper = new FormRadio();
+
         $uncheckedValue = '0';
 
-        self::assertSame('', $this->helper->getUncheckedValue());
+        self::assertSame('', $helper->getUncheckedValue());
 
-        $this->helper->setUncheckedValue($uncheckedValue);
+        $helper->setUncheckedValue($uncheckedValue);
 
-        self::assertSame($uncheckedValue, $this->helper->getUncheckedValue());
+        self::assertSame($uncheckedValue, $helper->getUncheckedValue());
     }
 
     /**
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithWrongElement(): void
     {
+        $helper = new FormRadio();
+
         $element = $this->createMock(Text::class);
         $element->expects(self::never())
             ->method('getName');
@@ -151,16 +158,20 @@ final class FormRadioTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /**
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws DomainException
+     * @throws NoPreviousThrowableException
+     * @throws \PHPUnit\Framework\MockObject\Exception
      */
     public function testRenderWithoutName(): void
     {
+        $helper = new FormRadio();
+
         $element = $this->createMock(Radio::class);
         $element->expects(self::once())
             ->method('getName')
@@ -193,20 +204,24 @@ final class FormRadioTest extends TestCase
         );
         $this->expectExceptionCode(0);
 
-        $this->helper->render($element);
+        $helper->render($element);
     }
 
     /** @throws Exception */
     public function testSetGetIndent1(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent(4));
-        self::assertSame('    ', $this->helper->getIndent());
+        $helper = new FormRadio();
+
+        self::assertSame($helper, $helper->setIndent(4));
+        self::assertSame('    ', $helper->getIndent());
     }
 
     /** @throws Exception */
     public function testSetGetIndent2(): void
     {
-        self::assertSame($this->helper, $this->helper->setIndent('  '));
-        self::assertSame('  ', $this->helper->getIndent());
+        $helper = new FormRadio();
+
+        self::assertSame($helper, $helper->setIndent('  '));
+        self::assertSame('  ', $helper->getIndent());
     }
 }

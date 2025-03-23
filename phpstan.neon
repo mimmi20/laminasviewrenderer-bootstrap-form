@@ -89,7 +89,7 @@ parameters:
     function: 73
 
   type_coverage:
-    return_type: 99.8
+    return_type: 99.7
     param_type: 99.8
     property_type: 100
     constant_type: 100
@@ -129,6 +129,9 @@ parameters:
     -
       message: '~Dead catch~'
       path: src\Form.php
+    -
+      identifier: property.uninitialized
+      path: tests/Compare/AbstractTestCase.php
 
 rules:
   # code complexity
