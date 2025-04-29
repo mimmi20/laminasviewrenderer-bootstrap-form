@@ -21,7 +21,7 @@
     "ext-mbstring": "*",
     "laminas/laminas-form": "^3.21.0",
     "laminas/laminas-inputfilter": "^2.32.0",
-    "laminas/laminas-view": "^2.36.0"
+    "laminas/laminas-view": "^2.37.0"
   },
   "require-dev": {
     "ext-ctype": "*",
