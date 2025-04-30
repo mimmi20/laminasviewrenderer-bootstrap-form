@@ -109,7 +109,7 @@ parameters:
 
   ignoreErrors:
     - '~Call to deprecated method setView\(\)~'
-    - '~Fetching class constant class of deprecated class~'
+    - '~Access to constant on deprecated class~'
     - '~will always evaluate to true~'
     -
       message: '~deprecated interface Laminas\\I18n\\Translator\\TranslatorInterface~'
