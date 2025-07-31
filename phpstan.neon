@@ -111,6 +111,8 @@ parameters:
     - '~Call to deprecated method setView\(\)~'
     - '~Access to constant on deprecated class~'
     - '~will always evaluate to true~'
+    - '~of deprecated class~'
+    - '~Call to deprecated method~'
     -
       message: '~deprecated interface Laminas\\I18n\\Translator\\TranslatorInterface~'
       path: tests\FormButtonTest.php
