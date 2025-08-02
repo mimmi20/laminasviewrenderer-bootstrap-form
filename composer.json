@@ -1,6 +1,6 @@
 {
   "name": "mimmi20/laminasviewrenderer-bootstrap-form",
-  "description": "Provides a View Renderer for Laminas Forms to use with Bootstrap",
+  "description": "Provides View Renderer for Laminas Forms to use with Bootstrap 5",
   "license": "MIT",
   "type": "library",
   "authors": [
