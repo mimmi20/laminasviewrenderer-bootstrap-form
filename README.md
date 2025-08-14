@@ -13,7 +13,7 @@
 
 ## Introduction
 
-This component provides view helpers to render lminas-form for Bootstrap 5.
+This component provides view helpers to render laminas-form for Bootstrap 5.
 
 ## Installation
 

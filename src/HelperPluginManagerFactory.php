@@ -13,7 +13,6 @@ declare(strict_types = 1);
 
 namespace Mimmi20\LaminasView\BootstrapForm;
 
-use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManager;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
@@ -25,8 +24,6 @@ final class HelperPluginManagerFactory
 {
     /**
      * Create an instance of the requested class name.
-     *
-     * @return HelperPluginManager<(callable(): mixed)|HelperInterface>
      *
      * @throws ContainerExceptionInterface
      */
