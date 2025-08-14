@@ -47,6 +47,7 @@ return $config
                     'location' => 'after_open',
                     'separate' => 'bottom',
                 ],
+                'mb_str_functions' => false,
             ],
         ),
     )
