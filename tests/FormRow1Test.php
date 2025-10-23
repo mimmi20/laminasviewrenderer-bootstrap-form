@@ -16,6 +16,7 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 use AssertionError;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\ExceptionInterface;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\View\Renderer\PhpRenderer;
 use Mimmi20\LaminasView\BootstrapForm\FormHiddenInterface;
@@ -34,6 +35,7 @@ final class FormRow1Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderWithWrongFormOption(): void
     {
@@ -73,6 +75,7 @@ final class FormRow1Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderHiddenWithoutFormOptionAndLabel(): void
     {
@@ -161,6 +164,7 @@ final class FormRow1Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderPartialWithoutFormOptionAndLabel(): void
     {
@@ -252,6 +256,7 @@ final class FormRow1Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderPartialWithoutFormOptionAndLabel2(): void
     {
@@ -363,6 +368,7 @@ final class FormRow1Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderPartialWithoutFormOptionAndLabel3(): void
     {
@@ -482,6 +488,7 @@ final class FormRow1Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderHiddenWithLabelWithoutFormOption(): void
     {
@@ -570,6 +577,7 @@ final class FormRow1Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderPartialWithLabelWithoutFormOption(): void
     {
@@ -661,6 +669,7 @@ final class FormRow1Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderPartialWithLabelWithoutFormOption2(): void
     {
@@ -772,6 +781,7 @@ final class FormRow1Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderPartialWithLabelWithoutFormOption3(): void
     {
@@ -891,6 +901,7 @@ final class FormRow1Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderHiddenWithLabelAndTranslatorWithoutFormOption(): void
     {

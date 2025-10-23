@@ -21,6 +21,7 @@ use Laminas\Form\Element\MultiCheckbox;
 use Laminas\Form\Element\Submit;
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\ExceptionInterface;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\Fieldset;
 use Laminas\Form\FieldsetInterface;
@@ -74,6 +75,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
      *
      * @throws DomainException
      * @throws InvalidArgumentException
+     * @throws ExceptionInterface
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing
      */

@@ -134,6 +134,10 @@ parameters:
     -
       identifier: property.uninitialized
       path: tests/Compare/AbstractTestCase.php
+    -
+      identifier: class.extendsFinalByPhpDoc
+    -
+      identifier: property.parentPropertyFinalByPhpDoc
 
 rules:
   # code complexity
