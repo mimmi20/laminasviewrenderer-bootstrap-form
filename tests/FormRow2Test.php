@@ -15,6 +15,7 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\ElementInterface;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\ExceptionInterface;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\FormInterface;
 use Laminas\View\Renderer\PhpRenderer;
@@ -38,6 +39,7 @@ final class FormRow2Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderPartialWithLabelAndTranslatorWithoutFormOption(): void
     {
@@ -143,6 +145,7 @@ final class FormRow2Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderPartialWithLabelAndTranslatorWithoutFormOption2(): void
     {
@@ -268,6 +271,7 @@ final class FormRow2Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderPartialWithLabelAndTranslatorWithoutFormOption3(): void
     {
@@ -401,6 +405,7 @@ final class FormRow2Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderPartialWithLabelAndTranslatorWithoutFormOption4(): void
     {
@@ -551,6 +556,7 @@ final class FormRow2Test extends TestCase
      * @throws InvalidArgumentException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRenderWithLabelAndTranslatorWithoutFormOption(): void
     {

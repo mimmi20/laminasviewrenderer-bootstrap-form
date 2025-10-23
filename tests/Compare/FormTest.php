@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace Mimmi20Test\LaminasView\BootstrapForm\Compare;
 
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\ExceptionInterface;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\Factory;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
@@ -416,6 +417,7 @@ final class FormTest extends AbstractTestCase
      * @throws RuntimeException
      * @throws ContainerExceptionInterface
      * @throws \Laminas\I18n\Exception\RuntimeException
+     * @throws ExceptionInterface
      */
     #[DataProvider('providerTests')]
     public function testRender(

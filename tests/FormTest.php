@@ -15,6 +15,7 @@ namespace Mimmi20Test\LaminasView\BootstrapForm;
 
 use Laminas\Form\Element\Button;
 use Laminas\Form\Exception\DomainException;
+use Laminas\Form\Exception\ExceptionInterface;
 use Laminas\Form\Exception\InvalidArgumentException;
 use Laminas\Form\Fieldset;
 use Laminas\Form\FormInterface;
@@ -87,6 +88,7 @@ final class FormTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRender2(): void
     {
@@ -123,6 +125,7 @@ final class FormTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRender3(): void
     {
@@ -199,6 +202,7 @@ final class FormTest extends TestCase
      * @throws ServiceNotFoundException
      * @throws NoPreviousThrowableException
      * @throws \PHPUnit\Framework\MockObject\Exception
+     * @throws ExceptionInterface
      */
     public function testRender4(): void
     {
