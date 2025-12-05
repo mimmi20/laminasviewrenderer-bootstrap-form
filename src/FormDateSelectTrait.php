@@ -24,7 +24,7 @@ trait FormDateSelectTrait
      *
      * @param string $pattern Pattern to use for days
      *
-     * @return array<int|string, array<string, string>>
+     * @return array<string, array{value: string, label: string}>
      *
      * @throws void
      */

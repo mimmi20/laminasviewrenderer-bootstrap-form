@@ -138,6 +138,11 @@ parameters:
       identifier: class.extendsFinalByPhpDoc
     -
       identifier: property.parentPropertyFinalByPhpDoc
+    -
+      paths:
+        - src\FormDateTimeSelect.php
+        - src\FormSelect.php
+      identifier: argument.type
 
 rules:
   # code complexity
