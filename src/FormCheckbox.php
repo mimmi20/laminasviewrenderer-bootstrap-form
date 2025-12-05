@@ -161,7 +161,7 @@ final class FormCheckbox extends AbstractFormInput implements FormRenderInterfac
         /** @var array<string, bool|string> $filteredAttributes */
         $filteredAttributes = array_filter(
             $labelAttributes,
-            static fn (int | string $key): bool => is_string($key),
+            is_string(...),
             ARRAY_FILTER_USE_KEY,
         );
 
