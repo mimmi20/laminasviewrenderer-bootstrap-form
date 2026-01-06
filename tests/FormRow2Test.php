@@ -422,6 +422,8 @@ final class FormRow2Test extends TestCase
         $textDomain      = 'text-domain';
 
         $form = $this->createMock(FormInterface::class);
+        $form->expects(self::never())
+            ->method('getOption');
 
         $element = $this->createMock(ElementInterface::class);
         $matcher = self::exactly(4);
