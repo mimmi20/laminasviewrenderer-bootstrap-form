@@ -139,6 +139,8 @@ parameters:
     -
       identifier: property.parentPropertyFinalByPhpDoc
     -
+      identifier: throws.void
+    -
       paths:
         - src\FormDateTimeSelect.php
         - src\FormSelect.php
