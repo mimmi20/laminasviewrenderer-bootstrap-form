@@ -142,7 +142,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
             $errorClass = $element->getOption('error-class');
 
-            if ($errorClass) {
+            if (is_string($errorClass) && $errorClass !== '') {
                 $classAttributes[] = $errorClass;
             }
 
@@ -166,7 +166,7 @@ final class FormRow extends BaseFormRow implements FormRowInterface
 
                 $validClass = $element->getOption('valid-class');
 
-                if ($validClass) {
+                if (is_string($validClass) && $validClass !== '') {
                     $classAttributes[] = $validClass;
                 }
 
@@ -931,6 +931,10 @@ final class FormRow extends BaseFormRow implements FormRowInterface
             }
 
             $attributes = $message['attributes'] ?? [];
+
+            if (!is_array($attributes)) {
+                continue;
+            }
 
             if (array_key_exists('id', $attributes)) {
                 $ariaDesc = $element->hasAttribute('aria-describedby')
