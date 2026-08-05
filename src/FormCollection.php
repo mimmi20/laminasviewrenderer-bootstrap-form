@@ -360,7 +360,7 @@ final class FormCollection extends BaseFormCollection implements FormCollectionI
      * @throws void
      */
     private function mergeFormAttributes(
-        ElementInterface $element,
+        FieldsetInterface $element,
         string $optionName,
         array $classes = [],
         array $attributes = [],
